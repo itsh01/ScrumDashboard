@@ -3,17 +3,17 @@
 Team :
 - cards [ids] (this is the backlog of the team)
 - sprints: 
-        Sprint: 
-                - meta:
-                - id
-                - name
-                - scrum master
-                - start date
-                - end date
-        - velocity (planned vs. actual)
-        - cards[ids] (this is a subset of the backlog)
-        - lifecycle (states)
-        - members
+-       Sprint: 
+-               - meta:
+-               - id
+-               - name
+-               - scrum master
+-               - start date
+-               - end date
+-       - velocity (planned vs. actual)
+-       - cards[ids] (this is a subset of the backlog)
+-       - lifecycle (states)
+-       - members
 
 Card:
 - id
