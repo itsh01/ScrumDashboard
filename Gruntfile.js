@@ -2,13 +2,15 @@
  * Created by itaysh on 7/27/15.
  */
 
-module.exports = function(grunt) {
+'use strict';
+
+module.exports = function (grunt) {
 
     grunt.initConfig({
         clean: {
-          main: {
+            main: {
               src: ['src/vendor/**/*']
-          }
+            }
         },
         copy: {
             main: {
@@ -40,14 +42,30 @@ module.exports = function(grunt) {
                     }
                 ]
             }
+        },
+        eslint: {
+            src: ['src/js/*.jsx', 'Gruntfile.js']
+        },
+        asciify: {
+            banner: {
+                text: 'Building...',
+                options: {
+                    font: 'doom',
+                    log: true
+                }
+            }
         }
     });
 
+    grunt.loadNpmTasks('grunt-asciify');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-eslint');
     grunt.loadNpmTasks('grunt-react');
 
-    grunt.registerTask('build', ['clean', 'copy']);
+
+    grunt.registerTask('lint', ['eslint']);
+    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'copy']);
     grunt.registerTask('test', []);
     grunt.registerTask('default', ['test', 'build']);
 
