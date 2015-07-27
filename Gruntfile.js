@@ -27,11 +27,25 @@ module.exports = function(grunt) {
                     }
                 ]
             }
+        },
+        react: {
+            main: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/js/',
+                        src: ['**/*.jsx'],
+                        dest: 'src/js/',
+                        ext: '.js'
+                    }
+                ]
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-react');
 
     grunt.registerTask('build', ['clean', 'copy']);
     grunt.registerTask('test', []);

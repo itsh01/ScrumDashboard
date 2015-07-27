@@ -18,6 +18,11 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash','React'],function (_, React) {
+requirejs(['lodash','React', 'js/components/MainContainer'],
+    function (_, React, MainContainer) {
 
-});
+        var mountPoint = document.getElementById('main-container');
+
+        React.render(React.createElement(MainContainer, {}), mountPoint);
+    }
+);
