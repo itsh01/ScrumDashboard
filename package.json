@@ -1,0 +1,23 @@
+{
+  "name": "scrum-dashboard",
+  "version": "1.0.0",
+  "description": "Scrum dashboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsh01/ScrumDashboard.git"
+  },
+  "keywords": [
+    "scrum",
+    "dashboard"
+  ],
+  "author": "Wix Kickstart",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/itsh01/ScrumDashboard/issues"
+  },
+  "homepage": "https://github.com/itsh01/ScrumDashboard#readme"
+}

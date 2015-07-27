@@ -1,0 +1,28 @@
+{
+  "name": "ScrumDashboard",
+  "version": "1.0.0",
+  "homepage": "https://github.com/itsh01/ScrumDashboard",
+  "authors": [
+    "Wix Kickstart"
+  ],
+  "description": "Scrum Dashboard",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "scrum",
+    "dashboard"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.19"
+  }
+}
