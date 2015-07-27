@@ -3,17 +3,21 @@
  */
 
 requirejs.config({
-    baseUrl: "../src",
+    baseUrl: '.',
     paths: {
-        lodash: "lib/lodash/lodash"
+        lodash: 'vendor/lodash',
+        React: 'vendor/react-with-addons'
     },
     shim: {
         lodash: {
-            exports: "_"
+            exports: '_'
+        },
+        React: {
+            exports: 'React'
         }
     }
 });
 
-requirejs(["lodash"],function (_) {
-    console.log(_);
+requirejs(['lodash','React'],function (_, React) {
+
 });
