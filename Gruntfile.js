@@ -46,6 +46,15 @@ module.exports = function (grunt) {
         eslint: {
             src: ['src/js/*.jsx', 'Gruntfile.js']
         },
+        csslint: {
+            options: {
+                'adjoining-classes': false,
+                'import': false,
+                'fallback-colors': false,
+                'unqualified-attributes': false
+            },
+            src: ['src/stylesheets/*.css']
+        },
         asciify: {
             banner: {
                 text: 'Building...',
@@ -61,10 +70,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-eslint');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-react');
 
 
-    grunt.registerTask('lint', ['eslint']);
+    grunt.registerTask('lint', ['eslint', 'csslint']);
     grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'copy']);
     grunt.registerTask('test', []);
     grunt.registerTask('default', ['test', 'build']);
