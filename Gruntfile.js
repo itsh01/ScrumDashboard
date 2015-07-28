@@ -72,6 +72,17 @@ module.exports = function (grunt) {
                     debounceDelay: 500
                 }
             }
+        },
+        requirejs: {
+            compile: {
+                options: {
+                    baseUrl: 'src/js',
+                    mainConfigFile: 'src/js/main.js',
+                    out: 'build/js/main.min.js',
+                    name: 'main',
+                    optimization: 'uglify'
+                }
+            }
         }
     });
 
@@ -81,6 +92,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-eslint');
     grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-react');
 
 
