@@ -28,6 +28,10 @@ module.exports = function (grunt) {
                         dest: 'src/vendor/react-with-addons.js'
                     }
                 ]
+            },
+            build: {
+                src: 'src/vendor/require.js',
+                dest: 'build/js/require.js'
             }
         },
         react: {
@@ -80,8 +84,27 @@ module.exports = function (grunt) {
                     mainConfigFile: 'src/js/main.js',
                     out: 'build/js/main.min.js',
                     name: 'main',
-                    optimization: 'uglify'
+                    optimization: 'uglify',
+                    preserveLicenseComments: false
                 }
+            }
+        },
+        processhtml: {
+            build: {
+                files: {
+                    'build/index.html': ['src/index.html']
+                }
+            }
+        },
+        cssmin: {
+            main: {
+                files: [{
+                    expand: true,
+                    src: 'style.css',
+                    dest: 'build/css',
+                    cwd: 'src/stylesheets',
+                    ext: '.min.css'
+                }]
             }
         }
     });
@@ -91,14 +114,17 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-eslint');
     grunt.loadNpmTasks('grunt-contrib-csslint');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-react');
 
 
     grunt.registerTask('lint', ['eslint', 'csslint']);
     grunt.registerTask('dev', ['asciify:banner', 'lint', 'react:main']);
-    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'react:main', 'copy']);
+    grunt.registerTask('minify', ['processhtml', 'requirejs', 'cssmin']);
+    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'react:main', 'copy', 'minify']);
     grunt.registerTask('test', []);
     grunt.registerTask('default', ['test', 'build']);
 
