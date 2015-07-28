@@ -5,6 +5,10 @@ define(['lodash', 'React'], function (_, React) {
     return React.createClass({
         displayName: 'ChangeSprint',
 
+        propTypes: {
+            handleSprintChangeFunc: React.PropTypes.func
+        },
+
         render: function () {
             return (<div className='arrow {this.props.direction}'
                          onClick={this.props.handleSprintChangeFunc}>

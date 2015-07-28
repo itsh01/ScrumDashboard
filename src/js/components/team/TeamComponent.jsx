@@ -1,16 +1,13 @@
 define(['lodash', 'React', 'components/team/ChangeSprint'], function (_, React, ChangeSprint) {
     'use strict';
 
-    var verbose = true;
-
-    function log(x) {
-        if (verbose) {
-            console.log(x);
-        }
-    }
-
     return React.createClass({
         displayName: 'Team',
+
+        propTypes: {
+            currSprint: React.PropTypes.number,
+            team: React.PropTypes.object
+        },
 
         getDefaultProps: function () {
             return {
@@ -27,13 +24,13 @@ define(['lodash', 'React', 'components/team/ChangeSprint'], function (_, React, 
                     sprints: [0, 1, 2, 3],
                     name: 'Accounts'
                 }
-            }
+            };
         },
 
         getInitialState: function () {
             return {
                 currSprint: this.props.team.sprints[this.props.team.sprints.length - 1]
-            }
+            };
         },
 
         handleSprintChange: function (direction) {
