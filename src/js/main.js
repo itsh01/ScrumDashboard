@@ -5,7 +5,8 @@
 requirejs.config({
     paths: {
         lodash: '../vendor/lodash',
-        React: '../vendor/react-with-addons'
+        React: '../vendor/react-with-addons',
+        componenets: '../js/components'
     },
     shim: {
         lodash: {
@@ -17,7 +18,7 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash','React', '../js/components/MainContainer'],
+requirejs(['lodash','React', 'components/MainContainer'],
     function (_, React, MainContainer) {
 
         var mountPoint = document.getElementById('main-container');
