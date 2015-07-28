@@ -10,6 +10,7 @@
 .thead {
     display: table-header-group;
     vertical-align: middle;
+    font-weight: bold;
 }
 .tbody {
     display: table-row-group;
@@ -23,18 +24,12 @@
     font-size: larger;
 }
 
-.table-heading {
-    display: table-row;
-    font-weight: bold;
-    text-align: center;
-}
-
 .table-row {
     display: table-row;
 }
 
-
-.table-cell {
+.table-cell,
+.table-heading {
     display: table-cell;
     border: solid;
     padding-left: 5px;

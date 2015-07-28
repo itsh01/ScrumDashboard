@@ -14,7 +14,7 @@ define(['lodash', 'React', 'components/sprint/TableHeading'], function (_, React
                 return <TableHeading text={text} />;
             });
             return (<div className="thead">
-                <div className="table-heading">
+                <div className="table-row">
                     { headings }
                 </div>
             </div>);

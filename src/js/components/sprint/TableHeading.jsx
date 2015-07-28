@@ -7,7 +7,7 @@ define(['lodash', 'React'], function (_, React) {
             text: React.PropTypes.string
         },
         render: function () {
-            return (<div className="table-cell">{this.props.text}</div>);
+            return (<div className="table-heading">{this.props.text}</div>);
         }
     });
 });
