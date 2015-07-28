@@ -5,7 +5,7 @@
     "description": "I'll generate the mobile JSON panel, that should panel the JSON panel!",
     "status": "unassigned",
     "score": null,
-    "team": null,
+    "team": 1,
     "assignee": null,
     "startDate": null,
     "endDate": null
@@ -16,7 +16,7 @@
     "description": "If we compress the bus, we can get to the JSON bus through the auxiliary JSON bus!",
     "status": "unassigned",
     "score": null,
-    "team": null,
+    "team": 2,
     "assignee": null,
     "startDate": null,
     "endDate": null
@@ -27,7 +27,7 @@
     "description": "If we override the alarm, we can get to the SMS alarm through the optical SMS alarm!",
     "status": "unassigned",
     "score": null,
-    "team": null,
+    "team": 1,
     "assignee": null,
     "startDate": null,
     "endDate": null

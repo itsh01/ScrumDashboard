@@ -22,6 +22,6 @@ requirejs(['lodash','React', '../js/components/MainContainer'],
 
         var mountPoint = document.getElementById('main-container');
 
-        React.render(React.createElement(MainContainer, {}), mountPoint);
+        React.render(React.createElement(MainContainer, {currentTeam: 1}), mountPoint);
     }
 );
