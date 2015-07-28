@@ -9,15 +9,26 @@ define([
 
         return React.createClass({
             displayName: 'Sprint Table Body',
+            propTypes: {
+                cardLifecycle: React.PropTypes.array
+            },
+            getDefaultProps: function () {
+                return {
+                    cardLifecycle: ['Backlog', 'In progress', 'Done']
+                };
+            },
             render: function () {
+
+                var cells = _.map(this.props.cardLifecycle, function (phase) {
+                    return (<div className="table-cell">{phase}</div>);
+                });
+
                 return (<div className="tbody">
                     <div className="table-row">
                         <div className="table-cell">
                             <SprintMember />
                         </div>
-                        <div className="table-cell">1</div>
-                        <div className="table-cell">2</div>
-                        <div className="table-cell">3</div>
+                        {cells}
                     </div>
                 </div>);
             }
