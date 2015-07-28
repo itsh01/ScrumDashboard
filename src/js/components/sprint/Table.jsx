@@ -9,9 +9,12 @@ define([
 
         return React.createClass({
             displayName: 'Sprint Table',
+            propTypes: {
+                lifecycle: React.PropTypes.array
+            },
             render: function () {
                 return (<div className="table-layout">
-                    <TableHeader lifecycle={['members', 'backlog', 'in progress', 'done', 'released']} />
+                    <TableHeader />
                     <TableBody />
                 </div>);
             }
