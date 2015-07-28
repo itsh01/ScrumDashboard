@@ -1,0 +1,24 @@
+
+.SprintsContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    margin: 20px;
+}
+
+.backwards {
+    border-width: 50px 100px 50px 0;
+    border-color: transparent black transparent transparent;
+}
+
+.forward {
+    border-width: 50px 0 50px 100px;
+    border-color: transparent transparent transparent black;
+}
