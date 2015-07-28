@@ -1,4 +1,3 @@
-
 define([
         'lodash',
         'React',
@@ -14,7 +13,7 @@ define([
                 lifecycle: React.PropTypes.array
             },
             render: function () {
-                return (<div className="table-layout">
+                return (<div className="table-layout board">
                     <TableHeader />
                     <TableBody />
                 </div>);

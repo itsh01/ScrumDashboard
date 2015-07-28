@@ -1,4 +1,3 @@
-
 define([
         'lodash',
         'React',
@@ -9,16 +8,33 @@ define([
 
         return React.createClass({
             displayName: 'Sprint Table Body',
+            propTypes: {
+                cardLifecycle: React.PropTypes.array,
+                members: React.PropTypes.array
+            },
+            getDefaultProps: function () {
+                return {
+                    cardLifecycle: ['Backlog', 'In progress', 'Done'],
+                    members: [{}, {}, {}]
+                };
+            },
             render: function () {
-                return (<div className="tbody">
-                    <div className="table-row">
+
+                var cells = _.map(this.props.cardLifecycle, function (phase) {
+                    return (<div className="table-cell">{phase}</div>);
+                });
+
+                var rows = _.map(this.props.members, function () {
+                    return (<div className="table-row">
                         <div className="table-cell">
                             <SprintMember />
                         </div>
-                        <div className="table-cell">1</div>
-                        <div className="table-cell">2</div>
-                        <div className="table-cell">3</div>
-                    </div>
+                        {cells}
+                    </div>);
+                });
+
+                return (<div className="tbody">
+                    {rows}
                 </div>);
             }
         });
