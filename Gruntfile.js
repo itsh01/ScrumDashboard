@@ -63,6 +63,15 @@ module.exports = function (grunt) {
                     log: true
                 }
             }
+        },
+        watch: {
+            dev: {
+                files: ['src/**/*.jsx', 'src/**/*.css', 'Gruntfile.js'],
+                tasks: ['dev'],
+                options: {
+                    debounceDelay: 500
+                }
+            }
         }
     });
 
@@ -71,11 +80,13 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-eslint');
     grunt.loadNpmTasks('grunt-contrib-csslint');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-react');
 
 
     grunt.registerTask('lint', ['eslint', 'csslint']);
-    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'copy']);
+    grunt.registerTask('dev', ['asciify:banner', 'lint', 'react:main']);
+    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'react:main', 'copy']);
     grunt.registerTask('test', []);
     grunt.registerTask('default', ['test', 'build']);
 
