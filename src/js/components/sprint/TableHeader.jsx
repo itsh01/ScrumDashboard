@@ -10,8 +10,8 @@ define(['lodash', 'React'], function (_, React, TableHeading) {
             return {lifecycle: ['members', 'backlog', 'in progress', 'done', 'released']};
         },
         render: function () {
-            var headings = _.map(this.props.lifecycle, function (title) {
-                return <TableHeading data={title} />;
+            var headings = _.map(this.props.lifecycle, function (text) {
+                return <TableHeading text={text} />;
             });
             return (<div className="thead">
                 { headings }

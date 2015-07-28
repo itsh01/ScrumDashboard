@@ -4,10 +4,10 @@ define(['lodash', 'React'], function (_, React) {
     return React.createClass({
         displayName: 'Sprint Table Heading',
         propTypes: {
-            heading: React.PropTypes.array
+            text: React.PropTypes.string
         },
         render: function () {
-            return (<div className="table-heading">this.props.heading</div>);
+            return (<div className="table-heading">this.props.text</div>);
         }
     });
 });
