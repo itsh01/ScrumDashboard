@@ -2,7 +2,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
     'use strict';
 
     return React.createClass({
-        displayName: 'Team',
+        displayName: 'TeamView',
 
         propTypes: {
             currSprint: React.PropTypes.number,
@@ -43,7 +43,8 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
         render: function () {
             return (<div>
-                <h1 className='headline'>{this.props.team.name} Team Scrum DashBoard</h1>
+                <h1>{this.props.team.name} Team</h1>
+                <h2>Scrum DashBoard</h2>
 
                 <div className="SprintsContainer">
                     <ChangeSprint direction='backwards'
