@@ -1,5 +1,6 @@
-define(["lodash", "React"], function (_, React) {
 
+define(['lodash', 'React'], function (_, React) {
+    'use strict';
     /** jsx React.DOM */
 
     return React.createClass({
