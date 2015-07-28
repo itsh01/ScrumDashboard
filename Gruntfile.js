@@ -31,7 +31,7 @@ module.exports = function (grunt) {
             },
             build: {
                 src: 'src/vendor/require.js',
-                dest: 'build/js/require.js'
+                dest: 'build/vendor/require.js'
             }
         },
         react: {
