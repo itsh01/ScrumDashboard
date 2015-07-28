@@ -3,7 +3,7 @@
  */
 
 
-define(['lodash', 'React', './backlog/Backlog', 'components/sprint/Table', 'components/team/TeamComponent'],
+define(['lodash', 'React', 'components/backlog/Backlog', 'components/sprint/Table', 'components/team/TeamComponent'],
     function (_, React, Backlog, SprintTable, TeamView) {
 
         'use strict';
