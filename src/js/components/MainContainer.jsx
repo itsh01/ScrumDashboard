@@ -203,7 +203,6 @@ define(['lodash', 'React', './backlog/Backlog', 'components/sprint/Table', 'comp
                         <h2>Team: {this.state.currentTeam}</h2>
                         <input type='number' value={this.state.currentTeam} onChange={changeTeam.bind(this)}/>
                         <Backlog cards={cardsList} teamFilterFn={teamFilterFn.bind(this)}/>
-                        <SprintTable />
                         <TeamView />
                     </div>);
             }
