@@ -100,7 +100,7 @@ module.exports = function (grunt) {
             main: {
                 files: [{
                     expand: true,
-                    src: 'style.css',
+                    src: 'main.css',
                     dest: 'build/css',
                     cwd: 'src/stylesheets',
                     ext: '.min.css'

@@ -1,6 +1,6 @@
-
-/*table layout*/
-
+/************************************************************************************************
+ *                                               Table Layout
+ ************************************************************************************************/
 .table-layout {
     display: table;
     border-spacing: 0;
@@ -12,6 +12,7 @@
     vertical-align: middle;
     font-weight: bold;
 }
+
 .tbody {
     display: table-row-group;
     vertical-align: middle;

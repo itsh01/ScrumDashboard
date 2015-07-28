@@ -1,9 +1,9 @@
 define([
         'lodash',
         'React',
-        'components/sprint/MemberRow'
+        'components/sprint/Member'
     ],
-    function (_, React, SprintMemberRow) {
+    function (_, React, SprintMember) {
         'use strict';
 
         return React.createClass({
@@ -20,12 +20,15 @@ define([
             },
             render: function () {
 
-                var rows = _.map(this.props.members, function () {
-                    return (<SprintMemberRow />);
+                var cells = _.map(this.props.cardLifecycle, function (phase) {
+                    return (<div className="table-cell">{phase}</div>);
                 });
 
-                return (<div className="tbody">
-                    {rows}
+                return (<div className="table-row">
+                    <div className="table-cell">
+                        <SprintMember />
+                    </div>
+                    {cells}
                 </div>);
             }
         });

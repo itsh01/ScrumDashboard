@@ -1,4 +1,4 @@
-define(['lodash', 'React', 'components/team/ChangeSprint'], function (_, React, ChangeSprint) {
+define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Table'], function (_, React, ChangeSprint, SprintTable) {
     'use strict';
 
     return React.createClass({
@@ -45,9 +45,14 @@ define(['lodash', 'React', 'components/team/ChangeSprint'], function (_, React, 
             return (<div>
                 <h1 className='headline'>{this.props.team.name} Team Scrum DashBoard</h1>
 
-                <ChangeSprint direction='backwards' handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
-                <span>{this.state.currSprint}</span>
-                <ChangeSprint direction='forward' handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
+                <div className="SprintsContainer">
+                    <ChangeSprint direction='backwards'
+                                  handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
+                    <span>{this.state.currSprint}</span>
+                    <SprintTable />
+                    <ChangeSprint direction='forward'
+                                  handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
+                </div>
 
                 <button>Manage Team</button>
             </div>);
