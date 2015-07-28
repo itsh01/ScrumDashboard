@@ -8,7 +8,7 @@ define([
         'components/sprint/Table',
         'components/team/TeamComponent'
     ],
-    function (_, React, SprintTable, Team) {
+    function (_, React, SprintTable, TeamView) {
         'use strict';
 
         return React.createClass({
@@ -16,8 +16,7 @@ define([
             render: function () {
                 return (<div>
                     <div>Scrum</div>
-                    <SprintTable />
-                    <Team />
+                    <TeamView />
                 </div>);
             }
         });
