@@ -18,7 +18,7 @@ define([
                 var headings = _.map(this.props.lifecycle, function (text) {
                     return <TableHeading text={text}/>;
                 });
-                return (<div className="thead">
+                return (<div className="thead sprint-head">
                     <div className="table-row">
                         { headings }
                     </div>
