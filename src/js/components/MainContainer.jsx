@@ -5,9 +5,10 @@
 define([
         'lodash',
         'React',
-        'components/sprint/Table'
+        'components/sprint/Table',
+        'components/team/TeamComponent'
     ],
-    function (_, React, SprintTable) {
+    function (_, React, SprintTable, Team) {
         'use strict';
 
         return React.createClass({
@@ -16,6 +17,7 @@ define([
                 return (<div>
                     <div>Scrum</div>
                     <SprintTable />
+                    <Team />
                 </div>);
             }
         });

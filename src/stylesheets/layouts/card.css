@@ -1,0 +1,13 @@
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 200px;
+    height: 100px;
+    padding: 10px;
+}
+
+.card-points{
+    align-self: flex-end;
+}
