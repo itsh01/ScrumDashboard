@@ -6,7 +6,8 @@ requirejs.config({
     paths: {
         lodash: '../vendor/lodash',
         React: '../vendor/react-with-addons',
-        componenets: '../js/components'
+        componenets: '../js/components',
+        Card: '../js/components/Cards/Card'
     },
     shim: {
         lodash: {
@@ -18,11 +19,11 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash','React', 'components/MainContainer'],
-    function (_, React, MainContainer) {
+requirejs(['lodash','React', 'Card'],
+    function (_, React, Card) {
 
         var mountPoint = document.getElementById('main-container');
 
-        React.render(React.createElement(MainContainer, {}), mountPoint);
+        React.render(React.createElement(Card, {}), mountPoint);
     }
 );
