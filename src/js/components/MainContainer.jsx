@@ -2,7 +2,8 @@
  * Created by itaysh on 7/27/15.
  */
 
-define(['lodash', 'React', './backlog/Backlog'], function (_, React, Backlog) {
+define(['lodash', 'React', './backlog/Backlog', 'components/sprint/Table', 'components/team/TeamComponent'],
+    function (_, React, Backlog, SprintTable, Team) {
 
     /** jsx React.DOM */
     var cardsList = [
@@ -199,6 +200,8 @@ define(['lodash', 'React', './backlog/Backlog'], function (_, React, Backlog) {
                 <h2>Team: {this.state.currentTeam}</h2>
                 <input type="number" value={this.state.currentTeam} onChange={changeTeam.bind(this)} />
                 <Backlog cards={cardsList} teamFilterFn={teamFilterFn.bind(this)} />
+                <SprintTable />
+                <Team />
             </div>);
 
 

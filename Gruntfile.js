@@ -48,7 +48,7 @@ module.exports = function (grunt) {
             }
         },
         eslint: {
-            src: ['src/js/*.jsx', 'Gruntfile.js']
+            src: ['src/js/**/*.jsx', 'Gruntfile.js']
         },
         csslint: {
             options: {
@@ -109,17 +109,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-asciify');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-eslint');
-    grunt.loadNpmTasks('grunt-contrib-csslint');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
-    grunt.loadNpmTasks('grunt-processhtml');
-    grunt.loadNpmTasks('grunt-react');
-
+    require('jit-grunt')(grunt);
 
     grunt.registerTask('lint', ['eslint', 'csslint']);
     grunt.registerTask('dev', ['asciify:banner', 'lint', 'react:main']);

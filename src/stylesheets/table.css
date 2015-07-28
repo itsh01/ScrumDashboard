@@ -1,0 +1,37 @@
+
+/*table layout*/
+
+.table-layout {
+    display: table;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.thead {
+    display: table-header-group;
+    vertical-align: middle;
+    font-weight: bold;
+}
+.tbody {
+    display: table-row-group;
+    vertical-align: middle;
+}
+
+.table-title {
+    display: table-caption;
+    text-align: center;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.table-cell,
+.table-heading {
+    display: table-cell;
+    border: solid;
+    padding-left: 5px;
+    padding-right: 5px;
+}
