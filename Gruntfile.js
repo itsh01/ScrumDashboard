@@ -48,7 +48,7 @@ module.exports = function (grunt) {
             }
         },
         eslint: {
-            src: ['src/js/*.jsx', 'Gruntfile.js']
+            src: ['src/js/**/*.jsx', 'Gruntfile.js']
         },
         csslint: {
             options: {

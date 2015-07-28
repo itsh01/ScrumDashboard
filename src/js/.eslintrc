@@ -32,7 +32,8 @@
   },
   "globals": {
     "_": false,
-    "React": false
+    "React": false,
+    "define": false
   },
   "plugins": [
     "react"
