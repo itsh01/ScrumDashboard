@@ -30,8 +30,8 @@ and be loaded after the main style sheets:
 
 ### Paths
 
-Folder names should be kebab-cased
-Component names should be PascalCased
+* Folder names should be kebab-cased
+* Component names should be PascalCased
 
 ```
 src/js/components/my-component/SubComponent.jsx
