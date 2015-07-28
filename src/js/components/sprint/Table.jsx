@@ -2,9 +2,10 @@
 define([
         'lodash',
         'React',
+        'components/sprint/TableHeader',
         'components/sprint/TableBody'
     ],
-    function (_, React, TableBody) {
+    function (_, React, TableHeader, TableBody) {
         'use strict';
 
         return React.createClass({
@@ -14,6 +15,7 @@ define([
             },
             render: function () {
                 return (<div className="table-layout">
+                    <TableHeader />
                     <TableBody />
                 </div>);
             }

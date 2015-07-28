@@ -1,4 +1,4 @@
-define(['lodash', 'React'], function (_, React, TableHeading) {
+define(['lodash', 'React', 'components/sprint/TableHeading'], function (_, React, TableHeading) {
     'use strict';
 
     return React.createClass({
@@ -14,7 +14,7 @@ define(['lodash', 'React'], function (_, React, TableHeading) {
                 return <TableHeading text={text} />;
             });
             return (<div className="thead">
-                <div className="table-row">
+                <div className="table-heading">
                     { headings }
                 </div>
             </div>);

@@ -10,7 +10,7 @@ define([
         return React.createClass({
             displayName: 'Sprint Table Body',
             render: function () {
-                return (<div className="table-tbody">
+                return (<div className="tbody">
                     <div className="table-row">
                         <div className="table-cell">
                             <SprintMember />
