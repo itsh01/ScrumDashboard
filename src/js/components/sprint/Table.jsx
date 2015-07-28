@@ -4,7 +4,7 @@ define([
         'React',
         'components/sprint/TableBody'
     ],
-    function (_, React, TableBody, TableHeader) {
+    function (_, React, TableBody) {
         'use strict';
 
         return React.createClass({
@@ -14,7 +14,6 @@ define([
             },
             render: function () {
                 return (<div className="table-layout">
-                    <TableHeader />
                     <TableBody />
                 </div>);
             }

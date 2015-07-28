@@ -7,14 +7,16 @@ define(['lodash', 'React'], function (_, React, TableHeading) {
             lifecycle: React.PropTypes.array
         },
         getDefaultProps: function () {
-            return {lifecycle: ['members', 'backlog', 'in progress', 'done', 'released']};
+            return {lifecycle: ['Members', 'Backlog', 'In progress', 'Done']};
         },
         render: function () {
             var headings = _.map(this.props.lifecycle, function (text) {
                 return <TableHeading text={text} />;
             });
             return (<div className="thead">
-                { headings }
+                <div className="table-row">
+                    { headings }
+                </div>
             </div>);
         }
     });
