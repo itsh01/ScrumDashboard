@@ -6,7 +6,7 @@ requirejs.config({
     paths: {
         lodash: '../vendor/lodash',
         React: '../vendor/react-with-addons',
-        componenets: '../js/components'
+        components: '../js/components'
     },
     shim: {
         lodash: {

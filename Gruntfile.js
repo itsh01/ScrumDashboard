@@ -70,7 +70,7 @@ module.exports = function (grunt) {
         },
         watch: {
             dev: {
-                files: ['src/**/*.jsx', 'src/**/*.css', 'Gruntfile.js'],
+                files: ['src/**/*.jsx', 'src/js/**/*.js', '!src/js/components/*.js', '!src/js/components/**/*.js', 'src/**/*.css', 'Gruntfile.js'],
                 tasks: ['dev'],
                 options: {
                     debounceDelay: 500
