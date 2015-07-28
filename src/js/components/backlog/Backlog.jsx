@@ -6,9 +6,11 @@ define(['lodash', 'React'], function (_, React) {
     return React.createClass({
 
         displayName: 'Backlog',
+        contextTypes: {
+            flux: React.PropTypes.any
+        },
         render: function () {
-
-            var teamCards = _.filter(this.props.cards, this.props.teamFilterFn);
+            var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
             return <div>
                 {
                 _.map(teamCards, function (card) {

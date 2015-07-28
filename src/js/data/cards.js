@@ -6,7 +6,7 @@ define([], function () {
             "description": "I'll generate the mobile JSON panel, that should panel the JSON panel!",
             "status": "unassigned",
             "score": null,
-            "team": null,
+            "team": 1,
             "assignee": null,
             "startDate": null,
             "endDate": null
@@ -28,7 +28,7 @@ define([], function () {
             "description": "If we override the alarm, we can get to the SMS alarm through the optical SMS alarm!",
             "status": "unassigned",
             "score": null,
-            "team": null,
+            "team": 1,
             "assignee": null,
             "startDate": null,
             "endDate": null
@@ -39,7 +39,7 @@ define([], function () {
             "description": "The AI card is down, generate the mobile card so we can generate the AI card!",
             "status": "unassigned",
             "score": null,
-            "team": null,
+            "team": 1,
             "assignee": null,
             "startDate": null,
             "endDate": null
@@ -61,7 +61,7 @@ define([], function () {
             "description": "You can't reboot the alarm without generating the virtual SQL alarm!",
             "status": "unassigned",
             "score": null,
-            "team": null,
+            "team": 1,
             "assignee": null,
             "startDate": null,
             "endDate": null
@@ -72,7 +72,7 @@ define([], function () {
             "description": "Try to back up the THX transmitter, maybe it will back up the open-source transmitter!",
             "status": "unassigned",
             "score": null,
-            "team": null,
+            "team": 1,
             "assignee": null,
             "startDate": null,
             "endDate": null
@@ -138,7 +138,7 @@ define([], function () {
             "description": "We need to transmit the neural XSS bus!",
             "status": "unassigned",
             "score": null,
-            "team": null,
+            "team": 1,
             "assignee": null,
             "startDate": null,
             "endDate": null
@@ -160,7 +160,7 @@ define([], function () {
             "description": "The SMTP capacitor is down, bypass the mobile capacitor so we can bypass the SMTP capacitor!",
             "status": "unassigned",
             "score": null,
-            "team": null,
+            "team": 1,
             "assignee": null,
             "startDate": null,
             "endDate": null

@@ -7,6 +7,12 @@ define(['lodash', '../data/cards'], function (_, defaultCardsData) {
             return _.cloneDeep(currentCards);
         };
 
+        this.getTeamCards = function (id) {
+            return _.filter(currentCards, function (card) {
+                return card.team === id
+            })
+        };
+
         // This is an example of how to use data mutating functions
         this.addCard = function (newCardData) {
             currentCards.push(newCardData);
