@@ -7,12 +7,14 @@ define(['lodash', 'React'], function (_, React) {
         },
         render: function () {
             return (
-                <div className='teams-selector'>
-                    {
-                        _.map(this.context.flux.teamsStore.getAllTeams(), function (team) {
-                            return <div className='team-name'>{team.name}</div>;
-                        })
-                    }
+                <div className='team-management'>
+                    <div className='teams-selector'>
+                        {
+                            _.map(this.context.flux.teamsStore.getAllTeams(), function (team) {
+                                return <div className='team-name'>{team.name}</div>;
+                            })
+                        }
+                    </div>
                 </div>
             );
         }
