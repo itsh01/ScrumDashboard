@@ -9,17 +9,15 @@ define([
         return React.createClass({
             displayName: 'Sprint Table Header',
             propTypes: {
-                lifecycle: React.PropTypes.array
-            },
-            getDefaultProps: function () {
-                return {lifecycle: ['Members', 'Backlog', 'In progress', 'Done']};
+                cardLifecycle: React.PropTypes.array
             },
             render: function () {
-                var headings = _.map(this.props.lifecycle, function (text) {
-                    return <TableHeading text={text}/>;
+                var headings = _.map(this.props.cardLifecycle, function (text) {
+                    return <TableHeading text={text} />;
                 });
                 return (<div className="thead sprint-head">
                     <div className="table-row">
+                        <TableHeading text={"Member"} />
                         { headings }
                     </div>
                 </div>);

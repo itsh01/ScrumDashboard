@@ -14,14 +14,13 @@ define([
             },
             getDefaultProps: function () {
                 return {
-                    cardLifecycle: ['Backlog', 'In progress', 'Done'],
                     members: [{}, {}, {}]
                 };
             },
             render: function () {
-
-                var rows = _.map(this.props.members, function () {
-                    return (<SprintMemberRow />);
+                var self = this,
+                    rows = _.map(this.props.members, function () {
+                    return (<SprintMemberRow cardLifecycle={self.props.cardLifecycle}/>);
                 });
 
                 return (<div className="tbody">
