@@ -10,7 +10,36 @@ define([], function () {
             ],
             "filterFunc": null,
             "id": "1f7a4375-e7db-4798-969e-17325acde499",
-            "sprints": [],
+            "sprints": [{
+                "id": "55b8a16038989631e6ace41c",
+                "name": "aliquip reprehenderit",
+                "scrumMaster": null,
+                "startDate": null,
+                "endDate": null,
+                "cardLifecycle": null,
+                "members": null,
+                "state": 0
+            },
+                {
+                    "id": "55b8a160a101c202d3b588bc",
+                    "name": "veniam ipsum",
+                    "scrumMaster": null,
+                    "startDate": null,
+                    "endDate": null,
+                    "cardLifecycle": null,
+                    "members": null,
+                    "state": 0
+                },
+                {
+                    "id": "55b8a16069c3c3bcd5425303",
+                    "name": "occaecat officia",
+                    "scrumMaster": null,
+                    "startDate": null,
+                    "endDate": null,
+                    "cardLifecycle": null,
+                    "members": null,
+                    "state": 0
+                }],
             "name": "Directives"
         },
         {
@@ -23,7 +52,26 @@ define([], function () {
             ],
             "filterFunc": null,
             "id": "c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d",
-            "sprints": [],
+            "sprints": [{
+                "id": "55b8a16041950d8383c61083",
+                "name": "anim qui",
+                "scrumMaster": null,
+                "startDate": null,
+                "endDate": null,
+                "cardLifecycle": null,
+                "members": null,
+                "state": 0
+            },
+                {
+                    "id": "55b8a1602bba6dbc0765eced",
+                    "name": "est minim",
+                    "scrumMaster": null,
+                    "startDate": null,
+                    "endDate": null,
+                    "cardLifecycle": null,
+                    "members": null,
+                    "state": 0
+                }],
             "name": "Security"
         },
         {
@@ -36,7 +84,16 @@ define([], function () {
             ],
             "filterFunc": null,
             "id": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
-            "sprints": [],
+            "sprints": [{
+                "id": "55b8a1605e45598435ff07a7",
+                "name": "aliquip laboris",
+                "scrumMaster": null,
+                "startDate": null,
+                "endDate": null,
+                "cardLifecycle": null,
+                "members": null,
+                "state": 0
+            }],
             "name": "Mobility"
         }
     ]
