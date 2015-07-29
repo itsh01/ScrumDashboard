@@ -46,9 +46,9 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             return (<div>
                 <h1>{this.props.team.name} Team</h1>
                 <h2>Scrum DashBoard</h2>
+                <h3>Sprint: {this.state.currSprint}</h3>
 
-                <div className="sprint-container text-center">
-                    <h3 className="text-center">Sprint: {this.state.currSprint}</h3>
+                <div className="sprint-container">
                     <ChangeSprint direction='backwards'
                                   handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
 
