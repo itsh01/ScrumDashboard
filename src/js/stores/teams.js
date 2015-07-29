@@ -3,7 +3,7 @@ define(['lodash', '../data/teams'], function (_, defaultTeamData) {
     var filterFunctions = {
         AllTeams: null,
         TeamById: function (id) {
-            return {team: id};
+            return {id: id};
         }
     };
 
