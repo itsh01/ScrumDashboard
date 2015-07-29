@@ -48,7 +48,13 @@ module.exports = function (grunt) {
             }
         },
         eslint: {
-            src: ['src/js/**/*.jsx', 'src/js/stores/*.js', '!src/js/data/*', 'Gruntfile.js', 'src/js/main.js']
+            src: [
+                'src/js/**/*.jsx',
+                'src/js/stores/*.js',
+                '!src/js/data/*',
+                'Gruntfile.js',
+                'src/js/main.js'
+            ]
         },
         csslint: {
             options: {
@@ -70,7 +76,14 @@ module.exports = function (grunt) {
         },
         watch: {
             dev: {
-                files: ['src/**/*.jsx', 'src/js/**/*.js', '!src/js/components/*.js', '!src/js/components/**/*.js', 'src/**/*.css', 'Gruntfile.js'],
+                files: [
+                    'src/**/*.css',
+                    'src/**/*.jsx',
+                    'src/js/**/*.js',
+                    '!src/js/components/**/*.js',
+                    '!src/js/*.js',
+                    'Gruntfile.js'
+                ],
                 tasks: ['dev'],
                 options: {
                     debounceDelay: 500
@@ -108,7 +121,7 @@ module.exports = function (grunt) {
             }
         }
     });
-
+    
     require('jit-grunt')(grunt);
 
     grunt.registerTask('lint', ['eslint', 'csslint']);
