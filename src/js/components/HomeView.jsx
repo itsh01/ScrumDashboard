@@ -23,7 +23,6 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
 
         handleChangeTeam: function (e) {
             this.setState({currTeamId: e.target.value});
-            console.log(this.state.currTeamId);
         },
 
         render: function () {
@@ -36,7 +35,7 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
                             <span>Choose Team: </span>
                             <select onChange={this.handleChangeTeam}>
                                 {teamsOptions}
-                            </select>CardsContainer
+                            </select>
                         </div>
 
                         <div className="right">
