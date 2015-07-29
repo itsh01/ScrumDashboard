@@ -29,3 +29,8 @@
 .board .table-cell:first-child {
     width: 8rem;
 }
+
+.sprint-cards-container {
+    display: flex;
+    line-height: 1rem;
+}
