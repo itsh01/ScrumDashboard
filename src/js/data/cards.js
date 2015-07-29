@@ -4,10 +4,10 @@ define([], function () {
             "id": "7d6f4051-64cb-4a49-aa58-168c4e8358c3",
             "name": "input virtual hard drive",
             "description": "I'll generate the mobile JSON panel, that should panel the JSON panel!",
-            "status": "unassigned",
+            "status": "In progress",
             "score": null,
             "team": 1,
-            "assignee": null,
+            "assignee": 1,
             "startDate": null,
             "endDate": null
         },
