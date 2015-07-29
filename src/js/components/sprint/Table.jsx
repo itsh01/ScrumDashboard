@@ -39,7 +39,9 @@ define([
                         <TableHeader cardLifecycle={this.props.sprint.cardLifecycle} />
                         <TableBody sprint={this.props.sprint} />
                     </div>
-                    <Velocity />
+                    <Velocity
+                        cardLifecycle={this.props.sprint.cardLifecycle}
+                        sprintMembers={this.props.sprint.members} />
                 </div>);
             }
         });
