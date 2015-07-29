@@ -12,3 +12,8 @@ h1, h2, h3 {
     align-items: center;
     justify-content: center;
 }
+
+.flex-base {
+    align-items: baseline;
+    justify-content: space-around;
+}
