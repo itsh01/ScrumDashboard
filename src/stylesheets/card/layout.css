@@ -19,4 +19,5 @@
     position: absolute;
     z-index: 1;
     transform: scale(1.7) rotateY(360deg);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.54);
 }
