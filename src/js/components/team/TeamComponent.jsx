@@ -47,9 +47,9 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 <h2>Scrum DashBoard</h2>
 
                 <div className="sprint-container">
+                    <h3 className="text-center">Sprint: {this.state.currSprint}</h3>
                     <ChangeSprint direction='backwards'
                                   handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
-                    <span>{this.state.currSprint}</span>
                     <SprintTable />
                     <ChangeSprint direction='forward'
                                   handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
