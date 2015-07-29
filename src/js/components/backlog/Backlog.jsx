@@ -8,7 +8,7 @@ define([
         './cardsList'
     ],
     function (_, React, Card, CardsList) {
-    'use strict';
+        'use strict';
     /** jsx React.DOM */
 
         return React.createClass({
