@@ -61,18 +61,30 @@ requirejs.config({
     }
 });
 
+requirejs(
+    [
+        'lodash',
+        'React',
+        'components/card/Card',
+        'components/team/TeamManagement',
+        'stores/flux',
+        'components/planning/CardEditCreate'
+    ],
+    function (_,
+              React,
+              Card,
+              TeamManagement,
+              Flux,
+              PlanningCardEditCreate) {
 
-
-requirejs(['lodash', 'React', 'components/card/Card', 'components/teamManagement/TeamManagement', 'stores/flux'],
-    function (_, React, Card, TeamManagement, Flux) {
 
         var CardShowcase = React.createClass({
             render: function () {
                 return (
                     <div>
                         {
-                            _.map(playData.cards, function(card) {
-                                return <Card card={card} />
+                            _.map(playData.cards, function (card) {
+                                return <Card card={card}/>
                             })
                         }
                     </div>);
@@ -97,6 +109,7 @@ requirejs(['lodash', 'React', 'components/card/Card', 'components/teamManagement
 
             render: function () {
                 return <div>
+                    <PlanningCardEditCreate />
                     <TeamManagement />
                 </div>
 
