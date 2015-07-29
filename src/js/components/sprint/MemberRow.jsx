@@ -26,7 +26,7 @@ define([
                 });
 
                 return (<div className="table-row">
-                    <div className="table-cell">
+                    <div className="table-cell sprint-member-cell">
                         <SprintMember />
                     </div>
                     {cells}
