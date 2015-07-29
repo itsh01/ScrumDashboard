@@ -2,42 +2,42 @@ define([], function () {
     return [
         {
             "members": [
-                "cba60761-a30a-4c07-8e3c-1bef60a5d873",
-                "15c893ea-5463-471d-a59e-8acba34fdb66",
-                "63388982-b3b9-479e-9b76-d7a979ad8606",
-                "5a04e20f-9d1d-415d-a0d8-8c45f11aec3c",
-                "09c860d7-7476-4a79-ad62-cca71be1d13c"
+                "0e8b324c-d49a-474d-8af4-f93bcc6a1511",
+                "15fc4096-b641-436a-bf2d-8fbdeedec7b2",
+                "061804a2-1f93-40e1-bf49-57b82e5b568b",
+                "183323c8-d707-4471-8736-373eba8aaa8c",
+                "aaef53cc-34bd-4d1f-bdda-9bf5e07ca2be"
             ],
             "filterFunc": null,
-            "id": "f2ca8b7b-e798-4ed2-aff9-eee3a1aaff61",
+            "id": "1f7a4375-e7db-4798-969e-17325acde499",
             "sprints": [],
-            "name": "Accounts"
+            "name": "Directives"
         },
         {
             "members": [
-                "b64cb318-e696-4a85-8e51-5a48d9803658",
-                "4ec1a48d-ef63-4496-b532-4df57aae58d3",
-                "90c888da-3d1a-47cf-9d28-99f2068cff79",
-                "cefff907-f4ee-4a6e-8cdf-34f858e21d48",
-                "4d8710aa-d6ca-4dbf-9370-ac8b7a81ac12"
+                "dda8a5ee-0c2b-4269-b350-a75faedb776f",
+                "a2954c2e-66e8-4839-a948-852dce898ad1",
+                "63633385-714e-4352-bb26-e34b5318fc3a",
+                "955c7089-67bf-44ba-87d9-b357af941276",
+                "bb93c3cd-66d3-42ea-8467-611c23ea64c6"
             ],
             "filterFunc": null,
-            "id": "ac13f08b-b5fd-4879-a22b-3f0e0299eb85",
+            "id": "c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d",
             "sprints": [],
-            "name": "Intranet"
+            "name": "Security"
         },
         {
             "members": [
-                "664bc994-f35d-40d4-9ef7-7ff5970bb5dd",
-                "8e081f6b-035f-4973-8ebe-77b341ed8b4b",
-                "2400e3c3-dcaa-4887-9dcc-d82b044348e5",
-                "a2a13d2d-ae22-4ae4-a551-d9ae67cfde76",
-                "d31a834d-efe7-41aa-b062-654141361075"
+                "65583f9d-855c-44eb-9cf6-b6fe993a64a6",
+                "fc2574bc-c42e-4f31-a842-2256fa1c5634",
+                "c2ea9955-081c-4da5-8bc7-be27e1a19c6e",
+                "b6cec5a4-9055-4a3d-9cee-e86b2e338645",
+                "0c85929d-06b2-424d-9e24-acd3f1055875"
             ],
             "filterFunc": null,
-            "id": "20d18274-cca4-45ff-9c1d-6a1164e4e4f3",
+            "id": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
             "sprints": [],
-            "name": "Intranet"
+            "name": "Mobility"
         }
     ]
 });

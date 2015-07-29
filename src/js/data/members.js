@@ -1,63 +1,79 @@
 define([], function () {
-    return [{
-        "id": "cba60761-a30a-4c07-8e3c-1bef60a5d873",
-        "name": "Odie Predovic",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/antjanus/128.jpg"
-    }, {
-        "id": "15c893ea-5463-471d-a59e-8acba34fdb66",
-        "name": "Arielle Conroy",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/h1brd/128.jpg"
-    }, {
-        "id": "63388982-b3b9-479e-9b76-d7a979ad8606",
-        "name": "Gilberto Runolfsson",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/mrebay007/128.jpg"
-    }, {
-        "id": "5a04e20f-9d1d-415d-a0d8-8c45f11aec3c",
-        "name": "Arturo Dare",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/bradenhamm/128.jpg"
-    }, {
-        "id": "09c860d7-7476-4a79-ad62-cca71be1d13c",
-        "name": "Raleigh Koepp",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/eyronn/128.jpg"
-    }, {
-        "id": "b64cb318-e696-4a85-8e51-5a48d9803658",
-        "name": "Nadia Jacobs",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/rude/128.jpg"
-    }, {
-        "id": "4ec1a48d-ef63-4496-b532-4df57aae58d3",
-        "name": "Mikayla Wehner Dr.",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/abdots/128.jpg"
-    }, {
-        "id": "90c888da-3d1a-47cf-9d28-99f2068cff79",
-        "name": "Amelia Douglas Ms.",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/mbilalsiddique1/128.jpg"
-    }, {
-        "id": "cefff907-f4ee-4a6e-8cdf-34f858e21d48",
-        "name": "Loraine Hoppe",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/_scottburgess/128.jpg"
-    }, {
-        "id": "4d8710aa-d6ca-4dbf-9370-ac8b7a81ac12",
-        "name": "Sandrine Gutkowski",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/joreira/128.jpg"
-    }, {
-        "id": "664bc994-f35d-40d4-9ef7-7ff5970bb5dd",
-        "name": "Jessica Dietrich",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/josevnclch/128.jpg"
-    }, {
-        "id": "8e081f6b-035f-4973-8ebe-77b341ed8b4b",
-        "name": "Toney Stiedemann",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/jesseddy/128.jpg"
-    }, {
-        "id": "2400e3c3-dcaa-4887-9dcc-d82b044348e5",
-        "name": "Teagan Bogisich Dr.",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/sydlawrence/128.jpg"
-    }, {
-        "id": "a2a13d2d-ae22-4ae4-a551-d9ae67cfde76",
-        "name": "Ross Dickinson",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/joannefournier/128.jpg"
-    }, {
-        "id": "d31a834d-efe7-41aa-b062-654141361075",
-        "name": "Brennon McDermott",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/vc27/128.jpg"
-    }]
+    return [
+        {
+            "id": "0e8b324c-d49a-474d-8af4-f93bcc6a1511",
+            "name": "Elissa Collier",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/ciaranr/128.jpg"
+        },
+        {
+            "id": "15fc4096-b641-436a-bf2d-8fbdeedec7b2",
+            "name": "Cortney Kunde",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/okseanjay/128.jpg"
+        },
+        {
+            "id": "061804a2-1f93-40e1-bf49-57b82e5b568b",
+            "name": "Jazmyne Huels",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/davidmerrique/128.jpg"
+        },
+        {
+            "id": "183323c8-d707-4471-8736-373eba8aaa8c",
+            "name": "Kacie Smitham",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/arishi_/128.jpg"
+        },
+        {
+            "id": "aaef53cc-34bd-4d1f-bdda-9bf5e07ca2be",
+            "name": "Armand Christiansen",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/harry_sistalam/128.jpg"
+        },
+        {
+            "id": "dda8a5ee-0c2b-4269-b350-a75faedb776f",
+            "name": "Jon Fadel",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/darylws/128.jpg"
+        },
+        {
+            "id": "a2954c2e-66e8-4839-a948-852dce898ad1",
+            "name": "Max Beatty",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/ateneupopular/128.jpg"
+        },
+        {
+            "id": "63633385-714e-4352-bb26-e34b5318fc3a",
+            "name": "Andy Jacobs",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/itolmach/128.jpg"
+        },
+        {
+            "id": "955c7089-67bf-44ba-87d9-b357af941276",
+            "name": "Etha Lang",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/arthurholcombe1/128.jpg"
+        },
+        {
+            "id": "bb93c3cd-66d3-42ea-8467-611c23ea64c6",
+            "name": "Rebekah Tromp",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/grrr_nl/128.jpg"
+        },
+        {
+            "id": "65583f9d-855c-44eb-9cf6-b6fe993a64a6",
+            "name": "Miss Luis Bergstrom",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/harry_sistalam/128.jpg"
+        },
+        {
+            "id": "fc2574bc-c42e-4f31-a842-2256fa1c5634",
+            "name": "Melvina Kilback",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/matthewkay_/128.jpg"
+        },
+        {
+            "id": "c2ea9955-081c-4da5-8bc7-be27e1a19c6e",
+            "name": "Henry Armstrong",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/Talbi_ConSept/128.jpg"
+        },
+        {
+            "id": "b6cec5a4-9055-4a3d-9cee-e86b2e338645",
+            "name": "Dora Flatley",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/carlosm/128.jpg"
+        },
+        {
+            "id": "0c85929d-06b2-424d-9e24-acd3f1055875",
+            "name": "Helen Lesch",
+            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/illyzoren/128.jpg"
+        }
+    ]
 });
