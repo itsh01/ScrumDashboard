@@ -28,7 +28,8 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                         currSprint: allSprints[this.state.currSprintIndex - 1],
                         currSprintIndex: this.state.currSprintIndex - 1
                     });
-                } else if (direction === 'forward' && this.state.currSprintIndex !== this.state.team.sprints.length - 1) {
+                } else if (direction === 'forward' && this.state.currSprintIndex !== allSprints.length - 1) {
+
                     this.setState({
                         currSprint: allSprints[this.state.currSprintIndex + 1],
                         currSprintIndex: this.state.currSprintIndex + 1
