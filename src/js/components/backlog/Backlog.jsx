@@ -9,6 +9,10 @@ define(['lodash', 'React', 'components/card/Card', './cardsList'], function (_, 
         contextTypes: {
             flux: React.PropTypes.any
         },
+        propTypes: {
+            teamId: React.PropTypes.string
+        },
+
         render: function () {
             var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
             return <div>

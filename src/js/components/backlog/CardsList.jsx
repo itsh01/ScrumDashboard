@@ -8,6 +8,10 @@ define(['lodash', 'React', 'components/card/Card'], function (_, React, Card) {
         contextTypes: {
             flux: React.PropTypes.any
         },
+        propTypes: {
+            cardsList: React.PropTypes.array,
+            title: React.PropTypes.string
+        },
         render: function () {
             var cardsListToDisply = this.props.cardsList;
             return <div>
