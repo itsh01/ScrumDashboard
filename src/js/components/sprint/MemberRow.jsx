@@ -36,6 +36,7 @@ define([
                             })
                             .map(function (card) {
                                 return (<Card
+                                    key={card.id}
                                     card={card}
                                 />);
                             }).value();
@@ -47,7 +48,9 @@ define([
 
                 return (<div className="table-row">
                     <div className="table-cell sprint-member-cell">
-                        <SprintMember member={this.props.member} />
+                        <SprintMember
+                            key={this.props.member.id}
+                            member={this.props.member} />
                     </div>
                     {cells}
                 </div>);
