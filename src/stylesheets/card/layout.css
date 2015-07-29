@@ -17,7 +17,9 @@
 
 .card-open {
     position: absolute;
+    top: 0;
     z-index: 1;
-    transform: scale(1.7) rotateY(360deg);
+    transform: scale(1.7);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.54);
 }
+

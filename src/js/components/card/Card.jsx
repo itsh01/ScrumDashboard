@@ -50,10 +50,15 @@ define(['lodash', 'React'], function (_, React) {
             return 'card ' + this.pointsClass[this.getCardScore()] + ' ' + (this.state.isDescriptionOpened ? 'card-open' : '');
         },
         render: function () {
+            var placeHolder = this.state.isDescriptionOpened ? <div className="card"></div> : <span />;
             return (
-                <div className={this.getCardClassName()} onClick={this.toggleDescriptionOpened}>
-                    {this.getCardContent()}
+                <div className="relative">
+                    {placeHolder}
+                    <div className={this.getCardClassName()} onClick={this.toggleDescriptionOpened}>
+                        {this.getCardContent()}
+                    </div>
                 </div>
+
             );
         }
     });
