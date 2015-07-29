@@ -1,4 +1,3 @@
-
 requirejs.config({
     paths: {
         lodash: '../vendor/lodash',
@@ -15,9 +14,12 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash','React', 'components/MainContainer'],
-    function (_, React, MainContainer) {
-        console.log(_, React, MainContainer);
+requirejs(['lodash', 'React', 'components/card/Card', 'components/backlog/Backlog', 'components/sprint/Table'],
+    function (_, React, Card, Backlog, Table) {
+        React.render(
+            <Card />,
+            document.getElementById('Card')
+        );
 
     }
 );
