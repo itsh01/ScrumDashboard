@@ -37,3 +37,4 @@ and be loaded after the main style sheets:
 src/js/components/my-component/SubComponent.jsx
 ```
 
+* CSS classes should be kebab-cased
