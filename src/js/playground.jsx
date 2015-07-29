@@ -60,8 +60,8 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash', 'React', 'components/card/Card'],
-    function (_, React, Card, Backlog, Table) {
+requirejs(['lodash', 'React', 'components/card/Card', 'components/team/TeamManagement'],
+    function (_, React, Card, TeamManagement) {
         var CardShowcase = React.createClass({
             render: function () {
                 return (
@@ -78,6 +78,9 @@ requirejs(['lodash', 'React', 'components/card/Card'],
             <CardShowcase />,
             document.getElementById('Card')
         );
-
+        React.render(
+            <TeamManagement />,
+            document.getElementById('TeamManagement')
+        );
     }
 );
