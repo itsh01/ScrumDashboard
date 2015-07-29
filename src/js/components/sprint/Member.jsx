@@ -14,7 +14,7 @@ define([
                 return {
                     member: {
                         id: 1,
-                        name: 'John Doe',
+                        name: 'Foo Bar',
                         image: 'http://icons.iconarchive.com/icons/sora-meliae/matrilineare/128/avatar-default-icon.png'
                     }
                 };

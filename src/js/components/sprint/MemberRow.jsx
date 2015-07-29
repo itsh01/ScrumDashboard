@@ -47,7 +47,7 @@ define([
 
                 return (<div className="table-row">
                     <div className="table-cell sprint-member-cell">
-                        <SprintMember />
+                        <SprintMember member={this.props.member} />
                     </div>
                     {cells}
                 </div>);
