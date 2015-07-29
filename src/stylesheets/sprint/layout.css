@@ -8,6 +8,7 @@
     margin: 0 auto;
     display: block;
 }
+
 .sprint-member figure{
     margin: 1rem;
 }
@@ -20,6 +21,14 @@
     max-width: 7rem;
     overflow: hidden;
 }
+
 .sprint-table-wrapper {
     display: inline-block;
+    width: 80%;
 }
+
+.board {
+    width: 90%;
+    margin: 0 auto;
+}
+
