@@ -12,6 +12,7 @@
     border-style: solid;
     margin: 20px;
     display: inline-block;
+    vertical-align: top;
 }
 
 .arrow:hover {

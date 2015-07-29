@@ -1,8 +1,15 @@
 
+.sprint-member-cell {
+    vertical-align: middle;
+}
+
 .sprint-member img{
     width: 4rem;
     margin: 0 auto;
     display: block;
+}
+.sprint-member figure{
+    margin: 1rem;
 }
 
 .sprint-head .table-heading{
