@@ -36,7 +36,7 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
                             <span>Choose Team: </span>
                             <select onChange={this.handleChangeTeam}>
                                 {teamsOptions}
-                            </select>
+                            </select>CardsContainer
                         </div>
 
                         <div className="right">

@@ -1,5 +1,5 @@
 /**
- * Created by itaysh on 7/27/15.
+ * Created by Tzabarc on 7/29/15.
  */
 
 requirejs.config({
@@ -23,6 +23,6 @@ requirejs(['lodash', 'React', 'components/MainContainer'],
         'use strict';
         var mountPoint = document.getElementById('main-container');
 
-        window.scrum = React.render(React.createElement(MainContainer, {currentTeam: 1}), mountPoint);
+        window.scrum = React.render(<MainContainer currentTeam={1} />, mountPoint);
     }
 );

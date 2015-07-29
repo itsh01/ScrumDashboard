@@ -97,10 +97,10 @@ define([], function () {
         {
             "members": [
                 "65583f9d-855c-44eb-9cf6-b6fe993a64a6",
-                "fc2574bc-c42e-4f31-a842-2256fa1c5634",
-                "c2ea9955-081c-4da5-8bc7-be27e1a19c6e",
                 "b6cec5a4-9055-4a3d-9cee-e86b2e338645",
-                "0c85929d-06b2-424d-9e24-acd3f1055875"
+                "0c85929d-06b2-424d-9e24-acd3f1055875",
+                '183323c8-d707-4471-8736-373eba8aaa8c',
+                'aaef53cc-34bd-4d1f-bdda-9bf5e07ca2be'
             ],
             "filterFunc": null,
             "id": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
