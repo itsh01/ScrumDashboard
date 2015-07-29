@@ -5,3 +5,7 @@
     margin: 0;
     padding: 0.1rem;
 }
+
+.card-description {
+    font-size: 0.7rem;
+}
