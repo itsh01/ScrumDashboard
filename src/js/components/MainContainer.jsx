@@ -19,7 +19,7 @@ define(['lodash', 'React', 'components/backlog/Backlog', 'components/sprint/Tabl
         },
         getInitialState: function () {
             this.flux = new Flux();
-            this.flux.registerEventsHandled(this.forceUpdate);
+            this.flux.dispatcher.registerEventsHandled(this.forceUpdate);
             return {
                 currentTeam: this.props.currentTeam
             };
