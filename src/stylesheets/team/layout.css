@@ -32,3 +32,17 @@
     border-width: 10px 0 10px 20px;
     border-color: transparent transparent transparent black;
 }
+
+.team-management {
+    display: flex;
+}
+
+.team-selector {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.team-name {
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
