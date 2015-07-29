@@ -3,13 +3,6 @@
 
 }
 
-.sprint-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
 .arrow {
     width: 0;
     height: 0;
@@ -22,11 +15,11 @@
 }
 
 .backwards {
-    border-width: 50px 100px 50px 0;
+    border-width: 10px 20px 10px 0;
     border-color: transparent black transparent transparent;
 }
 
 .forward {
-    border-width: 50px 0 50px 100px;
+    border-width: 10px 0 10px 20px;
     border-color: transparent transparent transparent black;
 }

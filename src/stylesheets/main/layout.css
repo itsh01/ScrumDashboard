@@ -2,3 +2,13 @@
 h1, h2, h3 {
     text-align: center;
 }
+
+.one-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-centered {
+    align-items: center;
+    justify-content: center;
+}
