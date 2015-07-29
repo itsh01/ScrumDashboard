@@ -33,7 +33,8 @@
   "globals": {
     "_": false,
     "React": false,
-    "define": false
+    "define": false,
+    "requirejs": false
   },
   "plugins": [
     "react"
