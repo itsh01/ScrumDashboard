@@ -15,6 +15,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             getInitialState: function () {
                 var team = this.context.flux.teamsStore.getTeamById(this.props.currTeamId);
+                console.log(this.props.currTeamId);
                 console.log(team);
                 return {
                     team: team,
