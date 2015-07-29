@@ -21,7 +21,7 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
         },
 
         render: function () {
-            var teamNames = _.map(this.state.teams, function (team) {
+            var teamsOptions = _.map(this.state.teams, function (team) {
                 return (<option value="{team.id}">{team.name}</option>);
             });
             return (<div className="teamManagement-container">
@@ -29,7 +29,7 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
                         <div className="left">
                             <span>Choose Team: </span>
                             <select>
-                                {teamNames}
+                                {teamsOptions}
                             </select>
                         </div>
 
