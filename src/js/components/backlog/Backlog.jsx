@@ -1,24 +1,33 @@
 
-define(['lodash', 'React', 'components/card/Card', './cardsList'], function (_, React, Card, CardsList) {
+define([
+        'lodash',
+        'React',
+
+        'components/card/Card',
+
+        './cardsList'
+    ],
+    function (_, React, Card, CardsList) {
     'use strict';
     /** jsx React.DOM */
 
-    return React.createClass({
+        return React.createClass({
 
-        displayName: 'Backlog',
-        contextTypes: {
-            flux: React.PropTypes.any
-        },
-        propTypes: {
-            teamId: React.PropTypes.string
-        },
+            displayName: 'Backlog',
+            contextTypes: {
+                flux: React.PropTypes.any
+            },
+            propTypes: {
+                teamId: React.PropTypes.string
+            },
 
-        render: function () {
-            var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
-            return <div>
-               <CardsList title="Team" cardsList= {teamCards}/>
-            </div>;
-        }
+            render: function () {
+                var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
+                return <div>
+                   <CardsList title="Team" cardsList= {teamCards}/>
+                </div>;
+            }
 
-    });
-});
+        });
+    }
+);
