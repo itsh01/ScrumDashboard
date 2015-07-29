@@ -2,13 +2,3 @@
 h1, h2 {
     text-align: center;
 }
-
-.backlog {
-    float: left;
-    width: 25%;
-}
-
-.team-view {
-    float: left;
-    width: 75%;
-}

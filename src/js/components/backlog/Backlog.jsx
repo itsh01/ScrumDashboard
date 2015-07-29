@@ -7,8 +7,8 @@ define([
     ],
     function (_, React, Card, CardsList) {
         'use strict';
-        /** jsx React.DOM */
 
+        /** jsx React.DOM */
         return React.createClass({
 
             displayName: 'Backlog',
