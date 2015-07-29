@@ -36,9 +36,7 @@ define([
                             })
                             .map(function (card) {
                                 return (<Card
-                                    title={card.name}
-                                    description={card.description}
-                                    points={card.points}
+                                    card={card}
                                 />);
                             }).value();
 
