@@ -22,6 +22,7 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
 
         handleChangeTeam: function (e) {
             this.setState({currTeamId: e.target.value});
+            console.log(this.state.currTeamId);
         },
 
         render: function () {
