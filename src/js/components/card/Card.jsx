@@ -6,15 +6,15 @@ define(['lodash', 'React'], function (_, React) {
     return React.createClass({
         displayName: 'Card',
         propTypes: {
-            description: React.PropTypes.string,
-            points: React.PropTypes.number,
-            title: React.PropTypes.string
+            card: React.PropTypes.object
         },
         getDefaultProps: function () {
             return {
-                title: 'Card Title',
-                description: 'This is the card\'s description',
-                points: 1
+                card: {
+                    name: 'Card Name',
+                    description: 'This is the card\'s description',
+                    score: 1
+                }
             };
         },
         getInitialState: function () {
@@ -23,11 +23,11 @@ define(['lodash', 'React'], function (_, React) {
             };
         },
         getCardContent: function () {
-            var pointsDescription = 'points = ' + this.props.points;
+            var pointsDescription = 'points = ' + this.props.card.score;
             return (
                 this.state.isDescriptionOpened ?
-                    [<p className="card-description">{this.props.description}</p>] :
-                    [<h3 className="card-title">{this.props.title}</h3>,
+                    [<p className="card-description">{this.props.card.description}</p>] :
+                    [<h3 className="card-title">{this.props.card.name}</h3>,
                         <div className="card-points">{pointsDescription}</div>]
             );
         },
@@ -43,7 +43,7 @@ define(['lodash', 'React'], function (_, React) {
             13: 'card-13'
         },
         getCardClassName: function () {
-            return 'card ' + this.pointsClass[this.props.points.toString()];
+            return 'card ' + this.pointsClass[this.props.card.score.toString()];
         },
         render: function () {
             return (
