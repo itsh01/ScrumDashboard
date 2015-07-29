@@ -1,23 +1,16 @@
-
 .sprint-member-cell {
     vertical-align: middle;
 }
 
-.sprint-member img{
+.sprint-member img {
     width: 4rem;
-    margin: 0 auto;
-    display: block;
 }
 
-.sprint-member figure{
-    margin: 1rem;
+.sprint-member figure {
+    text-align: center;
 }
 
-.sprint-head .table-heading{
-    padding: 1rem;
-}
-
-.sprint-table-wrapper .table-cell{
+.sprint-table-wrapper .table-cell {
     max-width: 7rem;
     overflow: hidden;
 }
@@ -32,3 +25,7 @@
     margin: 0 auto;
 }
 
+.board .table-heading:first-child,
+.board .table-cell:first-child {
+    width: 8rem;
+}
