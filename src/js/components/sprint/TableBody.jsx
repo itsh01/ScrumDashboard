@@ -34,7 +34,8 @@ define([
                 var rows = _.map(this.props.members, function (member) {
                     return (<SprintMemberRow
                         cardLifecycle={this.props.cardLifecycle}
-                        key={member.id} />);
+                        key={member.id}
+                        member={member} />);
                 }, this);
 
                 return (<div className="tbody">
