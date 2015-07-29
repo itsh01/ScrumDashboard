@@ -2,7 +2,6 @@ define([
         'lodash',
         'React',
         'components/card/Card',
-        'components/card/Card',
         './cardsList'
     ],
     function (_, React, Card, CardsList) {
