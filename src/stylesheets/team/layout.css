@@ -1,4 +1,8 @@
 
+.teamManagement-container {
+
+}
+
 .SprintsContainer {
     display: flex;
     flex-direction: row;
@@ -11,8 +15,6 @@
     height: 0;
     border-style: solid;
     margin: 20px;
-    display: inline-block;
-    vertical-align: top;
 }
 
 .arrow:hover {

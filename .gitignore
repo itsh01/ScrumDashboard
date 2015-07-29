@@ -6,3 +6,4 @@ src/vendor/**
 build
 **/.DS_Store
 src/js/components/**/*.js
+src/js/playground.js

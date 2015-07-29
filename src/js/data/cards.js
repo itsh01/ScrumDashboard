@@ -6,7 +6,7 @@ define([], function () {
             "description": "I'll generate the mobile JSON panel, that should panel the JSON panel!",
             "status": "unassigned",
             "score": null,
-            "team": 1,
+            "team": "f2ca8b7b-e798-4ed2-aff9-eee3a1aaff61",
             "assignee": null,
             "startDate": null,
             "endDate": null
@@ -17,7 +17,7 @@ define([], function () {
             "description": "If we compress the bus, we can get to the JSON bus through the auxiliary JSON bus!",
             "status": "unassigned",
             "score": null,
-            "team": null,
+            "team": "f2ca8b7b-e798-4ed2-aff9-eee3a1aaff61",
             "assignee": null,
             "startDate": null,
             "endDate": null
@@ -28,7 +28,7 @@ define([], function () {
             "description": "If we override the alarm, we can get to the SMS alarm through the optical SMS alarm!",
             "status": "unassigned",
             "score": null,
-            "team": 1,
+            "team": "f2ca8b7b-e798-4ed2-aff9-eee3a1aaff61",
             "assignee": null,
             "startDate": null,
             "endDate": null
@@ -39,7 +39,7 @@ define([], function () {
             "description": "The AI card is down, generate the mobile card so we can generate the AI card!",
             "status": "unassigned",
             "score": null,
-            "team": 1,
+            "team": "f2ca8b7b-e798-4ed2-aff9-eee3a1aaff61",
             "assignee": null,
             "startDate": null,
             "endDate": null

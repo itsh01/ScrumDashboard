@@ -62,20 +62,20 @@ requirejs.config({
 
 requirejs(['lodash', 'React', 'components/card/Card'],
     function (_, React, Card, Backlog, Table) {
-        var CardShowcase = React.createClass({displayName: "CardShowcase",
+        var CardShowcase = React.createClass({
             render: function () {
                 return (
-                    React.createElement("div", null, 
-                        
+                    <div>
+                        {
                             _.map(playData.cards, function(card) {
-                                return React.createElement(Card, {title: card.title, description: card.description, points: card.points})
+                                return <Card title={card.title} description={card.description} points={card.points} />
                             })
-                        
-                    ));
+                        }
+                    </div>);
             }
         });
         React.render(
-            React.createElement(CardShowcase, null),
+            <CardShowcase />,
             document.getElementById('Card')
         );
 

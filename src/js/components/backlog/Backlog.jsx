@@ -9,7 +9,6 @@ define([
         'use strict';
 
         /** jsx React.DOM */
-
         return React.createClass({
 
             displayName: 'Backlog',
