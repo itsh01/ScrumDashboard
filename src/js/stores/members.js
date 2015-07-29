@@ -17,6 +17,10 @@ define(['lodash', '../data/members'], function (_, defaultMembersData) {
             currentMembers.push(newMemberData);
         }
 
+        this.getMemberById = function getMemberById(id) {
+            return _.find(currentMembers, {id: id});
+        };
+
         dispatcher.registerAction('ADD_MEMBER', addMember.bind(this));
     }
 
