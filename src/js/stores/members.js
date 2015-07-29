@@ -4,7 +4,7 @@ define(['lodash', '../data/members'], function (_, defaultMembersData) {
         AllMembers: null
     };
 
-    function MembersStore() {
+    function MembersStore(dispatcher) {
         var currentMembers = defaultMembersData;
         _.forEach(filterFunctions, function (filterVal, filterFuncName) {
             this['get' + filterFuncName] = function () {
@@ -13,18 +13,12 @@ define(['lodash', '../data/members'], function (_, defaultMembersData) {
         }, this);
 
         // This is an example of how to use data mutating functions
-        this.addMember = function (newMemberData) {
+        function addMember(newMemberData) {
             currentMembers.push(newMemberData);
-        };
+        }
 
-        this.handleAction = function (actionName, actionData) {
-            switch (actionName) {
-                case 'ADD_MEMBER': this.addMember(actionData);
-                    break;
-            }
-        };
+        dispatcher.registerAction('ADD_MEMBER', addMember.bind(this));
     }
 
     return MembersStore;
-
 });

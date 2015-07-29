@@ -12,7 +12,7 @@ define(['lodash', '../data/cards'], function (_, defaultCardsData) {
         NotCompleted: {endDate: null}
     };
 
-    function CardsStore() {
+    function CardsStore(dispatcher) {
         var currentCards = defaultCardsData;
         _.forEach(filterFunctions, function (filterVal, filterFuncName) {
             this['get' + filterFuncName] = function () {
@@ -21,9 +21,11 @@ define(['lodash', '../data/cards'], function (_, defaultCardsData) {
         }, this);
 
         // This is an example of how to use data mutating functions
-        this.addCard = function (newCardData) {
+        function addCard(newCardData) {
             currentCards.push(newCardData);
-        };
+        }
+
+        dispatcher.registerAction('ADD_MEMBER', addCard.bind(this));
 
         this.handleAction = function (actionName, actionData) {
             switch (actionName) {

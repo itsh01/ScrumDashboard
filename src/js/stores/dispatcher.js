@@ -1,10 +1,14 @@
 define(['lodash'], function (_) {
     'use strict';
 
-    function Dispatcher(stores) {
-        var storeCallbacks = _.map(stores, function (storeCallback) {
-            return storeCallback.handleAction;
-        });
+    function Dispatcher() {
+        var registeredActions = {};
+
+        this.registerAction = function (actionName, callback) {
+            registeredActions[actionName] = registeredActions[actionName] || [];
+            registeredActions[actionName].push(callback);
+        };
+
         this.handlingEvent = false;
 
         this.registerEventsHandled = function (callback) {
@@ -18,9 +22,11 @@ define(['lodash'], function (_) {
         this.dispatchAction = function (actionName, actionData) {
             var wasHandlingEvent = this.handlingEvent;
             this.handlingEvent = true;
-            storeCallbacks.forEach(function (cb) {
-                cb(actionName, actionData);
-            });
+            if (registeredActions[actionName]) {
+                _.forEach(registeredActions[actionName], function (callback) {
+                    callback(actionData);
+                });
+            }
             if (!wasHandlingEvent) {
                 this.handlingEvent = false;
                 this.fireUpdate();

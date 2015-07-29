@@ -7,7 +7,7 @@ define(['lodash', '../data/teams'], function (_, defaultTeamData) {
         }
     };
 
-    function TeamStore() {
+    function TeamStore(dispatcher) {
         var currentTeam = defaultTeamData;
         _.forEach(filterFunctions, function (filterVal, filterFuncName) {
             this['get' + filterFuncName] = function () {
@@ -15,12 +15,11 @@ define(['lodash', '../data/teams'], function (_, defaultTeamData) {
             };
         }, this);
 
-        this.handleAction = function (actionName, actionData) {
-            switch (actionName) {
-                case 'ADD_MEMBER': this.addCard(actionData);
-                    break;
-            }
-        };
+        function addTeam(teamData) {
+            currentTeam.push(teamData);
+        }
+
+        dispatcher.registerAction('ADD_TEAM', addTeam.bind(this));
     }
 
     return TeamStore;

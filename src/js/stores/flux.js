@@ -2,10 +2,10 @@ define(['lodash', './cards', './members', './teams', './dispatcher'], function (
     'use strict';
 
     function Flux() {
-        this.cardsStore = new Cards();
-        this.membersStore = new Members();
-        this.teamsStore = new Teams();
-        this.dispatcher = new Dispatcher([this.cardsStore, this.membersStore, this.teamsStore]);
+        this.dispatcher = new Dispatcher();
+        this.cardsStore = new Cards(this.dispatcher);
+        this.membersStore = new Members(this.dispatcher);
+        this.teamsStore = new Teams(this.dispatcher);
     }
 
     return Flux;
