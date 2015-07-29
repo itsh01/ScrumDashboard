@@ -7,7 +7,7 @@ define(['lodash', '../data/cards'], function (_, defaultCardsData) {
             return {team: id};
         },
         UserCards: function (id) {
-            return {assingee: id};
+            return {assignee: id};
         },
         NotCompleted: {endDate: null}
     };

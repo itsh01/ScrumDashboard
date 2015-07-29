@@ -30,22 +30,23 @@ define([
 
                 var cards = this.context.flux.cardsStore.getUserCards(this.props.member.id),
                     cells = _.map(this.props.cardLifecycle, function (phase) {
-                    var cellCards = _(cards)
-                        .filter(function (card) {
-                            return card.status === phase;
-                        })
-                        .map(function (card) {
-                            return (<Card
-                                title={card.name}
-                                description={card.description}
-                                points={card.points}
-                            />);
-                        }).value();
+                        var cellCards = _(cards)
+                            .filter(function (card) {
+                                return card.status === phase;
+                            })
+                            .map(function (card) {
+                                return (<Card
+                                    title={card.name}
+                                    description={card.description}
+                                    points={card.points}
+                                />);
+                            }).value();
+                        console.log(cards);
 
-                    return (<div className="table-cell" key={phase}>
-                        {cellCards}
-                    </div>);
-                }, this);
+                        return (<div className="table-cell" key={phase}>
+                            {cellCards}
+                        </div>);
+                    }, this);
 
                 return (<div className="table-row">
                     <div className="table-cell sprint-member-cell">
