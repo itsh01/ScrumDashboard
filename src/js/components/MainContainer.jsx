@@ -34,9 +34,14 @@ define(['lodash', 'React', 'components/backlog/Backlog', 'components/sprint/Tabl
                     <h1>Scrum Board</h1>
 
                     <h2>Team: {this.state.currentTeam}</h2>
-                    <input type='number' value={this.state.currentTeam} onChange={changeTeam.bind(this)}/>
-                    <Backlog teamId={this.state.currentTeam}/>
-                    <TeamView />
+
+                    <div className="backlog">
+                        <input type='number' value={this.state.currentTeam} onChange={changeTeam.bind(this)}/>
+                        <Backlog teamId={this.state.currentTeam}/>
+                    </div>
+                    <div className="team-view">
+                        <TeamView />
+                    </div>
                 </div>);
         }
     });
