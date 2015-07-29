@@ -1,4 +1,5 @@
-define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Table'], function (_, React, ChangeSprint, SprintTable) {
+define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Table', 'components/backlog/Backlog'],
+    function (_, React, ChangeSprint, SprintTable, BackLog) {
     'use strict';
 
     return React.createClass({
@@ -50,6 +51,12 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                     <h3 className="text-center">Sprint: {this.state.currSprint}</h3>
                     <ChangeSprint direction='backwards'
                                   handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
+
+                    <div className="backlog">
+                        <BackLog teamId={this.props.team.id}/>
+                    </div>
+                    <span>{this.state.currSprint}</span>
+
                     <SprintTable />
                     <ChangeSprint direction='forward'
                                   handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
