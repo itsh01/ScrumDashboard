@@ -6,7 +6,15 @@ define(['lodash', 'React'], function (_, React) {
             flux: React.PropTypes.any
         },
         render: function () {
-            return <p>Hi</p>;
+            return (
+                <div className='teams-selector'>
+                    {
+                        _.map(this.context.flux.teamsStore.getAllTeams(), function (team) {
+                            return <div className='team-name'>{team.name}</div>;
+                        })
+                    }
+                </div>
+            );
         }
     });
 });

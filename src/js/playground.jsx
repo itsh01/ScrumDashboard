@@ -1,15 +1,16 @@
 var playData = {};
-playData.cards = [{
-    "id": "7d6f4051-64cb-4a49-aa58-168c4e8358c3",
-    "name": "input virtual hard drive",
-    "description": "I'll generate the mobile JSON panel, that should panel the JSON panel!",
-    "status": "unassigned",
-    "score": 1,
-    "team": 1,
-    "assignee": null,
-    "startDate": null,
-    "endDate": null
-},
+playData.cards = [
+    {
+        "id": "7d6f4051-64cb-4a49-aa58-168c4e8358c3",
+        "name": "input virtual hard drive",
+        "description": "I'll generate the mobile JSON panel, that should panel the JSON panel!",
+        "status": "unassigned",
+        "score": 1,
+        "team": 1,
+        "assignee": null,
+        "startDate": null,
+        "endDate": null
+    },
     {
         "id": "a91402b2-5ba5-4646-a0e5-b54d1e9e031a",
         "name": "quantify redundant array",
@@ -60,8 +61,11 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash', 'React', 'components/card/Card', 'components/team/TeamManagement'],
-    function (_, React, Card, TeamManagement) {
+
+
+requirejs(['lodash', 'React', 'components/card/Card', 'components/team/TeamManagement', 'stores/flux'],
+    function (_, React, Card, TeamManagement, Flux) {
+
         var CardShowcase = React.createClass({
             render: function () {
                 return (
@@ -74,13 +78,35 @@ requirejs(['lodash', 'React', 'components/card/Card', 'components/team/TeamManag
                     </div>);
             }
         });
+        var Playground = React.createClass({
+            childContextTypes: {
+                flux: React.PropTypes.any
+            },
+
+            getInitialState: function () {
+                this.flux = new Flux();
+                this.flux.dispatcher.registerEventsHandled(this.forceUpdate);
+                return {};
+            },
+
+            getChildContext: function () {
+                return {
+                    flux: this.flux
+                };
+            },
+
+            render: function () {
+                return <div>
+                    <TeamManagement />
+                </div>
+
+            }
+        });
+
         React.render(
-            <CardShowcase />,
-            document.getElementById('Card')
+            <Playground/>,
+            document.getElementById('MainPlayground')
         );
-        React.render(
-            <TeamManagement />,
-            document.getElementById('TeamManagement')
-        );
+
     }
 );
