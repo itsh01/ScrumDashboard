@@ -52,6 +52,7 @@ module.exports = function (grunt) {
                 'src/js/**/*.jsx',
                 'src/js/stores/*.js',
                 '!src/js/data/*',
+                '!src/js/playground.*',
                 'Gruntfile.js',
                 'src/js/main.js'
             ]
