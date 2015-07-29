@@ -34,3 +34,13 @@
     display: flex;
     line-height: 1rem;
 }
+
+.sprint-velocity {
+    width: 16rem;
+    margin: 0 auto;
+}
+
+.sprint-velocity-title {
+    border-bottom: solid #E0DEDE 1px;
+    padding-bottom: 0.6rem;
+}

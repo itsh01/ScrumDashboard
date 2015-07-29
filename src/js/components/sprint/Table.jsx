@@ -2,9 +2,10 @@ define([
         'lodash',
         'React',
         'components/sprint/TableHeader',
-        'components/sprint/TableBody'
+        'components/sprint/TableBody',
+        'components/sprint/Velocity'
     ],
-    function (_, React, TableHeader, TableBody) {
+    function (_, React, TableHeader, TableBody, Velocity) {
         'use strict';
 
         return React.createClass({
@@ -32,12 +33,14 @@ define([
                 };
             },
             render: function () {
-                return (<div className="sprint-table-wrapper">
-                            <div className="table-layout board">
-                                <TableHeader cardLifecycle={this.props.sprint.cardLifecycle} />
-                                <TableBody sprint={this.props.sprint} />
-                            </div>
-                        </div>);
+
+                return ( <div className="sprint-table-wrapper">
+                    <div className="table-layout board">
+                        <TableHeader cardLifecycle={this.props.sprint.cardLifecycle} />
+                        <TableBody sprint={this.props.sprint} />
+                    </div>
+                    <Velocity />
+                </div>);
             }
         });
     }
