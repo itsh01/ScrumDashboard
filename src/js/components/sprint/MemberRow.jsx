@@ -41,7 +41,6 @@ define([
                                     points={card.points}
                                 />);
                             }).value();
-                        console.log(cards);
 
                         return (<div className="table-cell" key={phase}>
                             {cellCards}
