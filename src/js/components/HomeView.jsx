@@ -2,7 +2,7 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
     'use strict';
 
     return React.createClass({
-        displayName: 'TeamManagement',
+        displayName: 'HomeView',
 
         propTypes: {
             currTeam: React.PropTypes.object,
@@ -16,19 +16,23 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
         getInitialState: function () {
             return {
                 teams: this.context.flux.teamsStore.getAllTeams(),
-                currTeam: this.context.flux.teamsStore.getAllTeams()[0]
+                currTeamId: this.context.flux.teamsStore.getAllTeams()[0]
             };
+        },
+
+        handleChangeTeam: function (e) {
+            this.setState({currTeamId: e.target.value});
         },
 
         render: function () {
             var teamsOptions = _.map(this.state.teams, function (team) {
-                return (<option value="{team.id}">{team.name}</option>);
+                return (<option value={team.id}>{team.name}</option>);
             });
             return (<div className="teamManagement-container">
                     <div className="header">
                         <div className="left">
                             <span>Choose Team: </span>
-                            <select>
+                            <select onChange={this.handleChangeTeam}>
                                 {teamsOptions}
                             </select>
                         </div>
@@ -39,7 +43,7 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
                     </div>
 
                     <div className="team-view">
-                        <TeamView />
+                        <TeamView currTeamId={this.state.currTeamId}/>
                     </div>
                 </div>
             );
