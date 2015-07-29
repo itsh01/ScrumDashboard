@@ -16,7 +16,7 @@ define([], function () {
             "name": "quantify redundant array",
             "description": "If we compress the bus, we can get to the JSON bus through the auxiliary JSON bus!",
             "status": "unassigned",
-            "score": null,
+            "score": 5,
             "team": "f2ca8b7b-e798-4ed2-aff9-eee3a1aaff61",
             "assignee": null,
             "startDate": null,

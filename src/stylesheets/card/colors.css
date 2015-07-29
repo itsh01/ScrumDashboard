@@ -1,18 +1,27 @@
-.card-1{
+.card-1 {
     background-color: #fff5c7;
 }
-.card-2{
+
+.card-2 {
     background-color: #dfd15f;
 }
-.card-3{
+
+.card-3 {
     background-color: #df9e4e;
 }
-.card-5{
+
+.card-5 {
     background-color: #d0d0ff;
 }
-.card-8{
+
+.card-8 {
     background-color: #a9aeff;
 }
-.card-13{
+
+.card-13 {
     background-color: #ff5555;
+}
+
+.card-none {
+    background-color: #cdd2cb;
 }
