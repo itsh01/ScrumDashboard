@@ -27,13 +27,12 @@
   "env": {
     "browser": true,
     "node": false,
-    "amd": false,
+    "amd": true,
     "jasmine": false
   },
   "globals": {
     "_": false,
     "React": false,
-    "define": false,
     "requirejs": false
   },
   "plugins": [
