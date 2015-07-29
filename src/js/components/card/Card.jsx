@@ -23,10 +23,10 @@ define(['lodash', 'React'], function (_, React) {
             };
         },
         getCardScore: function () {
-            return this.props.card.score ? this.props.card.score.toString() : 'None';
+            return this.props.card.score ? this.props.card.score.toString() : 'No';
         },
         getCardContent: function () {
-            var pointsDescription = 'points: ' + this.getCardScore();
+            var pointsDescription = this.getCardScore() + ' pts';
             return (
                 this.state.isDescriptionOpened ?
                     [<p className="card-description">{this.props.card.description}</p>] :
@@ -44,10 +44,10 @@ define(['lodash', 'React'], function (_, React) {
             5: 'card-5',
             8: 'card-8',
             13: 'card-13',
-            None: 'card-none'
+            No: 'card-none'
         },
         getCardClassName: function () {
-            return 'card ' + this.pointsClass[this.getCardScore()];
+            return 'card ' + this.pointsClass[this.getCardScore()] + ' ' + (this.state.isDescriptionOpened ? 'card-open' : '');
         },
         render: function () {
             return (

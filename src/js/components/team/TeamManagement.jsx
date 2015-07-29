@@ -15,6 +15,9 @@ define(['lodash', 'React'], function (_, React) {
                             })
                         }
                     </div>
+                    <div className="team-members">
+
+                    </div>
                 </div>
             );
         }
