@@ -8,6 +8,7 @@
     padding: 0.5rem;
     margin: 1rem;
     cursor: pointer;
+    transition: 0.5s linear all;
 }
 
 .card-points{
@@ -17,6 +18,6 @@
 .card-open {
     position: absolute;
     z-index: 1;
-    transform: scale(1.7);
+    transform: scale(1.7) rotateY(360deg);;
     font-size: 0.7rem;
 }
