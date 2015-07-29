@@ -1,5 +1,11 @@
 
-define(['lodash', 'React', 'components/card/Card', './cardsList'], function (_, React, Card, CardsList) {
+define([
+        'lodash',
+        'React',
+        'components/card/Card',
+        './cardsList'
+    ],
+    function (_, React, Card, CardsList) {
     'use strict';
     /** jsx React.DOM */
 
@@ -16,7 +22,7 @@ define(['lodash', 'React', 'components/card/Card', './cardsList'], function (_, 
         render: function () {
             var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
             return <div>
-               <CardsList title="Team" cardsList= {teamCards}/>
+                <CardsList title="Team backlog " cardsList={teamCards}/>
             </div>;
         }
 
