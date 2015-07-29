@@ -20,19 +20,15 @@ define(['lodash', '../data/cards'], function (_, defaultCardsData) {
             };
         }, this);
 
-        // This is an example of how to use data mutating functions
+        this.getCardById = function (id) {
+            return _.cloneDeep(_.find(currentCards, {id: id}));
+        };
+
         function addCard(newCardData) {
             currentCards.push(newCardData);
         }
 
         dispatcher.registerAction('ADD_MEMBER', addCard.bind(this));
-
-        this.handleAction = function (actionName, actionData) {
-            switch (actionName) {
-                case 'ADD_CARD': this.addCard(actionData);
-                    break;
-            }
-        };
     }
 
     return CardsStore;
