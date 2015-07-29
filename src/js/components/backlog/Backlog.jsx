@@ -11,17 +11,17 @@ define([
         return React.createClass({
 
             displayName: 'Backlog',
-            contextTypes: {
-                flux: React.PropTypes.any
-            },
             propTypes: {
                 teamId: React.PropTypes.string
             },
+            contextTypes: {
+                flux: React.PropTypes.any
+            },
             render: function () {
                 var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
-                return <div>
+                return (<div>
                     <CardsList title="Team backlog" cardsList={teamCards}/>
-                </div>;
+                </div>);
             }
         });
     }

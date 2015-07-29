@@ -5,22 +5,22 @@ define(['lodash', 'React', 'components/card/Card'], function (_, React, Card) {
     return React.createClass({
 
         displayName: 'CardsList',
-        contextTypes: {
-            flux: React.PropTypes.any
-        },
         propTypes: {
             cardsList: React.PropTypes.array,
             title: React.PropTypes.string
         },
+        contextTypes: {
+            flux: React.PropTypes.any
+        },
         render: function () {
             var cardsListToDisply = this.props.cardsList;
-            return <div>
+            return (<div>
                 <h2>{this.props.title} </h2>
                 {
                     _.map(cardsListToDisply, function (card) {
                         return <Card card={card}/>;
                     }, this)}
-            </div>;
+            </div>);
         }
 
     });
