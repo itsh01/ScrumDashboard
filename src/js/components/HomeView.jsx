@@ -14,9 +14,10 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
         },
 
         getInitialState: function () {
+            var teams = this.context.flux.teamsStore.getAllTeams();
             return {
-                teams: this.context.flux.teamsStore.getAllTeams(),
-                currTeamId: this.context.flux.teamsStore.getAllTeams()[0].id
+                teams: teams,
+                currTeamId: teams[0].id
             };
         },
 

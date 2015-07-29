@@ -23,7 +23,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             },
 
             handleSprintChange: function (direction) {
-                var allSprints = this.context.flux.teamsStore.getTeamById(this.props.currTeamId)[0].sprints;
+                var allSprints = this.context.flux.teamsStore.getTeamById(this.props.currTeamId).sprints;
                 if (direction === 'backwards' && this.state.currSprintIndex !== 0) {
                     this.setState({currSprint: allSprints[this.state.currSprintIndex - 1], currSprintIndex: this.state.currSprintIndex - 1});
                 } else if (direction === 'forward' && this.state.currSprintIndex !== this.state.team.sprints.length - 1) {
