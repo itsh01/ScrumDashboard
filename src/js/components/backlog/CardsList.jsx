@@ -18,7 +18,7 @@ define(['lodash', 'React', 'components/card/Card'], function (_, React, Card) {
                 <h2>{this.props.title} </h2>
                 {
                     _.map(cardsListToDisply, function (card) {
-                        return <Card card={card}/>;
+                        return <Card card={card} key={card.id}/>;
                     }, this)}
             </div>);
         }
