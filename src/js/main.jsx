@@ -23,6 +23,6 @@ requirejs(['lodash', 'React', 'components/MainContainer'],
         'use strict';
         var mountPoint = document.getElementById('main-container');
 
-        window.scrum = React.render(<MainContainer currentTeam='1' />, mountPoint);
+        window.scrum = React.render(<MainContainer currentTeam={1} />, mountPoint);
     }
 );
