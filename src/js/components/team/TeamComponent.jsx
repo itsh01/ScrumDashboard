@@ -62,8 +62,6 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                         </div>
                         <SprintTable />
                     </div>
-
-                    <button>Manage Team</button>
                 </div>);
             }
         });

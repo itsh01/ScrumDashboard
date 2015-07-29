@@ -1,6 +1,15 @@
 
-.teamManagement-container {
+.left {
+    float:left;
+}
 
+.right {
+    float:right;
+}
+
+
+.team-view {
+    clear: both;
 }
 
 .arrow {

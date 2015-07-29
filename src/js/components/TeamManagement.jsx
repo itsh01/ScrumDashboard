@@ -25,14 +25,24 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
                 return (<option value="{team.id}">{team.name}</option>);
             });
             return (<div className="teamManagement-container">
-                <span>Choose Team: </span>
-                <select>
-                    {teamNames}
-                </select>
-                <div className="team-view">
-                    <TeamView />
+                    <div className="header">
+                        <div className="left">
+                            <span>Choose Team: </span>
+                            <select>
+                                {teamNames}
+                            </select>
+                        </div>
+
+                        <div className="right">
+                            <button>Manage Teams</button>
+                        </div>
+                    </div>
+
+                    <div className="team-view">
+                        <TeamView />
+                    </div>
                 </div>
-            </div>);
+            );
         }
     });
 
