@@ -8,3 +8,11 @@
 .sprint-head .table-heading{
     padding: 1rem;
 }
+
+.sprint-table-wrapper .table-cell{
+    max-width: 7rem;
+    overflow: hidden;
+}
+.sprint-table-wrapper {
+    display: inline-block;
+}

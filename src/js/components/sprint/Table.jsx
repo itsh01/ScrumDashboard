@@ -13,10 +13,12 @@ define([
                 lifecycle: React.PropTypes.array
             },
             render: function () {
-                return (<div className="table-layout board">
-                    <TableHeader />
-                    <TableBody />
-                </div>);
+                return (<div className="sprint-table-wrapper">
+                            <div className="table-layout board">
+                                <TableHeader />
+                                <TableBody />
+                            </div>
+                        </div>);
             }
         });
     }
