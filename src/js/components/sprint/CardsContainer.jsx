@@ -14,7 +14,7 @@ define([
             },
             render: function () {
                 return (<div className="sprint-cards-container">
-                    <CardsList cards={this.props.cards} />
+                    <CardsList cardsList={this.props.cards} />
                 </div>);
             }
         });
