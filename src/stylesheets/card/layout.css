@@ -18,6 +18,6 @@
 .card-open {
     position: absolute;
     z-index: 1;
-    transform: scale(1.7) rotateY(360deg);;
+    transform: scale(1.7) rotateY(360deg);
     font-size: 0.7rem;
 }
