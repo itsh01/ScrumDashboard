@@ -13,11 +13,11 @@ define([
             },
             render: function () {
                 var headings = _.map(this.props.cardLifecycle, function (text) {
-                    return <TableHeading text={text} />;
+                    return <TableHeading text={text} key={text} />;
                 });
                 return (<div className="thead sprint-head">
                     <div className="table-row">
-                        <TableHeading text={"Member"} />
+                        <TableHeading text={"Member"} key={"member"} />
                         { headings }
                     </div>
                 </div>);
