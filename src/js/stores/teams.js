@@ -1,10 +1,10 @@
 define(['lodash', '../data/teams'], function (_, defaultTeamData) {
     'use strict';
     var filterFunctions = {
-        AllTeams: null,
-        TeamById: function (id) {
-            return {id: id};
-        }
+        AllTeams: null
+        //TeamById: function (id) {
+        //    return {id: id};
+        //}
     };
 
     function TeamStore(dispatcher) {
@@ -15,6 +15,9 @@ define(['lodash', '../data/teams'], function (_, defaultTeamData) {
             };
         }, this);
 
+        this.getTeamById = function (id) {
+            return _.cloneDeep(_.find(currentTeam, {id: id}));
+        };
         function addTeam(teamData) {
             currentTeam.push(teamData);
         }
