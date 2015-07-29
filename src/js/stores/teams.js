@@ -1,18 +1,21 @@
 define(['lodash', '../data/teams'], function (_, defaultTeamData) {
+    'use strict';
+    var filterFunctions = {
+        AllTeams: null,
+        TeamById: function (id) {
+            return {team: id};
+        }
+    };
 
     function TeamStore() {
         var currentTeam = defaultTeamData;
-        this.getAllTeams = function () {
-            return _.cloneDeep(currentTeam);
-        };
+        _.forEach(filterFunctions, function (filterVal, filterFuncName) {
+            this['get' + filterFuncName] = function () {
+                return _.filter(currentTeam, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
+            };
+        }, this);
 
-        // This is an example of how to use data mutating functions
-        this.addTeam = function (newTeamData) {
-            currentTeam.push(newTeamData);
-            // trigger re-render on main component
-        };
-
-        this.handleAction = function(actionName, actionData) {
+        this.handleAction = function (actionName, actionData) {
             switch (actionName) {
                 case 'ADD_MEMBER': this.addCard(actionData);
                     break;
@@ -20,5 +23,5 @@ define(['lodash', '../data/teams'], function (_, defaultTeamData) {
         };
     }
 
-    return TeamStore
+    return TeamStore;
 });
