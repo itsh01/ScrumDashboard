@@ -17,10 +17,7 @@ requirejs.config({
 
 requirejs(['lodash','React', 'components/MainContainer'],
     function (_, React, MainContainer) {
+        console.log(_, React, MainContainer);
 
-        //
-        //var mountPoint = document.getElementById('main-container');
-        //
-        //React.render(React.createElement(MainContainer, {currentTeam: 1}), mountPoint);
     }
 );
