@@ -1,16 +1,14 @@
-
 define([
         'lodash',
         'React',
-
         'components/card/Card',
-
+        'components/card/Card',
         './cardsList'
     ],
     function (_, React, Card, CardsList) {
         'use strict';
-    /** jsx React.DOM */
 
+        /** jsx React.DOM */
         return React.createClass({
 
             displayName: 'Backlog',
@@ -20,14 +18,12 @@ define([
             propTypes: {
                 teamId: React.PropTypes.string
             },
-
             render: function () {
                 var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
                 return <div>
-                   <CardsList title="Team" cardsList= {teamCards}/>
+                    <CardsList title="Team backlog" cardsList={teamCards}/>
                 </div>;
             }
-
         });
     }
 );

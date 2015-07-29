@@ -1,5 +1,11 @@
-.board .table-cell,
-.board .table-heading {
+.board .table-cell {
     border-color: #ffffff;
     background-color: #f0f0f0;
+    color: #404040;
+}
+
+.board .table-heading {
+    border-color: #ffffff;
+    background-color: #d0d0d0;
+    color: #000000;
 }
