@@ -1,9 +1,10 @@
 define([
         'lodash',
         'React',
-        'components/card/Card'
+        'components/card/Card',
+        'components/backlog/CardsList'
     ],
-    function (_, React, Card) {
+    function (_, React, Card, CardsList) {
         'use strict';
 
         return React.createClass({
@@ -12,11 +13,8 @@ define([
                 cards: React.PropTypes.array
             },
             render: function () {
-                var cards = _.map(this.props.cards, function (card) {
-                    return (<Card key={card.id} card={card} />);
-                });
                 return (<div className="sprint-cards-container">
-                    {cards}
+                    <CardsList cards={this.props.cards} />
                 </div>);
             }
         });
