@@ -12,7 +12,7 @@
 
 .sprint-table-wrapper .table-cell {
     max-width: 7rem;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .sprint-table-wrapper {
