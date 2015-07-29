@@ -18,9 +18,9 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash','React', 'components/MainContainer'],
+requirejs(['lodash', 'React', 'components/MainContainer'],
     function (_, React, MainContainer) {
-
+        'use strict';
         var mountPoint = document.getElementById('main-container');
 
         React.render(React.createElement(MainContainer, {currentTeam: 1}), mountPoint);
