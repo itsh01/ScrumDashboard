@@ -9,12 +9,12 @@ define([
 
         return React.createClass({
             displayName: 'Sprint Member Row',
-            contextTypes: {
-                flux: React.PropTypes.any
-            },
             propTypes: {
                 cardLifecycle: React.PropTypes.array,
                 member: React.PropTypes.object
+            },
+            contextTypes: {
+                flux: React.PropTypes.any
             },
             getDefaultProps: function () {
                 return {
