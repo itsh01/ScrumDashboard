@@ -6,9 +6,13 @@ define([],
     function () {
         'use strict';
 
-        return {
-            componentWillMount: function () {
 
+        return {
+            componentDidMount: function () {
+                this.getDOMNode().addEventListener('dragover', this.handleDragOver);
+            },
+            componentWillUnmount: function () {
+                this.getDOMNode().removeEventListener('dragover', this.handleDragOver);
             },
             handleDragOver: function (e) {
                 e.preventDefault();

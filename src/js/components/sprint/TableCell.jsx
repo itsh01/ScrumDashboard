@@ -1,9 +1,10 @@
 define([
         'lodash',
         'React',
-        'components/sprint/CardsContainer'
+        'components/sprint/CardsContainer',
+        'mixins/DragDropMixin'
     ],
-    function (_, React, CardsContainer) {
+    function (_, React, CardsContainer, DragDropMixin) {
         'use strict';
 
         return React.createClass({
@@ -11,13 +12,10 @@ define([
             propTypes: {
                 cards: React.PropTypes.array
             },
-            handleDragOver: function (e) {
-                e.preventDefault();
-            },
+            mixins: [DragDropMixin],
             render: function () {
                 return (<div
-                    className="table-cell"
-                    onDragOver={this.handleDragOver}>
+                    className="table-cell">
                     <CardsContainer cards={this.props.cards} />
                 </div>);
             }
