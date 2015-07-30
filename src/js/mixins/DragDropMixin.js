@@ -18,20 +18,29 @@ define([],
                 return this.isAttrEnabled('draggable');
             },
             componentDidMount: function () {
+                var node = this.getDOMNode();
+
                 if (this.isDroppable()) {
-                    this.getDOMNode().addEventListener('dragover', this.handleDragOver);
+                    node.addEventListener('dragover', this.handleDragOver);
+                    node.addEventListener('drop', this.handleDrop);
                 }
 
                 if (this.isDraggable()) {
-                    this.getDOMNode().draggable = true;
+                    node.draggable = true;
                 }
             },
             componentWillUnmount: function () {
+                var node = this.getDOMNode();
+
                 if (this.isDroppable()) {
-                    this.getDOMNode().removeEventListener('dragover', this.handleDragOver);
+                    node.removeEventListener('dragover', this.handleDragOver);
+                    node.removeEventListener('drop', this.handleDrop);
                 }
             },
             handleDragOver: function (e) {
+                e.preventDefault();
+            },
+            handleDrop: function (e) {
                 e.preventDefault();
             }
         };
