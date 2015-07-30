@@ -2,9 +2,6 @@ define(['lodash', '../data/teams'], function (_, defaultTeamData) {
     'use strict';
     var filterFunctions = {
         AllTeams: null
-        //TeamById: function (id) {
-        //    return {id: id};
-        //}
     };
 
     function TeamStore(dispatcher) {
