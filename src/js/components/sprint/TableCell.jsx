@@ -13,16 +13,18 @@ define([
                 cards: React.PropTypes.array
             },
             mixins: [DragDropMixin],
-            dragDrop: {
-                droppable: true,
-                drop: function (data) {
-                    console.log(data);
-                }
+            dragDrop: function () {
+                return {
+                    droppable: true,
+                    drop: function (data) {
+                        console.log(data);
+                    }
+                };
             },
             render: function () {
                 return (<div
                     className="table-cell">
-                    <CardsContainer cards={this.props.cards} />
+                    <CardsContainer cards={this.props.cards}/>
                 </div>);
             }
         });

@@ -61,18 +61,30 @@ requirejs.config({
     }
 });
 
+requirejs(
+    [
+        'lodash',
+        'React',
+        'components/card/Card',
+        'components/team/TeamManagement',
+        'stores/flux',
+        'components/planning/CardEditCreate'
+    ],
+    function (_,
+              React,
+              Card,
+              TeamManagement,
+              Flux,
+              PlanningCardEditCreate) {
 
-
-requirejs(['lodash', 'React', 'components/card/Card', 'components/team-management/TeamManagement', 'stores/flux'],
-    function (_, React, Card, TeamManagement, Flux) {
 
         var CardShowcase = React.createClass({
             render: function () {
                 return (
                     <div>
                         {
-                            _.map(playData.cards, function(card) {
-                                return <Card card={card} />
+                            _.map(playData.cards, function (card) {
+                                return <Card card={card}/>
                             })
                         }
                     </div>);
@@ -96,7 +108,19 @@ requirejs(['lodash', 'React', 'components/card/Card', 'components/team-managemen
             },
 
             render: function () {
+                var card = {
+                    "id": "b97fff13-de90-4e1f-abb7-39f786d11450",
+                    "name": "connect solid state hard drive",
+                    "description": "You can't hack the alarm without bypassing the multi-byte SDD alarm!",
+                    "status": "In progress",
+                    "score": 3,
+                    "team": null,
+                    "assignee": '0e8b324c-d49a-474d-8a=f4-f93bcc6a1511',
+                    "startDate": null,
+                    "endDate": null
+                };
                 return <div>
+                    <PlanningCardEditCreate isCreating={false} card={card}/>
                     <TeamManagement />
                 </div>
 

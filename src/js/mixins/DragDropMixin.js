@@ -12,20 +12,24 @@ define([],
              *  usage:
               *
               *  mixins: [DragDropMixin],
-              *  dragDrop: {
+              *  dragDrop: function () {
               *
-              *     // when dragging an item
-              *     draggable: true,
-              *     dataTransfer: { myItem: item1 }
+              *     return {
               *
-              *     // when dropping an item:
-              *     droppable: true,
-              *     drop: function (myItem) {},
+              *         // when dragging an item
+              *         draggable: true,
+              *         dataTransfer: { myItem: item1 }
+              *
+              *         // when dropping an item:
+              *         droppable: true,
+              *         drop: function (myItem) {},
+              *     };
               *  }
               *
              */
             isAttrEnabled: function (attr) {
-                return this.dragDrop && this.dragDrop[attr];
+                var dragDrop = this.dragDrop();
+                return dragDrop && dragDrop[attr];
             },
             isDroppable: function () {
                 return this.isAttrEnabled('droppable');
@@ -62,18 +66,20 @@ define([],
                 e.preventDefault();
             },
             handleDrop: function (e) {
-                var data = e.dataTransfer.getData('data');
+                var data = e.dataTransfer.getData('data'),
+                    dragDrop = this.dragDrop();
 
                 e.preventDefault();
 
-                if (!this.dragDrop.drop) {
+                if (!dragDrop.drop) {
                     throw new Error('Must define drop function when using droppable');
                 }
 
-                this.dragDrop.drop(data);
+                dragDrop.drop(data);
             },
             handleDragStart: function (e) {
-                var data = this.dragDrop.dataTransfer;
+                var dragDrop = this.dragDrop(),
+                    data = dragDrop.dataTransfer;
 
                 e.dataTransfer.setData('data', data);
             }

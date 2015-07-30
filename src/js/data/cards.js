@@ -7,7 +7,7 @@ define([], function () {
             "status": "In progress",
             "score": 3,
             "team": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
-            "assignee": '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
+            "assignee": '0e8b324c-d49a-474d-8a=f4-f93bcc6a1511',
             "startDate": null,
             "endDate": null
         },
