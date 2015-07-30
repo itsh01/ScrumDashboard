@@ -51,11 +51,9 @@ define(['lodash', 'React'], function (_, React) {
         },
         render: function () {
             return (
-                <div className="relative">
                     <div className={this.getCardClassName()} onClick={this.toggleDescriptionOpened}>
                         {this.getCardContent()}
                     </div>
-                </div>
 
             );
         }
