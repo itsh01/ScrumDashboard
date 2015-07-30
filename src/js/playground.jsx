@@ -63,7 +63,7 @@ requirejs.config({
 
 
 
-requirejs(['lodash', 'React', 'components/card/Card', 'components/team/TeamManagement', 'stores/flux'],
+requirejs(['lodash', 'React', 'components/card/Card', 'components/teamManagement/TeamManagement', 'stores/flux'],
     function (_, React, Card, TeamManagement, Flux) {
 
         var CardShowcase = React.createClass({
