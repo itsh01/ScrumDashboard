@@ -13,21 +13,21 @@ define(
             contextTypes: {
                 flux: React.PropTypes.any
             },
-            saveOrDeleteCard: function(){
+            saveOrDeleteCard: function () {
                 var dispatcher = this.context.flux.dispatcher;
-                if(this.props.isCreating){
+                if (this.props.isCreating) {
                     dispatcher.dispatchAction(
                         'PLANNING_ADD_CARD',
                         {
                             name: this.state.name
                         }
                     );
-                }else{
-
+                //} else {
+                //
                 }
             },
-            getInitialState: function(){
-                return{
+            getInitialState: function () {
+                return {
                     name: 'blabla'
                 };
             },
