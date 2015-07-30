@@ -58,6 +58,23 @@ module.exports = function (grunt) {
                 'src/js/main.jsx'
             ]
         },
+        babel: {
+            options: {
+                sourceMap: false,
+                blacklist: ['strict']
+            },
+            main: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src/js/',
+                        src: ['**/*.jsx'],
+                        dest: 'src/js/',
+                        ext: '.js'
+                    }
+                ]
+            }
+        },
         csslint: {
             options: {
                 'adjoining-classes': false,
@@ -127,9 +144,9 @@ module.exports = function (grunt) {
     require('jit-grunt')(grunt);
 
     grunt.registerTask('lint', ['eslint', 'csslint']);
-    grunt.registerTask('dev', ['asciify:banner', 'lint', 'react:main']);
+    grunt.registerTask('dev', ['asciify:banner', 'lint', 'babel']);
     grunt.registerTask('minify', ['processhtml', 'requirejs', 'cssmin']);
-    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'react:main', 'copy', 'minify']);
+    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'babel'/*'react:main'*/, 'copy', 'minify']);
     grunt.registerTask('test', []);
     grunt.registerTask('default', ['test', 'build']);
 
