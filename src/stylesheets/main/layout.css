@@ -17,3 +17,6 @@ h1, h2, h3 {
     align-items: baseline;
     justify-content: space-around;
 }
+.inline-block{
+    display: inline-block;
+}

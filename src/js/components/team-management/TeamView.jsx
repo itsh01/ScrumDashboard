@@ -1,4 +1,5 @@
-define(['lodash', 'React'], function (_, React) {
+define(['lodash', 'React', 'components/team-management/MemberProfile'],
+    function (_, React, MemberProfile) {
     'use strict';
     return React.createClass({
         displayName: 'TeamView',
@@ -14,7 +15,7 @@ define(['lodash', 'React'], function (_, React) {
         },
         render: function () {
             return (
-                <div>
+                <div className='team-view'>
                     <h1>{this.getTeamTitle()}</h1>
                     {
                         _.map(this.props.team.members, function (memberId) {

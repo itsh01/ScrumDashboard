@@ -11,3 +11,18 @@
     padding: 0.5rem;
     margin: 0.5rem;
 }
+
+.member-name{
+    padding: 0 0.7rem 0.7rem 0.7rem;
+    vertical-align: top;
+    margin: 0;
+}
+
+.member-profile {
+    margin: 0.5rem;
+}
+
+.team-view {
+    text-align: center;
+    margin: 0 auto;
+}
