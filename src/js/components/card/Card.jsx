@@ -51,7 +51,10 @@ define(['lodash', 'React'], function (_, React) {
         },
         render: function () {
             return (
-                    <div className={this.getCardClassName()} onClick={this.toggleDescriptionOpened}>
+                    <div
+                        className={this.getCardClassName()}
+                        draggable="true"
+                        onClick={this.toggleDescriptionOpened}>
                         {this.getCardContent()}
                     </div>
 
