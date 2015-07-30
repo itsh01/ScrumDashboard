@@ -1,4 +1,4 @@
-define(['lodash', 'React', 'components/teamManagement/TeamSelector'], function (_, React, TeamSelector) {
+define(['lodash', 'React', 'components/teamManagement/TeamSelector', 'components/teamManagement/TeamView'], function (_, React, TeamSelector, TeamView) {
     'use strict';
     return React.createClass({
         displayName: 'TeamManagement',
@@ -6,11 +6,11 @@ define(['lodash', 'React', 'components/teamManagement/TeamSelector'], function (
             flux: React.PropTypes.any
         },
         render: function () {
+            var allTeams = this.context.flux.teamsStore.getAllTeams();
             return (
                 <div className='team-management'>
-                    <TeamSelector teams={this.context.flux.teamsStore.getAllTeams()}/>
-                    <div className="team-members">
-                    </div>
+                    <TeamSelector teams={allTeams}/>
+                    <TeamView team={allTeams[0]}/>
                 </div>
             );
         }

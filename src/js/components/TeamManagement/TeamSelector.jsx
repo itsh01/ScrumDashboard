@@ -2,6 +2,9 @@ define(['lodash', 'React'], function (_, React) {
     'use strict';
     return React.createClass({
         displayName: 'Team Selector',
+        propTypes: {
+            teams: React.PropTypes.array
+        },
         render: function () {
             return (
                 <div className='teams-selector'>

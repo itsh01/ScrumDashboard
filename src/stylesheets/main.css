@@ -18,8 +18,10 @@
 @import 'card/typography.css';
 
 @import 'team/layout.css';
-@import 'team/colors.css';
 
 @import 'sprint/layout.css';
 @import 'sprint/colors.css';
 @import 'sprint/typography.css';
+
+@import "teamManagement/colors.css";
+@import "teamManagement/layout.css";
