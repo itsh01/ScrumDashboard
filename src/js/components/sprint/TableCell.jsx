@@ -13,6 +13,9 @@ define([
                 cards: React.PropTypes.array
             },
             mixins: [DragDropMixin],
+            dragDrop: {
+                droppable: true
+            },
             render: function () {
                 return (<div
                     className="table-cell">
