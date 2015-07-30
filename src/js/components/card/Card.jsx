@@ -29,8 +29,10 @@ define([
                     isDescriptionOpened: false
                 };
             },
-            dragDrop: {
-                draggable: true
+            dragDrop: function () {
+                return {
+                    draggable: true
+                };
             },
             getCardScore: function () {
                 return this.props.card.score ? this.props.card.score.toString() : 'No';
