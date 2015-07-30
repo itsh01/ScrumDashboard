@@ -2,10 +2,9 @@ define([
         'lodash',
         'React',
         'components/sprint/Member',
-        'components/card/Card',
-        'components/sprint/CardsContainer'
+        'components/sprint/TableCell'
     ],
-    function (_, React, SprintMember, Card, CardsContainer) {
+    function (_, React, SprintMember, TableCell) {
         'use strict';
 
         return React.createClass({
@@ -27,21 +26,13 @@ define([
                     }
                 };
             },
-            handleDragOver: function (e) {
-                e.preventDefault();
-            },
             render: function () {
                 var cards = this.context.flux.cardsStore.getUserCards(this.props.member.id),
                     cells = _.map(this.props.cardLifecycle, function (phase) {
                         var phaseCards = _.filter(cards, function (card) {
                             return card.status === phase;
                         });
-                        return (<div
-                            className="table-cell"
-                            onDragOver={this.handleDragOver}
-                            key={phase}>
-                            <CardsContainer cards={phaseCards} key={'sprint-cards-container-' + phase} />
-                        </div>);
+                        return (<TableCell key={phase} cards={phaseCards} />);
                     }, this);
                 return (<div className="table-row">
                     <div className="table-cell sprint-member-cell">

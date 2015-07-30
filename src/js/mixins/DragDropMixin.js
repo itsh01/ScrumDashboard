@@ -7,6 +7,9 @@ define([],
         'use strict';
 
         return {
+            componentWillMount: function () {
+
+            },
             handleDragOver: function (e) {
                 e.preventDefault();
             }
