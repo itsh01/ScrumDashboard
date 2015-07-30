@@ -24,6 +24,7 @@ define([
                     <figure>
                         <img
                             alt={this.props.member.name}
+                            draggable="false"
                             src={this.props.member.image}/>
                         <figcaption className="text-center">{this.props.member.name}</figcaption>
                     </figure>
