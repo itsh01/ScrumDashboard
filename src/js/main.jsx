@@ -7,7 +7,8 @@ requirejs.config({
         lodash: '../vendor/lodash',
         React: '../vendor/react-with-addons',
         components: '../js/components',
-        mixins: '../js/mixins'
+        mixins: '../js/mixins',
+        stores: '../js/stores'
     },
     shim: {
         lodash: {
