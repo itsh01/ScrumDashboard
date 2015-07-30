@@ -31,7 +31,8 @@ define([
             },
             dragDrop: function () {
                 return {
-                    draggable: true
+                    draggable: true,
+                    dataTransfer: this.props.card
                 };
             },
             getCardScore: function () {

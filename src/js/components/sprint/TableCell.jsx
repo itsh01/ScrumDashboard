@@ -16,8 +16,8 @@ define([
             dragDrop: function () {
                 return {
                     droppable: true,
-                    drop: function (data) {
-                        console.log(data);
+                    drop: function (card) {
+                        console.log(card);
                     }
                 };
             },

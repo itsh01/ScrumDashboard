@@ -28,8 +28,7 @@ define([],
               *
              */
             isAttrEnabled: function (attr) {
-                var dragDrop = this.dragDrop();
-                return dragDrop && dragDrop[attr];
+                return this.dragDropData && this.dragDropData[attr];
             },
             isDroppable: function () {
                 return this.isAttrEnabled('droppable');
@@ -40,14 +39,16 @@ define([],
             componentDidMount: function () {
                 var node = this.getDOMNode();
 
+                this.dragDropData = this.dragDrop();
+
                 if (this.isDroppable()) {
-                    node.addEventListener('dragover', this.handleDragOver);
-                    node.addEventListener('drop', this.handleDrop);
+                    node.addEventListener('dragover', this.handleDragOver, this);
+                    node.addEventListener('drop', this.handleDrop, this);
                 }
 
                 if (this.isDraggable()) {
                     node.draggable = true;
-                    node.addEventListener('dragstart', this.handleDragStart);
+                    node.addEventListener('dragstart', this.handleDragStart, this);
                 }
             },
             componentWillUnmount: function () {
@@ -66,22 +67,20 @@ define([],
                 e.preventDefault();
             },
             handleDrop: function (e) {
-                var data = e.dataTransfer.getData('data'),
-                    dragDrop = this.dragDrop();
+                var jsonData = e.dataTransfer.getData('data');
 
                 e.preventDefault();
 
-                if (!dragDrop.drop) {
+                if (!this.dragDropData.drop) {
                     throw new Error('Must define drop function when using droppable');
                 }
 
-                dragDrop.drop(data);
+                this.dragDropData.drop(JSON.parse(jsonData));
             },
             handleDragStart: function (e) {
-                var dragDrop = this.dragDrop(),
-                    data = dragDrop.dataTransfer;
+                var data = this.dragDropData.dataTransfer;
 
-                e.dataTransfer.setData('data', data);
+                e.dataTransfer.setData('data', JSON.stringify(data));
             }
         };
     }
