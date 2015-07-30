@@ -14,7 +14,10 @@ define([
             },
             mixins: [DragDropMixin],
             dragDrop: {
-                droppable: true
+                droppable: true,
+                drop: function (data) {
+                    console.log(data);
+                }
             },
             render: function () {
                 return (<div

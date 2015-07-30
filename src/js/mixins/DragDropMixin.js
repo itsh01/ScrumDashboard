@@ -8,6 +8,22 @@ define([],
 
 
         return {
+            /*
+             *  usage:
+              *
+              *  mixins: [DragDropMixin],
+              *  dragDrop: {
+              *
+              *     // when dragging an item
+              *     draggable: true,
+              *     dataTransfer: { myItem: item1 }
+              *
+              *     // when dropping an item:
+              *     droppable: true,
+              *     drop: function (myItem) {},
+              *  }
+              *
+             */
             isAttrEnabled: function (attr) {
                 return this.dragDrop && this.dragDrop[attr];
             },
@@ -27,6 +43,7 @@ define([],
 
                 if (this.isDraggable()) {
                     node.draggable = true;
+                    node.addEventListener('dragstart', this.handleDragStart);
                 }
             },
             componentWillUnmount: function () {
@@ -36,12 +53,29 @@ define([],
                     node.removeEventListener('dragover', this.handleDragOver);
                     node.removeEventListener('drop', this.handleDrop);
                 }
+
+                if (this.isDraggable()) {
+                    node.removeEventListener('dragstart', this.handleDragStart);
+                }
             },
             handleDragOver: function (e) {
                 e.preventDefault();
             },
             handleDrop: function (e) {
+                var data = e.dataTransfer.getData('data');
+
                 e.preventDefault();
+
+                if (!this.dragDrop.drop) {
+                    throw new Error('Must define drop function when using droppable');
+                }
+
+                this.dragDrop.drop(data);
+            },
+            handleDragStart: function (e) {
+                var data = this.dragDrop.dataTransfer;
+
+                e.dataTransfer.setData('data', data);
             }
         };
     }
