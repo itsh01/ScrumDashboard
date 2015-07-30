@@ -5,7 +5,7 @@ define(['lodash', '../data/teams'], function (_, defaultTeamData) {
         //TeamById: function (id) {
         //    return {id: id};
         //}
-        
+
     };
 
     function TeamStore(dispatcher) {
