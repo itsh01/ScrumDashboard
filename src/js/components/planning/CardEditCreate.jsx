@@ -1,21 +1,43 @@
 define(
     ['React'],
     function (React) {
+        'use strict';
         return React.createClass({
-            propTypes:{
+            mixins: [React.addons.LinkedStateMixin],
+
+            displayName: 'CardEditCreate',
+            propTypes: {
                 isCreating: React.PropTypes.bool.isRequired
             },
+
+            contextTypes: {
+                flux: React.PropTypes.any
+            },
+            saveOrDeleteCard: function(){
+                var dispatcher = this.context.flux.dispatcher;
+                if(this.props.isCreating){
+                    dispatcher.dispatchAction(
+                        'PLANNING_ADD_CARD',
+                        {
+                            name: this.state.name
+                        }
+                    );
+                }else{
+
+                }
+            },
             getInitialState: function(){
-              return{
-                  saveDelTxt: this.props.isCreating? 'Save' : 'Cancel'
-              };
+                return{
+                    name: 'blabla'
+                };
             },
             render: function () {
+                var saveDelTxt = this.props.isCreating ? 'Save' : 'Delete';
                 return (
                     <div>
                         <div>
                             <span>name</span>
-                            <input type='text'></input>
+                            <input type='text' valueLink={this.linkState('name')}></input>
                         </div>
 
                         <div>
@@ -30,8 +52,8 @@ define(
                         </div>
 
                         <input type='checkbox'>Assign to All</input>
-                        <button>cancel</button>
-                        <button>{this.state.saveDelTxt}</button>
+                        <button>Cancel</button>
+                        <button onClick={this.saveOrDeleteCard}>{saveDelTxt}</button>
 
                     </div>
                 );

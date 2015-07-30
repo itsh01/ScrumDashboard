@@ -109,7 +109,7 @@ requirejs(
 
             render: function () {
                 return <div>
-                    <PlanningCardEditCreate />
+                    <PlanningCardEditCreate isCreating={true}/>
                     <TeamManagement />
                 </div>
 
