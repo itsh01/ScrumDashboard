@@ -108,8 +108,19 @@ requirejs(
             },
 
             render: function () {
+                var card =  {
+                    "id": "b97fff13-de90-4e1f-abb7-39f786d11450",
+                    "name": "connect solid state hard drive",
+                    "description": "You can't hack the alarm without bypassing the multi-byte SDD alarm!",
+                    "status": "In progress",
+                    "score": 3,
+                    "team": null,
+                    "assignee": '0e8b324c-d49a-474d-8a=f4-f93bcc6a1511',
+                    "startDate": null,
+                    "endDate": null
+                }
                 return <div>
-                    <PlanningCardEditCreate isCreating={true}/>
+                    <PlanningCardEditCreate isCreating={false} card={card}/>
                     <TeamManagement />
                 </div>
 

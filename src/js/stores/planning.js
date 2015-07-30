@@ -5,21 +5,37 @@ define(
 
         function Planning(dispatcher) {
             //var sprint, cards;
-            //
-            //function int() {
+
+            this.getBlankCard = function () {
+                return {
+                    card: {
+                        name: '',
+                        description: '',
+                        status: '',
+                        score: 0,
+                        team: '',
+                        assignee: '',
+                        startDate: null,
+                        endDate: null
+                    }
+                };
+            };
+
+            //this.init = function int() {
             //    sprint = {};
             //    cards = [];
-            //}
-            //
-            //function done() {
-            //
-            //}
+            //};
 
-            function addCard(card) {
+            this.done = function done() {
+
+            };
+
+            this.addCard = function addCard(card) {
                 console.log(card);
-            }
+            };
 
-            dispatcher.registerAction('PLANNING_ADD_CARD', addCard.bind(this));
+            dispatcher.registerAction('PLANNING_ADD_CARD', this.addCard.bind(this));
         }
+
         return Planning;
     });
