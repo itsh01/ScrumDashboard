@@ -5,7 +5,7 @@
 define([
         'lodash',
         'React',
-        
+
         'components/HomeView',
         'stores/flux'
     ],
