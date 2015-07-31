@@ -19,6 +19,7 @@ define(['lodash', '../data/teams'], function (_, defaultTeamData) {
         this.getTeamById = function (id) {
             return _.cloneDeep(_.find(currentTeam, {id: id}));
         };
+
         function addTeam(teamData) {
             currentTeam.push(teamData);
         }

@@ -21,6 +21,8 @@ define(
             this.membersStore = new Members(this.dispatcher);
             this.planningStore = new Planning(this.dispatcher);
             this.teamsStore = new Teams(this.dispatcher);
+
+            //this.cardsStore.testAdd();
         }
 
         return Flux;
