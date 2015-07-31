@@ -130,10 +130,19 @@ define(['lodash', '../data/cards', '../helpers/helpers'], function (_, defaultCa
             return false;
         }
 
+        function removeCard(cardId) {
+            var card = _.remove(currentCards, {id: cardId});
+            if (_.isEmpty(card)) {
+                console.log('Card Store: attempt to remove non existent card (id:', cardId, ')');
+                return false;
+            }
+            return true;
+        }
 
-        dispatcher.registerAction('UPDATE_MEMBER', updateCard.bind(this));
+
+        dispatcher.registerAction('UPDATE_CARD', updateCard.bind(this));
         dispatcher.registerAction('ADD_CARD', addCard.bind(this));
-
+        dispatcher.registerAction('REMOVE_CARD', removeCard.bind(this));
 
         this.testAdd = function () {
             var addedCardIds = [],
@@ -175,6 +184,7 @@ define(['lodash', '../data/cards', '../helpers/helpers'], function (_, defaultCa
                         fname: 'V'
                     }
                 ];
+            console.log('Test addCard...');
             _.forEach(validCards, function (card) {
                 var cardId = addCard.call(self, card);
                 if (cardId) {
@@ -184,6 +194,7 @@ define(['lodash', '../data/cards', '../helpers/helpers'], function (_, defaultCa
             _.forEach(invalidCards, function (card) {
                 addCard.call(self, card);
             });
+            console.log('Test addCard... done\n\n');
             return addedCardIds;
         };
         this.testUpdate = function (cardIds) {
@@ -223,12 +234,23 @@ define(['lodash', '../data/cards', '../helpers/helpers'], function (_, defaultCa
                         id2: '90eed4aa-40fe-496e-999a-54a436d66427'
                     }
                 ];
+            cardIds.push('non-existent-id');
+            console.log('Test updateCard...');
             _.forEach(cardIds, function (id) {
                 _.forEach(validCardData.concat(invalidCardData), function (data) {
                     updateCard.call(self, id, data);
                 });
             });
-
+            console.log('Test updateCard... done\n\n');
+        };
+        this.testRemove = function (cardIds) {
+            var self = this;
+            console.log('Test removeCard...');
+            _.forEach(cardIds, function (id) {
+                removeCard.call(self, id);
+            });
+            removeCard.call(self, 'non-existent-id');
+            console.log('Test removeCard... done\n\n');
         };
     }
 
