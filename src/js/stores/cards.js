@@ -56,13 +56,13 @@ define(['lodash', '../data/cards', '../helpers/helpers'], function (_, defaultCa
             // check dates
             if ((key === 'startDate' || key === 'endDate') && typeof value === 'string') {
                 if (!DATE_FORMAT.test(value)) {
-                    console.log('Card Store: invalid date format: ', value, ' ( must be: YYYY-MM-DD)');
+                    console.log('Card Store: invalid date format:', value, '( must be: YYYY-MM-DD)');
                     return false;
                 }
             }
             // check types of values
             if (typeof value !== CARDS_SCHEMA[key].type && value !== CARDS_SCHEMA[key].defaultValue) {
-                console.log('Card Store: invalid value encountered: ', value, ' ( key: ', key, ')');
+                console.log('Card Store: invalid value encountered:', value, '( key:', key, ')');
                 return false;
             }
             return true;
@@ -70,6 +70,12 @@ define(['lodash', '../data/cards', '../helpers/helpers'], function (_, defaultCa
 
         function isValidCard(card) {
             return _.every(card, isValidValue);
+        }
+
+        function isWritableCardData(cardData) {
+            return _.every(cardData, function (value, key) {
+                return CARDS_SCHEMA[key].writable;
+            });
         }
 
         /**
@@ -108,29 +114,30 @@ define(['lodash', '../data/cards', '../helpers/helpers'], function (_, defaultCa
          *      endDate: [String] (format: YYYY-MM-DD)
          *  }
          */
-        /*
         function updateCard(cardId, newCardData) {
-            var card = this.getCardById(cardId);
-
-            if (isValidCard(newCardData)) {
-                newCardData = JSON.parse(JSON.stringify(newCardData));
-                newCardData.id = dispatcher.generateGuid();
-                currentCards.push(newCardData);
-                return newCardData.id;
+            var card = _.find(currentCards, {id: cardId});
+            if (card === undefined) {
+                console.log('Card Store: attempt to update non existent card (id:', cardId, ')');
+                return false;
             }
+            if (isValidCard(newCardData) && isWritableCardData(newCardData)) {
+                newCardData = _.cloneDeep(newCardData);
+                _.forEach(newCardData, function (value, key) {
+                    card[key] = newCardData[key];
+                });
+                return true;
+            }
+            return false;
         }
-        */
 
 
-
-
-
-        //dispatcher.registerAction('UPDATE_MEMBER', updateCard.bind(this));
+        dispatcher.registerAction('UPDATE_MEMBER', updateCard.bind(this));
         dispatcher.registerAction('ADD_CARD', addCard.bind(this));
 
 
         this.testAdd = function () {
-            var self = this,
+            var addedCardIds = [],
+                self = this,
                 validCards = [
                     { // all data provided
                         name: 'card A',
@@ -169,13 +176,63 @@ define(['lodash', '../data/cards', '../helpers/helpers'], function (_, defaultCa
                     }
                 ];
             _.forEach(validCards, function (card) {
-                console.log(addCard.call(self, card));
+                var cardId = addCard.call(self, card);
+                if (cardId) {
+                    addedCardIds.push(cardId);
+                }
             });
             _.forEach(invalidCards, function (card) {
-                console.log(addCard.call(self, card));
+                addCard.call(self, card);
             });
+            return addedCardIds;
+        };
+        this.testUpdate = function (cardIds) {
+            var self = this,
+                validCardData = [
+                    { // task finished
+                        status: 'finished',
+                        score: 30,
+                        team: '2d2d8f82-0b6a-404a-9c08-929cfe3de079',
+                        assignee: '0e8b324c-d49a-474d-8a=f4-f93bcc6a1511',
+                        startDate: '2015-07-30',
+                        endDate: '2015-08-01'
+                    },
+                    { // task reset
+                        status: 'unassigned',
+                        score: null,
+                        team: null,
+                        assignee: 'unassigned',
+                        startDate: null,
+                        endDate: null
+                    }
+                ],
+                invalidCardData = [
+                    { // cannot redefine name
+                        name: 'card X'
+                    },
+                    { // invalid value
+                        description: null
+                    },
+                    { // invalid value
+                        description: undefined
+                    },
+                    { // invalid key
+                        id: '90eed4aa-40fe-496e-999a-54a436d66427'
+                    },
+                    { // invalid key
+                        id2: '90eed4aa-40fe-496e-999a-54a436d66427'
+                    }
+                ];
+            _.forEach(cardIds, function (id) {
+                _.forEach(validCardData.concat(invalidCardData), function (data) {
+                    updateCard.call(self, id, data);
+                });
+            });
+
         };
     }
+
+
 
     return CardsStore;
 });
