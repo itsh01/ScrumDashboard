@@ -66,7 +66,7 @@ requirejs(
         'lodash',
         'React',
         'components/card/Card',
-        'components/team/TeamManagement',
+        'components/team-management/TeamManagement',
         'stores/flux',
         'components/planning/CardEditCreate'
     ],
