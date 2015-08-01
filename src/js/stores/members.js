@@ -19,7 +19,7 @@ define(['lodash', '../data/members', './helpers'], function (_, defaultMembersDa
 
         function isValidMember(memberData) {
             return _.every(memberData, function (value, key) {
-                helpers.isValidValue(value, key, MEMBERS_SCHEMA, 'Member Store');
+                return helpers.isValidValue(value, key, MEMBERS_SCHEMA, 'Member Store');
             });
         }
 
@@ -67,6 +67,41 @@ define(['lodash', '../data/members', './helpers'], function (_, defaultMembersDa
         dispatcher.registerAction('ADD_MEMBER', addMember.bind(this));
         dispatcher.registerAction('UPDATE_MEMBER', updateMember.bind(this));
         dispatcher.registerAction('REMOVE_MEMBER', removeMember.bind(this));
+
+        this.test = function () {
+            var nonExistentId = 'non-existent-id',
+                existentId = '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
+                self = this,
+                members = [
+                { // all data supplied
+                    name: 'A',
+                    image: 'link',
+                    active: true
+                },
+                {
+                    name: 'B'
+                },
+                { // attempt to set id
+                    name: 'C',
+                    id: '123',
+                    image: 'link',
+                    active: true
+                },
+                { // illegal value
+                    name: 'D',
+                    active: 'false'
+                }
+            ];
+            console.log('Test add/remove/update Member...');
+            _.forEach(members, function (member) {
+                addMember.call(self, member);
+                updateMember.call(self, existentId, member);
+                updateMember.call(self, nonExistentId, member);
+            });
+            removeMember.call(self, existentId);
+            removeMember.call(self, nonExistentId);
+            console.log('Test add/remove/update Member... done\n\n');
+        };
     }
 
     return MembersStore;

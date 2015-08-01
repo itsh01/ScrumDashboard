@@ -25,6 +25,7 @@ define(
             //var ids = this.cardsStore.testAdd();
             //this.cardsStore.testUpdate(ids);
             //this.cardsStore.testRemove(ids);
+            //this.membersStore.test();
         }
 
         return Flux;
