@@ -50,13 +50,14 @@ define([
                 13: 'card-13',
                 No: 'card-none'
             },
-            getCardClassName: function () {
-                return 'card ' + this.pointsClass[this.getCardScore()] + ' ' + (this.state.isDescriptionOpened ? 'card-open' : '');
-            },
             render: function () {
+                var cx = React.addons.classSet;
+                var classesObject = {card: true, 'card-open': this.state.isDescriptionOpened};
+                classesObject[this.pointsClass[this.getCardScore()]] = true;
+                var classes = cx(classesObject);
                 return (
                     <div
-                        className={this.getCardClassName()}
+                        className={classes}
                         onClick={this.toggleDescriptionOpened}>
                         {this.getCardContent()}
                     </div>
