@@ -71,7 +71,7 @@ define(['lodash', '../data/cards', './helpers'], function (_, defaultCardsData, 
 
         /**
          *
-         * @param {Object} newCardData allowed attributes:
+         * @param {Object} newCardData
          *  {
          *      score: [Number],
          *      team: [String],
@@ -84,6 +84,7 @@ define(['lodash', '../data/cards', './helpers'], function (_, defaultCardsData, 
         function updateCard(cardId, newCardData) {
             if (isValidCard(newCardData)) {
                 return helpers.updateItem(currentCards, cardId, newCardData, CARDS_SCHEMA, 'Card Store');
+                // TODO: if assignee or team provided then make sure that they exist
             }
             return false;
         }

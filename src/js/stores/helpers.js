@@ -32,7 +32,23 @@ define([], function () {
                 return false;
             }
         }
-        // check types of values
+        // check arrays
+        if (schema[key].type === 'array') {
+            if (!_.isArray(value)) {
+                console.log(storeName, ': invalid value encountered: key', key, ' (array expected)');
+                return false;
+            }
+            return true;
+        }
+        // check string arrays
+        if (schema[key].type === 'string-array') {
+            if (!isStringArray(value)) {
+                console.log(storeName, ': invalid value encountered: key', key, ' (strings array expected)');
+                return false;
+            }
+            return true;
+        }
+        // check other types
         if (typeof value !== schema[key].type && value !== schema[key].defaultValue) {
             console.log(storeName, ': invalid value encountered:', value, '( key:', key, ')');
             return false;
@@ -52,6 +68,12 @@ define([], function () {
         });
     }
 
+    function isStringArray(arr) {
+        return _.every(arr, function (value) {
+            return typeof value === 'string';
+        });
+    }
+
     function updateItem(collection, itemId, newItemData, schema, storeName) {
         var item = _.find(collection, {id: itemId});
         if (item === undefined) {
@@ -65,7 +87,7 @@ define([], function () {
             });
             return true;
         }
-        console.log(storeName, ': attempt to set non writable fields (id:', itemId, '), ');
+        console.log(storeName, ': attempt to change non writable property (id:', itemId, '), ');
         return false;
     }
 

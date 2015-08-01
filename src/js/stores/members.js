@@ -44,6 +44,8 @@ define(['lodash', '../data/members', './helpers'], function (_, defaultMembersDa
                 return false;
             }
             member.active = false;
+            // TODO: update card store
+            // TODO: update team store
             return true;
         }
 

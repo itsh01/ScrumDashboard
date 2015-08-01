@@ -26,6 +26,7 @@ define(
             //this.cardsStore.testUpdate(ids);
             //this.cardsStore.testRemove(ids);
             //this.membersStore.test();
+            //this.teamsStore.testAdd();
         }
 
         return Flux;
