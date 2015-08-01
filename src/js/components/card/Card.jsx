@@ -15,15 +15,6 @@ define([
                 card: React.PropTypes.object
             },
             mixins: [DragDropMixin],
-            getDefaultProps: function () {
-                return {
-                    card: {
-                        name: 'Card Name',
-                        description: 'This is the card\'s description',
-                        score: 1
-                    }
-                };
-            },
             getInitialState: function () {
                 return {
                     isDescriptionOpened: false
@@ -64,11 +55,11 @@ define([
             },
             render: function () {
                 return (
-                        <div
-                            className={this.getCardClassName()}
-                            onClick={this.toggleDescriptionOpened}>
-                            {this.getCardContent()}
-                        </div>
+                    <div
+                        className={this.getCardClassName()}
+                        onClick={this.toggleDescriptionOpened}>
+                        {this.getCardContent()}
+                    </div>
 
                 );
             }
