@@ -1,4 +1,4 @@
-define(['lodash', '../data/cards', '../helpers/helpers'], function (_, defaultCardsData, helpers) {
+define(['lodash', '../data/cards', './helpers'], function (_, defaultCardsData, helpers) {
     'use strict';
     var filterFunctions = {
         AllCards: null,
@@ -12,8 +12,7 @@ define(['lodash', '../data/cards', '../helpers/helpers'], function (_, defaultCa
     };
 
     function CardsStore(dispatcher) {
-        var DATE_FORMAT = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/,
-            CARDS_SCHEMA = {
+        var CARDS_SCHEMA = {
                 name: {type: 'string', writable: false},
                 description: {type: 'string', defaultValue: '', writable: false},
                 score: {type: 'number', defaultValue: null, writable: true},
@@ -36,45 +35,13 @@ define(['lodash', '../data/cards', '../helpers/helpers'], function (_, defaultCa
         };
 
         this.getBlankCard = function () {
-            return _.assign({}, CARDS_SCHEMA, function (objectValue, sourceValue) {
-                return sourceValue.defaultValue === undefined ? '' : sourceValue.defaultValue;
-            });
+            return helpers.getBlankItem(CARDS_SCHEMA);
         };
 
-        function isValidValue(value, key) {
-            // make sure that there are no user defined attributes
-            if (CARDS_SCHEMA[key] === undefined) {
-                console.log('Card Store: unknown key encountered: ', key, ' ( value: ', value, ')');
-                return false;
-            }
-            // make sure that all required fields are provided
-            // TODO: improve
-            if (!value && CARDS_SCHEMA[key].defaultValue === undefined) {
-                console.log('Card Store: key (', key, ') was required but not provided');
-                return false;
-            }
-            // check dates
-            if ((key === 'startDate' || key === 'endDate') && typeof value === 'string') {
-                if (!DATE_FORMAT.test(value)) {
-                    console.log('Card Store: invalid date format:', value, '( must be: YYYY-MM-DD)');
-                    return false;
-                }
-            }
-            // check types of values
-            if (typeof value !== CARDS_SCHEMA[key].type && value !== CARDS_SCHEMA[key].defaultValue) {
-                console.log('Card Store: invalid value encountered:', value, '( key:', key, ')');
-                return false;
-            }
-            return true;
-        }
 
         function isValidCard(card) {
-            return _.every(card, isValidValue);
-        }
-
-        function isWritableCardData(cardData) {
-            return _.every(cardData, function (value, key) {
-                return CARDS_SCHEMA[key].writable;
+            return _.every(card, function (value, key) {
+                return helpers.isValidValue(value, key, CARDS_SCHEMA, 'Card Store');
             });
         }
 
@@ -104,7 +71,7 @@ define(['lodash', '../data/cards', '../helpers/helpers'], function (_, defaultCa
 
         /**
          *
-         * @param {Object} newCardData with fields:
+         * @param {Object} newCardData allowed attributes:
          *  {
          *      score: [Number],
          *      team: [String],
@@ -115,17 +82,8 @@ define(['lodash', '../data/cards', '../helpers/helpers'], function (_, defaultCa
          *  }
          */
         function updateCard(cardId, newCardData) {
-            var card = _.find(currentCards, {id: cardId});
-            if (card === undefined) {
-                console.log('Card Store: attempt to update non existent card (id:', cardId, ')');
-                return false;
-            }
-            if (isValidCard(newCardData) && isWritableCardData(newCardData)) {
-                newCardData = _.cloneDeep(newCardData);
-                _.forEach(newCardData, function (value, key) {
-                    card[key] = newCardData[key];
-                });
-                return true;
+            if (isValidCard(newCardData)) {
+                return helpers.updateItem(currentCards, cardId, newCardData, CARDS_SCHEMA, 'Card Store');
             }
             return false;
         }
