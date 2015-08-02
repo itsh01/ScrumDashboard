@@ -12,14 +12,18 @@ define([
             propTypes: {
                 card: React.PropTypes.object,
                 isCreating: React.PropTypes.bool.isRequired,
-                isPop: React.PropTypes.bool.isRequired
+                isPop: React.PropTypes.bool
             },
             contextTypes: {
                 flux: React.PropTypes.any
             },
 
             mixins: [React.addons.LinkedStateMixin],
-
+            getDefaultProps: function () {
+                return {
+                    isPop: true
+                };
+            },
             getInitialState: function () {
                 if (!this.props.isCreating && !this.props.card) {
                     throw new Error();

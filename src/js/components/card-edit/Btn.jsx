@@ -16,7 +16,6 @@ define([
             contextTypes: {
                 flux: React.PropTypes.any
             },
-
             saveOrDeleteCard: function (isSaveing) {
                 var dispatcher = this.context.flux.dispatcher;
                 var eventStr = isSaveing ? 'PLANNING_ADD_CARD' : 'PLANNING_DELETE_CARD';
