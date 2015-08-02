@@ -48,15 +48,18 @@ define([
             },
             render: function () {
                 var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
+                var CompanyCards = this.context.flux.cardsStore.getCompanyCards();
 
                 teamCards = _.filter(teamCards, function (card) {
                     return card.status === 'unassigned';
                 });
 
-                return (<div>
-                    <CardsList title="Team backlog" cardsList={teamCards}/>
-                    <CardsList title="Company backlog" cardsList={teamCards}/>
-                </div>);
+                return (
+                    <div>
+                        <CardsList title="Team backlog" cardsList={teamCards}/>
+                        <CardsList title="Company backlog" cardsList={CompanyCards}/>
+                    </div>
+                );
             }
         });
     }

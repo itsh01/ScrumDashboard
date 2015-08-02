@@ -5,6 +5,9 @@ define(['lodash', '../data/cards', './helpers'], function (_, defaultCardsData, 
         TeamCards: function (id) {
             return {team: id};
         },
+        CompanyCards: function () {
+            return {team: null};
+        },
         UserCards: function (id, teamId) {
             return (teamId) ? {assignee: id, team: teamId} : {assignee: id};
         },
