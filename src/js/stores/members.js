@@ -1,4 +1,5 @@
-define(['lodash',
+define([
+        'lodash',
         '../data/members',
         './helpers',
         './actionNames'

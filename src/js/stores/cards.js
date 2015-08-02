@@ -1,4 +1,5 @@
-define(['lodash',
+define([
+        'lodash',
         '../data/cards',
         './helpers',
         './actionNames'
