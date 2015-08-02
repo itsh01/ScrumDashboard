@@ -1,4 +1,4 @@
-define(['lodash', 'React', 'stores/teamsActions'], function (_, React, TeamsActions) {
+define(['lodash', 'React', '../../stores/actionNames'], function (_, React, TeamsActions) {
     'use strict';
 
 
