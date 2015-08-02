@@ -97,7 +97,7 @@ requirejs(
 
             getInitialState: function () {
                 this.flux = new Flux();
-                this.flux.dispatcher.registerEventsHandled(this.forceUpdate);
+                this.flux.dispatcher.registerEventsHandled(this.forceUpdate.bind(this));
                 return {};
             },
 
