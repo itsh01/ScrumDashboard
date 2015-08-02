@@ -122,11 +122,11 @@ requirejs(
                 };
                 var allTeams = this.flux.teamsStore.getAllTeams();
                 var currentTeam = this.flux.teamsStore.getCurrentTeam();
+
                 return <div>
+                    <PlanningCardEditCreate isCreating={false} card={card} isPop={false}/>
 
                     <TeamManagement allTeams={allTeams} currentTeam={currentTeam}/>
-                    <PlanningCardEditCreate isCreating={false} card={card} isPop={false}/>
-                    <TeamManagement />
 
                 </div>
 

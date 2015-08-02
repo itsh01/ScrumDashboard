@@ -14,25 +14,20 @@ define([], function () {
     }
 
     function isValidValue(value, key, schema, storeName) {
-        // make sure that there are no user defined attributes
         if (schema[key] === undefined) {
             console.log(storeName, ': unknown key encountered: ', key, ' ( value: ', value, ')');
             return false;
         }
-        // make sure that all required fields are provided
-        // TODO: improve
         if (!value && schema[key].defaultValue === undefined) {
             console.log(storeName, ': key (', key, ') was required but not provided');
             return false;
         }
-        // check dates
         if ((key === 'startDate' || key === 'endDate') && typeof value === 'string') {
             if (!DATE_FORMAT.test(value)) {
                 console.log(storeName, ': invalid date format:', value, '( must be: YYYY-MM-DD)');
                 return false;
             }
         }
-        // check arrays
         if (schema[key].type === 'array') {
             if (!_.isArray(value)) {
                 console.log(storeName, ': invalid value encountered: key', key, ' (array expected)');
@@ -40,7 +35,6 @@ define([], function () {
             }
             return true;
         }
-        // check string arrays
         if (schema[key].type === 'string-array') {
             if (!isStringArray(value)) {
                 console.log(storeName, ': invalid value encountered: key', key, ' (strings array expected)');
@@ -48,7 +42,6 @@ define([], function () {
             }
             return true;
         }
-        // check other types
         if (typeof value !== schema[key].type && value !== schema[key].defaultValue) {
             console.log(storeName, ': invalid value encountered:', value, '( key:', key, ')');
             return false;
