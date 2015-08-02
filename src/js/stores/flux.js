@@ -13,8 +13,7 @@ define(
               Members,
               Teams,
               Planning,
-              Dispatcher,
-              Test) {
+              Dispatcher) {
         'use strict';
 
         function Flux() {
