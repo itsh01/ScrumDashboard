@@ -24,7 +24,7 @@ define(
             this.planningStore = new Planning(this.dispatcher);
             this.teamsStore = new Teams(this.dispatcher);
 
-            Test.run();
+            //Test.run();
         }
 
         return Flux;
