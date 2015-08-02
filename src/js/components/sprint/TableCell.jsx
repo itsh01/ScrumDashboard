@@ -24,17 +24,18 @@ define([
                 return {
                     droppable: true,
                     drop: function (card) {
-                        console.log(self);
-                        var dispatcher = self.context.flux.dispatcher;
 
-                        dispatcher.dispatchAction(
+                        var newCardData = {
+                            status: self.props.status,
+                            assignee: self.props.assignee
+                        };
+
+                        // TODO: change to suitable dispatcher format after written
+                        self.context.flux.dispatcher.dispatchAction(
                             'UPDATE_CARD',
                             [
                                 card.id,
-                                {
-                                    status: self.props.status,
-                                    assignee: self.props.assignee
-                                }
+                                newCardData
                             ]
                         );
 
