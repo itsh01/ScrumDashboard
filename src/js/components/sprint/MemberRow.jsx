@@ -29,10 +29,19 @@ define([
             render: function () {
                 var cards = this.context.flux.cardsStore.getUserCards(this.props.member.id),
                     cells = _.map(this.props.cardLifecycle, function (phase) {
+
                         var phaseCards = _.filter(cards, function (card) {
                             return card.status === phase;
                         });
-                        return (<TableCell key={phase} cards={phaseCards} />);
+
+                        return (
+                            <TableCell
+                                key={phase}
+                                cards={phaseCards}
+                                assaignee={this.props.member.id}
+                                status={phase} />
+                        );
+
                     }, this);
                 return (<div className="table-row">
                     <div className="table-cell sprint-member-cell">
