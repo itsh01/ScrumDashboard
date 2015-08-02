@@ -95,10 +95,11 @@ requirejs(
                 flux: React.PropTypes.any
             },
 
-            getInitialState: function () {
+            getInitialState(){
                 this.flux = new Flux();
-                this.flux.dispatcher.registerEventsHandled(this.forceUpdate);
+                this.flux.dispatcher.registerEventsHandled(this.forceUpdate.bind(this));
                 return {};
+
             },
 
             getChildContext: function () {
@@ -119,9 +120,11 @@ requirejs(
                     "startDate": null,
                     "endDate": null
                 };
+                var allTeams = this.flux.teamsStore.getAllTeams();
+                var currentTeam = this.flux.teamsStore.getCurrentTeam();
                 return <div>
-                    <PlanningCardEditCreate isCreating={false} card={card}/>
-                    <TeamManagement />
+                    {/* <PlanningCardEditCreate isCreating={false} card={card}/> */}
+                    <TeamManagement allTeams={allTeams} currentTeam={currentTeam}/>
                 </div>
 
             }

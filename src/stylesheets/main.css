@@ -23,5 +23,5 @@
 @import 'sprint/colors.css';
 @import 'sprint/typography.css';
 
-@import "teamManagement/colors.css";
-@import "teamManagement/layout.css";
+@import "team-management/colors.css";
+@import "team-management/layout.css";

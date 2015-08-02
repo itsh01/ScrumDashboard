@@ -4,7 +4,8 @@ define(['lodash', 'React', 'components/team-management/MemberProfile'],
     return React.createClass({
         displayName: 'TeamView',
         propTypes: {
-            team: React.PropTypes.object
+            team: React.PropTypes.object,
+            teamMembers: React.PropTypes.array
         },
         contextTypes: {
             flux: React.PropTypes.any
@@ -18,9 +19,8 @@ define(['lodash', 'React', 'components/team-management/MemberProfile'],
                 <div className='team-view'>
                     <h1>{this.getTeamTitle()}</h1>
                     {
-                        _.map(this.props.team.members, function (memberId) {
-                            var member = this.context.flux.membersStore.getMemberById(memberId);
-                            return <MemberProfile member={member} key={memberId}/>;
+                        _.map(this.props.teamMembers, function (member) {
+                            return <MemberProfile member={member} key={member.Id}/>;
                         }, this)
                     }
                 </div>
