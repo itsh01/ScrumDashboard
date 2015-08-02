@@ -9,7 +9,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         clean: {
             main: {
-              src: ['src/vendor/**/*']
+                src: ['src/vendor/**/*']
             }
         },
         copy: {
@@ -107,6 +107,15 @@ module.exports = function (grunt) {
                 options: {
                     debounceDelay: 500
                 }
+            },
+            react: {
+                files: [
+                    'src/**/*.jsx'
+                ],
+                tasks: ['react'],
+                options: {
+                    debounceDelay: 500
+                }
             }
         },
         requirejs: {
@@ -140,7 +149,7 @@ module.exports = function (grunt) {
             }
         }
     });
-    
+
     require('jit-grunt')(grunt);
 
     grunt.registerTask('lint', ['eslint', 'csslint']);
