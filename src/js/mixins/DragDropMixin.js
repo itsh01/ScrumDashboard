@@ -18,10 +18,12 @@ define([],
               *
               *         // when dragging an item
               *         draggable: true,
-              *         dataTransfer: { myItem: item1 }
+              *         dropType: 'myItem',
+              *         dataTransfer: { myItemData: property }
               *
               *         // when dropping an item:
               *         droppable: true,
+              *         acceptableDrops: ['myItem'],
               *         drop: function (myItem) {},
               *     };
               *  }
