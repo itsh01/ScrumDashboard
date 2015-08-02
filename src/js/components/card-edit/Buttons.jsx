@@ -16,15 +16,18 @@ define([
             contextTypes: {
                 flux: React.PropTypes.any
             },
-            saveOrDeleteCard: function (isSaveing) {
+
+            saveOrDeleteCard: function (isSaving) {
                 var dispatcher = this.context.flux.dispatcher;
-                var eventStr = isSaveing ? 'PLANNING_ADD_CARD' : 'PLANNING_DELETE_CARD';
+                var eventStr = isSaving ? 'PLANNING_ADD_CARD' : 'PLANNING_DELETE_CARD';
                 dispatcher.dispatchAction(eventStr, this.props.card);
 
             },
+
             saveCard: function () {
                 this.saveOrDeleteCard(true);
             },
+
             deleteCard: function () {
                 this.saveOrDeleteCard(false);
             },
