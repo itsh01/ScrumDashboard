@@ -84,9 +84,18 @@ define([
                 }
             }
 
+            function removeMemberFromTeams(memberId) {
+                var teams = this.getAllTeams();
+                currentTeam = _.forEach(teams, function (team) {
+                    _.remove(team.members, function (member) {
+                        return member === memberId;
+                    });
+                });
+            }
+
             dispatcher.registerAction(actionNames.ADD_TEAM, addTeam.bind(this));
             dispatcher.registerAction(actionNames.ADD_SPRINT, addSprint.bind(this));
-
+            dispatcher.registerAction(actionNames.MEMBER_DEACTIVATED, removeMemberFromTeams.bind(this));
             dispatcher.registerAction(actionNames.CHANGE_CURRENT_TEAM, changeCurrentTeam.bind(this));
 
             var currentViewState = {
@@ -103,7 +112,6 @@ define([
 
             }
         }
-
 
         return TeamStore;
     });

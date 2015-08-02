@@ -50,8 +50,7 @@ define([
                     return false;
                 }
                 member.active = false;
-                // TODO: update card store
-                // TODO: update team store
+                dispatcher.dispatchAction('MEMBER_DEACTIVATED', memberId);
                 return true;
             }
 

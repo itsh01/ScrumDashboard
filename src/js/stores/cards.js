@@ -104,9 +104,19 @@ define([
                 return true;
             }
 
+            function unassignMemberFromCards(memberId) {
+                var cards = this.getAllCards();
+                currentCards = _.map(cards, function (card) {
+                    card.assignee = card.assignee === memberId ? null : card.assignee;
+                    card.status = 'unassigned';
+                    return card;
+                });
+            }
+
             dispatcher.registerAction(actionNames.UPDATE_CARD, updateCard.bind(this));
             dispatcher.registerAction(actionNames.ADD_CARD, addCard.bind(this));
             dispatcher.registerAction(actionNames.REMOVE_CARD, removeCard.bind(this));
+            dispatcher.registerAction(actionNames.MEMBER_DEACTIVATED, unassignMemberFromCards.bind(this));
 
         }
 
