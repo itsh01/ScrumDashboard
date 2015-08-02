@@ -33,10 +33,8 @@ define([
                         // TODO: change to suitable dispatcher format after written
                         self.context.flux.dispatcher.dispatchAction(
                             'UPDATE_CARD',
-                            [
-                                card.id,
-                                newCardData
-                            ]
+                            card.id,
+                            newCardData
                         );
 
 
