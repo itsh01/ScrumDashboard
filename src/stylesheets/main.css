@@ -25,3 +25,5 @@
 
 @import "teamManagement/colors.css";
 @import "teamManagement/layout.css";
+
+@import 'editCard/layout.css';

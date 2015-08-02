@@ -33,14 +33,13 @@ define([
                 if (this.props.isCreating) {
                     dispatcher.dispatchAction(
                         'PLANNING_ADD_CARD',
-                        {
-                            name: this.state.name
-                        }
+                        this.card
                     );
                     //} else {
                     //
                 }
             },
+
             keysFilter: function (key) {
                 return (
                     key !== 'id' &&
@@ -48,10 +47,15 @@ define([
                     key !== 'assignee'
                 );
             },
-            makeElement: function (key) {
-                return (<div>
-                    <span>{key}</span>
-                    <input type='text' valueLink={this.linkState(key)}></input>
+
+            makeInputElement: function (key) {
+                return (<div className='card-edit-field-container'>
+                    <div className='card-edit-label'>
+                        <span >{key}</span>
+                    </div>
+                    <div className='card-edit-input-text'>
+                        <input type='text' valueLink={this.linkState(key)}></input>
+                    </div>
                 </div>);
             },
 
@@ -59,7 +63,7 @@ define([
                 return _.chain(this.state)
                     .keys()
                     .filter(this.keysFilter)
-                    .map(this.makeElement).value();
+                    .map(this.makeInputElement).value();
             },
 
             handleSelectChange: function (stateKey, e) {
@@ -87,19 +91,26 @@ define([
                 var team = this.context.flux.teamsStore.getTeamById(this.state.team);
                 return this.context.flux.membersStore.getMembersByIdList(team.members);
             },
+
             render: function () {
                 var saveDelTxt = this.props.isCreating ? 'Save' : 'Delete';
                 var teams = this.context.flux.teamsStore.getAllTeams();
+                var btnSaveDel = 'card-edit-btn card-edit-btn-'+ (saveDelTxt.toLowerCase());
                 return (
-                    <div>
+                    <div className='card-edit-container'>
                         {this.contentFactory()}
 
                         {this.getSelectOptions(teams, 'team')}
                         {this.getSelectOptions(this.getMembersIdList(), 'assignee')}
 
-                        <input type='checkbox'>Assign to All</input>
-                        <button>Cancel</button>
-                        <button onClick={this.saveOrDeleteCard}>{saveDelTxt}</button>
+                        <div>
+                            <input type='checkbox'>Assign to All</input>
+                        </div>
+
+                        <div className='card-edit-btn-container'>
+                            <button className='card-edit-btn card-edit-btn-cancel'>Cancel</button>
+                            <button className={btnSaveDel} onClick={this.saveOrDeleteCard}>{saveDelTxt}</button>
+                        </div>
                     </div>
                 );
             }
