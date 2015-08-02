@@ -7,7 +7,6 @@ define([
     function (_, React, Card, CardsList) {
         'use strict';
 
-        /** jsx React.DOM */
         return React.createClass({
 
             displayName: 'Backlog',
@@ -24,6 +23,11 @@ define([
             },
             render: function () {
                 var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
+
+                teamCards = _.filter(teamCards, function (card) {
+                    return card.status === 'unassigned';
+                });
+
                 return (<div>
                     <CardsList title="Team backlog" cardsList={teamCards}/>
                     <CardsList title="Company backlog" cardsList={teamCards}/>
