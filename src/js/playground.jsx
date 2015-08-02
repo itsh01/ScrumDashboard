@@ -68,7 +68,7 @@ requirejs(
         'components/card/Card',
         'components/team-management/TeamManagement',
         'stores/flux',
-        'components/planning/CardEditCreate'
+        'components/card-edit/CardEditCreate'
     ],
     function (_,
               React,
@@ -123,8 +123,11 @@ requirejs(
                 var allTeams = this.flux.teamsStore.getAllTeams();
                 var currentTeam = this.flux.teamsStore.getCurrentTeam();
                 return <div>
-                    {/* <PlanningCardEditCreate isCreating={false} card={card}/> */}
+
                     <TeamManagement allTeams={allTeams} currentTeam={currentTeam}/>
+                    <PlanningCardEditCreate isCreating={false} card={card} isPop={false}/>
+                    <TeamManagement />
+
                 </div>
 
             }

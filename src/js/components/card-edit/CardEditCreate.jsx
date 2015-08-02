@@ -1,8 +1,9 @@
 define([
         'lodash',
-        'React'],
-    function (_,
-              React) {
+        'React',
+        'components/card-edit/Btn'
+    ],
+    function (_, React, Btn) {
         'use strict';
 
         return React.createClass({
@@ -10,7 +11,8 @@ define([
 
             propTypes: {
                 card: React.PropTypes.object,
-                isCreating: React.PropTypes.bool.isRequired
+                isCreating: React.PropTypes.bool.isRequired,
+                isPop: React.PropTypes.bool.isRequired
             },
             contextTypes: {
                 flux: React.PropTypes.any
@@ -23,25 +25,12 @@ define([
                     throw new Error();
                 }
                 if (this.props.isCreating) {
-                    return this.context.flux.planningStore.getBlankCard();
+                    var cardObj = this.context.flux.planningStore.getBlankCard();
+                    return cardObj.card;
                 }
                 return _.cloneDeep(this.props.card);
             },
 
-            saveOrDeleteCard: function () {
-                var dispatcher = this.context.flux.dispatcher;
-                if (this.props.isCreating) {
-                    dispatcher.dispatchAction(
-                        'PLANNING_ADD_CARD',
-                        this.state
-                    );
-                } else {
-                    dispatcher.dispatchAction(
-                        'PLANNING_DELETE_CARD',
-                        this.state
-                    );
-                }
-            },
 
             keysFilter: function (key) {
                 return (
@@ -52,14 +41,16 @@ define([
             },
 
             makeInputElement: function (key) {
-                return (<div className='card-edit-field-container'>
-                    <div className='card-edit-label'>
-                        <span >{key}</span>
+                return (
+                    <div className='card-edit-field-container'>
+                        <div className='card-edit-label'>
+                            <span >{key}</span>
+                        </div>
+                        <div className='card-edit-input-text'>
+                            <input type='text' valueLink={this.linkState(key)}></input>
+                        </div>
                     </div>
-                    <div className='card-edit-input-text'>
-                        <input type='text' valueLink={this.linkState(key)}></input>
-                    </div>
-                </div>);
+                );
             },
 
             contentFactory: function () {
@@ -83,6 +74,7 @@ define([
                     return (<option value={value.id}>{value.name}</option>);
                 });
                 return (<select onChange={this.handleSelectChange.bind(this, stateKey)}>
+                    <option selected disabled>Choose {stateKey}</option>
                     {options}
                 </select>);
             },
@@ -96,10 +88,8 @@ define([
             },
 
             render: function () {
-                var saveDelTxt = this.props.isCreating ? 'Save' : 'Delete';
                 var teams = this.context.flux.teamsStore.getAllTeams();
-                var btnSaveDel = 'card-edit-btn card-edit-btn-' + (saveDelTxt.toLowerCase());
-                return (
+                var content = (
                     <div className='card-edit-container'>
                         {this.contentFactory()}
 
@@ -109,11 +99,18 @@ define([
                         <div>
                             <input type='checkbox'>Assign to All</input>
                         </div>
+                        <Btn card={this.state} isCreating={this.props.isCreating}/>
 
-                        <div className='card-edit-btn-container'>
-                            <button className='card-edit-btn card-edit-btn-cancel'>Cancel</button>
-                            <button className={btnSaveDel} onClick={this.saveOrDeleteCard}>{saveDelTxt}</button>
-                        </div>
+                    </div>
+                );
+                content = this.props.isPop ? (
+                    <div className='pop'>
+                        {content}
+                    </div>
+                ) : content;
+                return (
+                    <div>
+                        {content}
                     </div>
                 );
             }
