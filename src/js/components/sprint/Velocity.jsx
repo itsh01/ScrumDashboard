@@ -6,7 +6,7 @@ define([
         'use strict';
 
         return React.createClass({
-            displayName: 'Sprint Table',
+            displayName: 'Velocity',
             propTypes: {
                 cardLifecycle: React.PropTypes.array,
                 sprintMembers: React.PropTypes.array
