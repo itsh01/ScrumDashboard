@@ -30,7 +30,6 @@ define([
                             assignee: self.props.assignee
                         };
 
-                        // TODO: change to suitable dispatcher format after written
                         self.context.flux.dispatcher.dispatchAction(
                             'UPDATE_CARD',
                             card.id,
