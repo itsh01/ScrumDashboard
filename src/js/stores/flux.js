@@ -22,11 +22,11 @@ define(
             this.planningStore = new Planning(this.dispatcher);
             this.teamsStore = new Teams(this.dispatcher);
 
-            //var ids = this.cardsStore.testAdd();
-            //this.cardsStore.testUpdate(ids);
-            //this.cardsStore.testRemove(ids);
-            //this.membersStore.test();
-            //this.teamsStore.testAdd();
+            var ids = this.cardsStore.testAdd();
+            this.cardsStore.testUpdate(ids);
+            this.cardsStore.testRemove(ids);
+            this.membersStore.test();
+            this.teamsStore.testAdd();
         }
 
         return Flux;

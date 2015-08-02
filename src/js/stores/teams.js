@@ -10,18 +10,18 @@ define(['lodash', '../data/teams', './helpers'], function (_, defaultTeamData, h
 
     function TeamStore(dispatcher) {
         var SPRINT_SCHEMA = {
-                name: {type: 'string', writable: false},
-                scrumMaster: {type: 'string', defaultValue: null, writable: true},
-                startDate: {type: 'string', defaultValue: null, writable: true},
-                endDate: {type: 'string', defaultValue: null, writable: true},
-                cardLifecycle: {type: 'string-array', defaultValue: [], writable: true},
-                members: {type: 'string-array', defaultValue: [], writable: true},
-                state: {type: 'number', defaultValue: 0, writable: true} // TODO: check what it means
+                name: {type: 'string'},
+                scrumMaster: {type: 'string', defaultValue: null},
+                startDate: {type: 'string', defaultValue: null},
+                endDate: {type: 'string', defaultValue: null},
+                cardLifecycle: {type: 'string-array', defaultValue: []},
+                members: {type: 'string-array', defaultValue: []},
+                state: {type: 'number', defaultValue: 0} // TODO: check what it means
             },
             TEAM_SCHEMA = {
-                name: {type: 'string', writable: false},
-                members: {type: 'string-array', defaultValue: [], writable: true},
-                filterFunc: {type: 'function', defaultValue: null, writable: true} // TODO: check what it means
+                name: {type: 'string'},
+                members: {type: 'string-array', defaultValue: []},
+                filterFunc: {type: 'function', defaultValue: null} // TODO: check what it means
                 //sprints: {type: 'array', defaultValue: [], writable: true}
             },
             currentTeam = defaultTeamData;
