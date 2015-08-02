@@ -1,30 +1,23 @@
 define(
     [
-        'lodash',
-        './cards',
-        './members',
-        './teams',
-        './planning',
-        './dispatcher',
-        '../../../tests/store/test'
+        '../../src/vendor/lodash',
+        '../../src/js/stores/cards',
+        '../../src/js/stores/members',
+        '../../src/js/stores/teams',
+        '../../src/js/stores/dispatcher'
     ],
     function (_,
               Cards,
               Members,
               Teams,
-              Planning,
-              Dispatcher,
-              Test) {
+              Dispatcher) {
         'use strict';
 
         function Flux() {
             this.dispatcher = new Dispatcher();
             this.cardsStore = new Cards(this.dispatcher);
             this.membersStore = new Members(this.dispatcher);
-            this.planningStore = new Planning(this.dispatcher);
             this.teamsStore = new Teams(this.dispatcher);
-
-            Test.run();
         }
 
         return Flux;
