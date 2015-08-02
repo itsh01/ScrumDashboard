@@ -8,6 +8,7 @@ define([], function () {
                 "183323c8-d707-4471-8736-373eba8aaa8c",
                 "aaef53cc-34bd-4d1f-bdda-9bf5e07ca2be"
             ],
+            "active": true,
             "filterFunc": null,
             "id": "1f7a4375-e7db-4798-969e-17325acde499",
             "sprints": [{
@@ -62,6 +63,7 @@ define([], function () {
                 "955c7089-67bf-44ba-87d9-b357af941276",
                 "bb93c3cd-66d3-42ea-8467-611c23ea64c6"
             ],
+            "active": true,
             "filterFunc": null,
             "id": "c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d",
             "sprints": [{
@@ -102,6 +104,7 @@ define([], function () {
                 '183323c8-d707-4471-8736-373eba8aaa8c',
                 'aaef53cc-34bd-4d1f-bdda-9bf5e07ca2be'
             ],
+            "active": true,
             "filterFunc": null,
             "id": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
             "sprints": [{
