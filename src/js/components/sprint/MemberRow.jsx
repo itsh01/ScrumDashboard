@@ -38,7 +38,7 @@ define([
                             <TableCell
                                 key={phase}
                                 cards={phaseCards}
-                                assaignee={this.props.member.id}
+                                assignee={this.props.member.id}
                                 status={phase} />
                         );
 
