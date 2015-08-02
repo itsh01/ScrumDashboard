@@ -91,6 +91,13 @@ module.exports = function (grunt) {
                     font: 'doom',
                     log: true
                 }
+            },
+            danger: {
+                text: 'Danger  Build !!!',
+                options: {
+                    font: 'doom',
+                    log: true
+                }
             }
         },
         watch: {
@@ -112,7 +119,11 @@ module.exports = function (grunt) {
                 files: [
                     'src/**/*.jsx'
                 ],
-                tasks: ['react'],
+                tasks: [
+                    'asciify:danger',
+                    'log:"\nDO NOT COMMIT BEFORE BUILDING!!\n"',
+                    'babel'
+                ],
                 options: {
                     debounceDelay: 500
                 }
@@ -150,12 +161,16 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.registerTask('log', function (text) {
+        grunt.log.writeln(text);
+    });
+
     require('jit-grunt')(grunt);
 
     grunt.registerTask('lint', ['eslint', 'csslint']);
     grunt.registerTask('dev', ['asciify:banner', 'lint', 'babel']);
     grunt.registerTask('minify', ['processhtml', 'requirejs', 'cssmin']);
-    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'babel'/*'react:main'*/, 'copy', 'minify']);
+    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'babel', 'copy', 'minify']);
     grunt.registerTask('test', []);
     grunt.registerTask('default', ['test', 'build']);
 
