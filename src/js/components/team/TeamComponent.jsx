@@ -66,9 +66,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                     </div>
 
                     <div className="flex-base  one-row">
-                        <div className="backlog">
-                            <BackLog teamId={team.id}/>
-                        </div>
+                        <BackLog className="backlog" teamId={team.id}/>
                         <SprintTable sprint={this.state.currSprint}/>
                     </div>
                 </div>);

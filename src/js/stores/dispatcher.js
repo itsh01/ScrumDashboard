@@ -19,12 +19,16 @@ define(['lodash'], function (_) {
             this.eventsHandled();
         };
 
-        this.dispatchAction = function (actionName, actionData) {
-            var wasHandlingEvent = this.handlingEvent;
+        this.dispatchAction = function () {
+
+            var actionName = [].shift.apply(arguments),
+                actionData = arguments,
+                wasHandlingEvent = this.handlingEvent;
+
             this.handlingEvent = true;
             if (registeredActions[actionName]) {
                 _.forEach(registeredActions[actionName], function (callback) {
-                    callback(actionData);
+                    callback.apply(null, actionData);
                 });
             }
             if (!wasHandlingEvent) {

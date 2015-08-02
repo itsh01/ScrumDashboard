@@ -1,0 +1,44 @@
+.card-edit-container {
+    width:20rem;
+}
+
+.card-edit-label{
+    width:30%;
+    display: inline-block;
+}
+
+.card-edit-field-container {
+    margin: 2px 0;
+}
+
+.card-edit-input-text{
+    width:70%;
+    display: inline-block;
+}
+
+.card-edit-input-text input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.card-edit-btn-container {
+    text-align: right;
+}
+
+.card-edit-btn{
+    width:30%;
+    margin: 2px;
+}
+
+.card-edit-btn-save{
+    background-color: #d0ffd0;
+}
+
+.card-edit-btn-delete{
+    background-color: #ff7978;
+}
+
+.card-edit-btn-cancel{
+    background-color: #ffd0d0;
+}
+

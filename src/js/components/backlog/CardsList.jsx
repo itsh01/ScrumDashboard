@@ -12,6 +12,13 @@ define(['lodash', 'React', 'components/card/Card'], function (_, React, Card) {
         contextTypes: {
             flux: React.PropTypes.any
         },
+        getInitialState: function () {
+            return {
+                initialCards: [],
+                Cards: []
+
+            };
+        },
         render: function () {
             var cardsListToDisply = this.props.cardsList;
             return (<div>
@@ -19,7 +26,8 @@ define(['lodash', 'React', 'components/card/Card'], function (_, React, Card) {
                 {
                     _.map(cardsListToDisply, function (card) {
                         return <Card card={card} key={card.id}/>;
-                    }, this)}
+                    }, this)
+                }
             </div>);
         }
 

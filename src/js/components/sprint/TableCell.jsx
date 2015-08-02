@@ -10,14 +10,33 @@ define([
         return React.createClass({
             displayName: 'Sprint Table Cell',
             propTypes: {
-                cards: React.PropTypes.array
+                assignee: React.PropTypes.string,
+                cards: React.PropTypes.array,
+                status: React.PropTypes.string
+            },
+            contextTypes: {
+                flux: React.PropTypes.any
             },
             mixins: [DragDropMixin],
             dragDrop: function () {
+
+                var self = this;
                 return {
                     droppable: true,
                     drop: function (card) {
-                        console.log(card);
+
+                        var newCardData = {
+                            status: self.props.status,
+                            assignee: self.props.assignee
+                        };
+
+                        self.context.flux.dispatcher.dispatchAction(
+                            'UPDATE_CARD',
+                            card.id,
+                            newCardData
+                        );
+
+
                     }
                 };
             },
