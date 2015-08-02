@@ -57,7 +57,7 @@ define([
                 );
             },
 
-            contentFactory: function () {
+            fieldsFactory: function () {
                 return _.chain(this.state)
                     .keys()
                     .filter(this.keysFilter)
@@ -95,7 +95,7 @@ define([
                 var teams = this.context.flux.teamsStore.getAllTeams();
                 var content = (
                     <div className='card-edit-container'>
-                        {this.contentFactory()}
+                        {this.fieldsFactory()}
 
                         {this.getSelectOptions(teams, 'team')}
                         {this.getSelectOptions(this.getMembersIdList(), 'assignee')}
@@ -107,11 +107,13 @@ define([
 
                     </div>
                 );
+
                 content = this.props.isPop ? (
                     <div className='pop'>
                         {content}
                     </div>
                 ) : content;
+
                 return (
                     <div>
                         {content}
