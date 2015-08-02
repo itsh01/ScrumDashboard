@@ -1,10 +1,13 @@
 define([
         'lodash',
         'React',
+
         'components/card/Card',
-        './cardsList'
+        'components/backlog/cardsList',
+
+        'mixins/DragDropMixin'
     ],
-    function (_, React, Card, CardsList) {
+    function (_, React, Card, CardsList, DragDropMixin) {
         'use strict';
 
         return React.createClass({
@@ -16,9 +19,31 @@ define([
             contextTypes: {
                 flux: React.PropTypes.any
             },
+            mixins: [DragDropMixin],
             getInitialState: function () {
                 return {
 
+                };
+            },
+            dragDrop: function () {
+
+                var self = this;
+
+                return {
+                    droppable: true,
+                    drop: function (card) {
+
+                        var newCardData = {
+                            status: 'unassigned',
+                            assignee: null
+                        };
+
+                        self.context.flux.dispatcher.dispatchAction(
+                            'UPDATE_CARD',
+                            card.id,
+                            newCardData
+                        );
+                    }
                 };
             },
             render: function () {
