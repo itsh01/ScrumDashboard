@@ -107,6 +107,15 @@ module.exports = function (grunt) {
                 options: {
                     debounceDelay: 500
                 }
+            },
+            react:{
+                files:[
+                    'src/**/*.jsx'
+                ],
+                tasks: ['react'],
+                options:{
+                    debounceDelay: 500
+                }
             }
         },
         requirejs: {
