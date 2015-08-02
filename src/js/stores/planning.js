@@ -30,11 +30,16 @@ define(
 
             };
 
-            this.addCard = function addCard(card) {
+            this.addCard = function (card) {
+                console.log(card);
+            };
+
+            this.deleteCard = function (card) {
                 console.log(card);
             };
 
             dispatcher.registerAction('PLANNING_ADD_CARD', this.addCard.bind(this));
+            dispatcher.registerAction('PLANNING_DELETE_CARD', this.deleteCard.bind(this));
         }
 
         return Planning;

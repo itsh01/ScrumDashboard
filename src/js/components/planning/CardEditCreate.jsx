@@ -33,10 +33,13 @@ define([
                 if (this.props.isCreating) {
                     dispatcher.dispatchAction(
                         'PLANNING_ADD_CARD',
-                        this.card
+                        this.state
                     );
-                    //} else {
-                    //
+                } else {
+                    dispatcher.dispatchAction(
+                        'PLANNING_DELETE_CARD',
+                        this.state
+                    );
                 }
             },
 
