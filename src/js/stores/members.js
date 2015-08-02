@@ -6,9 +6,9 @@ define(['lodash', '../data/members', './helpers'], function (_, defaultMembersDa
 
     function MembersStore(dispatcher) {
         var MEMBERS_SCHEMA = {
-                name: {type: 'string', writable: false},
-                image: {type: 'string', defaultValue: '', writable: true},
-                active: {type: 'boolean', defaultValue: true, writable: true}
+                name: {type: 'string'},
+                image: {type: 'string', defaultValue: ''},
+                active: {type: 'boolean', defaultValue: true}
             },
             currentMembers = defaultMembersData;
         _.forEach(filterFunctions, function (filterVal, filterFuncName) {
@@ -37,7 +37,7 @@ define(['lodash', '../data/members', './helpers'], function (_, defaultMembersDa
             }
         }
 
-        function removeMember(memberId) {
+        function deactivateMember(memberId) {
             var member = _.find(currentMembers, {id: memberId});
             if (_.isEmpty(member)) {
                 console.log('Member Store: attempt to remove non existent member (id:', memberId, ')');
@@ -51,7 +51,7 @@ define(['lodash', '../data/members', './helpers'], function (_, defaultMembersDa
 
         function updateMember(memberId, newMemberData) {
             if (isValidMember(newMemberData)) {
-                return helpers.updateItem(currentMembers, memberId, newMemberData, MEMBERS_SCHEMA, 'Member Store');
+                return helpers.updateItem(currentMembers, memberId, newMemberData, 'Member Store');
             }
             return false;
         }
@@ -68,7 +68,7 @@ define(['lodash', '../data/members', './helpers'], function (_, defaultMembersDa
 
         dispatcher.registerAction('ADD_MEMBER', addMember.bind(this));
         dispatcher.registerAction('UPDATE_MEMBER', updateMember.bind(this));
-        dispatcher.registerAction('REMOVE_MEMBER', removeMember.bind(this));
+        dispatcher.registerAction('DEACTIVATE_MEMBER', deactivateMember.bind(this));
 
         this.test = function () {
             var nonExistentId = 'non-existent-id',
@@ -100,8 +100,8 @@ define(['lodash', '../data/members', './helpers'], function (_, defaultMembersDa
                 updateMember.call(self, existentId, member);
                 updateMember.call(self, nonExistentId, member);
             });
-            removeMember.call(self, existentId);
-            removeMember.call(self, nonExistentId);
+            deactivateMember.call(self, existentId);
+            deactivateMember.call(self, nonExistentId);
             console.log('Test add/remove/update Member... done\n\n');
         };
     }

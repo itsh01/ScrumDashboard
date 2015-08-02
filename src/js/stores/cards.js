@@ -13,14 +13,14 @@ define(['lodash', '../data/cards', './helpers'], function (_, defaultCardsData, 
 
     function CardsStore(dispatcher) {
         var CARDS_SCHEMA = {
-                name: {type: 'string', writable: false},
-                description: {type: 'string', defaultValue: '', writable: false},
-                score: {type: 'number', defaultValue: null, writable: true},
-                team: {type: 'string', defaultValue: null, writable: true},
-                status: {type: 'string', defaultValue: 'unassigned', writable: true},
-                assignee: {type: 'string', defaultValue: null, writable: true},
-                startDate: {type: 'string', defaultValue: null, writable: true},
-                endDate: {type: 'string', defaultValue: null, writable: true}
+                name: {type: 'string'},
+                description: {type: 'string', defaultValue: ''},
+                score: {type: 'number', defaultValue: null},
+                team: {type: 'string', defaultValue: null},
+                status: {type: 'string', defaultValue: 'unassigned'},
+                assignee: {type: 'string', defaultValue: null},
+                startDate: {type: 'string', defaultValue: null},
+                endDate: {type: 'string', defaultValue: null}
             },
             currentCards = defaultCardsData;
 
@@ -83,7 +83,7 @@ define(['lodash', '../data/cards', './helpers'], function (_, defaultCardsData, 
          */
         function updateCard(cardId, newCardData) {
             if (isValidCard(newCardData)) {
-                return helpers.updateItem(currentCards, cardId, newCardData, CARDS_SCHEMA, 'Card Store');
+                return helpers.updateItem(currentCards, cardId, newCardData, 'Card Store');
                 // TODO: if assignee or team provided then make sure that they exist
             }
             return false;

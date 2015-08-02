@@ -62,40 +62,29 @@ define([], function () {
         });
     }
 
-    function isWritableData(data, schema) {
-        return _.every(data, function (value, key) {
-            return schema[key].writable;
-        });
-    }
-
     function isStringArray(arr) {
         return _.every(arr, function (value) {
             return typeof value === 'string';
         });
     }
 
-    function updateItem(collection, itemId, newItemData, schema, storeName) {
+    function updateItem(collection, itemId, newItemData, storeName) {
         var item = _.find(collection, {id: itemId});
         if (item === undefined) {
             console.log(storeName, ': attempt to update non existent item (id:', itemId, ')');
             return false;
         }
-        if (isWritableData(newItemData, schema)) {
-            newItemData = _.cloneDeep(newItemData);
-            _.forEach(newItemData, function (value, key) {
-                item[key] = newItemData[key];
-            });
-            return true;
-        }
-        console.log(storeName, ': attempt to change non writable property (id:', itemId, '), ');
-        return false;
+        newItemData = _.cloneDeep(newItemData);
+        _.forEach(newItemData, function (value, key) {
+            item[key] = newItemData[key];
+        });
+        return true;
     }
 
     return {
         generateGuid: generateGuid,
         isValidValue: isValidValue,
         getBlankItem: getBlankItem,
-        isWritableData: isWritableData,
         updateItem: updateItem
     };
 })
