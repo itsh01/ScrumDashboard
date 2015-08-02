@@ -95,7 +95,7 @@ define([
             render: function () {
                 var saveDelTxt = this.props.isCreating ? 'Save' : 'Delete';
                 var teams = this.context.flux.teamsStore.getAllTeams();
-                var btnSaveDel = 'card-edit-btn card-edit-btn-'+ (saveDelTxt.toLowerCase());
+                var btnSaveDel = 'card-edit-btn card-edit-btn-' + (saveDelTxt.toLowerCase());
                 return (
                     <div className='card-edit-container'>
                         {this.contentFactory()}
