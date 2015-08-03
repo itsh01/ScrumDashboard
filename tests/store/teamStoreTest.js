@@ -1,10 +1,10 @@
 define(
     [
         '../../src/vendor/lodash',
-        './flux'
+        './flux',
+        '../../src/js/constants'
     ],
-    function (_,
-              Flux) {
+    function (_, Flux, constants) {
         'use strict';
 
         var flux = new Flux();
@@ -62,19 +62,40 @@ define(
                     }
                 ];
             console.log('Test addTeam...');
-            flux.dispatcher.dispatchAction('ADD_TEAM', validTeam);
-            flux.dispatcher.dispatchAction('ADD_SPRINT', addedTeamId, validSprint);
-            flux.dispatcher.dispatchAction('ADD_SPRINT', addedTeamId, invalidSprint);
+            flux.dispatcher.dispatchAction(constants.actionNames.ADD_TEAM, validTeam);
+            flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT, addedTeamId, validSprint);
+            flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT, addedTeamId, invalidSprint);
             _.forEach(invalidTeams, function (team) {
-                flux.dispatcher.dispatchAction('ADD_TEAM', team);
+                flux.dispatcher.dispatchAction(constants.actionNames.ADD_TEAM, team);
             });
             console.log('Test addTeam... done\n\n');
         }
 
+        function testRetrofySprint() {
+            console.log('Test retrofySprint...');
+            flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_SPRINT, '55b8a1602bba6dbc0765eced', 'c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d');
+            flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_SPRINT, '55b8a1602bba6dbc0765eced', 'non-existent-team-id');
+            flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_SPRINT, 'non-existent-sprint-id');
+            console.log(flux.teamsStore.getSprintById('55b8a1602bba6dbc0765eced').retroCardsStatus);
+            console.log('Test retrofySprint... done\n\n');
+        }
+
+        function testMoveSprintToNextState() {
+            console.log('Test moveSprintToNextState...');
+            flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, '55b8a1602bba6dbc0765eced', 'c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d');
+            flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, '55b8a1602bba6dbc0765eced', 'non-existent-team-id');
+            flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, '55b8a16069c3c3bcd5425303');
+            flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, 'non-existent-sprint-id');
+            console.log(flux.teamsStore.getSprintById('55b8a1602bba6dbc0765eced').state);
+            console.log(flux.teamsStore.getSprintById('55b8a16069c3c3bcd5425303').state);
+            console.log('Test moveSprintToNextState... done\n\n');
+        }
 
         return {
             run: function () {
                 testAdd();
+                testRetrofySprint();
+                testMoveSprintToNextState();
             }
         };
     });

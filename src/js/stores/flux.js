@@ -8,12 +8,7 @@ define(
         './dispatcher',
         '../../../tests/store/test'
     ],
-    function (_,
-              Cards,
-              Members,
-              Teams,
-              Planning,
-              Dispatcher) {
+    function (_, Cards, Members, Teams, Planning, Dispatcher) {
         'use strict';
 
         function Flux() {

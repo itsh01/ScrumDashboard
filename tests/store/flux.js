@@ -17,7 +17,7 @@ define(
             this.dispatcher = new Dispatcher();
             this.cardsStore = new Cards(this.dispatcher);
             this.membersStore = new Members(this.dispatcher);
-            this.teamsStore = new Teams(this.dispatcher);
+            this.teamsStore = new Teams(this.dispatcher, this.cardsStore.getUserCards);
         }
 
         return Flux;
