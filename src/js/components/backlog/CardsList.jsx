@@ -17,7 +17,8 @@ define([
             title: React.PropTypes.string
         },
         contextTypes: {
-            flux: React.PropTypes.any
+            flux: React.PropTypes.any,
+            teamId: React.PropTypes.string
         },
         mixins: [DragDropMixin],
 
@@ -31,7 +32,7 @@ define([
         dragDrop: function () {
 
             var self = this;
-
+            console.log(this.context.teamId);
             return {
                 droppable: true,
                 acceptableDrops: ['card'],
@@ -44,6 +45,8 @@ define([
                     
                     if (self.props.title === 'Company') {
                         newCardData.team = null;
+                    }else {
+                        newCardData.team = self.context.teamId;
                     }
                     self.context.flux.dispatcher.dispatchAction(
                         'UPDATE_CARD',
