@@ -2,8 +2,8 @@
  * Created by itaysh on 7/30/15.
  */
 
-define([],
-    function () {
+define(['lodash'],
+    function (_) {
         'use strict';
 
 
