@@ -10,7 +10,7 @@ define([
             AllTeams: null
         };
 
-        function TeamStore(dispatcher) {
+        function TeamStore(dispatcher, getUserCards) {
             var /*RETRO_CARDS_STATUS_SCHEMA = {
                     cardId: {type: 'string'},
                     assigneeId: {type: 'string'},
@@ -96,6 +96,7 @@ define([
             }
 
             function retrofySprint(sprintId, teamId) {
+                getUserCards([1]);
                 console.log(sprintId, teamId);
             }
 
