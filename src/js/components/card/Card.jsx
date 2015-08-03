@@ -12,7 +12,8 @@ define([
         return React.createClass({
             displayName: 'Card',
             propTypes: {
-                card: React.PropTypes.object
+                card: React.PropTypes.object,
+                cardClickHandler: React.PropTypes.func
             },
             mixins: [DragDropMixin],
             getInitialState: function () {
@@ -41,6 +42,9 @@ define([
             },
             toggleDescriptionOpened: function () {
                 this.setState({isDescriptionOpened: !this.state.isDescriptionOpened});
+                if (this.props.cardClickHandler) {
+                    this.props.cardClickHandler(this.props.card.id);
+                }
             },
             pointsClass: {
                 1: 'card-1',
