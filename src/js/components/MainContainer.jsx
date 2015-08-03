@@ -10,36 +10,37 @@ define([
         'stores/flux'
     ],
     function (_, React, HomeView, Flux) {
-    'use strict';
+        'use strict';
 
-    /** jsx React.DOM */
-    return React.createClass({
-        displayName: 'MainContainer',
+        /** jsx React.DOM */
+        return React.createClass({
+            displayName: 'MainContainer',
 
-        childContextTypes: {
-            flux: React.PropTypes.any
-        },
-        contextTypes:{
-            router: React.PropTypes.func
-        },
+            contextTypes: {
+                router: React.PropTypes.func
+            },
+            childContextTypes: {
+                flux: React.PropTypes.any
+            },
 
-        getInitialState: function () {
-            this.flux = new Flux();
-            this.flux.dispatcher.registerEventsHandled(this.forceUpdate.bind(this));
-            return {};
-        },
+            getInitialState: function () {
+                this.flux = new Flux();
+                this.flux.dispatcher.registerEventsHandled(this.forceUpdate.bind(this));
+                return {};
+            },
 
-        getChildContext: function () {
-            return {
-                flux: this.flux
-            };
-        },
+            getChildContext: function () {
+                return {
+                    flux: this.flux
+                };
+            },
 
-        render: function () {
-            return (
-                <div>
-                    <HomeView {...this.props} {...this.state}/>
-                </div>);
-        }
+            render: function () {
+                return (
+                    <div>
+                        <HomeView {...this.props} {...this.state}/>
+                    </div>);
+            }
+        });
+
     });
-});

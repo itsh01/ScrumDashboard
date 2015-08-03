@@ -40,6 +40,10 @@
     position: absolute;
 }
 
+.sprint-card-wrapper .card {
+    box-shadow: 0.2rem 0.2rem 0.2rem;
+}
+
 .sprint-velocity {
     width: 16rem;
     margin: 0 auto;

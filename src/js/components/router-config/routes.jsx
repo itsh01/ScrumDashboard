@@ -4,6 +4,7 @@ define([
     '../MainContainer',
     '../HomeView'
 ], function (React, Router, Main, Home) {
+    'use strict';
     var DefaultRoute = Router.DefaultRoute;
     var Route = Router.Route;
 

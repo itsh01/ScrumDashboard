@@ -26,6 +26,10 @@ module.exports = function (grunt) {
                     {
                         src: 'node_modules/react/dist/react-with-addons.js',
                         dest: 'src/vendor/react-with-addons.js'
+                    },
+                    {
+                        src: 'node_modules/react-router/umd/ReactRouter.js',
+                        dest: 'src/vendor/ReactRouter.js'
                     }
                 ]
             },
