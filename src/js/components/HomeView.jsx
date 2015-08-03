@@ -3,7 +3,7 @@ define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], func
 
     return React.createClass({
         displayName: 'HomeView',
-        mixins :[Router.Navigation],
+        mixins: [Router.Navigation],
         propTypes: {
             currTeam: React.PropTypes.object,
             params: React.PropTypes.object,
