@@ -75,7 +75,7 @@ define([], function () {
                 "endDate": null,
                 cardLifecycle: ['Backlog', 'In progress', 'Done'],
                 members: [
-                    '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
+                    'dda8a5ee-0c2b-4269-b350-a75faedb776f',
                     '15fc4096-b641-436a-bf2d-8fbdeedec7b2',
                     '061804a2-1f93-40e1-bf49-57b82e5b568b'
                 ],
@@ -89,7 +89,7 @@ define([], function () {
                     "endDate": null,
                     cardLifecycle: ['Backlog', 'In progress', 'Done'],
                     members: [
-                        '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
+                        'dda8a5ee-0c2b-4269-b350-a75faedb776f',
                         '15fc4096-b641-436a-bf2d-8fbdeedec7b2',
                         '061804a2-1f93-40e1-bf49-57b82e5b568b'
                     ],

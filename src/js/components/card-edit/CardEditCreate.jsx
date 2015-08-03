@@ -20,19 +20,20 @@ define([
             },
 
             mixins: [React.addons.LinkedStateMixin],
+
             getDefaultProps: function () {
                 return {
                     isPop: true,
                     isCreating: true
                 };
             },
+
             getInitialState: function () {
                 if (!this.props.isCreating && !this.props.card) {
                     throw new Error();
                 }
                 if (this.props.isCreating) {
-                    var cardObj = this.context.flux.cardsStore.getBlankCard();
-                    return cardObj;
+                    return this.context.flux.cardsStore.getBlankCard();
                 }
                 return _.cloneDeep(this.props.card);
             },
