@@ -8,6 +8,10 @@
 
 .sprint-member figure {
     text-align: center;
+    margin: 1.3rem;
+}
+.sprint-member figcaption {
+    padding: 0.3rem;
 }
 
 .sprint-table-wrapper .table-cell {

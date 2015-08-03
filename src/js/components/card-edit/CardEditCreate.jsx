@@ -12,7 +12,7 @@ define([
 
             propTypes: {
                 card: React.PropTypes.object,
-                isCreating: React.PropTypes.bool.isRequired,
+                isCreating: React.PropTypes.bool,
                 isPop: React.PropTypes.bool
             },
             contextTypes: {
@@ -22,7 +22,8 @@ define([
             mixins: [React.addons.LinkedStateMixin],
             getDefaultProps: function () {
                 return {
-                    isPop: true
+                    isPop: true,
+                    isCreating: true
                 };
             },
             getInitialState: function () {
@@ -30,8 +31,8 @@ define([
                     throw new Error();
                 }
                 if (this.props.isCreating) {
-                    var cardObj = this.context.flux.planningStore.getBlankCard();
-                    return cardObj.card;
+                    var cardObj = this.context.flux.cardsStore.getBlankCard();
+                    return cardObj;
                 }
                 return _.cloneDeep(this.props.card);
             },

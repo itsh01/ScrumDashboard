@@ -47,7 +47,7 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
 
                     <div className="team-view">
 
-                        <TeamView currTeamId={this.props.query.teamId || this.getTeams()[0].id}/>
+                        <TeamView currTeamId={this.props.query.teamId || this.getTeams()[0].id} />
                     </div>
                 </div>
             );
