@@ -6,6 +6,7 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
 
         propTypes: {
             currTeam: React.PropTypes.object,
+            params: React.PropTypes.object,
             query: React.PropTypes.object
         },
 
@@ -18,12 +19,7 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
         },
 
         handleChangeTeam: function (e) {
-
-            var query = _.clone(this.props.query);
-            query.teamId = e.target.value;
-            this.context.router.transitionTo('/', null, query);
-
-            //this.setState({currTeamId: e.target.value});
+            this.context.router.transitionTo('team', {id: e.target.value}, this.props.query);
         },
 
         render: function () {
@@ -47,7 +43,7 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
 
                     <div className="team-view">
 
-                        <TeamView currTeamId={this.props.query.teamId || this.getTeams()[0].id} />
+                        <TeamView currTeamId={this.props.params.id || this.getTeams()[0].id} />
                     </div>
                 </div>
             );
