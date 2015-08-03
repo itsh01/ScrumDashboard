@@ -21,7 +21,7 @@ define([
 
             saveOrDeleteCard: function (isSaving) {
                 var dispatcher = this.context.flux.dispatcher;
-                console.log(this.props.card);
+
                 if (isSaving && this.props.isCreating) {
                     dispatcher.dispatchAction(constants.actionNames.ADD_CARD, this.props.card);
                 } else if (isSaving) {

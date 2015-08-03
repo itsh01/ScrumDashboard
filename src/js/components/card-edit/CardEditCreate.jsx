@@ -4,7 +4,7 @@ define([
         'components/card-edit/Buttons',
         'components/pop-up/Basic'
     ],
-    function (_, React, Btn, Popup) {
+    function (_, React, CardEditButtons) {
         'use strict';
 
         return React.createClass({
@@ -12,9 +12,9 @@ define([
 
             propTypes: {
                 card: React.PropTypes.object,
-                isCreating: React.PropTypes.bool,
-                isPop: React.PropTypes.bool
+                isCreating: React.PropTypes.bool
             },
+
             contextTypes: {
                 flux: React.PropTypes.any
             },
@@ -23,7 +23,6 @@ define([
 
             getDefaultProps: function () {
                 return {
-                    isPop: true,
                     isCreating: true
                 };
             },
@@ -38,17 +37,7 @@ define([
                 return _.cloneDeep(this.props.card);
             },
 
-
-            keysFilter: function (key) {
-                return (
-                    key !== 'id' &&
-                    key !== 'team' &&
-                    key !== 'assignee' &&
-                    key !== 'status'
-                );
-            },
-
-            makeInputElement: function (key) {
+            makeTextInputElement: function (key) {
                 return (
                     <div className='card-edit-field-container'>
                         <div className='card-edit-label'>
@@ -61,16 +50,18 @@ define([
                 );
             },
 
-            fieldsFactory: function () {
-                return _.chain(this.state)
-                    .keys()
+            getTextInputFields: function () {
+                return _.chain(['name', 'description'])
                     .filter(this.keysFilter)
-                    .map(this.makeInputElement).value();
+                    .map(this.makeTextInputElement).value();
             },
 
             handleSelectChange: function (stateKey, e) {
                 var obj = {};
                 obj[stateKey] = e.target.value;
+                if (stateKey === 'score') {
+                    obj[stateKey] = parseInt(e.target.value);
+                }
                 this.setState(obj);
             },
 
@@ -87,12 +78,19 @@ define([
                 </select>);
             },
 
-            getMembersIdList: function () {
+            getTeamMembersIdList: function () {
                 if (!this.state.team) {
                     return null;
                 }
                 var team = this.context.flux.teamsStore.getTeamById(this.state.team);
-                return this.context.flux.membersStore.getMembersByIdList(team.members);
+                var sprintMembers = team.sprints[team.sprints.length - 1].members;
+                return this.context.flux.membersStore.getMembersByIdList(sprintMembers);
+            },
+
+            formatToIdAndName: function (arr) { //TODO change this name?
+                return _.map(arr, function (status) {
+                    return {id: status, name: status};
+                });
             },
 
             getLifecycleOptions: function () {
@@ -100,39 +98,40 @@ define([
                     return null;
                 }
                 var team = this.context.flux.teamsStore.getTeamById(this.state.team);
-                var lifecycle = team.sprints[team.sprints.length - 1].cardLifecycle;
-                var values = _.map(lifecycle, function (status) {
-                    return {id: status, name: status};
-                });
-                console.log(lifecycle);
-                return values;
+                return team.sprints[team.sprints.length - 1].cardLifecycle;
+            },
+
+            getValidScores: function () {
+                return [1, 2, 3, 5, 8, 13, 21, 34, 55];
+            },
+
+            getSelectBoxes: function () {
+                var teams = this.context.flux.teamsStore.getAllTeams();
+                return (<div>
+                    {this.getSelectOptions(this.formatToIdAndName(this.getValidScores()), 'score')}
+                    <div>
+                        {this.getSelectOptions(teams, 'team')}
+                        {this.getSelectOptions(this.getTeamMembersIdList(), 'assignee')}
+                    </div>
+                    {this.getSelectOptions(this.formatToIdAndName(this.getLifecycleOptions()), 'status')}
+                </div>);
             },
 
             render: function () {
-                var teams = this.context.flux.teamsStore.getAllTeams();
-                var content = (
+                return (
                     <div className='card-edit-container'>
-                        {this.fieldsFactory()}
+                        {this.getTextInputFields()}
 
-                        {this.getSelectOptions(teams, 'team')}
-                        {this.getSelectOptions(this.getMembersIdList(), 'assignee')}
-                        {this.getSelectOptions(this.getLifecycleOptions(), 'status')}
+                        {this.getSelectBoxes()}
 
                         <div>
                             <input type='checkbox'>Assign to All</input>
                         </div>
-                        <Btn card={this.state} isCreating={this.props.isCreating}/>
+
+                        <CardEditButtons card={this.state} isCreating={this.props.isCreating}/>
 
                     </div>
                 );
-
-                return this.props.isPop ? (
-                    <Popup>
-                        {content}
-                    </Popup>
-                ) : content;
-
-                //return content;
             }
         });
     });
