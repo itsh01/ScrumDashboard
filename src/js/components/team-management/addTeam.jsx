@@ -1,7 +1,10 @@
-define(['lodash', 'React'], function (_, React) {
+define(['lodash', 'React', 'constants'], function (_, React, constants) {
     'use strict';
     return React.createClass({
         displayName: 'Add Team',
+        contextTypes: {
+            flux: React.PropTypes.any
+        },
         getInitialState: function () {
             return {
                 isInputVisible: false
@@ -14,11 +17,14 @@ define(['lodash', 'React'], function (_, React) {
                 }
             );
         },
-        addNewTeam: function(e) {
+        addNewTeam: function (e) {
             e.preventDefault();
             var newTeamInput = this.refs.teamName.getDOMNode();
-            console.log(newTeamInput.value);
-            newTeamInput.value = '';
+            var newTeamObject = this.context.flux.teamsStore.getBlankTeam();
+            newTeamObject.name = newTeamInput.value;
+            this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_TEAM, newTeamObject);
+            //console.log(newTeamInput.value);
+            //newTeamInput.value = '';
         },
         render: function () {
             var resultContent = this.state.isInputVisible ?
