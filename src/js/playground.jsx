@@ -46,11 +46,15 @@ playData.cards = [
     }];
 
 requirejs.config({
-    paths: {
-        lodash: '../vendor/lodash',
-        React: '../vendor/react-with-addons',
-        components: '../js/components'
-    },
+        paths: {
+            lodash: '../vendor/lodash',
+            React: '../vendor/react-with-addons',
+            ReactRouter: '../vendor/ReactRouter',
+            DragDropMixin: '../vendor/DragDropMixin',
+            components: '../js/components',
+            mixins: '../js/mixins',
+            stores: '../js/stores'
+        },
     shim: {
         lodash: {
             exports: '_'
@@ -114,7 +118,7 @@ requirejs(
                 var currentTeam = this.flux.teamsStore.getCurrentTeam();
 
                 return <div>
-                    <PlanningCardEditCreate isCreating={false} card={card} isPop={true}/>
+                    {/*<PlanningCardEditCreate isCreating={false} card={card} isPop={false}/>*/}
 
                     <TeamManagement allTeams={allTeams} currentTeam={currentTeam}/>
 

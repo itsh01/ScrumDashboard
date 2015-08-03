@@ -4,9 +4,11 @@ define([
 
         'components/card/Card',
 
-        'DragDropMixin'
+        'DragDropMixin',
+
+        'constants'
     ],
-    function (_, React, Card, DragDropMixin) {
+    function (_, React, Card, DragDropMixin, constants) {
     'use strict';
 
     return React.createClass({
@@ -17,7 +19,8 @@ define([
             title: React.PropTypes.string
         },
         contextTypes: {
-            flux: React.PropTypes.any
+            flux: React.PropTypes.any,
+            teamId: React.PropTypes.string
         },
         mixins: [DragDropMixin],
 
@@ -31,22 +34,21 @@ define([
         dragDrop: function () {
 
             var self = this;
-
+            console.log(this.context.teamId);
             return {
                 droppable: true,
                 acceptableDrops: ['card'],
                 drop: function (card) {
 
-                    var newCardData = {
-                        status: 'unassigned',
-                        assignee: null
-                    };
-                    
-                    if (self.props.title === 'Company') {
-                        newCardData.team = null;
-                    }
+                    var isCompanyList = self.props.title === 'Company',
+                    newCardData = {
+                            status: 'unassigned',
+                            assignee: null,
+                            team: isCompanyList ? null : self.context.teamId
+                        };
+
                     self.context.flux.dispatcher.dispatchAction(
-                        'UPDATE_CARD',
+                        constants.actionNames.UPDATE_CARD,
                         card.id,
                         newCardData
                     );
@@ -54,15 +56,14 @@ define([
             };
         },
         render: function () {
-            var cardsListToDisply = this.props.cardsList;
+            var cardsListToDisplay = _.map(this.props.cardsList, function (card) {
+                return <Card card={card} key={card.id}/>;
+            }, this);
+
             return (
                 <div>
                     <h3>{this.props.title} </h3>
-                    {
-                        _.map(cardsListToDisply, function (card) {
-                            return <Card card={card} key={card.id}/>;
-                        }, this)
-                    }
+                    {cardsListToDisplay}
                 </div>
             );
         }

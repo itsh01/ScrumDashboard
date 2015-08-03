@@ -1,10 +1,14 @@
 define([
         'lodash',
         'React',
+
         'components/sprint/CardsContainer',
-        'DragDropMixin'
+
+        'DragDropMixin',
+
+        'constants'
     ],
-    function (_, React, CardsContainer, DragDropMixin) {
+    function (_, React, CardsContainer, DragDropMixin, constants) {
         'use strict';
 
         return React.createClass({
@@ -34,7 +38,7 @@ define([
                         };
 
                         self.context.flux.dispatcher.dispatchAction(
-                            'UPDATE_CARD',
+                            constants.actionNames.UPDATE_CARD,
                             card.id,
                             newCardData
                         );
