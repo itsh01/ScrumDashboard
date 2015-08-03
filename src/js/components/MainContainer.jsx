@@ -35,7 +35,7 @@ define([
         render: function () {
             return (
                 <div>
-                    <HomeView />
+                    <HomeView {...this.props}/>
                 </div>);
         }
     });
