@@ -1,10 +1,10 @@
 define(
     [
         '../../src/vendor/lodash',
-        './flux'
+        './flux',
+        '../../src/js/constants'
     ],
-    function (_,
-              Flux) {
+    function (_, Flux, constants) {
         'use strict';
 
         var flux = new Flux();
@@ -43,13 +43,14 @@ define(
                         name: 'card F',
                         startDate: '2015-0730'
                     }
-                ];
+                ],
+                action = constants.actionNames.ADD_CARD;
             console.log('Test addCard...');
             _.forEach(validCards, function (card) {
-                flux.dispatcher.dispatchAction('ADD_CARD', card);
+                flux.dispatcher.dispatchAction(action, card);
             });
             _.forEach(invalidCards, function (card) {
-                flux.dispatcher.dispatchAction('ADD_CARD', card);
+                flux.dispatcher.dispatchAction(action, card);
             });
             console.log('Test addCard... done\n\n');
         }
@@ -83,23 +84,25 @@ define(
                     { // invalid key
                         id: '90eed4aa-40fe-496e-999a-54a436d66427'
                     }
-                ];
+                ],
+                action = constants.actionNames.UPDATE_CARD;
             cardIds.push('non-existent-id');
             console.log('Test updateCard...');
             _.forEach(cardIds, function (id) {
                 _.forEach(validCardData.concat(invalidCardData), function (data) {
-                    flux.dispatcher.dispatchAction('UPDATE_CARD', id, data);
+                    flux.dispatcher.dispatchAction(action, id, data);
                 });
             });
             console.log('Test updateCard... done\n\n');
         }
 
         function testRemove(cardIds) {
+            var action = constants.actionNames.REMOVE_CARD;
             console.log('Test removeCard...');
             _.forEach(cardIds, function (id) {
-                flux.dispatcher.dispatchAction('REMOVE_CARD', id);
+                flux.dispatcher.dispatchAction(action, id);
             });
-            flux.dispatcher.dispatchAction('REMOVE_CARD', 'non-existent-id');
+            flux.dispatcher.dispatchAction(action, 'non-existent-id');
             console.log('Test removeCard... done\n\n');
         }
 

@@ -15,39 +15,16 @@ define([
                 teamId: React.PropTypes.string
             },
             contextTypes: {
-                flux: React.PropTypes.any
+                flux: React.PropTypes.any,
+                teamId: React.PropTypes.string
             },
-            //mixins: [DragDropMixin],
             getInitialState: function () {
                 return {
 
                 };
             },
-            //dragDrop: function () {
-            //
-            //    var self = this;
-            //
-            //    return {
-            //        droppable: true,
-            //        acceptableDrops: ['card'],
-            //        drop: function (card) {
-            //
-            //            var newCardData = {
-            //                status: 'unassigned',
-            //                assignee: null
-            //            };
-            //
-            //            self.context.flux.dispatcher.dispatchAction(
-            //                'UPDATE_CARD',
-            //                card.id,
-            //                newCardData
-            //            );
-            //        }
-            //    };
-            //},
-
             render: function () {
-                var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
+                var teamCards = this.context.flux.cardsStore.getTeamCards(this.context.teamId);
                 var CompanyCards = this.context.flux.cardsStore.getCompanyCards();
 
                 teamCards = _.filter(teamCards, function (card) {

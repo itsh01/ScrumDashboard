@@ -11,12 +11,7 @@ define([
         };
 
         function TeamStore(dispatcher, getUserCards) {
-            var /*RETRO_CARDS_STATUS_SCHEMA = {
-                    cardId: {type: 'string'},
-                    assigneeId: {type: 'string'},
-                    status: {type: 'string'}
-                },*/
-                SPRINT_SCHEMA = {
+            var SPRINT_SCHEMA = {
                     name: {type: 'string'},
                     scrumMaster: {type: 'string', defaultValue: null},
                     startDate: {type: 'string', defaultValue: null},
@@ -40,6 +35,10 @@ define([
 
             this.getTeamById = function (id) {
                 return _.cloneDeep(_.find(currentTeam, {id: id}));
+            };
+
+            this.getSprintById = function (id) {
+                return _.cloneDeep(getSprintById(id));
             };
 
             this.getBlankTeam = function () {
@@ -95,29 +94,78 @@ define([
                 });
             }
 
-            function getSprint(sprintId, teamId) {
-                var collection;
-                if (teamId) {
-                    collection = _.find(defaultTeamData, {id: teamId});
-                } else {
-                    collection = [];
-                    _.forEach(defaultTeamData, function (team) {
-                        if (!_.isEmpty(team.sprints)) {
-                            collection = collection.concat(team.sprints);
-                        }
-                    });
+            function getSprintsByTeamId(teamId) {
+                var collection = _.find(defaultTeamData, {id: teamId});
+                if (collection) {
+                    collection = collection.sprints;
                 }
-                return _.find(collection, {id: sprintId});
+                return collection;
             }
 
+            function getSprintById(sprintId) {
+                var sprint;
+                _.every(defaultTeamData, function (team) {
+                    sprint = _.find(team.sprints, {id: sprintId});
+                    return sprint === undefined;
+                });
+                return sprint;
+            }
+
+            // teamId is an optional argument
+            function getSprint(sprintId, teamId) {
+                if (teamId) {
+                    return _.find(getSprintsByTeamId(teamId), {id: sprintId});
+                }
+                return getSprintById(sprintId);
+            }
+
+            function setRetroCardsStatus(sprint) {
+                var cards = [];
+                _.forEach(sprint.members, function (memberId) {
+                    cards = cards.concat(getUserCards(memberId));
+                });
+                sprint.retroCardsStatus = [];
+                _.forEach(cards, function (card) {
+                    sprint.retroCardsStatus.push({
+                        cardId: card.id,
+                        assigneeId: card.assignee,
+                        status: card.status
+                    });
+                });
+            }
+
+            function validateSprintBeforeMovingToNextState(sprint, sprintId) {
+                if (!sprint) {
+                    console.log('Team Store: sprint does not exist (sprint ID:', sprintId, ')');
+                    return false;
+                }
+                if (sprint.state === constants.SPRINT_STATUS.RETRO) {
+                    console.log('Team Store: sprint is already in retro (sprint ID:', sprintId, ')');
+                    return false;
+                }
+                return true;
+            }
+
+            // teamId is an optional argument
             function retrofySprint(sprintId, teamId) {
-                getSprint(sprintId, teamId);
-                getUserCards([1]);
-                console.log(sprintId, teamId);
+                var sprint = getSprint(sprintId, teamId);
+                if (!validateSprintBeforeMovingToNextState(sprint, sprintId)) {
+                    return;
+                }
+                setRetroCardsStatus(sprint);
+                sprint.state = constants.SPRINT_STATUS.RETRO;
             }
 
+            // teamId is an optional argument
             function moveSprintToNextState(sprintId, teamId) {
-                console.log(sprintId, teamId);
+                var sprint = getSprint(sprintId, teamId);
+                if (!validateSprintBeforeMovingToNextState(sprint, sprintId)) {
+                    return;
+                }
+                sprint.state++;
+                if (sprint.state === constants.SPRINT_STATUS.RETRO) {
+                    setRetroCardsStatus(sprint);
+                }
             }
 
 

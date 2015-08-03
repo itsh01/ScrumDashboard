@@ -1,10 +1,10 @@
 define(
     [
         '../../src/vendor/lodash',
-        './flux'
+        './flux',
+        '../../src/js/constants'
     ],
-    function (_,
-              Flux) {
+    function (_, Flux, constants) {
         'use strict';
 
         var flux = new Flux();
@@ -35,12 +35,12 @@ define(
                 ];
             console.log('Test add/remove/update Member...');
             _.forEach(members, function (member) {
-                flux.dispatcher.dispatchAction('ADD_MEMBER', member);
-                flux.dispatcher.dispatchAction('UPDATE_MEMBER', member);
-                flux.dispatcher.dispatchAction('UPDATE_MEMBER', member);
+                flux.dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER, member);
+                flux.dispatcher.dispatchAction(constants.actionNames.UPDATE_MEMBER, member);
+                flux.dispatcher.dispatchAction(constants.actionNames.UPDATE_MEMBER, member);
             });
-            flux.dispatcher.dispatchAction('DEACTIVATE_MEMBER', existentId);
-            flux.dispatcher.dispatchAction('DEACTIVATE_MEMBER', nonExistentId);
+            flux.dispatcher.dispatchAction(constants.actionNames.DEACTIVATE_MEMBER, existentId);
+            flux.dispatcher.dispatchAction(constants.actionNames.DEACTIVATE_MEMBER, nonExistentId);
             console.log('Test add/remove/update Member... done\n\n');
         }
 
