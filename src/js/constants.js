@@ -13,7 +13,9 @@ define([], function () {
 
             ADD_TEAM: 'ADD_TEAM',
             ADD_SPRINT: 'ADD_SPRINT',
-            CHANGE_CURRENT_TEAM: 'CHANGE_CURRENT_TEAM'
+            CHANGE_CURRENT_TEAM: 'CHANGE_CURRENT_TEAM',
+            RETROFY_SPRINT: 'RETROFY_SPRINT',
+            MOVE_SPRINT_TO_NEXT_STATE: 'MOVE_SPRINT_TO_NEXT_STATE'
         }
     };
 });

@@ -2,9 +2,9 @@ define([
         'lodash',
         '../data/members',
         './helpers',
-        './actionNames'
+        '../constants'
     ],
-    function (_, defaultMembersData, helpers, actionNames) {
+    function (_, defaultMembersData, helpers, constants) {
         'use strict';
         var filterFunctions = {
             AllMembers: null
@@ -50,7 +50,7 @@ define([
                     return false;
                 }
                 member.active = false;
-                dispatcher.dispatchAction('MEMBER_DEACTIVATED', memberId);
+                dispatcher.dispatchAction(constants.actionNames.MEMBER_DEACTIVATED, memberId);
                 return true;
             }
 
@@ -71,9 +71,9 @@ define([
                 }.bind(this));
             };
 
-            dispatcher.registerAction(actionNames.ADD_MEMBER, addMember.bind(this));
-            dispatcher.registerAction(actionNames.UPDATE_MEMBER, updateMember.bind(this));
-            dispatcher.registerAction(actionNames.DEACTIVATE_MEMBER, deactivateMember.bind(this));
+            dispatcher.registerAction(constants.actionNames.ADD_MEMBER, addMember.bind(this));
+            dispatcher.registerAction(constants.actionNames.UPDATE_MEMBER, updateMember.bind(this));
+            dispatcher.registerAction(constants.actionNames.DEACTIVATE_MEMBER, deactivateMember.bind(this));
 
         }
 
