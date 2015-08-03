@@ -21,9 +21,21 @@ define([
 
             saveOrDeleteCard: function (isSaving) {
                 var dispatcher = this.context.flux.dispatcher;
-                var eventStr = isSaving ? constants.actionNames.ADD_CARD : constants.actionNames.REMOVE_CARD;
-                dispatcher.dispatchAction(eventStr, this.props.card);
 
+                if (isSaving && this.props.isCreating) {
+                    console.log('adding card');
+                    dispatcher.dispatchAction(constants.actionNames.ADD_CARD, this.props.card);
+                } else if (isSaving) {
+                    dispatcher.dispatchAction(constants.actionNames.UPDATE_CARD,
+                        this.props.card.id,
+                        this.props.card);
+                    console.log('updating card');
+                    console.log(this.props.card.id);
+                } else {
+                    console.log('removing card');
+                    dispatcher.dispatchAction(constants.actionNames.REMOVE_CARD, this.props.card.id);
+                }
+                this.requireClosePopup();
             },
 
             saveCard: function () {
@@ -33,7 +45,9 @@ define([
             deleteCard: function () {
                 this.saveOrDeleteCard(false);
             },
-
+            requireClosePopup: function () {
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_DONE_ADDING_CARD);
+            },
             render: function () {
                 var deleteBtn = this.props.isCreating ? null :
                     <button className='card-edit-btn card-edit-btn-delete' onClick={this.deleteCard}>
@@ -41,7 +55,8 @@ define([
                 return (
                     <div className='card-edit-btn-container'>
                         {deleteBtn}
-                        <button className='card-edit-btn card-edit-btn-cancel'>Cancel</button>
+                        <button className='card-edit-btn card-edit-btn-cancel' onClick={this.requireClosePopup}>Cancel
+                        </button>
                         <button className='card-edit-btn card-edit-btn-save' onClick={this.saveCard}>
                             Save
                         </button>

@@ -7,9 +7,12 @@ define([
         'React',
 
         'components/HomeView',
-        'stores/flux'
+        'stores/flux',
+
+        'components/pop-up/Basic',
+        'components/card-edit/CardEditCreate'
     ],
-    function (_, React, HomeView, Flux) {
+    function (_, React, HomeView, Flux, Popup, CardEditCreate) {
         'use strict';
 
         /** jsx React.DOM */
@@ -36,8 +39,17 @@ define([
             },
 
             render: function () {
+                var popUp = null;
+                if (this.flux.planningStore.isAddingCard) {
+                    popUp = (
+                        <Popup>
+                            <CardEditCreate isPop={false}/>
+                        </Popup>
+                    );
+                }
                 return (
                     <div>
+                        {popUp}
                         <HomeView {...this.props} {...this.state}/>
                     </div>);
             }
