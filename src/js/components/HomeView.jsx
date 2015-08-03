@@ -6,27 +6,28 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
 
         propTypes: {
             currTeam: React.PropTypes.object,
-            teams: React.PropTypes.array
+            query: React.PropTypes.object
         },
 
         contextTypes: {
-            flux: React.PropTypes.any
+            flux: React.PropTypes.any,
+            router: React.PropTypes.func
         },
-
-        getInitialState: function () {
-            var teams = this.context.flux.teamsStore.getAllTeams();
-            return {
-                teams: teams,
-                currTeamId: teams[0].id
-            };
+        getTeams: function () {
+            return this.context.flux.teamsStore.getAllTeams();
         },
 
         handleChangeTeam: function (e) {
-            this.setState({currTeamId: e.target.value});
+
+            var query = _.clone(this.props.query);
+            query.teamId = e.target.value;
+            this.context.router.transitionTo('/', null, query);
+
+            //this.setState({currTeamId: e.target.value});
         },
 
         render: function () {
-            var teamsOptions = _.map(this.state.teams, function (team) {
+            var teamsOptions = _.map(this.getTeams(), function (team) {
                 return (<option value={team.id} key={team.id}>{team.name}</option>);
             });
             return (<div className="teamManagement-container">
@@ -44,7 +45,8 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
                     </div>
 
                     <div className="team-view">
-                        <TeamView currTeamId={this.state.currTeamId}/>
+
+                        <TeamView currTeamId={this.props.query.teamId || this.getTeams()[0].id}/>
                     </div>
                 </div>
             );

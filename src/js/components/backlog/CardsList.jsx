@@ -21,14 +21,16 @@ define(['lodash', 'React', 'components/card/Card'], function (_, React, Card) {
         },
         render: function () {
             var cardsListToDisply = this.props.cardsList;
-            return (<div>
-                <h2>{this.props.title} </h2>
-                {
-                    _.map(cardsListToDisply, function (card) {
-                        return <Card card={card} key={card.id}/>;
-                    }, this)
-                }
-            </div>);
+            return (
+                <div>
+                    <h2>{this.props.title} </h2>
+                    {
+                        _.map(cardsListToDisply, function (card) {
+                            return <Card card={card} key={card.id}/>;
+                        }, this)
+                    }
+                </div>
+            );
         }
 
     });

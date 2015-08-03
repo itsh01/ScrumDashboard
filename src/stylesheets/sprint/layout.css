@@ -33,6 +33,15 @@
 .sprint-cards-container {
     display: flex;
     line-height: 1rem;
+    position: relative;
+}
+
+.sprint-card-wrapper {
+    position: absolute;
+}
+
+.sprint-card-wrapper .card {
+    box-shadow: 0.2rem 0.2rem 0.2rem;
 }
 
 .sprint-velocity {

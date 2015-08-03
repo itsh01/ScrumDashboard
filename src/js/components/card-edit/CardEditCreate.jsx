@@ -1,9 +1,10 @@
 define([
         'lodash',
         'React',
-        'components/card-edit/Btn'
+        'components/card-edit/Buttons',
+        'components/pop-up/Basic'
     ],
-    function (_, React, Btn) {
+    function (_, React, Btn, Popup) {
         'use strict';
 
         return React.createClass({
@@ -12,14 +13,18 @@ define([
             propTypes: {
                 card: React.PropTypes.object,
                 isCreating: React.PropTypes.bool.isRequired,
-                isPop: React.PropTypes.bool.isRequired
+                isPop: React.PropTypes.bool
             },
             contextTypes: {
                 flux: React.PropTypes.any
             },
 
             mixins: [React.addons.LinkedStateMixin],
-
+            getDefaultProps: function () {
+                return {
+                    isPop: true
+                };
+            },
             getInitialState: function () {
                 if (!this.props.isCreating && !this.props.card) {
                     throw new Error();
@@ -53,7 +58,7 @@ define([
                 );
             },
 
-            contentFactory: function () {
+            fieldsFactory: function () {
                 return _.chain(this.state)
                     .keys()
                     .filter(this.keysFilter)
@@ -91,7 +96,7 @@ define([
                 var teams = this.context.flux.teamsStore.getAllTeams();
                 var content = (
                     <div className='card-edit-container'>
-                        {this.contentFactory()}
+                        {this.fieldsFactory()}
 
                         {this.getSelectOptions(teams, 'team')}
                         {this.getSelectOptions(this.getMembersIdList(), 'assignee')}
@@ -103,16 +108,14 @@ define([
 
                     </div>
                 );
-                content = this.props.isPop ? (
-                    <div className='pop'>
+
+                return this.props.isPop ? (
+                    <Popup>
                         {content}
-                    </div>
+                    </Popup>
                 ) : content;
-                return (
-                    <div>
-                        {content}
-                    </div>
-                );
+
+                //return content;
             }
         });
     });

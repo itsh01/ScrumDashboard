@@ -31,6 +31,7 @@ define([
 
                 return {
                     droppable: true,
+                    acceptableDrops: ['card'],
                     drop: function (card) {
 
                         var newCardData = {

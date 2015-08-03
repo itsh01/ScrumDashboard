@@ -23,7 +23,8 @@ define([
             dragDrop: function () {
                 return {
                     draggable: true,
-                    dataTransfer: this.props.card
+                    dataTransfer: this.props.card,
+                    dropType: 'card'
                 };
             },
             getCardScore: function () {

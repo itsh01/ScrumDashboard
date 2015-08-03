@@ -23,6 +23,7 @@ define([
                 var self = this;
                 return {
                     droppable: true,
+                    acceptableDrops: ['card'],
                     drop: function (card) {
 
                         var newCardData = {

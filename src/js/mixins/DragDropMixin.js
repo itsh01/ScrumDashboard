@@ -2,8 +2,8 @@
  * Created by itaysh on 7/30/15.
  */
 
-define([],
-    function () {
+define(['lodash'],
+    function (_) {
         'use strict';
 
 
@@ -18,10 +18,12 @@ define([],
               *
               *         // when dragging an item
               *         draggable: true,
-              *         dataTransfer: { myItem: item1 }
+              *         dropType: 'myItem',
+              *         dataTransfer: { myItemData: property }
               *
               *         // when dropping an item:
               *         droppable: true,
+              *         acceptableDrops: ['myItem'],
               *         drop: function (myItem) {},
               *     };
               *  }
@@ -67,7 +69,9 @@ define([],
                 e.preventDefault();
             },
             handleDrop: function (e) {
-                var jsonData = e.dataTransfer.getData('data');
+                var jsonData = e.dataTransfer.getData('objToPass'),
+                    passedObj = JSON.parse(jsonData),
+                    acceptableDrops = this.dragDropData.acceptableDrops;
 
                 e.preventDefault();
 
@@ -75,12 +79,18 @@ define([],
                     throw new Error('Must define drop function when using droppable');
                 }
 
-                this.dragDropData.drop(JSON.parse(jsonData));
+                if (_.includes(acceptableDrops, passedObj.dropType)) {
+                    this.dragDropData.drop(passedObj.data);
+                }
+
             },
             handleDragStart: function (e) {
-                var data = this.dragDropData.dataTransfer;
+                var objToPass = {
+                        data: this.dragDropData.dataTransfer,
+                        dropType: this.dragDropData.dropType
+                    };
 
-                e.dataTransfer.setData('data', JSON.stringify(data));
+                e.dataTransfer.setData('objToPass', JSON.stringify(objToPass));
             }
         };
     }
