@@ -4,7 +4,7 @@ define([
 
         'components/card/Card',
 
-        'mixins/DragDropMixin'
+        'DragDropMixin'
     ],
     function (_, React, Card, DragDropMixin) {
     'use strict';

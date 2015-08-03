@@ -2,7 +2,7 @@ define([
         'lodash',
         'React',
         'components/sprint/CardsContainer',
-        'mixins/DragDropMixin'
+        'DragDropMixin'
     ],
     function (_, React, CardsContainer, DragDropMixin) {
         'use strict';

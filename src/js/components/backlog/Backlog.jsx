@@ -3,11 +3,9 @@ define([
         'React',
 
         'components/card/Card',
-        'components/backlog/cardsList',
-
-        'mixins/DragDropMixin'
+        'components/backlog/cardsList'
     ],
-    function (_, React, Card, CardsList/*, DragDropMixin*/) {
+    function (_, React, Card, CardsList) {
         'use strict';
 
         return React.createClass({
