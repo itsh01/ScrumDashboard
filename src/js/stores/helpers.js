@@ -2,6 +2,18 @@ define([], function () {
     'use strict';
     var DATE_FORMAT = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/;
 
+    function saveToLocalStorage(storeName, storeObj) {
+        localStorage.setItem(storeName, JSON.stringify(storeObj));
+    }
+
+    function restoreFromLocalStorage(storeName) {
+        return JSON.parse(localStorage.getItem(storeName));
+    }
+
+    function removeFromLocalStorage(storeName) {
+        localStorage.removeItem(storeName);
+    }
+
     function generateGuid() {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000)
@@ -75,6 +87,9 @@ define([], function () {
     }
 
     return {
+        saveToLocalStorage: saveToLocalStorage,
+        restoreFromLocalStorage: restoreFromLocalStorage,
+        removeFromLocalStorage: removeFromLocalStorage,
         generateGuid: generateGuid,
         isValidValue: isValidValue,
         getBlankItem: getBlankItem,
