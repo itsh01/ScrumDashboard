@@ -13,12 +13,19 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 flux: React.PropTypes.any,
                 router: React.PropTypes.func
             },
-            //childContextTypes: {
-            //    team:
-            //},
+
+            childContextTypes: {
+                teamId: React.PropTypes.string
+            },
 
             getInitialState: function () {
                 return this.getSprintValues(this.props);
+            },
+
+            getChildContext: function () {
+                return {
+                    teamId: this.props.currTeamId
+                };
             },
 
             componentWillReceiveProps: function (nextProps) {
