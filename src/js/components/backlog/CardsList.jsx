@@ -36,7 +36,6 @@ define([
                 droppable: true,
                 acceptableDrops: ['card'],
                 drop: function (card) {
-                    //console.log( ? 'rrrrrr' : 'ttttt');
 
                     var newCardData = {
                         status: 'unassigned',
