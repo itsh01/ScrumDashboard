@@ -11,8 +11,7 @@ define([
         };
 
         function TeamStore(dispatcher, getUserCards) {
-            var SPRINT_STATUS = {PLANNING: 0, IN_PROGRESS: 1, RETRO: 2},
-                /*RETRO_CARDS_STATUS_SCHEMA = {
+            var /*RETRO_CARDS_STATUS_SCHEMA = {
                     cardId: {type: 'string'},
                     assigneeId: {type: 'string'},
                     status: {type: 'string'}
@@ -146,7 +145,7 @@ define([
                     console.log('Team Store: sprint does not exist (sprint ID:', sprintId, ')');
                     return false;
                 }
-                if (sprint.status === SPRINT_STATUS.RETRO) {
+                if (sprint.status === constants.SPRINT_STATUS.RETRO) {
                     console.log('Team Store: sprint is already in retro (sprint ID:', sprintId, ')');
                     return false;
                 }
@@ -160,7 +159,7 @@ define([
                     return;
                 }
                 setRetroCardsStatus(sprint);
-                sprint.status = SPRINT_STATUS.RETRO;
+                sprint.status = constants.SPRINT_STATUS.RETRO;
             }
 
             // teamId is an optional argument
@@ -170,7 +169,7 @@ define([
                     return;
                 }
                 sprint.status++;
-                if (sprint.status === SPRINT_STATUS.RETRO) {
+                if (sprint.status === constants.SPRINT_STATUS.RETRO) {
                     setRetroCardsStatus(sprint);
                 }
             }
