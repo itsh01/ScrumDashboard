@@ -42,10 +42,6 @@ define(
                     { // invalid date format
                         name: 'card F',
                         startDate: '2015-0730'
-                    },
-                    { // user defined attribute
-                        name: 'card G',
-                        fname: 'V'
                     }
                 ];
             console.log('Test addCard...');
@@ -78,10 +74,7 @@ define(
                     }
                 ],
                 invalidCardData = [
-                    { // cannot redefine name
-                        name: 'card X'
-                    },
-                    { // invalid valuez
+                    { // invalid value
                         description: null
                     },
                     { // invalid value
@@ -89,9 +82,6 @@ define(
                     },
                     { // invalid key
                         id: '90eed4aa-40fe-496e-999a-54a436d66427'
-                    },
-                    { // invalid key
-                        id2: '90eed4aa-40fe-496e-999a-54a436d66427'
                     }
                 ];
             cardIds.push('non-existent-id');
