@@ -43,7 +43,8 @@ define([
                 return (
                     key !== 'id' &&
                     key !== 'team' &&
-                    key !== 'assignee'
+                    key !== 'assignee' &&
+                    key !== 'status'
                 );
             },
 
@@ -94,6 +95,19 @@ define([
                 return this.context.flux.membersStore.getMembersByIdList(team.members);
             },
 
+            getLifecycleOptions: function () {
+                if (!this.state.assignee) {
+                    return null;
+                }
+                var team = this.context.flux.teamsStore.getTeamById(this.state.team);
+                var lifecycle = team.sprints[team.sprints.length - 1].cardLifecycle;
+                var values = _.map(lifecycle, function (status) {
+                    return {id: status, name: status};
+                });
+                console.log(lifecycle);
+                return values;
+            },
+
             render: function () {
                 var teams = this.context.flux.teamsStore.getAllTeams();
                 var content = (
@@ -102,6 +116,7 @@ define([
 
                         {this.getSelectOptions(teams, 'team')}
                         {this.getSelectOptions(this.getMembersIdList(), 'assignee')}
+                        {this.getSelectOptions(this.getLifecycleOptions(), 'status')}
 
                         <div>
                             <input type='checkbox'>Assign to All</input>

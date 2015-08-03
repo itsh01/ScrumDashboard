@@ -59,14 +59,17 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                     currSprintIndex: team.sprints.length - 1
                 };
             },
+
             addCardClicked: function () {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
             },
+
             addCardBtn: function () {
                 return this.state.currSprint.state === 'planning' ?
                     <button onClick={this.addCardClicked}>Add Card</button> :
                     null;
             },
+
             render: function () {
                 var team = this.getTeamObject(this.props.currTeamId);
                 return (
