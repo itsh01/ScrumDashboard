@@ -1,6 +1,13 @@
-define(['lodash', 'React', 'components/card/Card'], function (_, React, Card) {
+define([
+        'lodash',
+        'React',
+
+        'components/card/Card',
+
+        'mixins/DragDropMixin'
+    ],
+    function (_, React, Card, DragDropMixin) {
     'use strict';
-    /** jsx React.DOM */
 
     return React.createClass({
 
@@ -12,6 +19,8 @@ define(['lodash', 'React', 'components/card/Card'], function (_, React, Card) {
         contextTypes: {
             flux: React.PropTypes.any
         },
+        mixins: [DragDropMixin],
+
         getInitialState: function () {
             return {
                 initialCards: [],
@@ -19,11 +28,37 @@ define(['lodash', 'React', 'components/card/Card'], function (_, React, Card) {
 
             };
         },
+        dragDrop: function () {
+
+            var self = this;
+
+            return {
+                droppable: true,
+                acceptableDrops: ['card'],
+                drop: function (card) {
+                    //console.log( ? 'rrrrrr' : 'ttttt');
+
+                    var newCardData = {
+                        status: 'unassigned',
+                        assignee: null
+                    };
+                    
+                    if (self.props.title === 'Company') {
+                        newCardData.team = null;
+                    }
+                    self.context.flux.dispatcher.dispatchAction(
+                        'UPDATE_CARD',
+                        card.id,
+                        newCardData
+                    );
+                }
+            };
+        },
         render: function () {
             var cardsListToDisply = this.props.cardsList;
             return (
                 <div>
-                    <h2>{this.props.title} </h2>
+                    <h3>{this.props.title} </h3>
                     {
                         _.map(cardsListToDisply, function (card) {
                             return <Card card={card} key={card.id}/>;
