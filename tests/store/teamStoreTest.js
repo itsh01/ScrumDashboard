@@ -80,10 +80,22 @@ define(
             console.log('Test retrofySprint... done\n\n');
         }
 
+        function testMoveSprintToNextState() {
+            console.log('Test moveSprintToNextState...');
+            flux.dispatcher.dispatchAction('MOVE_SPRINT_TO_NEXT_STATE', '55b8a1602bba6dbc0765eced', 'c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d');
+            flux.dispatcher.dispatchAction('MOVE_SPRINT_TO_NEXT_STATE', '55b8a1602bba6dbc0765eced', 'non-existent-team-id');
+            flux.dispatcher.dispatchAction('MOVE_SPRINT_TO_NEXT_STATE', '55b8a16069c3c3bcd5425303');
+            flux.dispatcher.dispatchAction('MOVE_SPRINT_TO_NEXT_STATE', 'non-existent-sprint-id');
+            console.log(flux.teamsStore.getSprintById('55b8a1602bba6dbc0765eced').state);
+            console.log(flux.teamsStore.getSprintById('55b8a16069c3c3bcd5425303').state);
+            console.log('Test moveSprintToNextState... done\n\n');
+        }
+
         return {
             run: function () {
                 testAdd();
                 testRetrofySprint();
+                testMoveSprintToNextState();
             }
         };
     });
