@@ -1,8 +1,10 @@
 define([
         'lodash',
-        'React'],
+        'React',
+        'constants'],
     function (_,
-              React) {
+              React,
+              constants) {
         'use strict';
 
         return React.createClass({
@@ -19,7 +21,7 @@ define([
 
             saveOrDeleteCard: function (isSaving) {
                 var dispatcher = this.context.flux.dispatcher;
-                var eventStr = isSaving ? 'PLANNING_ADD_CARD' : 'PLANNING_DELETE_CARD';
+                var eventStr = isSaving ? constants.actionNames.ADD_CARD : constants.actionNames.REMOVE_CARD;
                 dispatcher.dispatchAction(eventStr, this.props.card);
 
             },

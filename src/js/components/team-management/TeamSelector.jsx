@@ -1,4 +1,4 @@
-define(['lodash', 'React', '../../stores/actionNames'], function (_, React, TeamsActions) {
+define(['lodash', 'React', 'constants'], function (_, React, constants) {
     'use strict';
 
 
@@ -14,7 +14,7 @@ define(['lodash', 'React', '../../stores/actionNames'], function (_, React, Team
 
         changeCurrentTeam: function (e) {
             var teamId = e.target.id;
-            this.context.flux.dispatcher.dispatchAction(TeamsActions.CHANGE_CURRENT_TEAM, teamId);
+            this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM, teamId);
 
         },
 
