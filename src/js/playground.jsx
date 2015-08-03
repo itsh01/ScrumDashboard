@@ -46,11 +46,15 @@ playData.cards = [
     }];
 
 requirejs.config({
-    paths: {
-        lodash: '../vendor/lodash',
-        React: '../vendor/react-with-addons',
-        components: '../js/components'
-    },
+        paths: {
+            lodash: '../vendor/lodash',
+            React: '../vendor/react-with-addons',
+            ReactRouter: '../vendor/ReactRouter',
+            DragDropMixin: '../vendor/DragDropMixin',
+            components: '../js/components',
+            mixins: '../js/mixins',
+            stores: '../js/stores'
+        },
     shim: {
         lodash: {
             exports: '_'
@@ -109,22 +113,12 @@ requirejs(
             },
 
             render: function () {
-                var card = {
-                    "id": "b97fff13-de90-4e1f-abb7-39f786d11450",
-                    "name": "connect solid state hard drive",
-                    "description": "You can't hack the alarm without bypassing the multi-byte SDD alarm!",
-                    "status": "In progress",
-                    "score": 3,
-                    "team": null,
-                    "assignee": '0e8b324c-d49a-474d-8a=f4-f93bcc6a1511',
-                    "startDate": null,
-                    "endDate": null
-                };
+                var card = this.flux.cardsStore.getCardById('90eed4aa-40fe-496e-999a-54a436d66427');
                 var allTeams = this.flux.teamsStore.getAllTeams();
                 var currentTeam = this.flux.teamsStore.getCurrentTeam();
 
                 return <div>
-                    {/*<PlanningCardEditCreate isCreating={false} card={card} isPop={false}>*/}
+                    {/*<PlanningCardEditCreate isCreating={false} card={card} isPop={false}/>*/}
 
                     <TeamManagement allTeams={allTeams} currentTeam={currentTeam}/>
 

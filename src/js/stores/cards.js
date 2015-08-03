@@ -2,9 +2,9 @@ define([
         'lodash',
         '../data/cards',
         './helpers',
-        './actionNames'
+        '../constants'
     ],
-    function (_, defaultCardsData, helpers, actionNames) {
+    function (_, defaultCardsData, helpers, constants) {
         'use strict';
         var filterFunctions = {
             AllCards: null,
@@ -79,16 +79,16 @@ define([
             }
 
             /**
-             *
+             * @param {String} cardId
              * @param {Object} newCardData
              *  {
-         *      score: [Number],
-         *      team: [String],
-         *      status: [String],
-         *      assignee: [String],
-         *      startDate: [String] (format: YYYY-MM-DD),
-         *      endDate: [String] (format: YYYY-MM-DD)
-         *  }
+             *      score: [Number],
+             *      team: [String],
+             *      status: [String],
+             *      assignee: [String],
+             *      startDate: [String] (format: YYYY-MM-DD),
+             *      endDate: [String] (format: YYYY-MM-DD)
+             *  }
              */
             function updateCard(cardId, newCardData) {
                 if (isValidCard(newCardData)) {
@@ -98,6 +98,9 @@ define([
                 return false;
             }
 
+            /**
+             * @param {String} cardId
+             */
             function removeCard(cardId) {
                 var card = _.remove(currentCards, {id: cardId});
                 if (_.isEmpty(card)) {
@@ -116,10 +119,10 @@ define([
                 });
             }
 
-            dispatcher.registerAction(actionNames.UPDATE_CARD, updateCard.bind(this));
-            dispatcher.registerAction(actionNames.ADD_CARD, addCard.bind(this));
-            dispatcher.registerAction(actionNames.REMOVE_CARD, removeCard.bind(this));
-            dispatcher.registerAction(actionNames.MEMBER_DEACTIVATED, unassignMemberFromCards.bind(this));
+            dispatcher.registerAction(constants.actionNames.UPDATE_CARD, updateCard.bind(this));
+            dispatcher.registerAction(constants.actionNames.ADD_CARD, addCard.bind(this));
+            dispatcher.registerAction(constants.actionNames.REMOVE_CARD, removeCard.bind(this));
+            dispatcher.registerAction(constants.actionNames.MEMBER_DEACTIVATED, unassignMemberFromCards.bind(this));
 
         }
 

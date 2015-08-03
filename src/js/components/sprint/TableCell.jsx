@@ -1,10 +1,14 @@
 define([
         'lodash',
         'React',
+
         'components/sprint/CardsContainer',
-        'mixins/DragDropMixin'
+
+        'DragDropMixin',
+
+        'constants'
     ],
-    function (_, React, CardsContainer, DragDropMixin) {
+    function (_, React, CardsContainer, DragDropMixin, constants) {
         'use strict';
 
         return React.createClass({
@@ -15,7 +19,8 @@ define([
                 status: React.PropTypes.string
             },
             contextTypes: {
-                flux: React.PropTypes.any
+                flux: React.PropTypes.any,
+                teamId: React.PropTypes.string
             },
             mixins: [DragDropMixin],
             dragDrop: function () {
@@ -28,11 +33,12 @@ define([
 
                         var newCardData = {
                             status: self.props.status,
-                            assignee: self.props.assignee
+                            assignee: self.props.assignee,
+                            team: self.context.teamId
                         };
 
                         self.context.flux.dispatcher.dispatchAction(
-                            'UPDATE_CARD',
+                            constants.actionNames.UPDATE_CARD,
                             card.id,
                             newCardData
                         );
@@ -42,10 +48,11 @@ define([
                 };
             },
             render: function () {
-                return (<div
-                    className="table-cell">
-                    <CardsContainer cards={this.props.cards}/>
-                </div>);
+                return (
+                    <div className="table-cell">
+                       <CardsContainer cards={this.props.cards}/>
+                    </div>
+                );
             }
         });
     }

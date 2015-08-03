@@ -17,7 +17,7 @@ define([], function () {
             "description": "I'll compress the digital EXE protocol, that should protocol the EXE protocol!",
             "status": "Done",
             "score": 1,
-            "team": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
+            "team": null,
             "assignee": '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
             "startDate": null,
             "endDate": null

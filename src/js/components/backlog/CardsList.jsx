@@ -1,6 +1,15 @@
-define(['lodash', 'React', 'components/card/Card'], function (_, React, Card) {
+define([
+        'lodash',
+        'React',
+
+        'components/card/Card',
+
+        'DragDropMixin',
+
+        'constants'
+    ],
+    function (_, React, Card, DragDropMixin, constants) {
     'use strict';
-    /** jsx React.DOM */
 
     return React.createClass({
 
@@ -10,8 +19,11 @@ define(['lodash', 'React', 'components/card/Card'], function (_, React, Card) {
             title: React.PropTypes.string
         },
         contextTypes: {
-            flux: React.PropTypes.any
+            flux: React.PropTypes.any,
+            teamId: React.PropTypes.string
         },
+        mixins: [DragDropMixin],
+
         getInitialState: function () {
             return {
                 initialCards: [],
@@ -19,11 +31,35 @@ define(['lodash', 'React', 'components/card/Card'], function (_, React, Card) {
 
             };
         },
+        dragDrop: function () {
+
+            var self = this;
+
+            return {
+                droppable: true,
+                acceptableDrops: ['card'],
+                drop: function (card) {
+
+                    var newCardData = {
+                            status: 'unassigned',
+                            assignee: null
+                        },
+                        isCompanyList = self.props.title === 'Company';
+
+                    newCardData.team = isCompanyList ? null : self.context.teamId;
+                    self.context.flux.dispatcher.dispatchAction(
+                        constants.actionNames.UPDATE_CARD,
+                        card.id,
+                        newCardData
+                    );
+                }
+            };
+        },
         render: function () {
             var cardsListToDisply = this.props.cardsList;
             return (
                 <div>
-                    <h2>{this.props.title} </h2>
+                    <h3>{this.props.title} </h3>
                     {
                         _.map(cardsListToDisply, function (card) {
                             return <Card card={card} key={card.id}/>;

@@ -23,7 +23,7 @@ define([], function () {
                     '15fc4096-b641-436a-bf2d-8fbdeedec7b2',
                     '061804a2-1f93-40e1-bf49-57b82e5b568b'
                 ],
-                "state": 0
+                "state": 'default'
                 },
                 {
                     "id": "55b8a160a101c202d3b588bc",
@@ -37,7 +37,7 @@ define([], function () {
                         '15fc4096-b641-436a-bf2d-8fbdeedec7b2',
                         'aaef53cc-34bd-4d1f-bdda-9bf5e07ca2be'
                     ],
-                    "state": 0
+                    "state": 'default'
                 },
                 {
                     "id": "55b8a16069c3c3bcd5425303",
@@ -48,10 +48,11 @@ define([], function () {
                     cardLifecycle: ['Backlog', 'In progress', 'Done'],
                     members: [
                         '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
-                        '15fc4096-b641-436a-bf2d-8fbdeedec7b2',
+                        'b6cec5a4-9055-4a3d-9cee-e86b2e338645',
+                        'c2ea9955-081c-4da5-8bc7-be27e1a19c6e',
                         '061804a2-1f93-40e1-bf49-57b82e5b568b'
                     ],
-                    "state": 0
+                    "state": 'planning'
                 }],
             "name": "Directives"
         },
@@ -78,7 +79,7 @@ define([], function () {
                     '15fc4096-b641-436a-bf2d-8fbdeedec7b2',
                     '061804a2-1f93-40e1-bf49-57b82e5b568b'
                 ],
-                "state": 0
+                "state": 'default'
             },
                 {
                     "id": "55b8a1602bba6dbc0765eced",
@@ -92,7 +93,7 @@ define([], function () {
                         '15fc4096-b641-436a-bf2d-8fbdeedec7b2',
                         '061804a2-1f93-40e1-bf49-57b82e5b568b'
                     ],
-                    "state": 0
+                    "state": 'planning'
                 }],
             "name": "Security"
         },
@@ -118,7 +119,7 @@ define([], function () {
                     '183323c8-d707-4471-8736-373eba8aaa8c',
                     'aaef53cc-34bd-4d1f-bdda-9bf5e07ca2be'
                 ],
-                "state": 0
+                "state": 'planning'
             }],
             "name": "Mobility"
         }

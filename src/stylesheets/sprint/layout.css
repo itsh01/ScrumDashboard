@@ -8,6 +8,10 @@
 
 .sprint-member figure {
     text-align: center;
+    margin: 1.3rem;
+}
+.sprint-member figcaption {
+    padding: 0.3rem;
 }
 
 .sprint-table-wrapper .table-cell {
@@ -34,14 +38,18 @@
     display: flex;
     line-height: 1rem;
     position: relative;
+    margin: 0.25rem;
 }
 
 .sprint-card-wrapper {
     position: absolute;
+    margin: 0;
+    pdding: 0;
 }
 
 .sprint-card-wrapper .card {
-    box-shadow: 0.2rem 0.2rem 0.2rem;
+    box-shadow: -0.2rem -0.2rem 0.2rem;
+    margin: 0;
 }
 
 .sprint-velocity {

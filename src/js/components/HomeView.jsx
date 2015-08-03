@@ -30,7 +30,8 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
             var teamsOptions = _.map(this.getTeams(), function (team) {
                 return (<option value={team.id} key={team.id}>{team.name}</option>);
             });
-            return (<div className="teamManagement-container">
+            return (
+                <div className="teamManagement-container">
                     <div className="header">
                         <div className="left">
                             <span>Choose Team: </span>
@@ -46,7 +47,7 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
 
                     <div className="team-view">
 
-                        <TeamView currTeamId={this.props.query.teamId || this.getTeams()[0].id}/>
+                        <TeamView currTeamId={this.props.query.teamId || this.getTeams()[0].id} />
                     </div>
                 </div>
             );

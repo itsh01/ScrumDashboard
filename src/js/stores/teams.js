@@ -2,26 +2,28 @@ define([
         'lodash',
         '../data/teams',
         './helpers',
-        './actionNames'
+        '../constants'
     ],
-    function (_, defaultTeamData, helpers, actionNames) {
+    function (_, defaultTeamData, helpers, constants) {
         'use strict';
         var filterFunctions = {
             AllTeams: null
-            //TeamById: function (id) {
-            //    return {id: id};
-            //}
-
         };
 
-        function TeamStore(dispatcher) {
-            var SPRINT_SCHEMA = {
+        function TeamStore(dispatcher, getUserCards) {
+            var /*RETRO_CARDS_STATUS_SCHEMA = {
+                    cardId: {type: 'string'},
+                    assigneeId: {type: 'string'},
+                    status: {type: 'string'}
+                },*/
+                SPRINT_SCHEMA = {
                     name: {type: 'string'},
                     scrumMaster: {type: 'string', defaultValue: null},
                     startDate: {type: 'string', defaultValue: null},
                     endDate: {type: 'string', defaultValue: null},
                     cardLifecycle: {type: 'string-array', defaultValue: []},
                     members: {type: 'string-array', defaultValue: []},
+                    retroCardsStatus: {type: 'object', defaultValue: null},
                     state: {type: 'number', defaultValue: 0}
                 },
                 TEAM_SCHEMA = {
@@ -93,10 +95,22 @@ define([
                 });
             }
 
-            dispatcher.registerAction(actionNames.ADD_TEAM, addTeam.bind(this));
-            dispatcher.registerAction(actionNames.ADD_SPRINT, addSprint.bind(this));
-            dispatcher.registerAction(actionNames.MEMBER_DEACTIVATED, removeMemberFromTeams.bind(this));
-            dispatcher.registerAction(actionNames.CHANGE_CURRENT_TEAM, changeCurrentTeam.bind(this));
+            function retrofySprint(sprintId, teamId) {
+                getUserCards([1]);
+                console.log(sprintId, teamId);
+            }
+
+            function moveSprintToNextState(sprintId, teamId) {
+                console.log(sprintId, teamId);
+            }
+
+
+            dispatcher.registerAction(constants.actionNames.ADD_TEAM, addTeam.bind(this));
+            dispatcher.registerAction(constants.actionNames.ADD_SPRINT, addSprint.bind(this));
+            dispatcher.registerAction(constants.actionNames.MEMBER_DEACTIVATED, removeMemberFromTeams.bind(this));
+            dispatcher.registerAction(constants.actionNames.CHANGE_CURRENT_TEAM, changeCurrentTeam.bind(this));
+            dispatcher.registerAction(constants.actionNames.RETROFY_SPRINT, retrofySprint.bind(this));
+            dispatcher.registerAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, moveSprintToNextState.bind(this));
 
             var currentViewState = {
                 currentTeam: defaultTeamData[0]
