@@ -26,10 +26,10 @@
 @import "team-management/colors.css";
 @import "team-management/layout.css";
 
-@import 'editCard/layout.css';
+@import 'edit-card/layout.css';
 
-@import 'editCard/layout.css';
-@import 'editCard/colors.css';
+@import 'edit-card/layout.css';
+@import 'edit-card/colors.css';
 
 @import 'pop-up/colors.css';
 @import 'pop-up/layout.css';
