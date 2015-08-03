@@ -120,6 +120,20 @@ define([
                 console.log(sprintId, teamId);
             }
 
+            /*eslint-disable no-unused-vars */
+            function saveToLocalStorage() {
+                helpers.saveToLocalStorage('teams', currentTeam);
+            }
+
+            function restoreFromLocalStorage() {
+                return helpers.restoreFromLocalStorage('teams');
+            }
+
+            function removeFromLocalStorage() {
+                helpers.removeFromLocalStorage('teams');
+            }
+            /*eslint-enable no-unused-vars */
+
 
             dispatcher.registerAction(constants.actionNames.ADD_TEAM, addTeam.bind(this));
             dispatcher.registerAction(constants.actionNames.ADD_SPRINT, addSprint.bind(this));

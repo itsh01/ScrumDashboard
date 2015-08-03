@@ -119,6 +119,21 @@ define([
                 });
             }
 
+            /*eslint-disable no-unused-vars */
+            function saveToLocalStorage() {
+                helpers.saveToLocalStorage('cards', currentCards);
+            }
+
+            function restoreFromLocalStorage() {
+                return helpers.restoreFromLocalStorage('cards');
+            }
+
+            function removeFromLocalStorage() {
+                helpers.removeFromLocalStorage('cards');
+            }
+            /*eslint-enable no-unused-vars */
+
+
             dispatcher.registerAction(constants.actionNames.UPDATE_CARD, updateCard.bind(this));
             dispatcher.registerAction(constants.actionNames.ADD_CARD, addCard.bind(this));
             dispatcher.registerAction(constants.actionNames.REMOVE_CARD, removeCard.bind(this));

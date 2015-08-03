@@ -71,6 +71,21 @@ define([
                 }.bind(this));
             };
 
+            /*eslint-disable no-unused-vars */
+            function saveToLocalStorage() {
+                helpers.saveToLocalStorage('members', currentMembers);
+            }
+
+            function restoreFromLocalStorage() {
+                return helpers.restoreFromLocalStorage('members');
+            }
+
+            function removeFromLocalStorage() {
+                helpers.removeFromLocalStorage('members');
+            }
+            /*eslint-enable no-unused-vars */
+            
+
             dispatcher.registerAction(constants.actionNames.ADD_MEMBER, addMember.bind(this));
             dispatcher.registerAction(constants.actionNames.UPDATE_MEMBER, updateMember.bind(this));
             dispatcher.registerAction(constants.actionNames.DEACTIVATE_MEMBER, deactivateMember.bind(this));
