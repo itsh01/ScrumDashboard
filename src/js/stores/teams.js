@@ -132,7 +132,6 @@ define([
                         status: card.status
                     });
                 });
-                console.log(sprint.retroCardsStatus);
             }
 
             function validateSprintBeforeMovingToNextState(sprint, sprintId) {
