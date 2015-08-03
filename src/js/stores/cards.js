@@ -79,16 +79,16 @@ define([
             }
 
             /**
-             *
+             * @param {String} cardId
              * @param {Object} newCardData
              *  {
-         *      score: [Number],
-         *      team: [String],
-         *      status: [String],
-         *      assignee: [String],
-         *      startDate: [String] (format: YYYY-MM-DD),
-         *      endDate: [String] (format: YYYY-MM-DD)
-         *  }
+             *      score: [Number],
+             *      team: [String],
+             *      status: [String],
+             *      assignee: [String],
+             *      startDate: [String] (format: YYYY-MM-DD),
+             *      endDate: [String] (format: YYYY-MM-DD)
+             *  }
              */
             function updateCard(cardId, newCardData) {
                 if (isValidCard(newCardData)) {
@@ -98,6 +98,9 @@ define([
                 return false;
             }
 
+            /**
+             * @param {String} cardId
+             */
             function removeCard(cardId) {
                 var card = _.remove(currentCards, {id: cardId});
                 if (_.isEmpty(card)) {

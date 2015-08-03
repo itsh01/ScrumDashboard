@@ -2,7 +2,7 @@ define([
         'lodash',
         'React',
         'components/sprint/CardsContainer',
-        'mixins/DragDropMixin'
+        'DragDropMixin'
     ],
     function (_, React, CardsContainer, DragDropMixin) {
         'use strict';
@@ -42,10 +42,11 @@ define([
                 };
             },
             render: function () {
-                return (<div
-                    className="table-cell">
-                    <CardsContainer cards={this.props.cards}/>
-                </div>);
+                return (
+                    <div className="table-cell">
+                       <CardsContainer cards={this.props.cards}/>
+                    </div>
+                );
             }
         });
     }

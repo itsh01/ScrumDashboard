@@ -30,6 +30,10 @@ module.exports = function (grunt) {
                     {
                         src: 'node_modules/react-router/umd/ReactRouter.js',
                         dest: 'src/vendor/ReactRouter.js'
+                    },
+                    {
+                        src: 'node_modules/react-dragdrop/dist/DragDropMixin.js',
+                        dest: 'src/vendor/DragDropMixin.js'
                     }
                 ]
             },

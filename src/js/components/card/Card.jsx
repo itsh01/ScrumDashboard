@@ -5,7 +5,7 @@ define([
         'lodash',
         'React',
 
-        'mixins/DragDropMixin'
+        'DragDropMixin'
     ],
     function (_, React, DragDropMixin) {
         'use strict';
