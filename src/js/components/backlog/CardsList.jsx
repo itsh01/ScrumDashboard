@@ -34,19 +34,19 @@ define([
         dragDrop: function () {
 
             var self = this;
-
+            console.log(this.context.teamId);
             return {
                 droppable: true,
                 acceptableDrops: ['card'],
                 drop: function (card) {
 
-                    var newCardData = {
+                    var isCompanyList = self.props.title === 'Company',
+                    newCardData = {
                             status: 'unassigned',
-                            assignee: null
-                        },
-                        isCompanyList = self.props.title === 'Company';
+                            assignee: null,
+                            team: isCompanyList ? null : self.context.teamId
+                        };
 
-                    newCardData.team = isCompanyList ? null : self.context.teamId;
                     self.context.flux.dispatcher.dispatchAction(
                         constants.actionNames.UPDATE_CARD,
                         card.id,
@@ -56,12 +56,12 @@ define([
             };
         },
         render: function () {
-            var cardsListToDisply = this.props.cardsList;
+            var cardsListToDisplay = this.props.cardsList;
             return (
                 <div>
                     <h3>{this.props.title} </h3>
                     {
-                        _.map(cardsListToDisply, function (card) {
+                        _.map(cardsListToDisplay, function (card) {
                             return <Card card={card} key={card.id}/>;
                         }, this)
                     }
