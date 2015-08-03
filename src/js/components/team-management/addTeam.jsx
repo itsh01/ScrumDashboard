@@ -14,10 +14,19 @@ define(['lodash', 'React'], function (_, React) {
                 }
             );
         },
+        addNewTeam: function(e) {
+            e.preventDefault();
+            var newTeamInput = this.refs.teamName.getDOMNode();
+            console.log(newTeamInput.value);
+            newTeamInput.value = '';
+        },
         render: function () {
             var resultContent = this.state.isInputVisible ?
 
-                <input onBlur={this.toggleInput} type='text' className='team-input' autoFocus={true}/> :
+                <form onSubmit={this.addNewTeam}>
+                    <input ref='teamName' onBlur={this.toggleInput} type='text' className='team-input'
+                           autoFocus={true}/>
+                </form> :
                 <div onClick={this.toggleInput}> plux </div>;
 
             return (
