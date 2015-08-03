@@ -6,9 +6,15 @@ requirejs.config({
     paths: {
         lodash: '../vendor/lodash',
         React: '../vendor/react-with-addons',
+        ReactRouter: '../vendor/ReactRouter',
         components: '../js/components',
         mixins: '../js/mixins',
         stores: '../js/stores'
+    },
+    map:{
+        '*':{
+            react: 'React'
+        }
     },
     shim: {
         lodash: {
@@ -20,11 +26,13 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash', 'React', 'components/MainContainer'],
-    function (_, React, MainContainer) {
+requirejs(['lodash', 'React', 'ReactRouter', 'components/MainContainer', 'components/router-config/routes'],
+    function (_, React, ReactRouter, MainContainer, routes) {
         'use strict';
         var mountPoint = document.getElementById('main-container');
-
-        window.scrum = React.render(<MainContainer currentTeam={1} />, mountPoint);
+        ReactRouter.run(routes, function(Root, state){
+            React.render(<Root {...state} />, mountPoint);
+        });
+        //window.scrum = React.render(<MainContainer currentTeam={1} />, mountPoint);
     }
 );
