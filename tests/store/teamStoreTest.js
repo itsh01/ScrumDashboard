@@ -71,10 +71,19 @@ define(
             console.log('Test addTeam... done\n\n');
         }
 
+        function testRetrofySprint() {
+            console.log('Test retrofySprint...');
+            flux.dispatcher.dispatchAction('RETROFY_SPRINT', '55b8a1602bba6dbc0765eced', 'c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d');
+            flux.dispatcher.dispatchAction('RETROFY_SPRINT', '55b8a1602bba6dbc0765eced', 'non-existent-team-id');
+            flux.dispatcher.dispatchAction('RETROFY_SPRINT', 'non-existent-sprint-id');
+            console.log(flux.teamsStore.getSprintById('55b8a1602bba6dbc0765eced').retroCardsStatus);
+            console.log('Test retrofySprint... done\n\n');
+        }
 
         return {
             run: function () {
                 testAdd();
+                testRetrofySprint();
             }
         };
     });
