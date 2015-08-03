@@ -21,7 +21,7 @@ define(
             this.cardsStore = new Cards(this.dispatcher);
             this.membersStore = new Members(this.dispatcher);
             this.planningStore = new Planning(this.dispatcher);
-            this.teamsStore = new Teams(this.dispatcher);
+            this.teamsStore = new Teams(this.dispatcher, this.cardsStore.getUserCards);
 
             //Test.run();
         }

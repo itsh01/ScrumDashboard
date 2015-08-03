@@ -14,33 +14,36 @@ define([
 
             getInitialState: function () {
                 return {
-                    openCardsIds: []
+                    openCardId: null
                 };
             },
 
             cardClicked: function (cardId) {
-                var newOpenCardsIds = this.state.openCardsIds,
-                    cardIndex = _.indexOf(newOpenCardsIds, cardId);
-                if (cardIndex !== -1) {
-                    newOpenCardsIds.splice(cardIndex);
+                if (this.state.openCardId === cardId) {
+                    this.setState({openCardId: null});
                 } else {
-                    newOpenCardsIds.push(cardId);
+                    this.setState({openCardId: cardId});
                 }
-                this.setState({openCardsIds: newOpenCardsIds});
+            },
+
+            getCardStyle: function (card, cardIndex) {
+                var cardStyle = {
+                    top: cardIndex * 0.6 + 'rem',
+                    left: cardIndex * 0.6 + 'rem'
+                };
+                if (this.state.openCardId === card.id) {
+                    cardStyle.zIndex = 1;
+                }
+                return cardStyle;
             },
 
             render: function () {
-                var self = this,
-                    cards = _.map(this.props.cards, function (card, cardIndex) {
-                    var cardStyle = {
-                        top: cardIndex * 0.6 + 'rem',
-                        left: cardIndex * 0.6 + 'rem'
-                    };
-                    cardStyle.zIndex = (_.indexOf(self.state.openCardsIds, card.id) !== -1) ? 10 : cardIndex;
+                var cards = _.map(this.props.cards, function (card, cardIndex) {
+                    var cardStyle = this.getCardStyle(card, cardIndex);
                     return (<div style={cardStyle} className="sprint-card-wrapper">
-                        <Card key={card.id} card={card} cardClickHandler={self.cardClicked} />
+                        <Card key={card.id} card={card} cardClickHandler={this.cardClicked} />
                     </div>);
-                });
+                }.bind(this));
                 return (<div className="sprint-cards-container">
                     {cards}
                 </div>);

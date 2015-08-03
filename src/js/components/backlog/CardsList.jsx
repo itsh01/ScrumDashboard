@@ -4,9 +4,11 @@ define([
 
         'components/card/Card',
 
-        'DragDropMixin'
+        'DragDropMixin',
+
+        'constants'
     ],
-    function (_, React, Card, DragDropMixin) {
+    function (_, React, Card, DragDropMixin, constants) {
     'use strict';
 
     return React.createClass({
@@ -38,18 +40,15 @@ define([
                 acceptableDrops: ['card'],
                 drop: function (card) {
 
-                    var newCardData = {
-                        status: 'unassigned',
-                        assignee: null
-                    };
-                    
-                    if (self.props.title === 'Company') {
-                        newCardData.team = null;
-                    }else {
-                        newCardData.team = self.context.teamId;
-                    }
+                    var isCompanyList = self.props.title === 'Company',
+                    newCardData = {
+                            status: 'unassigned',
+                            assignee: null,
+                            team: isCompanyList ? null : self.context.teamId
+                        };
+
                     self.context.flux.dispatcher.dispatchAction(
-                        'UPDATE_CARD',
+                        constants.actionNames.UPDATE_CARD,
                         card.id,
                         newCardData
                     );
