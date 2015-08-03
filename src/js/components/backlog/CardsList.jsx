@@ -4,9 +4,11 @@ define([
 
         'components/card/Card',
 
-        'DragDropMixin'
+        'DragDropMixin',
+
+        'constants'
     ],
-    function (_, React, Card, DragDropMixin) {
+    function (_, React, Card, DragDropMixin, constants) {
     'use strict';
 
     return React.createClass({
@@ -46,7 +48,7 @@ define([
                         newCardData.team = null;
                     }
                     self.context.flux.dispatcher.dispatchAction(
-                        'UPDATE_CARD',
+                        constants.actionNames.UPDATE_CARD,
                         card.id,
                         newCardData
                     );
