@@ -34,7 +34,6 @@ define([
         dragDrop: function () {
 
             var self = this;
-            console.log(this.context.teamId);
             return {
                 droppable: true,
                 acceptableDrops: ['card'],
