@@ -42,10 +42,11 @@ define([
                 };
             },
             render: function () {
-                return (<div
-                    className="table-cell">
-                    <CardsContainer cards={this.props.cards}/>
-                </div>);
+                return (
+                    <div className="table-cell">
+                       <CardsContainer cards={this.props.cards}/>
+                    </div>
+                );
             }
         });
     }
