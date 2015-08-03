@@ -19,6 +19,9 @@ define([
         childContextTypes: {
             flux: React.PropTypes.any
         },
+        contextTypes:{
+            router: React.PropTypes.func
+        },
 
         getInitialState: function () {
             this.flux = new Flux();
@@ -35,7 +38,7 @@ define([
         render: function () {
             return (
                 <div>
-                    <HomeView {...this.props}/>
+                    <HomeView {...this.props} {...this.state}/>
                 </div>);
         }
     });

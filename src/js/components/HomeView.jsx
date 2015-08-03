@@ -10,19 +10,24 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
         },
 
         contextTypes: {
-            flux: React.PropTypes.any
+            flux: React.PropTypes.any,
+            router: React.PropTypes.func
         },
 
         getInitialState: function () {
             var teams = this.context.flux.teamsStore.getAllTeams();
             return {
-                teams: teams,
-                currTeamId: teams[0].id
+                teams: teams
             };
         },
 
         handleChangeTeam: function (e) {
-            this.setState({currTeamId: e.target.value});
+
+            var query = _.clone(this.props.query);
+            query.teamId = e.target.value;
+            this.context.router.transitionTo('/', null, query);
+
+            //this.setState({currTeamId: e.target.value});
         },
 
         render: function () {
@@ -44,7 +49,7 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
                     </div>
 
                     <div className="team-view">
-                        <TeamView currTeamId={this.state.currTeamId}/>
+                        <TeamView currTeamId={this.props.query.teamId || this.state.teams[0].id}/>
                     </div>
                 </div>
             );
