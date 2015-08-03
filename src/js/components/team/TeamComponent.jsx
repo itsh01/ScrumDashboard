@@ -12,6 +12,9 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             contextTypes: {
                 flux: React.PropTypes.any
             },
+            //childContextTypes: {
+            //    team:
+            //},
 
             getInitialState: function () {
                 return this.getSprintValues(this.props);
