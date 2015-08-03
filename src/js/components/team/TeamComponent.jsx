@@ -84,25 +84,15 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
                         </div>
 
-<<<<<<< HEAD
                         <div className="flex-base  one-row">
+                            {this.addCardBtn()}
                             <BackLog className="backlog" teamId={team.id}/>
                             <SprintTable sprint={this.state.currSprint}/>
                         </div>
-=======
-                    <div className="flex-base  one-row">
-                        {this.addCardBtn()}
-                        <BackLog className="backlog" teamId={team.id}/>
-                        <SprintTable sprint={this.state.currSprint}/>
->>>>>>> origin/master
                     </div>
                 );
             }
         });
+    }
+);
 
-
-    });
-
-
-//<BackLog team=""/>
-//<Sprint team=""/>
