@@ -1,31 +1,3 @@
-<<<<<<< HEAD
-define(['lodash', '../data/cards', './helpers'], function (_, defaultCardsData, helpers) {
-    'use strict';
-    var filterFunctions = {
-        AllCards: null,
-        TeamCards: function (id) {
-            return {team: id};
-        },
-        CompanyCards: function () {
-            return {team: null};
-        },
-        UserCards: function (id, teamId) {
-            return (teamId) ? {assignee: id, team: teamId} : {assignee: id};
-        },
-        NotCompleted: {endDate: null}
-    };
-
-    function CardsStore(dispatcher) {
-        var CARDS_SCHEMA = {
-                name: {type: 'string'},
-                description: {type: 'string', defaultValue: ''},
-                score: {type: 'number', defaultValue: null},
-                team: {type: 'string', defaultValue: null},
-                status: {type: 'string', defaultValue: 'unassigned'},
-                assignee: {type: 'string', defaultValue: null},
-                startDate: {type: 'string', defaultValue: null},
-                endDate: {type: 'string', defaultValue: null}
-=======
 define([
         'lodash',
         '../data/cards',
@@ -39,9 +11,11 @@ define([
             TeamCards: function (id) {
                 return {team: id};
             },
+            CompanyCards: function () {
+                return {team: null};
+            },
             UserCards: function (id, teamId) {
                 return (teamId) ? {assignee: id, team: teamId} : {assignee: id};
->>>>>>> 791b6d2cb201884f6d3e9ed70f550f1b65d1a09f
             },
             NotCompleted: {endDate: null}
         };
