@@ -41,7 +41,11 @@
 }
 
 .sprint-card-wrapper .card {
-    box-shadow: 0.2rem 0.2rem 0.2rem;
+    box-shadow: 0.3rem 0.3rem 0.3rem;
+}
+
+.sprint-card-wrapper .card:hover {
+    z-index: 100;
 }
 
 .sprint-velocity {
