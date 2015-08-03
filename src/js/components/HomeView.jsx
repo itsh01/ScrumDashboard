@@ -1,9 +1,9 @@
-define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React, TeamView) {
+define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], function (_, React, Router, TeamView) {
     'use strict';
 
     return React.createClass({
         displayName: 'HomeView',
-
+        mixins :[Router.Navigation],
         propTypes: {
             currTeam: React.PropTypes.object,
             params: React.PropTypes.object,
@@ -11,15 +11,14 @@ define(['lodash', 'React', 'components/team/TeamComponent'], function (_, React,
         },
 
         contextTypes: {
-            flux: React.PropTypes.any,
-            router: React.PropTypes.func
+            flux: React.PropTypes.any
         },
         getTeams: function () {
             return this.context.flux.teamsStore.getAllTeams();
         },
 
         handleChangeTeam: function (e) {
-            this.context.router.transitionTo('team', {id: e.target.value}, this.props.query);
+            this.transitionTo('team', {id: e.target.value}, this.props.query);
         },
 
         render: function () {
