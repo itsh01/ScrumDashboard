@@ -12,8 +12,15 @@ define([
                 cards: React.PropTypes.array
             },
             render: function () {
-                var cards = _.map(this.props.cards, function (card) {
-                    return (<Card key={card.id} card={card} />);
+                var cards = _.map(this.props.cards, function (card, cardIndex) {
+                    var cardStyle = {
+                        zIndex: cardIndex,
+                        top: cardIndex * 0.4 + 'rem',
+                        left: cardIndex * 0.4 + 'rem'
+                    };
+                    return (<div style={cardStyle} className="sprint-card-wrapper">
+                        <Card key={card.id} card={card} />
+                    </div>);
                 });
                 return (<div className="sprint-cards-container">
                     {cards}
