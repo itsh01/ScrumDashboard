@@ -2,9 +2,9 @@ define([
         'lodash',
         '../data/cards',
         './helpers',
-        './actionNames'
+        '../constants'
     ],
-    function (_, defaultCardsData, helpers, actionNames) {
+    function (_, defaultCardsData, helpers, constants) {
         'use strict';
         var filterFunctions = {
             AllCards: null,
@@ -116,10 +116,10 @@ define([
                 });
             }
 
-            dispatcher.registerAction(actionNames.UPDATE_CARD, updateCard.bind(this));
-            dispatcher.registerAction(actionNames.ADD_CARD, addCard.bind(this));
-            dispatcher.registerAction(actionNames.REMOVE_CARD, removeCard.bind(this));
-            dispatcher.registerAction(actionNames.MEMBER_DEACTIVATED, unassignMemberFromCards.bind(this));
+            dispatcher.registerAction(constants.actionNames.UPDATE_CARD, updateCard.bind(this));
+            dispatcher.registerAction(constants.actionNames.ADD_CARD, addCard.bind(this));
+            dispatcher.registerAction(constants.actionNames.REMOVE_CARD, removeCard.bind(this));
+            dispatcher.registerAction(constants.actionNames.MEMBER_DEACTIVATED, unassignMemberFromCards.bind(this));
 
         }
 
