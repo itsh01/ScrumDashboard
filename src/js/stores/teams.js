@@ -111,6 +111,7 @@ define([
             }
 
             function retrofySprint(sprintId, teamId) {
+                getSprint(sprintId, teamId);
                 getUserCards([1]);
                 console.log(sprintId, teamId);
             }
