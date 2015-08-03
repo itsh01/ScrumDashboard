@@ -56,15 +56,14 @@ define([
             };
         },
         render: function () {
-            var cardsListToDisplay = this.props.cardsList;
+            var cardsListToDisplay = _.map(this.props.cardsList, function (card) {
+                return <Card card={card} key={card.id}/>;
+            }, this);
+
             return (
                 <div>
                     <h3>{this.props.title} </h3>
-                    {
-                        _.map(cardsListToDisplay, function (card) {
-                            return <Card card={card} key={card.id}/>;
-                        }, this)
-                    }
+                    {cardsListToDisplay}
                 </div>
             );
         }
