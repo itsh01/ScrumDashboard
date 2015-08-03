@@ -20,3 +20,10 @@ h1, h2, h3 {
 .inline-block{
     display: inline-block;
 }
+.sidebar{
+    display: inline-block;
+}
+
+.hidden{
+    display: none;
+}
