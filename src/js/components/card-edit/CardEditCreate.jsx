@@ -60,7 +60,7 @@ define([
                 var obj = {};
                 obj[stateKey] = e.target.value;
                 if (stateKey === 'score') {
-                    obj[stateKey] = parseInt(e.target.value);
+                    obj[stateKey] = parseInt(e.target.value, 10);
                 }
                 this.setState(obj);
             },

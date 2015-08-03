@@ -10,7 +10,7 @@ define([
 
     var routes = (
         <Route name='app' path='/' handler={Main}>
-            <Route path='/:id' handler={Home} />
+            <Route name='team' path='/team/:id' handler={Home} />
             <DefaultRoute handler={Home}/>
         </Route>
     );

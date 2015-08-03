@@ -5,6 +5,7 @@
 define([
         'lodash',
         'React',
+        'ReactRouter',
 
         'components/HomeView',
         'stores/flux',
@@ -12,9 +13,10 @@ define([
         'components/pop-up/Basic',
         'components/card-edit/CardEditCreate'
     ],
-    function (_, React, HomeView, Flux, Popup, CardEditCreate) {
+    function (_, React, Router, HomeView, Flux, Popup, CardEditCreate) {
         'use strict';
 
+        var RouteHandler = Router.RouteHandler;
         /** jsx React.DOM */
         return React.createClass({
             displayName: 'MainContainer',
@@ -50,7 +52,7 @@ define([
                 return (
                     <div>
                         {popUp}
-                        <HomeView {...this.props} {...this.state}/>
+                        <RouteHandler {...this.props} customProp={true} />
                     </div>);
             }
         });
