@@ -15,7 +15,8 @@ define([
                 status: React.PropTypes.string
             },
             contextTypes: {
-                flux: React.PropTypes.any
+                flux: React.PropTypes.any,
+                teamId: React.PropTypes.string
             },
             mixins: [DragDropMixin],
             dragDrop: function () {
@@ -28,7 +29,8 @@ define([
 
                         var newCardData = {
                             status: self.props.status,
-                            assignee: self.props.assignee
+                            assignee: self.props.assignee,
+                            team: self.context.teamId
                         };
 
                         self.context.flux.dispatcher.dispatchAction(
