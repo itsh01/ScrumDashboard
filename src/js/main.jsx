@@ -11,8 +11,8 @@ requirejs.config({
         mixins: '../js/mixins',
         stores: '../js/stores'
     },
-    map:{
-        '*':{
+    map: {
+        '*': {
             react: 'React'
         }
     },
@@ -30,7 +30,7 @@ requirejs(['lodash', 'React', 'ReactRouter', 'components/MainContainer', 'compon
     function (_, React, ReactRouter, MainContainer, routes) {
         'use strict';
         var mountPoint = document.getElementById('main-container');
-        ReactRouter.run(routes, function(Root, state){
+        ReactRouter.run(routes, function (Root, state) {
             React.render(<Root {...state} />, mountPoint);
         });
         //window.scrum = React.render(<MainContainer currentTeam={1} />, mountPoint);
