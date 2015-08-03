@@ -12,9 +12,9 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             contextTypes: {
                 flux: React.PropTypes.any
             },
-            //childContextTypes: {
-            //    team:
-            //},
+            childContextTypes: {
+                teamId: this.props.currTeamId
+            },
 
             getInitialState: function () {
                 return this.getSprintValues(this.props);
@@ -54,25 +54,27 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             render: function () {
                 var team = this.getTeamObject(this.props.currTeamId);
-                return (<div>
-                    <h1>{team.name} Team</h1>
+                return (
+                    <div>
+                        <h1>{team.name} Team</h1>
 
-                    <h2>Scrum DashBoard</h2>
+                        <h2>Scrum DashBoard</h2>
 
-                    <div className="flex-centered one-row">
-                        <ChangeSprint direction='backwards'
-                                      handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
+                        <div className="flex-centered one-row">
+                            <ChangeSprint direction='backwards'
+                                          handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
 
-                        <h3>Sprint: {this.state.currSprintIndex}</h3>
-                        <ChangeSprint direction='forward'
-                                      handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
+                            <h3>Sprint: {this.state.currSprintIndex}</h3>
+                            <ChangeSprint direction='forward'
+                                          handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
+                        </div>
+
+                        <div className="flex-base  one-row">
+                            <BackLog className="backlog" teamId={team.id}/>
+                            <SprintTable sprint={this.state.currSprint}/>
+                        </div>
                     </div>
-
-                    <div className="flex-base  one-row">
-                        <BackLog className="backlog" teamId={team.id}/>
-                        <SprintTable sprint={this.state.currSprint}/>
-                    </div>
-                </div>);
+                );
             }
         });
 
