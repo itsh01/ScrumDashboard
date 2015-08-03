@@ -56,12 +56,12 @@ define([
             };
         },
         render: function () {
-            var cardsListToDisply = this.props.cardsList;
+            var cardsListToDisplay = this.props.cardsList;
             return (
                 <div>
                     <h3>{this.props.title} </h3>
                     {
-                        _.map(cardsListToDisply, function (card) {
+                        _.map(cardsListToDisplay, function (card) {
                             return <Card card={card} key={card.id}/>;
                         }, this)
                     }
