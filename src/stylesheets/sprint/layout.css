@@ -34,14 +34,18 @@
     display: flex;
     line-height: 1rem;
     position: relative;
+    margin: 0.2rem;
 }
 
 .sprint-card-wrapper {
     position: absolute;
+    margin: 0;
+    pdding: 0;
 }
 
 .sprint-card-wrapper .card {
-    box-shadow: 0.3rem 0.3rem 0.3rem;
+    box-shadow: -0.2rem -0.2rem 0.2rem;
+    margin: 0;
 }
 
 .sprint-card-wrapper .card:hover {

@@ -15,8 +15,8 @@ define([
                 var cards = _.map(this.props.cards, function (card, cardIndex) {
                     var cardStyle = {
                         zIndex: cardIndex,
-                        top: cardIndex * 0.4 + 'rem',
-                        left: cardIndex * 0.4 + 'rem'
+                        top: cardIndex * 0.6 + 'rem',
+                        left: cardIndex * 0.6 + 'rem'
                     };
                     return (<div style={cardStyle} className="sprint-card-wrapper">
                         <Card key={card.id} card={card} />
