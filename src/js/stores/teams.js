@@ -95,6 +95,21 @@ define([
                 });
             }
 
+            function getSprint(sprintId, teamId) {
+                var collection;
+                if (teamId) {
+                    collection = _.find(defaultTeamData, {id: teamId});
+                } else {
+                    collection = [];
+                    _.forEach(defaultTeamData, function (team) {
+                        if (!_.isEmpty(team.sprints)) {
+                            collection = collection.concat(team.sprints);
+                        }
+                    });
+                }
+                return _.find(collection, {id: sprintId});
+            }
+
             function retrofySprint(sprintId, teamId) {
                 getUserCards([1]);
                 console.log(sprintId, teamId);
