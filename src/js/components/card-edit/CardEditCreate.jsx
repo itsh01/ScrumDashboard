@@ -1,7 +1,7 @@
 define([
         'lodash',
         'React',
-        'components/card-edit/Buttons',
+        'components/card-edit/CardEditCreateButtons',
         'components/pop-up/Basic'
     ],
     function (_, React, CardEditButtons) {
@@ -124,10 +124,6 @@ define([
 
                         {this.getSelectBoxes()}
 
-                        <div>
-                            <input type='checkbox'>Assign to All</input>
-                        </div>
-
                         <CardEditButtons card={this.state} isCreating={this.props.isCreating}/>
 
                     </div>
@@ -135,3 +131,7 @@ define([
             }
         });
     });
+
+//<!--<div> TODO add this
+//    <input type='checkbox'>Assign to All</input>
+//</div>-->

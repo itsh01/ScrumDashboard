@@ -66,7 +66,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             addCardBtn: function () {
                 return this.state.currSprint.state === 'planning' ?
-                    <button onClick={this.addCardClicked}>Add Card</button> :
+                    <button className = 'team-view-btn' onClick={this.addCardClicked}>Add Card</button> :
                     null;
             },
 
@@ -88,8 +88,8 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                         </div>
 
                         <div className="flex-base  one-row">
-                            {this.addCardBtn()}
                             <BackLog className="backlog" teamId={team.id}/>
+                            {this.addCardBtn()}
                             <SprintTable sprint={this.state.currSprint}/>
                         </div>
                     </div>

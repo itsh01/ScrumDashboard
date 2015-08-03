@@ -32,3 +32,17 @@
     border-width: 10px 0 10px 20px;
     border-color: transparent transparent transparent black;
 }
+
+
+.team-view-btn {
+    background-image: linear-gradient(to bottom, #F0F0F0, #D0D0D0);
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+.team-view-btn:hover {
+    background: #3cfc8f;
+    text-decoration: none;
+}
