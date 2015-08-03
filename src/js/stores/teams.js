@@ -108,8 +108,8 @@ define([
             dispatcher.registerAction(actionNames.ADD_SPRINT, addSprint.bind(this));
             dispatcher.registerAction(actionNames.MEMBER_DEACTIVATED, removeMemberFromTeams.bind(this));
             dispatcher.registerAction(actionNames.CHANGE_CURRENT_TEAM, changeCurrentTeam.bind(this));
-            dispatcher.registerAction(actionNames.RETROFY_SPRINT, retrofySprint().bind(this));
-            dispatcher.registerAction(actionNames.MOVE_SPRINT_TO_NEXT_STATE, moveSprintToNextState().bind(this));
+            dispatcher.registerAction(actionNames.RETROFY_SPRINT, retrofySprint.bind(this));
+            dispatcher.registerAction(actionNames.MOVE_SPRINT_TO_NEXT_STATE, moveSprintToNextState.bind(this));
 
             var currentViewState = {
                 currentTeam: defaultTeamData[0]
