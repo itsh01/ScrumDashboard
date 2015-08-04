@@ -34,6 +34,7 @@ define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], func
                         <div className="left">
                             <span>Choose Team: </span>
                             <select onChange={this.handleChangeTeam}>
+                                <option selected disabled>-</option>
                                 {teamsOptions}
                             </select>
                         </div>
