@@ -91,11 +91,22 @@ define(
             console.log('Test moveSprintToNextState... done\n\n');
         }
 
+        function testDeactivateTeam() {
+            console.log('Test deactivateTeam...');
+            flux.dispatcher.dispatchAction(constants.actionNames.DEACTIVATE_TEAM, 'c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d');
+            if (flux.teamsStore.getTeamById('c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d').active !== false) {
+                console.log('FAILED TO DEACTIVATE TEAM');
+            }
+            flux.dispatcher.dispatchAction(constants.actionNames.DEACTIVATE_TEAM, 'non-existent-team-id');
+            console.log('Test deactivateTeam... done');
+        }
+
         return {
             run: function () {
                 testAdd();
                 testRetrofySprint();
                 testMoveSprintToNextState();
+                testDeactivateTeam();
             }
         };
     });
