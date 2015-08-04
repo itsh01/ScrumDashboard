@@ -114,6 +114,7 @@ define([
             }
 
             function removeMemberFromSingleTeam(teamId, memberId) {
+                console.log(memberId);
                 var team = this.getTeamById(teamId);
                 if (team.active) {
                     _.remove(team.members, {id: memberId});

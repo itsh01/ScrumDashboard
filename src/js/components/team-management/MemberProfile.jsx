@@ -1,4 +1,4 @@
-define(['lodash', 'React'], function (_, React) {
+define(['lodash', 'React', 'constants'], function (_, React, constants) {
     'use strict';
     return React.createClass({
         displayName: 'Member Profile',
@@ -6,8 +6,15 @@ define(['lodash', 'React'], function (_, React) {
             member: React.PropTypes.object
         },
 
-        removeMember: function () {
+        contextTypes: {
+            flux: React.PropTypes.any
+        },
 
+        removeMember: function (event) {
+            var memberId = event.target.id;
+            var teamId = this.context.flux.teamsStore.getCurrentTeam().id;
+            console.log(teamId);
+            this.context.flux.dispatcher.dispatchAction(constants.actionNames.REMOVE_MEMBER_FROM_TEAM, teamId, memberId);
         },
         render: function () {
             var classSet = React.addons.classSet;
