@@ -19,11 +19,9 @@ define([
             },
 
             cardClicked: function (cardId) {
-                if (this.state.openCardId === cardId) {
-                    this.setState({openCardId: null});
-                } else {
-                    this.setState({openCardId: cardId});
-                }
+                var openCardId = (this.state.openCardId === cardId) ? null : cardId;
+                
+                this.setState({openCardId: openCardId});
             },
 
             getCardStyle: function (card, cardIndex) {
