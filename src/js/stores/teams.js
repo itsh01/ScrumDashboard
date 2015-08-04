@@ -68,6 +68,7 @@ define([
                     teamWithDefaults.id = helpers.generateGuid();
                     teamWithDefaults.sprints = [this.getBlankSprint()];
                     currentTeam.push(teamWithDefaults);
+                    saveToLocalStorage();
                     return teamWithDefaults.id;
                 }
             }
@@ -81,6 +82,7 @@ define([
                 } else if (isValidSprint(sprintWithDefaults)) {
                     sprintWithDefaults.id = helpers.generateGuid();
                     team.sprints.push(sprintWithDefaults);
+                    saveToLocalStorage();
                     return sprintWithDefaults.id;
                 }
             }
@@ -90,6 +92,7 @@ define([
                 currentTeam = _.forEach(teams, function (team) {
                     _.remove(team.members, function (member) {
                         return member === memberId;
+                        // TODO: save
                     });
                 });
             }
@@ -132,6 +135,7 @@ define([
                         status: card.status
                     });
                 });
+                saveToLocalStorage();
             }
 
             function validateSprintBeforeMovingToNextState(sprint, sprintId) {
@@ -168,6 +172,17 @@ define([
                 }
             }
 
+            // teamId is an optional argument
+            function updateSprint(sprintId, newSprintData, teamId) {
+                if (isValidSprint(newSprintData)) {
+                    var sprint = getSprint(sprintId, teamId),
+                        didUpdate = helpers.updateItem([sprint], sprintId, newSprintData, 'Team Store');
+                    saveToLocalStorage();
+                    return didUpdate;
+                }
+                return false;
+            }
+
             /*eslint-disable no-unused-vars */
             function saveToLocalStorage() {
                 helpers.saveToLocalStorage('teams', currentTeam);
@@ -189,6 +204,7 @@ define([
             dispatcher.registerAction(constants.actionNames.CHANGE_CURRENT_TEAM, changeCurrentTeam.bind(this));
             dispatcher.registerAction(constants.actionNames.RETROFY_SPRINT, retrofySprint.bind(this));
             dispatcher.registerAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, moveSprintToNextState.bind(this));
+            dispatcher.registerAction(constants.actionNames.UPDATE_SPRINT, updateSprint.bind(this));
 
             var currentViewState = {
                 currentTeam: defaultTeamData[0]
