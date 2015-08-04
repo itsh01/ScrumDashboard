@@ -20,14 +20,18 @@ define([
             },
             contextTypes: {
                 flux: React.PropTypes.any,
-                teamId: React.PropTypes.string
+                teamId: React.PropTypes.string,
+                sprintState: React.PropTypes.number
             },
             mixins: [DragDropMixin],
             dragDrop: function () {
 
-                var self = this;
+
+                var locked = constants.SPRINT_STATUS.RETRO === this.context.sprintState,
+                    self = this;
+
                 return {
-                    droppable: true,
+                    droppable: !locked,
                     acceptableDrops: ['card'],
                     drop: function (card) {
 
