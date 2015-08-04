@@ -1,18 +1,17 @@
 define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], function (_, React, Router, TeamView) {
     'use strict';
-
+    var Link = Router.Link;
     return React.createClass({
         displayName: 'HomeView',
-        mixins: [Router.Navigation],
         propTypes: {
             currTeam: React.PropTypes.object,
             params: React.PropTypes.object,
             query: React.PropTypes.object
         },
-
         contextTypes: {
             flux: React.PropTypes.any
         },
+        mixins: [Router.Navigation],
         getTeams: function () {
             return this.context.flux.teamsStore.getAllTeams();
         },
@@ -36,7 +35,7 @@ define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], func
                         </div>
 
                         <div className="right">
-                            <button>Manage Teams</button>
+                            <button><Link to='team-management'>Manage Teams</Link></button>
                         </div>
                     </div>
 
