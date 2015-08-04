@@ -100,12 +100,15 @@ define([
                 helpers.removeFromLocalStorage('members');
             }
             /*eslint-enable no-unused-vars */
-            
 
-            dispatcher.registerAction(constants.actionNames.ADD_MEMBER, addMember.bind(this));
-            dispatcher.registerAction(constants.actionNames.UPDATE_MEMBER, updateMember.bind(this));
-            dispatcher.registerAction(constants.actionNames.DEACTIVATE_MEMBER, deactivateMember.bind(this));
-
+            var actions = [
+                {name: constants.actionNames.ADD_MEMBER, callback: addMember},
+                {name: constants.actionNames.UPDATE_MEMBER, callback: updateMember},
+                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: deactivateMember}
+            ];
+            _.forEach(actions, function (action) {
+                dispatcher.registerAction(action.name, action.callback.bind(this));
+            });
         }
 
         return MembersStore;

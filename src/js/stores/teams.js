@@ -95,7 +95,7 @@ define([
                 }
             }
 
-            function removeMemberFromTeams(memberId) {
+            function removeDeactivatedMemberFromTeams(memberId) {
                 var teams = this.getAllTeams();
                 teamsData = _.forEach(teams, function (team) {
                     _.remove(team.members, function (member) {
@@ -103,6 +103,36 @@ define([
                         // TODO: save
                     });
                 });
+            }
+
+            function addMemberToTeam(teamId, memberId) {
+                var team = this.getTeamById(teamId);
+                if (team.active) {
+                    team.members.push(memberId);
+                }
+            }
+
+            function removeMemberFromSingleTeam(teamId, memberId) {
+                var team = this.getTeamById(teamId);
+                if (team.active) {
+                    _.remove(team.members, {id: memberId});
+                }
+            }
+
+            function addMemberToSprint(teamId, sprintId, memberId) {
+                var team = this.getTeamById(teamId);
+                var sprint = _.filter(team.sprints, {id: sprintId});
+                if (!sprint.endDate) {
+                    sprint.members.push(memberId);
+                }
+            }
+
+            function removeMemberFromSingleSprint(teamId, sprintId, memberId) {
+                var team = this.getTeamById(teamId);
+                var sprint = _.filter(team.sprints, {id: sprintId});
+                if (!sprint.endDate) {
+                    _.remove(sprint.members, {id: memberId});
+                }
             }
 
             function getSprintsByTeamId(teamId) {
@@ -215,20 +245,8 @@ define([
             function removeFromLocalStorage() {
                 helpers.removeFromLocalStorage('teams');
             }
-
             /*eslint-enable no-unused-vars */
-
-
-            dispatcher.registerAction(constants.actionNames.ADD_TEAM, addTeam.bind(this));
-            dispatcher.registerAction(constants.actionNames.ADD_SPRINT, addSprint.bind(this));
-            dispatcher.registerAction(constants.actionNames.MEMBER_DEACTIVATED, removeMemberFromTeams.bind(this));
-            dispatcher.registerAction(constants.actionNames.CHANGE_CURRENT_TEAM, changeCurrentTeam.bind(this));
-            dispatcher.registerAction(constants.actionNames.CHANGE_CURRENT_SPRINT, changeCurrentSprint.bind(this));
-            dispatcher.registerAction(constants.actionNames.RETROFY_SPRINT, retrofySprint.bind(this));
-            dispatcher.registerAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, moveSprintToNextState.bind(this));
-            dispatcher.registerAction(constants.actionNames.UPDATE_SPRINT, updateSprint.bind(this));
-            dispatcher.registerAction(constants.actionNames.DEACTIVATE_TEAM, deactivateTeam.bind(this));
-
+            
             var currentViewState = {
                 currentTeam: teamsData[0]
             };
@@ -249,6 +267,24 @@ define([
                 currentViewState.currentTeam = this.getTeamById(teamId);
             }
 
+            var actions = [
+                {name: constants.actionNames.ADD_TEAM, callback: addTeam},
+                {name: constants.actionNames.ADD_SPRINT, callback: addSprint},
+                {name: constants.actionNames.MEMBER_DEACTIVATED, callback: removeDeactivatedMemberFromTeams},
+                {name: constants.actionNames.CHANGE_CURRENT_TEAM, callback: changeCurrentTeam},
+                {name: constants.actionNames.CHANGE_CURRENT_SPRINT, callback: changeCurrentSprint},
+                {name: constants.actionNames.RETROFY_SPRINT, callback: retrofySprint},
+                {name: constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, callback: moveSprintToNextState},
+                {name: constants.actionNames.UPDATE_SPRINT, callback: updateSprint},
+                {name: constants.actionNames.DEACTIVATE_TEAM, callback: deactivateTeam},
+                {name: constants.actionNames.ADD_MEMBER_TO_TEAM, callback: addMemberToTeam},
+                {name: constants.actionNames.REMOVE_MEMBER_FROM_TEAM, callback: removeMemberFromSingleTeam},
+                {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
+                {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSingleSprint}
+            ];
+            _.forEach(actions, function (action) {
+                dispatcher.registerAction(action.name, action.callback.bind(this));
+            }, this);
         }
 
         return TeamStore;

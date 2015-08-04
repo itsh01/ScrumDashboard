@@ -133,7 +133,6 @@ define([
                 });
             }
 
-
             function saveToLocalStorage() {
                 helpers.saveToLocalStorage('cards', currentCards);
             }
@@ -148,12 +147,15 @@ define([
             }
             /*eslint-enable no-unused-vars */
 
-
-            dispatcher.registerAction(constants.actionNames.UPDATE_CARD, updateCard.bind(this));
-            dispatcher.registerAction(constants.actionNames.ADD_CARD, addCard.bind(this));
-            dispatcher.registerAction(constants.actionNames.REMOVE_CARD, removeCard.bind(this));
-            dispatcher.registerAction(constants.actionNames.MEMBER_DEACTIVATED, unassignMemberFromCards.bind(this));
-
+            var actions = [
+                {name: constants.actionNames.UPDATE_CARD, callback: updateCard},
+                {name: constants.actionNames.ADD_CARD, callback: addCard},
+                {name: constants.actionNames.REMOVE_CARD, callback: removeCard},
+                {name: constants.actionNames.MEMBER_DEACTIVATED, callback: unassignMemberFromCards}
+            ];
+            _.forEach(actions, function (action) {
+                dispatcher.registerAction(action.name, action.callback.bind(this));
+            });
         }
 
         return CardsStore;
