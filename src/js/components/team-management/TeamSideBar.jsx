@@ -7,9 +7,12 @@ define(['lodash', 'React', 'components/team-management/TeamSelector', 'component
                 allTeams: React.PropTypes.array
             },
             render: function () {
+                var activeTeams = _.filter(this.props.allTeams, function (team) {
+                    return team.active;
+                });
                 return (
                     <div className="sidebar">
-                        <TeamSelector teams={this.props.allTeams}/>
+                        <TeamSelector teams={activeTeams}/>
                         <AddTeam/>
                     </div>
                 );

@@ -19,7 +19,8 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
         },
         removeTeam: function (event) {
             //TODO
-            console.log(event.target.id);
+            var teamId = event.target.id;
+            this.context.flux.dispatcher.dispatchAction(constants.actionNames.DEACTIVATE_TEAM, teamId);
         },
 
         render: function () {
