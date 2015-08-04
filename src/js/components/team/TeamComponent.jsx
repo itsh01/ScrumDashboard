@@ -54,7 +54,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                     };
                 }
                 if (newState) {
-                    this.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, newState.currSprint.id);
+                    this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, newState.currSprint.id);
                     this.setState(newState);
                 }
             },
