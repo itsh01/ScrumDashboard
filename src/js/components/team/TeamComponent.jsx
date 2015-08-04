@@ -19,7 +19,9 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             },
 
             getInitialState: function () {
-                return this.getSprintValues(this.props);
+                var sprintValues = this.getSprintValues(this.props);
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, sprintValues.currSprint.id);
+                return sprintValues;
             },
 
             getChildContext: function () {
@@ -32,19 +34,28 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 this.setState(this.getSprintValues(nextProps));
             },
 
+            componentWillUnmount: function(){
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, null);
+            },
             handleSprintChange: function (direction) {
                 var allSprints = this.context.flux.teamsStore.getTeamById(this.props.currTeamId).sprints;
+                var newState;
                 if (direction === 'backwards' && this.state.currSprintIndex !== 0) {
-                    this.setState({
+                    newState={
                         currSprint: allSprints[this.state.currSprintIndex - 1],
                         currSprintIndex: this.state.currSprintIndex - 1
-                    });
+                    };
+
                 } else if (direction === 'forward' && this.state.currSprintIndex !== allSprints.length - 1) {
 
-                    this.setState({
+                    newState = {
                         currSprint: allSprints[this.state.currSprintIndex + 1],
                         currSprintIndex: this.state.currSprintIndex + 1
-                    });
+                    };
+                }
+                if(newState) {
+                    this.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, newState.currSprint.id);
+                    this.setState(newState);
                 }
             },
 
@@ -66,7 +77,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             addCardBtn: function () {
                 return this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING ?
-                    <button className = 'team-view-btn' onClick={this.addCardClicked}>Add Card</button> :
+                    <button className='team-view-btn' onClick={this.addCardClicked}>Add Card</button> :
                     null;
             },
 
@@ -88,8 +99,10 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                         </div>
 
                         <div className="flex-base  one-row">
-                            <BackLog className="backlog"/>
-                            {this.addCardBtn()}
+                            <div style={{display: 'inline-block'}}>
+                                {this.addCardBtn()}
+                                <BackLog className="backlog"/>
+                            </div>
                             <SprintTable sprint={this.state.currSprint}/>
                         </div>
                     </div>

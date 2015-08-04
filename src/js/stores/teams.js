@@ -187,6 +187,7 @@ define([
             dispatcher.registerAction(constants.actionNames.ADD_SPRINT, addSprint.bind(this));
             dispatcher.registerAction(constants.actionNames.MEMBER_DEACTIVATED, removeMemberFromTeams.bind(this));
             dispatcher.registerAction(constants.actionNames.CHANGE_CURRENT_TEAM, changeCurrentTeam.bind(this));
+            dispatcher.registerAction(constants.actionNames.CHANGE_CURRENT_SPRINT, changeCurrentSprint.bind(this));
             dispatcher.registerAction(constants.actionNames.RETROFY_SPRINT, retrofySprint.bind(this));
             dispatcher.registerAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, moveSprintToNextState.bind(this));
 
@@ -198,11 +199,18 @@ define([
                 return currentViewState.currentTeam;
             };
 
+            this.getCurrentSprint = function(){
+                return currentViewState.currentSprint;
+            };
+
+            function changeCurrentSprint(sprintId) {
+                currentViewState.currentSprint = this.getSprintById(sprintId);
+            }
+
             function changeCurrentTeam(teamId) {
                 currentViewState.currentTeam = this.getTeamById(teamId);
-
-
             }
+
         }
 
         return TeamStore;

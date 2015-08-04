@@ -49,11 +49,15 @@ define([
                     </div>
                 );
             },
+            componentWillReceiveProps: function(nextProps){
 
+            },
+            componentWillMount: function(){
+
+            },
             getTextInputFields: function () {
-                return _.chain(['name', 'description'])
-                    .filter(this.keysFilter)
-                    .map(this.makeTextInputElement).value();
+                var keys = ['name', 'description'];
+                return _.map(keys, this.makeTextInputElement);
             },
 
             handleSelectChange: function (stateKey, e) {
@@ -120,6 +124,7 @@ define([
             render: function () {
                 return (
                     <div className='card-edit-container'>
+                        <h2 style={{marginTop:'0'}}>{this.props.isCreating? 'New Card': 'Editing'}</h2>
                         {this.getTextInputFields()}
 
                         {this.getSelectBoxes()}
