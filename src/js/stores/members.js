@@ -11,12 +11,22 @@ define([
         };
 
         function MembersStore(dispatcher) {
-            var MEMBERS_SCHEMA = {
+            var dataFileVersion = 1,
+                MEMBERS_SCHEMA = {
                     name: {type: 'string'},
                     image: {type: 'string', defaultValue: ''},
                     active: {type: 'boolean', defaultValue: true}
                 },
-                currentMembers = restoreFromLocalStorage() || defaultMembersData;
+                currentMembers;
+
+            if (dataFileVersion === localStorage.getItem('membersVersion')) {
+                currentMembers = restoreFromLocalStorage();
+            }else {
+                currentMembers = defaultMembersData;
+                saveToLocalStorage();
+                localStorage.setItem('membersVersion', dataFileVersion);
+            }
+
 
             _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                 this['get' + filterFuncName] = function () {
