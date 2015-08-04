@@ -79,17 +79,6 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, this.state.currSprint.id);
             },
 
-            sprintPlanningButtons: function () {
-                return this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING ?
-
-                    (<div className='main-view-buttons-container'>
-                        <button className = 'main-view-btn' onClick={this.addCardClicked}>Add Card</button>
-                        <button className = 'main-view-btn' onClick={this.finishPlanningClicked}>Finish Planning</button>
-                        </div>) :
-
-                    null;
-            },
-
             getSprintState: function () {
                 if (this.state.currSprint.state === 0) {
                     return 'In Planning';
@@ -98,6 +87,24 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                     return 'In Progress';
                 }
                 return 'Locked';
+            },
+
+            planNewSprint: function () {
+                //var newSprint = this.context.flux.teamsStore.getBlankSprint();
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT, this.state.currSprint.id);
+            },
+
+            getLockSprintButton: function () {
+                if (this.state.currSprint.state === constants.SPRINT_STATUS.RETRO) {
+                    return <button className='main-view-btn main-view-btn-lock' onClick={this.planNewSprint}>Plan New Sprint</button>;
+                }
+                if (this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING) {
+                    return (<div className='main-view-buttons-container'>
+                        <button className='main-view-btn' onClick={this.addCardClicked}>Add Card</button>
+                        <button className='main-view-btn' onClick={this.finishPlanningClicked}>Finish Planning</button>
+                    </div>);
+                }
+                return null;
             },
 
             render: function () {
@@ -119,14 +126,13 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                         </div>
 
                         <div className="flex-base  one-row">
-
                             <div style={{display: 'inline-block'}}>
-
                                 <BackLog className="backlog"/>
                             </div>
-                            {this.sprintPlanningButtons()}
+
                             <SprintTable sprint={this.state.currSprint}/>
                         </div>
+                        {this.getLockSprintButton()}
                     </div>
                 );
             }

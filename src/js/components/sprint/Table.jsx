@@ -31,14 +31,15 @@ define([
                 };
             },
 
-            lockSprintClicked: function () {
+            lockSprint: function () {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_SPRINT, this.props.sprint.id);
             },
 
-            lockSprintBtn: function () {
-                return this.props.sprint.state === constants.SPRINT_STATUS.IN_PROGRESS ?
-                    <button className = 'main-view-btn main-view-btn-lock' onClick={this.lockSprintClicked}>Lock Sprint</button> :
-                    null;
+            getLockSprintButton: function () {
+                if (this.props.sprint.state === constants.SPRINT_STATUS.IN_PROGRESS) {
+                    return <button className = 'main-view-btn main-view-btn-lock' onClick={this.lockSprint}>Lock Sprint</button>;
+                }
+                return null;
             },
 
             render: function () {
@@ -51,7 +52,7 @@ define([
                     <Velocity
                         cardLifecycle={this.props.sprint.cardLifecycle}
                         sprintMembers={this.props.sprint.members} />
-                    {this.lockSprintBtn()}
+                    {this.getLockSprintButton()}
                 </div>);
             }
         });

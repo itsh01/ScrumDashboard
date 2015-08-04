@@ -81,6 +81,7 @@ define([
                 }
             }
 
+            //
             function addSprint(teamId, sprintData) {
                 var team = _.find(teamsData, {id: teamId}),
                     blankSprint = this.getBlankSprint(),
