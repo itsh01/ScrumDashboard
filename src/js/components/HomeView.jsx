@@ -3,7 +3,6 @@ define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], func
     var Link = Router.Link;
     return React.createClass({
         displayName: 'HomeView',
-        mixins: [Router.Navigation],
         propTypes: {
             currTeam: React.PropTypes.object,
             params: React.PropTypes.object,
@@ -12,6 +11,7 @@ define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], func
         contextTypes: {
             flux: React.PropTypes.any
         },
+        mixins: [Router.Navigation],
         getTeams: function () {
             return this.context.flux.teamsStore.getAllTeams();
         },
