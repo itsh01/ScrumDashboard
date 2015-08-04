@@ -11,7 +11,8 @@ define([
         };
 
         function TeamStore(dispatcher, getUserCards) {
-            var SPRINT_SCHEMA = {
+            var dataFileVersion = 1,
+                SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'Sprint 0'},
                     scrumMaster: {type: 'string', defaultValue: null},
                     startDate: {type: 'string', defaultValue: null},
@@ -26,7 +27,14 @@ define([
                     members: {type: 'string-array', defaultValue: []},
                     filterFunc: {type: 'function', defaultValue: null}
                 },
-                teamsData = restoreFromLocalStorage() || defaultTeamData;
+                teamsData;
+            if (dataFileVersion === localStorage.getItem('teamVersion')) {
+                teamsData = restoreFromLocalStorage();
+            }else {
+                teamsData = defaultTeamData;
+                saveToLocalStorage();
+                localStorage.setItem('teamVersion', dataFileVersion);
+            }
             _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                 this['get' + filterFuncName] = function () {
                     return _.filter(teamsData, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
