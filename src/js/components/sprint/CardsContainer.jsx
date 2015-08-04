@@ -29,9 +29,7 @@ define([
                     top: cardIndex * 0.6 + 'rem',
                     left: cardIndex * 0.6 + 'rem'
                 };
-                if (this.state.openCardId === card.id) {
-                    cardStyle.zIndex = 1;
-                }
+                cardStyle.zIndex = (this.state.openCardId === card.id) ? this.props.cards.length : cardIndex;
                 return cardStyle;
             },
 
