@@ -3,17 +3,24 @@ define([
         'React',
         'components/sprint/TableHeader',
         'components/sprint/TableBody',
-        'components/sprint/Velocity'
+        'components/sprint/Velocity',
+        'constants'
     ],
-    function (_, React, TableHeader, TableBody, Velocity) {
+    function (_, React, TableHeader, TableBody, Velocity, constants) {
         'use strict';
 
         return React.createClass({
             displayName: 'Sprint Table',
+
             propTypes: {
                 cardLifecycle: React.PropTypes.array,
                 sprint: React.PropTypes.object
             },
+
+            contextTypes: {
+                flux: React.PropTypes.any
+            },
+
             getDefaultProps: function () {
                 return {
                     sprint: {
@@ -32,6 +39,17 @@ define([
                     }
                 };
             },
+
+            lockSprintClicked: function () {
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_SPRINT, this.props.sprint.id);
+            },
+
+            lockSprintBtn: function () {
+                return this.props.sprint.state === constants.SPRINT_STATUS.IN_PROGRESS ?
+                    <button className = 'team-view-btn' onClick={this.lockSprintClicked}>Lock Sprint</button> :
+                    null;
+            },
+
             render: function () {
 
                 return ( <div className="sprint-table-wrapper">
@@ -42,6 +60,7 @@ define([
                     <Velocity
                         cardLifecycle={this.props.sprint.cardLifecycle}
                         sprintMembers={this.props.sprint.members} />
+                    {this.lockSprintBtn()}
                 </div>);
             }
         });
