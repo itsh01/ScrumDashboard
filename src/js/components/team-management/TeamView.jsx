@@ -7,7 +7,7 @@ define(['lodash', 'React',
         displayName: 'TeamView',
         propTypes: {
             team: React.PropTypes.object,
-            teamMembers: React.PropTypes.array,
+            teamMembers: React.PropTypes.array
         },
         contextTypes: {
             flux: React.PropTypes.any
