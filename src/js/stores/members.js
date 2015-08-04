@@ -16,7 +16,8 @@ define([
                     image: {type: 'string', defaultValue: ''},
                     active: {type: 'boolean', defaultValue: true}
                 },
-                currentMembers = defaultMembersData;
+                currentMembers = restoreFromLocalStorage() || defaultMembersData;
+
             _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                 this['get' + filterFuncName] = function () {
                     return _.filter(currentMembers, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
@@ -39,6 +40,7 @@ define([
                 if (isValidMember(memberWithDefaults)) {
                     memberWithDefaults.id = helpers.generateGuid();
                     currentMembers.push(memberWithDefaults);
+                    saveToLocalStorage();
                     return memberWithDefaults.id;
                 }
             }
@@ -50,13 +52,16 @@ define([
                     return false;
                 }
                 member.active = false;
+                saveToLocalStorage();
                 dispatcher.dispatchAction(constants.actionNames.MEMBER_DEACTIVATED, memberId);
                 return true;
             }
 
             function updateMember(memberId, newMemberData) {
                 if (isValidMember(newMemberData)) {
-                    return helpers.updateItem(currentMembers, memberId, newMemberData, 'Member Store');
+                    var didUpdate = helpers.updateItem(currentMembers, memberId, newMemberData, 'Member Store');
+                    saveToLocalStorage();
+                    return didUpdate;
                 }
                 return false;
             }
