@@ -14,7 +14,7 @@ define([
             contextTypes: {
                 flux: React.PropTypes.any
             },
-            addNewMember: function(){
+            addNewMember: function () {
                 var memberName = this.refs.memberName.getDOMNode().value;
                 var memberImgUrl = this.refs.memberImgUrl.getDOMNode().value || 'img/mosh.jpg';
                 var newMember = this.context.flux.teamsStore.getBlankMember();
@@ -25,17 +25,16 @@ define([
                 //addMemberToTeam()
 
 
-
-
             },
             render: function () {
                 var classSet = React.addons.classSet;
                 return (
                     <div className={classSet('member-profile', 'new-member-profile')}>
                         <form onSubmit={this.addNewMember}>
-                            <input ref = 'memberName' type='text' placeholder='Member name' className='member-name-input'/>
+                            <input ref='memberName' type='text' placeholder='Member name'
+                                   className='member-name-input'/>
                             <img src='img/mosh.jpg' alt='mosh is cute' className='new-member-img'/>
-                            <input ref = 'memberImgUrl' type='url' placeholder='image url' className='img-url-input'/>
+                            <input ref='memberImgUrl' type='url' placeholder='image url' className='img-url-input'/>
                             <button type="submit" className="hidden"></button>
                         </form>
                     </div>

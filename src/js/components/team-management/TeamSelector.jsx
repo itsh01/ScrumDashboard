@@ -17,9 +17,9 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
             this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM, teamId);
 
         },
-        removeTeam: function(event){
+        removeTeam: function (event) {
             //TODO
-            console.log(event);
+            console.log(event.target.id);
         },
 
         render: function () {
@@ -32,7 +32,7 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
                                     <div className='team-name' id={team.id} key={team.name}
                                          onClick={this.changeCurrentTeam}>{team.name}
                                     </div>
-                                    <button onClick={this.removeTeam}>X</button>
+                                    <button onClick={this.removeTeam} id={team.id}>X</button>
                                 </div>
                             );
                         }, this)

@@ -5,7 +5,6 @@ define(['lodash', 'React',
     ],
     function (_, React, TeamView, TeamSidebar, Router) {
         'use strict';
-        var Link = Router.Link;
         return React.createClass({
             displayName: 'TeamManagement',
             propTypes: {
