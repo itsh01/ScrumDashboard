@@ -3,15 +3,19 @@ define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], func
     var Link = Router.Link;
     return React.createClass({
         displayName: 'HomeView',
+
         propTypes: {
             currTeam: React.PropTypes.object,
             params: React.PropTypes.object,
             query: React.PropTypes.object
         },
+
         contextTypes: {
             flux: React.PropTypes.any
         },
+
         mixins: [Router.Navigation],
+
         getTeams: function () {
             return this.context.flux.teamsStore.getAllTeams();
         },
@@ -25,7 +29,7 @@ define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], func
                 return (<option value={team.id} key={team.id}>{team.name}</option>);
             });
             return (
-                <div className="teamManagement-container">
+                <div>
                     <div className="header">
                         <div className="left">
                             <span>Choose Team: </span>
@@ -39,8 +43,7 @@ define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], func
                         </div>
                     </div>
 
-                    <div className="team-view">
-
+                    <div className="team-view-container">
                         <TeamView currTeamId={this.props.params.id || this.getTeams()[0].id} />
                     </div>
                 </div>
