@@ -76,7 +76,7 @@ define([
                 }.bind(this));
             };
 
-            /*eslint-disable no-unused-vars */
+
             function saveToLocalStorage() {
                 helpers.saveToLocalStorage('members', currentMembers);
             }
@@ -85,6 +85,7 @@ define([
                 return helpers.restoreFromLocalStorage('members');
             }
 
+            /*eslint-disable no-unused-vars */
             function removeFromLocalStorage() {
                 helpers.removeFromLocalStorage('members');
             }
