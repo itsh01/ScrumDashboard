@@ -64,9 +64,16 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
             },
 
-            addCardBtn: function () {
+            finishPlanningClicked: function () {
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE);
+            },
+
+            sprintPlanningButtons: function () {
                 return this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING ?
-                    <button className = 'main-view-btn' onClick={this.addCardClicked}>Add Card</button> :
+                    (<div>
+                        <button className = 'main-view-btn' onClick={this.addCardClicked}>Add Card</button>
+                        <button className = 'main-view-btn' onClick={this.finishPlanningClicked}>Finish Planning</button>
+                        </div>) :
                     null;
             },
 
@@ -100,7 +107,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
                         <div className="flex-base  one-row">
                             <BackLog className="backlog"/>
-                            {this.addCardBtn()}
+                            {this.sprintPlanningButtons()}
                             <SprintTable sprint={this.state.currSprint}/>
                         </div>
                     </div>
