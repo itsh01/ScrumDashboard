@@ -46,7 +46,7 @@ define([
 
             lockSprintBtn: function () {
                 return this.props.sprint.state === constants.SPRINT_STATUS.IN_PROGRESS ?
-                    <button className = 'team-view-btn' onClick={this.lockSprintClicked}>Lock Sprint</button> :
+                    <button className = 'main-view-btn main-view-btn-lock' onClick={this.lockSprintClicked}>Lock Sprint</button> :
                     null;
             },
 

@@ -66,7 +66,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             addCardBtn: function () {
                 return this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING ?
-                    <button className = 'team-view-btn' onClick={this.addCardClicked}>Add Card</button> :
+                    <button className = 'main-view-btn' onClick={this.addCardClicked}>Add Card</button> :
                     null;
             },
 
