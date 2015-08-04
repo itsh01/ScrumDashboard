@@ -98,7 +98,7 @@ define([
             }
 
             function getSprintsByTeamId(teamId) {
-                var collection = _.find(defaultTeamData, {id: teamId});
+                var collection = _.find(teamsData, {id: teamId});
                 if (collection) {
                     collection = collection.sprints;
                 }
@@ -107,7 +107,7 @@ define([
 
             function getSprintById(sprintId) {
                 var sprint;
-                _.every(defaultTeamData, function (team) {
+                _.every(teamsData, function (team) {
                     sprint = _.find(team.sprints, {id: sprintId});
                     return sprint === undefined;
                 });
@@ -184,6 +184,16 @@ define([
                 return false;
             }
 
+            function deactivateTeam(teamId) {
+                var team = _.find(teamsData, {id: teamId});
+                if (team) {
+                    team.active = false;
+                    saveToLocalStorage();
+                    return true;
+                }
+                console.log('Team Store: attempt to deactivate non existent team (teamId: ', teamId, ')');
+                return false;
+            }
 
             function saveToLocalStorage() {
                 helpers.saveToLocalStorage('teams', teamsData);
@@ -207,9 +217,10 @@ define([
             dispatcher.registerAction(constants.actionNames.RETROFY_SPRINT, retrofySprint.bind(this));
             dispatcher.registerAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, moveSprintToNextState.bind(this));
             dispatcher.registerAction(constants.actionNames.UPDATE_SPRINT, updateSprint.bind(this));
+            dispatcher.registerAction(constants.actionNames.DEACTIVATE_TEAM, deactivateTeam.bind(this));
 
             var currentViewState = {
-                currentTeam: defaultTeamData[0]
+                currentTeam: teamsData[0]
             };
 
             this.getCurrentTeam = function () {
