@@ -26,15 +26,15 @@ define([
                     members: {type: 'string-array', defaultValue: []},
                     filterFunc: {type: 'function', defaultValue: null}
                 },
-                currentTeam = defaultTeamData;
+                teamsData = restoreFromLocalStorage() || defaultTeamData;
             _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                 this['get' + filterFuncName] = function () {
-                    return _.filter(currentTeam, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
+                    return _.filter(teamsData, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
                 };
             }, this);
 
             this.getTeamById = function (id) {
-                return _.cloneDeep(_.find(currentTeam, {id: id}));
+                return _.cloneDeep(_.find(teamsData, {id: id}));
             };
 
             this.getSprintById = function (id) {
@@ -67,14 +67,14 @@ define([
                 if (isValidTeam(teamWithDefaults)) {
                     teamWithDefaults.id = helpers.generateGuid();
                     teamWithDefaults.sprints = [this.getBlankSprint()];
-                    currentTeam.push(teamWithDefaults);
+                    teamsData.push(teamWithDefaults);
                     saveToLocalStorage();
                     return teamWithDefaults.id;
                 }
             }
 
             function addSprint(teamId, sprintData) {
-                var team = _.find(currentTeam, {id: teamId}),
+                var team = _.find(teamsData, {id: teamId}),
                     blankSprint = this.getBlankSprint(),
                     sprintWithDefaults = _.assign(blankSprint, sprintData);
                 if (_.isEmpty(team)) {
@@ -89,7 +89,7 @@ define([
 
             function removeMemberFromTeams(memberId) {
                 var teams = this.getAllTeams();
-                currentTeam = _.forEach(teams, function (team) {
+                teamsData = _.forEach(teams, function (team) {
                     _.remove(team.members, function (member) {
                         return member === memberId;
                         // TODO: save
@@ -135,7 +135,6 @@ define([
                         status: card.status
                     });
                 });
-                saveToLocalStorage();
             }
 
             function validateSprintBeforeMovingToNextState(sprint, sprintId) {
@@ -158,6 +157,7 @@ define([
                 }
                 setRetroCardsStatus(sprint);
                 sprint.state = constants.SPRINT_STATUS.RETRO;
+                saveToLocalStorage();
             }
 
             // teamId is an optional argument
@@ -170,6 +170,7 @@ define([
                 if (sprint.state === constants.SPRINT_STATUS.RETRO) {
                     setRetroCardsStatus(sprint);
                 }
+                saveToLocalStorage();
             }
 
             // teamId is an optional argument
@@ -183,15 +184,16 @@ define([
                 return false;
             }
 
-            /*eslint-disable no-unused-vars */
+
             function saveToLocalStorage() {
-                helpers.saveToLocalStorage('teams', currentTeam);
+                helpers.saveToLocalStorage('teams', teamsData);
             }
 
             function restoreFromLocalStorage() {
                 return helpers.restoreFromLocalStorage('teams');
             }
 
+            /*eslint-disable no-unused-vars */
             function removeFromLocalStorage() {
                 helpers.removeFromLocalStorage('teams');
             }
