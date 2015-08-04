@@ -175,8 +175,8 @@ define([
             // teamId is an optional argument
             function updateSprint(sprintId, newSprintData, teamId) {
                 if (isValidSprint(newSprintData)) {
-                    sprint = getSprint(sprintId, teamId);
-                    var didUpdate = helpers.updateItem([sprint], sprintId, newSprintData, 'Team Store');
+                    var sprint = getSprint(sprintId, teamId),
+                        didUpdate = helpers.updateItem([sprint], sprintId, newSprintData, 'Team Store');
                     saveToLocalStorage();
                     return didUpdate;
                 }
