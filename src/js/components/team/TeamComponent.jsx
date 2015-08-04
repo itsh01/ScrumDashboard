@@ -65,12 +65,12 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             },
 
             finishPlanningClicked: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE);
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, this.state.currSprint.id);
             },
 
             sprintPlanningButtons: function () {
                 return this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING ?
-                    (<div>
+                    (<div className='main-view-buttons-container'>
                         <button className = 'main-view-btn' onClick={this.addCardClicked}>Add Card</button>
                         <button className = 'main-view-btn' onClick={this.finishPlanningClicked}>Finish Planning</button>
                         </div>) :

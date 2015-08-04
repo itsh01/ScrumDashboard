@@ -33,6 +33,9 @@
     border-color: transparent transparent transparent black;
 }
 
+.main-view-buttons-container {
+    text-align: center;
+}
 
 .main-view-btn {
     background-image: linear-gradient(to bottom, #F0F0F0, #D0D0D0);
@@ -40,6 +43,7 @@
     font-size: 15px;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
+    margin: 3px;
 }
 
 .main-view-btn:hover {
