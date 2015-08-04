@@ -31,7 +31,7 @@ define([
                     startDate: {type: 'string', defaultValue: null},
                     endDate: {type: 'string', defaultValue: null}
                 },
-                currentCards = defaultCardsData;
+                currentCards = restoreFromLocalStorage() || defaultCardsData;
 
             _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                 this['get' + filterFuncName] = function () {
@@ -74,6 +74,7 @@ define([
                     cardWithDefaults.id = helpers.generateGuid();
                     cardWithDefaults.status = cardWithDefaults.status || 'unassigned';
                     currentCards.push(cardWithDefaults);
+                    saveToLocalStorage();
                     return cardWithDefaults.id;
                 }
             }
@@ -92,8 +93,10 @@ define([
              */
             function updateCard(cardId, newCardData) {
                 if (isValidCard(newCardData)) {
-                    return helpers.updateItem(currentCards, cardId, newCardData, 'Card Store');
+                    var didUpdate = helpers.updateItem(currentCards, cardId, newCardData, 'Card Store');
                     // TODO: if assignee or team provided then make sure that they exist
+                    saveToLocalStorage();
+                    return didUpdate;
                 }
                 return false;
             }
@@ -103,6 +106,7 @@ define([
              */
             function removeCard(cardId) {
                 var card = _.remove(currentCards, {id: cardId});
+                saveToLocalStorage();
                 if (_.isEmpty(card)) {
                     console.log('Card Store: attempt to remove non existent card (id:', cardId, ')');
                     return false;

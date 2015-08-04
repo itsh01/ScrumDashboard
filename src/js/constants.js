@@ -20,8 +20,8 @@ define([], function () {
 
             PLANNING_ADD_CARD: 'PLANNING_ADD_CARD',
             PLANNING_DONE_ADDING_CARD: 'PLANNING_DONE_ADDING_CARD'
-
         },
+
         SPRINT_STATUS: {PLANNING: 0, IN_PROGRESS: 1, RETRO: 2}
     };
 });

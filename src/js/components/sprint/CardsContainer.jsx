@@ -19,11 +19,9 @@ define([
             },
 
             cardClicked: function (cardId) {
-                if (this.state.openCardId === cardId) {
-                    this.setState({openCardId: null});
-                } else {
-                    this.setState({openCardId: cardId});
-                }
+                var openCardId = (this.state.openCardId === cardId) ? null : cardId;
+                
+                this.setState({openCardId: openCardId});
             },
 
             getCardStyle: function (card, cardIndex) {
@@ -39,11 +37,15 @@ define([
 
             render: function () {
                 var cards = _.map(this.props.cards, function (card, cardIndex) {
+
                     var cardStyle = this.getCardStyle(card, cardIndex);
-                    return (<div style={cardStyle} className="sprint-card-wrapper">
-                        <Card key={card.id} card={card} cardClickHandler={this.cardClicked} />
+
+                    return (<div style={cardStyle} key={card.id} className="sprint-card-wrapper">
+                        <Card card={card} cardClickHandler={this.cardClicked} />
                     </div>);
+
                 }.bind(this));
+
                 return (<div className="sprint-cards-container">
                     {cards}
                 </div>);
