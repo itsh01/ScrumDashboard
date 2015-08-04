@@ -16,9 +16,8 @@ define(['lodash', 'React',
                 flux: React.PropTypes.any
             },
             mixins: [Router.Navigation],
-            myFlux: this.context.flux,
             getCurrentTeam: function () {
-                return this.myFlux.teamsStore.getTeamById(this.props.params.id) || this.myFlux.teamsStore.getCurrentTeam();
+                return this.context.flux.teamsStore.getTeamById(this.props.params.id) || this.context.flux.teamsStore.getCurrentTeam();
             },
             getCurrentTeamMembers: function () {
                 var currentTeam = this.getCurrentTeam();
@@ -31,7 +30,7 @@ define(['lodash', 'React',
                 return (
                     <div className='team-management'>
                         <Link to='app'>Go Home</Link>
-                        <TeamSidebar allTeams={this.myFlux.teamsStore.getAllTeams()}/>
+                        <TeamSidebar allTeams={this.context.flux.teamsStore.getAllTeams()}/>
                         <TeamView team={this.context.flux.teamsStore.getCurrentTeam()}
                                   teamName={currentTeam.name}
                                   teamMembers={this.getCurrentTeamMembers()}/>
