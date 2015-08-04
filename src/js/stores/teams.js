@@ -207,6 +207,7 @@ define([
             function removeFromLocalStorage() {
                 helpers.removeFromLocalStorage('teams');
             }
+
             /*eslint-enable no-unused-vars */
 
 
@@ -228,7 +229,7 @@ define([
                 return currentViewState.currentTeam;
             };
 
-            this.getCurrentSprint = function(){
+            this.getCurrentSprint = function () {
                 return currentViewState.currentSprint;
             };
 

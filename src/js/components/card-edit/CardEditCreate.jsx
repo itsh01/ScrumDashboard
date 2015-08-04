@@ -49,12 +49,6 @@ define([
                     </div>
                 );
             },
-            componentWillReceiveProps: function(nextProps){
-
-            },
-            componentWillMount: function(){
-
-            },
             getTextInputFields: function () {
                 var keys = ['name', 'description'];
                 return _.map(keys, this.makeTextInputElement);
@@ -124,7 +118,7 @@ define([
             render: function () {
                 return (
                     <div className='card-edit-container'>
-                        <h2 style={{marginTop:'0'}}>{this.props.isCreating? 'New Card': 'Editing'}</h2>
+                        <h2 style={{marginTop: '0'}}>{this.props.isCreating ? 'New Card' : 'Editing'}</h2>
                         {this.getTextInputFields()}
 
                         {this.getSelectBoxes()}

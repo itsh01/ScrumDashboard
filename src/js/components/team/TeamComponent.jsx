@@ -34,14 +34,14 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 this.setState(this.getSprintValues(nextProps));
             },
 
-            componentWillUnmount: function(){
+            componentWillUnmount: function () {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, null);
             },
             handleSprintChange: function (direction) {
                 var allSprints = this.context.flux.teamsStore.getTeamById(this.props.currTeamId).sprints;
                 var newState;
                 if (direction === 'backwards' && this.state.currSprintIndex !== 0) {
-                    newState={
+                    newState = {
                         currSprint: allSprints[this.state.currSprintIndex - 1],
                         currSprintIndex: this.state.currSprintIndex - 1
                     };
@@ -53,7 +53,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                         currSprintIndex: this.state.currSprintIndex + 1
                     };
                 }
-                if(newState) {
+                if (newState) {
                     this.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, newState.currSprint.id);
                     this.setState(newState);
                 }
@@ -77,7 +77,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             addCardBtn: function () {
                 return this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING ?
-                    <button className = 'main-view-btn' onClick={this.addCardClicked}>Add Card</button> :
+                    <button className='main-view-btn' onClick={this.addCardClicked}>Add Card</button> :
                     null;
             },
 
