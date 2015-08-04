@@ -21,7 +21,8 @@ define([
         };
 
         function CardsStore(dispatcher) {
-            var CARDS_SCHEMA = {
+            var dataFileVersion = 1,
+                CARDS_SCHEMA = {
                     name: {type: 'string'},
                     description: {type: 'string', defaultValue: ''},
                     score: {type: 'number', defaultValue: null},
@@ -31,7 +32,16 @@ define([
                     startDate: {type: 'string', defaultValue: null},
                     endDate: {type: 'string', defaultValue: null}
                 },
-                currentCards = restoreFromLocalStorage() || defaultCardsData;
+                currentCards;
+
+            if (dataFileVersion === localStorage.getItem('cardsVersion')) {
+                currentCards = restoreFromLocalStorage();
+            }else {
+                currentCards = defaultCardsData;
+                saveToLocalStorage();
+                localStorage.setItem('cardsVersion', dataFileVersion);
+            }
+
 
             _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                 this['get' + filterFuncName] = function () {

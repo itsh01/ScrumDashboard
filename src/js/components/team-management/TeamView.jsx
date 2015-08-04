@@ -1,19 +1,20 @@
-define(['lodash', 'React', 'components/team-management/MemberProfile', 'ReactRouter'],
-    function (_, React, MemberProfile, Router) {
+define(['lodash', 'React',
+        'components/team-management/MemberProfile', 'ReactRouter',
+        'components/team-management/NewMemberProfile'],
+    function (_, React, MemberProfile, Router, NewMemberProfile) {
     'use strict';
     return React.createClass({
         displayName: 'TeamView',
         propTypes: {
             team: React.PropTypes.object,
             teamMembers: React.PropTypes.array,
-            teamName: React.PropTypes.string
         },
         contextTypes: {
             flux: React.PropTypes.any
         },
         mixins: [Router.Navigation],
         getTeamTitle: function () {
-            return 'Team ' + this.props.teamName;
+            return 'Team ' + this.props.team.name;
         },
         render: function () {
             return (
@@ -21,9 +22,10 @@ define(['lodash', 'React', 'components/team-management/MemberProfile', 'ReactRou
                     <h1>{this.getTeamTitle()}</h1>
                     {
                         _.map(this.props.teamMembers, function (member) {
-                            return <MemberProfile member={member} key={member.Id}/>;
+                            return <MemberProfile member={member} key={member.id}/>;
                         }, this)
                     }
+                    <NewMemberProfile team={this.props.team}/>
                 </div>
             );
         }

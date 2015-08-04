@@ -29,10 +29,8 @@ define(['lodash', 'React',
                 var currentTeam = this.getCurrentTeam();
                 return (
                     <div className='team-management'>
-                        <Link to='app'>Go Home</Link>
                         <TeamSidebar allTeams={this.context.flux.teamsStore.getAllTeams()}/>
-                        <TeamView team={this.context.flux.teamsStore.getCurrentTeam()}
-                                  teamName={currentTeam.name}
+                        <TeamView team={currentTeam}
                                   teamMembers={this.getCurrentTeamMembers()}/>
                     </div>
                 );

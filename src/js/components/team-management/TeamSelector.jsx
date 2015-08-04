@@ -17,14 +17,24 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
             this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM, teamId);
 
         },
+        removeTeam: function(event){
+            //TODO
+            console.log(event);
+        },
 
         render: function () {
             return (
                 <div className='teams-selector'>
                     {
                         _.map(this.props.teams, function (team) {
-                            return (<div className='team-name' id={team.id} key={team.name}
-                                         onClick={this.changeCurrentTeam}>{team.name}</div>);
+                            return (
+                                <div>
+                                    <div className='team-name' id={team.id} key={team.name}
+                                         onClick={this.changeCurrentTeam}>{team.name}
+                                    </div>
+                                    <button onClick={this.removeTeam}>X</button>
+                                </div>
+                            );
                         }, this)
                     }
                 </div>

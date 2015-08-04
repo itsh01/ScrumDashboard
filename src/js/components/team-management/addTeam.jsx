@@ -23,8 +23,6 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
             var newTeamObject = this.context.flux.teamsStore.getBlankTeam();
             newTeamObject.name = newTeamInput.value;
             this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_TEAM, newTeamObject);
-            //console.log(newTeamInput.value);
-            //newTeamInput.value = '';
         },
         render: function () {
             var resultContent = this.state.isInputVisible ?
@@ -33,10 +31,11 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
                     <input ref='teamName' onBlur={this.toggleInput} type='text' className='team-input'
                            autoFocus={true}/>
                 </form> :
-                <div onClick={this.toggleInput}> plux </div>;
+                <div onClick={this.toggleInput}>Plus</div>;
 
+            var classSet = React.addons.classSet;
             return (
-                <div className='team-name'>
+                <div className={classSet('team-name', 'add-team-button')}>
                     {resultContent}
                 </div>
             );

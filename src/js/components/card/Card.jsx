@@ -4,12 +4,10 @@
 define([
         'lodash',
         'React',
-
-        'DragDropMixin',
-
-        'constants'
+        'constants',
+        'DragDropMixin'
     ],
-    function (_, React, DragDropMixin, constants) {
+    function (_, React, constants, DragDropMixin) {
         'use strict';
         return React.createClass({
             displayName: 'Card',
@@ -18,7 +16,9 @@ define([
                 cardClickHandler: React.PropTypes.func
             },
             contextTypes: {
+                flux: React.PropTypes.any,
                 sprintState: React.PropTypes.number
+
             },
             mixins: [DragDropMixin],
             getInitialState: function () {
@@ -65,7 +65,11 @@ define([
             },
             render: function () {
                 var cx = React.addons.classSet;
-                var classesObject = {card: true, 'card-open': this.state.isDescriptionOpened};
+                var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
+                var classesObject = {
+                    card: true,
+                    'card-open': this.state.isDescriptionOpened,
+                    'card-editable': currentSprint && currentSprint.state === constants.SPRINT_STATUS.PLANNING};
                 classesObject[this.pointsClass[this.getCardScore()]] = true;
                 var classes = cx(classesObject);
                 return (
