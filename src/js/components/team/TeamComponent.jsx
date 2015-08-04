@@ -82,6 +82,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             render: function () {
                 var team = this.getTeamObject(this.props.currTeamId);
+                var sprintName = team.sprints[this.state.currSprintIndex].name;
                 return (
                     <div>
                         <h1>{team.name} Team</h1>
@@ -92,7 +93,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                             <ChangeSprint direction='backwards'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
 
-                            <h3>Sprint: {this.state.currSprintIndex} - {this.getSprintState()}</h3>
+                            <h3>Sprint {this.state.currSprintIndex} : {sprintName} - {this.getSprintState()}</h3>
                             <ChangeSprint direction='forward'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
                         </div>
