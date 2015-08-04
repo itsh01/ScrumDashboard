@@ -12,7 +12,7 @@ define([
 
         function TeamStore(dispatcher, getUserCards) {
             var SPRINT_SCHEMA = {
-                    name: {type: 'string'},
+                    name: {type: 'string', defaultValue: 'Sprint 0'},
                     scrumMaster: {type: 'string', defaultValue: null},
                     startDate: {type: 'string', defaultValue: null},
                     endDate: {type: 'string', defaultValue: null},
@@ -26,15 +26,15 @@ define([
                     members: {type: 'string-array', defaultValue: []},
                     filterFunc: {type: 'function', defaultValue: null}
                 },
-                currentTeam = defaultTeamData;
+                teamsData = restoreFromLocalStorage() || defaultTeamData;
             _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                 this['get' + filterFuncName] = function () {
-                    return _.filter(currentTeam, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
+                    return _.filter(teamsData, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
                 };
             }, this);
 
             this.getTeamById = function (id) {
-                return _.cloneDeep(_.find(currentTeam, {id: id}));
+                return _.cloneDeep(_.find(teamsData, {id: id}));
             };
 
             this.getSprintById = function (id) {
@@ -66,14 +66,15 @@ define([
                     teamWithDefaults = _.assign(blankTeam, teamData);
                 if (isValidTeam(teamWithDefaults)) {
                     teamWithDefaults.id = helpers.generateGuid();
-                    teamWithDefaults.sprints = [];
-                    currentTeam.push(teamWithDefaults);
+                    teamWithDefaults.sprints = [this.getBlankSprint()];
+                    teamsData.push(teamWithDefaults);
+                    saveToLocalStorage();
                     return teamWithDefaults.id;
                 }
             }
 
             function addSprint(teamId, sprintData) {
-                var team = _.find(currentTeam, {id: teamId}),
+                var team = _.find(teamsData, {id: teamId}),
                     blankSprint = this.getBlankSprint(),
                     sprintWithDefaults = _.assign(blankSprint, sprintData);
                 if (_.isEmpty(team)) {
@@ -81,21 +82,23 @@ define([
                 } else if (isValidSprint(sprintWithDefaults)) {
                     sprintWithDefaults.id = helpers.generateGuid();
                     team.sprints.push(sprintWithDefaults);
+                    saveToLocalStorage();
                     return sprintWithDefaults.id;
                 }
             }
 
             function removeMemberFromTeams(memberId) {
                 var teams = this.getAllTeams();
-                currentTeam = _.forEach(teams, function (team) {
+                teamsData = _.forEach(teams, function (team) {
                     _.remove(team.members, function (member) {
                         return member === memberId;
+                        // TODO: save
                     });
                 });
             }
 
             function getSprintsByTeamId(teamId) {
-                var collection = _.find(defaultTeamData, {id: teamId});
+                var collection = _.find(teamsData, {id: teamId});
                 if (collection) {
                     collection = collection.sprints;
                 }
@@ -104,7 +107,7 @@ define([
 
             function getSprintById(sprintId) {
                 var sprint;
-                _.every(defaultTeamData, function (team) {
+                _.every(teamsData, function (team) {
                     sprint = _.find(team.sprints, {id: sprintId});
                     return sprint === undefined;
                 });
@@ -154,6 +157,7 @@ define([
                 }
                 setRetroCardsStatus(sprint);
                 sprint.state = constants.SPRINT_STATUS.RETRO;
+                saveToLocalStorage();
             }
 
             // teamId is an optional argument
@@ -166,17 +170,40 @@ define([
                 if (sprint.state === constants.SPRINT_STATUS.RETRO) {
                     setRetroCardsStatus(sprint);
                 }
+                saveToLocalStorage();
             }
 
-            /*eslint-disable no-unused-vars */
+            // teamId is an optional argument
+            function updateSprint(sprintId, newSprintData, teamId) {
+                if (isValidSprint(newSprintData)) {
+                    var sprint = getSprint(sprintId, teamId),
+                        didUpdate = helpers.updateItem([sprint], sprintId, newSprintData, 'Team Store');
+                    saveToLocalStorage();
+                    return didUpdate;
+                }
+                return false;
+            }
+
+            function deactivateTeam(teamId) {
+                var team = _.find(teamsData, {id: teamId});
+                if (team) {
+                    team.active = false;
+                    saveToLocalStorage();
+                    return true;
+                }
+                console.log('Team Store: attempt to deactivate non existent team (teamId: ', teamId, ')');
+                return false;
+            }
+
             function saveToLocalStorage() {
-                helpers.saveToLocalStorage('teams', currentTeam);
+                helpers.saveToLocalStorage('teams', teamsData);
             }
 
             function restoreFromLocalStorage() {
                 return helpers.restoreFromLocalStorage('teams');
             }
 
+            /*eslint-disable no-unused-vars */
             function removeFromLocalStorage() {
                 helpers.removeFromLocalStorage('teams');
             }
@@ -190,9 +217,11 @@ define([
             dispatcher.registerAction(constants.actionNames.CHANGE_CURRENT_SPRINT, changeCurrentSprint.bind(this));
             dispatcher.registerAction(constants.actionNames.RETROFY_SPRINT, retrofySprint.bind(this));
             dispatcher.registerAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, moveSprintToNextState.bind(this));
+            dispatcher.registerAction(constants.actionNames.UPDATE_SPRINT, updateSprint.bind(this));
+            dispatcher.registerAction(constants.actionNames.DEACTIVATE_TEAM, deactivateTeam.bind(this));
 
             var currentViewState = {
-                currentTeam: defaultTeamData[0]
+                currentTeam: teamsData[0]
             };
 
             this.getCurrentTeam = function () {

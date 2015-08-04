@@ -3,35 +3,44 @@ define([
         'React',
         'components/sprint/TableHeader',
         'components/sprint/TableBody',
-        'components/sprint/Velocity'
+        'components/sprint/Velocity',
+        'constants'
     ],
-    function (_, React, TableHeader, TableBody, Velocity) {
+    function (_, React, TableHeader, TableBody, Velocity, constants) {
         'use strict';
 
         return React.createClass({
             displayName: 'Sprint Table',
+
             propTypes: {
                 cardLifecycle: React.PropTypes.array,
                 sprint: React.PropTypes.object
             },
-            getDefaultProps: function () {
+
+            contextTypes: {
+                flux: React.PropTypes.any
+            },
+
+            childContextTypes: {
+                sprintState: React.PropTypes.number
+            },
+
+            getChildContext: function () {
                 return {
-                    sprint: {
-                        id: '55b8a160a101c202d3b588bc',
-                        name: 'veniam ipsum',
-                        scrumMaster: null,
-                        startDate: null,
-                        endDate: null,
-                        cardLifecycle: ['Backlog', 'In progress', 'Done'],
-                        members: [
-                            '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
-                            '15fc4096-b641-436a-bf2d-8fbdeedec7b2',
-                            '061804a2-1f93-40e1-bf49-57b82e5b568b'
-                        ],
-                        state: 0
-                    }
+                    sprintState: this.props.sprint.state
                 };
             },
+
+            lockSprintClicked: function () {
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_SPRINT, this.props.sprint.id);
+            },
+
+            lockSprintBtn: function () {
+                return this.props.sprint.state === constants.SPRINT_STATUS.IN_PROGRESS ?
+                    <button className = 'main-view-btn main-view-btn-lock' onClick={this.lockSprintClicked}>Lock Sprint</button> :
+                    null;
+            },
+
             render: function () {
 
                 return ( <div className="sprint-table-wrapper">
@@ -42,6 +51,7 @@ define([
                     <Velocity
                         cardLifecycle={this.props.sprint.cardLifecycle}
                         sprintMembers={this.props.sprint.members} />
+                    {this.lockSprintBtn()}
                 </div>);
             }
         });

@@ -123,7 +123,7 @@ define([
                 });
             }
 
-            /*eslint-disable no-unused-vars */
+
             function saveToLocalStorage() {
                 helpers.saveToLocalStorage('cards', currentCards);
             }
@@ -132,6 +132,7 @@ define([
                 return helpers.restoreFromLocalStorage('cards');
             }
 
+            /*eslint-disable no-unused-vars */
             function removeFromLocalStorage() {
                 helpers.removeFromLocalStorage('cards');
             }

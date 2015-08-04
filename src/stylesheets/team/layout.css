@@ -8,7 +8,7 @@
 }
 
 
-.team-view {
+.team-view-container {
     clear: both;
 }
 
@@ -34,7 +34,7 @@
 }
 
 
-.team-view-btn {
+.main-view-btn {
     background-image: linear-gradient(to bottom, #F0F0F0, #D0D0D0);
     border-radius: 5px;
     font-size: 15px;
@@ -42,7 +42,11 @@
     text-decoration: none;
 }
 
-.team-view-btn:hover {
+.main-view-btn:hover {
     background: #3cfc8f;
     text-decoration: none;
+}
+
+.main-view-btn-lock {
+
 }

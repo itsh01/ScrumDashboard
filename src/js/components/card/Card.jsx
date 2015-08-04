@@ -16,7 +16,9 @@ define([
                 cardClickHandler: React.PropTypes.func
             },
             contextTypes: {
-                flux: React.PropTypes.any
+                flux: React.PropTypes.any,
+                sprintState: React.PropTypes.number
+
             },
             mixins: [DragDropMixin],
             getInitialState: function () {
@@ -25,8 +27,11 @@ define([
                 };
             },
             dragDrop: function () {
+
+                var locked = constants.SPRINT_STATUS.RETRO === this.context.sprintState;
+
                 return {
-                    draggable: true,
+                    draggable: !locked,
                     dataTransfer: this.props.card,
                     dropType: 'card'
                 };

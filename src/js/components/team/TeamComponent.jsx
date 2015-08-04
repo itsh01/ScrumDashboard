@@ -77,12 +77,23 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             addCardBtn: function () {
                 return this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING ?
-                    <button className='team-view-btn' onClick={this.addCardClicked}>Add Card</button> :
+                    <button className = 'main-view-btn' onClick={this.addCardClicked}>Add Card</button> :
                     null;
+            },
+
+            getSprintState: function () {
+                if (this.state.currSprint.state === 0) {
+                    return 'In Planning';
+                }
+                if (this.state.currSprint.state === 1) {
+                    return 'In Progress';
+                }
+                return 'Locked';
             },
 
             render: function () {
                 var team = this.getTeamObject(this.props.currTeamId);
+                var sprintName = team.sprints[this.state.currSprintIndex].name;
                 return (
                     <div>
                         <h1>{team.name} Team</h1>
@@ -93,7 +104,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                             <ChangeSprint direction='backwards'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
 
-                            <h3>Sprint: {this.state.currSprintIndex}</h3>
+                            <h3>Sprint {this.state.currSprintIndex} : {sprintName} - {this.getSprintState()}</h3>
                             <ChangeSprint direction='forward'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
                         </div>
