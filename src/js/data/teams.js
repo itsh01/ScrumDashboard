@@ -13,7 +13,7 @@ define([], function () {
             "id": "1f7a4375-e7db-4798-969e-17325acde499",
             "sprints": [{
                     "id": "55b8a16038989631e6ace41c",
-                    "name": "aliquip reprehenderit",
+                    "name": "zero calories",
                     "scrumMaster": null,
                     "startDate": null,
                     "endDate": null,
@@ -28,7 +28,7 @@ define([], function () {
                 },
                 {
                     "id": "55b8a160a101c202d3b588bc",
-                    "name": "veniam ipsum",
+                    "name": "one for all",
                     "scrumMaster": null,
                     "startDate": null,
                     "endDate": null,
@@ -43,7 +43,7 @@ define([], function () {
                 },
                 {
                     "id": "55b8a16069c3c3bcd5425303",
-                    "name": "occaecat officia",
+                    "name": "R2D2",
                     "scrumMaster": null,
                     "startDate": null,
                     "endDate": null,

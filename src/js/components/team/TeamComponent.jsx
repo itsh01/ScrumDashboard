@@ -64,9 +64,16 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
             },
 
-            addCardBtn: function () {
+            finishPlanningClicked: function () {
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, this.state.currSprint.id);
+            },
+
+            sprintPlanningButtons: function () {
                 return this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING ?
-                    <button className = 'main-view-btn' onClick={this.addCardClicked}>Add Card</button> :
+                    (<div className='main-view-buttons-container'>
+                        <button className = 'main-view-btn' onClick={this.addCardClicked}>Add Card</button>
+                        <button className = 'main-view-btn' onClick={this.finishPlanningClicked}>Finish Planning</button>
+                        </div>) :
                     null;
             },
 
@@ -82,6 +89,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             render: function () {
                 var team = this.getTeamObject(this.props.currTeamId);
+                var sprintName = team.sprints[this.state.currSprintIndex].name;
                 return (
                     <div>
                         <h1>{team.name} Team</h1>
@@ -92,14 +100,14 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                             <ChangeSprint direction='backwards'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
 
-                            <h3>Sprint: {this.state.currSprintIndex} - {this.getSprintState()}</h3>
+                            <h3>Sprint {this.state.currSprintIndex} : {sprintName} - {this.getSprintState()}</h3>
                             <ChangeSprint direction='forward'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
                         </div>
 
                         <div className="flex-base  one-row">
                             <BackLog className="backlog"/>
-                            {this.addCardBtn()}
+                            {this.sprintPlanningButtons()}
                             <SprintTable sprint={this.state.currSprint}/>
                         </div>
                     </div>
