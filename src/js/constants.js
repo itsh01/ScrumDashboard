@@ -10,6 +10,7 @@ define([], function () {
             UPDATE_MEMBER: 'UPDATE_MEMBER',
             DEACTIVATE_MEMBER: 'DEACTIVATE_MEMBER',
             MEMBER_DEACTIVATED: 'MEMBER_DEACTIVATED',
+            CREATE_MEMBER_INTO_TEAM: 'CREATE_MEMBER_INTO_TEAM',
 
             ADD_TEAM: 'ADD_TEAM',
             ADD_SPRINT: 'ADD_SPRINT',

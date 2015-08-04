@@ -133,6 +133,7 @@ define([
                 });
             }
 
+
             function saveToLocalStorage() {
                 helpers.saveToLocalStorage('cards', currentCards);
             }
