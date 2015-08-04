@@ -12,7 +12,7 @@ define([
 
         function TeamStore(dispatcher, getUserCards) {
             var SPRINT_SCHEMA = {
-                    name: {type: 'string'},
+                    name: {type: 'string', defaultValue: 'Sprint 0'},
                     scrumMaster: {type: 'string', defaultValue: null},
                     startDate: {type: 'string', defaultValue: null},
                     endDate: {type: 'string', defaultValue: null},
@@ -66,7 +66,7 @@ define([
                     teamWithDefaults = _.assign(blankTeam, teamData);
                 if (isValidTeam(teamWithDefaults)) {
                     teamWithDefaults.id = helpers.generateGuid();
-                    teamWithDefaults.sprints = [];
+                    teamWithDefaults.sprints = [this.getBlankSprint()];
                     currentTeam.push(teamWithDefaults);
                     return teamWithDefaults.id;
                 }
