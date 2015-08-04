@@ -70,6 +70,16 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                     null;
             },
 
+            getSprintState: function () {
+                if (this.state.currSprint.state === 0) {
+                    return 'In Planning';
+                }
+                if (this.state.currSprint.state === 1) {
+                    return 'In Progress';
+                }
+                return 'Locked';
+            },
+
             render: function () {
                 var team = this.getTeamObject(this.props.currTeamId);
                 return (
@@ -82,7 +92,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                             <ChangeSprint direction='backwards'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
 
-                            <h3>Sprint: {this.state.currSprintIndex}</h3>
+                            <h3>Sprint: {this.state.currSprintIndex} - {this.getSprintState()}</h3>
                             <ChangeSprint direction='forward'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
                         </div>
