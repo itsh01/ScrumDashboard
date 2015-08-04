@@ -5,15 +5,20 @@ define([
         'lodash',
         'React',
 
-        'DragDropMixin'
+        'DragDropMixin',
+
+        'constants'
     ],
-    function (_, React, DragDropMixin) {
+    function (_, React, DragDropMixin, constants) {
         'use strict';
         return React.createClass({
             displayName: 'Card',
             propTypes: {
                 card: React.PropTypes.object,
                 cardClickHandler: React.PropTypes.func
+            },
+            contextTypes: {
+                sprintState: React.PropTypes.number
             },
             mixins: [DragDropMixin],
             getInitialState: function () {
@@ -22,8 +27,11 @@ define([
                 };
             },
             dragDrop: function () {
+
+                var locked = constants.SPRINT_STATUS.RETRO === this.context.sprintState;
+
                 return {
-                    draggable: true,
+                    draggable: !locked,
                     dataTransfer: this.props.card,
                     dropType: 'card'
                 };
