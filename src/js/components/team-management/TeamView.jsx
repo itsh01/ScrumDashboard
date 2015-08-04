@@ -21,7 +21,7 @@ define(['lodash', 'React', 'components/team-management/MemberProfile', 'ReactRou
                     <h1>{this.getTeamTitle()}</h1>
                     {
                         _.map(this.props.teamMembers, function (member) {
-                            return <MemberProfile member={member} key={member.Id}/>;
+                            return <MemberProfile member={member} key={member.id}/>;
                         }, this)
                     }
                 </div>
