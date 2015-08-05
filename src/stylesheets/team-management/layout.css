@@ -1,7 +1,7 @@
 .team-management {
     text-align: center;
     padding: 4rem;
-    width: 100rem;
+    width: 80%;
 }
 
 .sidebar {
@@ -9,10 +9,10 @@
     vertical-align: top;
     text-align: center;
     padding-top: 4rem;
+    width: 10rem;
 }
 
 .teams-selector {
-    max-width: 15rem;
     overflow: hidden;
     margin: 1rem;
 }
@@ -24,6 +24,7 @@
 .team-view {
     display: inline-block;
     text-align: center;
+    width: 70%;
 }
 
 .team-title {
