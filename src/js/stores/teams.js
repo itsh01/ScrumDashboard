@@ -31,7 +31,7 @@ define([
                 teamsData;
             if (dataFileVersion === +localStorage.getItem('teamVersion')) {
                 teamsData = restoreFromLocalStorage();
-            }else {
+            } else {
                 teamsData = defaultTeamData;
                 saveToLocalStorage();
                 localStorage.setItem('teamVersion', dataFileVersion);
@@ -134,7 +134,7 @@ define([
             }
 
             function removeMemberFromSingleSprint(teamId, sprintId, memberId) {
-                var team =  _.find(teamsData, {id: teamId});
+                var team = _.find(teamsData, {id: teamId});
                 var sprint = _.filter(team.sprints, {id: sprintId});
                 if (!sprint.endDate) {
                     sprint.members = _.remove(sprint.members, {id: memberId});
@@ -252,8 +252,9 @@ define([
             function removeFromLocalStorage() {
                 helpers.removeFromLocalStorage('teams');
             }
+
             /*eslint-enable no-unused-vars */
-            
+
             var currentViewState = {
                 currentTeam: teamsData[0]
             };
