@@ -20,6 +20,10 @@ define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], func
             return this.context.flux.teamsStore.getAllTeams();
         },
 
+        clearStorage: function () {
+            localStorage.clear();
+        },
+
         handleChangeTeam: function (e) {
             this.transitionTo('team', {id: e.target.value}, this.props.query);
         },
@@ -40,6 +44,7 @@ define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], func
                         </div>
 
                         <div className="right">
+                            <button className='clearButton' type='button' onClick={this.clearStorage}>Clear LocalStorage</button>
                             <button><Link to='team-management'>Manage Teams</Link></button>
                         </div>
                     </div>
