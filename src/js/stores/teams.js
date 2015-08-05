@@ -285,7 +285,7 @@ define([
             ];
             _.forEach(actions, function (action) {
                 dispatcher.registerAction(action.name, action.callback.bind(this));
-            }, this);
+            }.bind(this));
         }
 
         return TeamStore;
