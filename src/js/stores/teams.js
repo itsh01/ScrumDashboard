@@ -262,8 +262,7 @@ define([
 
 
             this.getCurrentTeam = function () {
-
-                return currentViewState.currentTeam;
+                return this.getTeamById(currentViewState.currentTeam);
             };
 
             this.getCurrentSprint = function () {
@@ -275,7 +274,7 @@ define([
             }
 
             function changeCurrentTeam(teamId) {
-                currentViewState.currentTeam = this.getTeamById(teamId);
+                currentViewState.currentTeam = teamId;
             }
 
             var actions = [
