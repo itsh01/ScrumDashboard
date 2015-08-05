@@ -47,7 +47,7 @@
 }
 
 .team-name-container:hover .remove-button {
-    display: inherit;
+    display: block;
 }
 
 .team-name-container:hover {
@@ -85,6 +85,12 @@
     top: 0;
     right: 0;
     display: none;
+    margin: 3px;
+    border: 1px transparent solid;
+    cursor: pointer;
+    background-color: #498ff1;
+    color: white;
+    border-radius: 28px;
 }
 
 .member-profile:hover > .remove-button {
