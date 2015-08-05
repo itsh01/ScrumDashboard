@@ -16,7 +16,7 @@ define([
     function (_, React, Router, HomeView, Flux, Popup, CardEditCreate) {
         'use strict';
 
-        var RouteHandler = Router.RouteHandler;
+
         /** jsx React.DOM */
         return React.createClass({
             displayName: 'MainContainer',
@@ -56,7 +56,7 @@ define([
                 return (
                     <div>
                         {this.popUpFactory()}
-                        <RouteHandler {...this.props} customProp={true}/>
+                        <HomeView />
                     </div>);
             }
         });

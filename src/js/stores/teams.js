@@ -256,10 +256,13 @@ define([
             /*eslint-enable no-unused-vars */
 
             var currentViewState = {
-                currentTeam: teamsData[0]
+                currentTeam: teamsData[0].id,
+                currentSprint: (_.last(teamsData[0].sprints)).id
             };
 
+
             this.getCurrentTeam = function () {
+
                 return currentViewState.currentTeam;
             };
 
