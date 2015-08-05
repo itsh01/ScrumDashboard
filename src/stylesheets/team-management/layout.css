@@ -74,6 +74,7 @@
     height: 200px;
     border: 2px solid transparent;
     position: relative;
+    transition: 0.3s linear all;
 }
 
 .member-profile:hover {
@@ -84,17 +85,20 @@
     position: absolute;
     top: 0;
     right: 0;
-    display: none;
     margin: 3px;
     border: 1px transparent solid;
     cursor: pointer;
     background-color: #498ff1;
     color: white;
     border-radius: 28px;
+    transition: 0.3s linear all;
+    visibility: hidden;
+    opacity: 0;
 }
 
 .member-profile:hover > .remove-button {
-    display: inherit;
+    visibility: visible;
+    opacity: 1;
 }
 
 
