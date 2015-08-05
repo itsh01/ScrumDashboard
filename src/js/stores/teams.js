@@ -108,7 +108,7 @@ define([
             }
 
             function addMemberToTeam(teamId, memberId) {
-                var team = this.getTeamById(teamId);
+                var team = _.find(teamsData, {id: teamId});
                 if (team.active) {
                     team.members.push(memberId);
                     saveToLocalStorage();
@@ -126,7 +126,7 @@ define([
             }
 
             function addMemberToSprint(teamId, sprintId, memberId) {
-                var team = this.getTeamById(teamId);
+                var team = _.find(teamsData, {id: teamId});
                 var sprint = _.filter(team.sprints, {id: sprintId});
                 if (!sprint.endDate) {
                     sprint.members.push(memberId);
@@ -135,7 +135,7 @@ define([
             }
 
             function removeMemberFromSingleSprint(teamId, sprintId, memberId) {
-                var team = this.getTeamById(teamId);
+                var team =  _.find(teamsData, {id: teamId});
                 var sprint = _.filter(team.sprints, {id: sprintId});
                 if (!sprint.endDate) {
                     sprint.members = _.remove(sprint.members, {id: memberId});
