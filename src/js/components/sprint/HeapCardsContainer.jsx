@@ -29,31 +29,23 @@ define([
                 this.setState({open: false});
             },
 
-            getOpenHeapCardStyle: function (cardId, cardIndex) {
+            getOpenHeapCardStyle: function (cardIndex) {
                 var cardsNum = this.props.cards.length,
                     t = 2 * Math.PI * cardIndex / cardsNum,
                     r = 10,
                     x = r * Math.cos(t),
-                    y = r * Math.sin(t),
-                    style = {transform: 'translate(' + x + 'rem, ' + y + 'rem)'};
-                this.appendZIndex(style, cardId);
-                return style;
+                    y = r * Math.sin(t);
+                return {transform: 'translate(' + x + 'rem, ' + y + 'rem)', zIndex: 1};
             },
 
-            appendZIndex: function (styleObject, cardId) {
-                styleObject.zIndex = (this.state.openCardId === cardId) ? 2 : 1;
-            },
-
-            getClosedHeapCardStyle: function (cardId) {
-                var style = {};
-                this.appendZIndex(style, cardId);
-                return style;
+            getClosedHeapCardStyle: function () {
+                return { };
             },
 
             render: function () {
                 var cardStyle = (this.state.open) ? this.getOpenHeapCardStyle : this.getClosedHeapCardStyle,
                     cards = _.map(this.props.cards, function (card, cardIndex) {
-                        return (<div style={cardStyle(card.id, cardIndex)} key={card.id} className="sprint-card-wrapper">
+                        return (<div style={cardStyle(cardIndex)} key={card.id} className="sprint-card-wrapper">
                             <Card card={card} cardClickHandler={this.cardClickHandler} />
                         </div>);
                     }.bind(this));
