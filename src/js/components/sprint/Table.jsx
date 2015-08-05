@@ -53,7 +53,8 @@ define([
                     </div>
                     <Velocity
                         cardLifecycle={sprint.cardLifecycle}
-                        sprintMembers={sprint.members} />
+                        sprintMembers={sprint.members}
+                        retro={sprint.retroCardsStatus}/>
                     {this.getLockSprintButton()}
                 </div>);
             }
