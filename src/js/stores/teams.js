@@ -11,7 +11,7 @@ define([
         };
 
         function TeamStore(dispatcher, getUserCards) {
-            var dataFileVersion = 1,
+            var dataFileVersion = '1',
                 SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
                     scrumMaster: {type: 'string', defaultValue: null},
@@ -29,7 +29,7 @@ define([
                     active: {type: 'boolean', defaultValue: true}
                 },
                 teamsData;
-            if (dataFileVersion === +localStorage.getItem('teamVersion')) {
+            if (dataFileVersion === localStorage.getItem('teamVersion')) {
                 teamsData = restoreFromLocalStorage();
             } else {
                 teamsData = defaultTeamData;
