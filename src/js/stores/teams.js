@@ -115,10 +115,11 @@ define([
             }
 
             function removeMemberFromSingleTeam(teamId, memberId) {
-                console.log(memberId);
-                var team = this.getTeamById(teamId);
+                var team = _.find(teamsData, {id: teamId});
                 if (team.active) {
-                    team.members = _.remove(team.members, {id: memberId});
+                    _.remove(team.members, function(id){
+                        return id === memberId;
+                    });
                     saveToLocalStorage();
                 }
             }
