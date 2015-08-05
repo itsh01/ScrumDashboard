@@ -11,8 +11,7 @@ define([
             displayName: 'CardEditCreate',
 
             propTypes: {
-                card: React.PropTypes.object,
-                isCreating: React.PropTypes.bool
+                card: React.PropTypes.object
             },
 
             contextTypes: {
@@ -21,20 +20,20 @@ define([
 
             mixins: [React.addons.LinkedStateMixin],
 
-            getDefaultProps: function () {
-                return {
-                    isCreating: true
-                };
-            },
 
             getInitialState: function () {
-                if (!this.props.isCreating && !this.props.card) {
-                    throw new Error();
+                var card;
+                if (this.isCreating()) {
+                    card = this.context.flux.cardsStore.getBlankCard();
+                } else if (!this.props.card) {
+                    card = this.context.flux.planningStore.getCurrentCard();
+                } else {
+                    card = _.cloneDeep(this.props.card);
                 }
-                if (this.props.isCreating) {
-                    return this.context.flux.cardsStore.getBlankCard();
-                }
-                return _.cloneDeep(this.props.card);
+                return card;
+            },
+            isCreating: function () {
+                return !this.context.flux.planningStore.getCurrentCard();
             },
 
             makeTextInputElement: function (key) {
@@ -118,12 +117,12 @@ define([
             render: function () {
                 return (
                     <div className='card-edit-container'>
-                        <h2 style={{marginTop: '0'}}>{this.props.isCreating ? 'New Card' : 'Editing'}</h2>
+                        <h2 style={{marginTop: '0'}}>{this.isCreating() ? 'New Card' : 'Editing'}</h2>
                         {this.getTextInputFields()}
 
                         {this.getSelectBoxes()}
 
-                        <CardEditButtons card={this.state} isCreating={this.props.isCreating}/>
+                        <CardEditButtons card={this.state} isCreating={this.isCreating()}/>
 
                     </div>
                 );

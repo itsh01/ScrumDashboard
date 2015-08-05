@@ -1,9 +1,10 @@
 .pop{
     position: fixed;
-    width:100%;
-    height:100%;
+    width:120%;
+    height:120%;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 999;
+    margin:-20px;
 }

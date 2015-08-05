@@ -21,7 +21,7 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
             return (
                 <div className={classSet('member-profile', 'inline-block')}>
                     <h3 className={classSet('member-name')}>{this.props.member.name}</h3>
-                    <img className='inline-block'
+                    <img className='member-img'
                          alt={this.props.member.name}
                          src={this.props.member.image}/>
                     <button className='remove-button' onClick={this.removeMember} id={this.props.member.id}>X</button>

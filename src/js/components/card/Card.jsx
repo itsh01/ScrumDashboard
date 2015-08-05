@@ -49,8 +49,11 @@ define([
                 );
             },
             toggleDescriptionOpened: function () {
+                if (this.preventToggleCard) {
+                    return;
+                }
                 this.setState({isDescriptionOpened: !this.state.isDescriptionOpened});
-                if (this.props.cardClickHandler) {
+                if (this.props.cardClickHandler && !this.state.preventToggleCard) {
                     this.props.cardClickHandler(this.props.card.id);
                 }
             },
@@ -63,19 +66,37 @@ define([
                 13: 'card-13',
                 No: 'card-none'
             },
+            removeCard: function () {
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.REMOVE_CARD, this.props.card.id);
+            },
+            editCard: function (e) {
+                this.preventToggleCard = true;
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_EDIT_CARD, this.props.card);
+                //this.preventToggleCard = false;
+                e.stopPropagation();
+            },
             render: function () {
+                this.preventToggleCard = false;
                 var cx = React.addons.classSet;
                 var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
                 var classesObject = {
                     card: true,
                     'card-open': this.state.isDescriptionOpened,
-                    'card-editable': currentSprint && currentSprint.state === constants.SPRINT_STATUS.PLANNING};
+                    'card-editable': currentSprint && currentSprint.state === constants.SPRINT_STATUS.PLANNING
+                };
                 classesObject[this.pointsClass[this.getCardScore()]] = true;
                 var classes = cx(classesObject);
                 return (
                     <div
                         className={classes}
                         onClick={this.toggleDescriptionOpened}>
+                        <img
+                            src='img/close.svg'
+                            style={{width: '1rem', height: '1rem'}}
+                            className='card-delete'
+                            onClick={this.removeCard}/>
+
+                        <button className='card-btn-edit' onClick={this.editCard}>edit</button>
                         {this.getCardContent()}
                     </div>
 

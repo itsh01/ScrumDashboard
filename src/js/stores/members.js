@@ -87,7 +87,7 @@ define([
             };
 
             function createMemberIntoTeam(memberData, teamId) {
-                var newMemberId = addMember(memberData);
+                var newMemberId = addMember.call(this, memberData);
                 dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER_TO_TEAM, teamId, newMemberId);
                 saveToLocalStorage();
             }
