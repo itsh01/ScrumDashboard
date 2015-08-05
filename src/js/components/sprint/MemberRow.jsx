@@ -62,20 +62,15 @@ define([
 
                 }, this);
             }, render: function () {
-                var retro = this.props.retro;
-                var memberId = this.props.member.id,
-                    cards = [],
-                    cells = [];
-
-                cards = this.getMemberRetroCards(retro, memberId);
-
-                cells = this.createCellByCard(cards);
+                var member = this.props.member,
+                    cards = this.getMemberRetroCards(this.props.retro, member.id),
+                    cells = this.createCellByCard(cards);
 
                 return (<div className="table-row">
                     <div className="table-cell sprint-member-cell">
                         <SprintMember
-                            key={memberId}
-                            member={this.props.member} />
+                            key={member.id}
+                            member={member} />
                     </div>
                     {cells}
                 </div>);
