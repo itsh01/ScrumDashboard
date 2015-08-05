@@ -32,9 +32,9 @@ requirejs(['lodash', 'React', 'ReactRouter', 'components/MainContainer', 'compon
         'use strict';
         var mountPoint = document.getElementById('main-container');
 
-        ReactRouter.run(routes, function (Root, state) {
-            React.render(<Root {...state} />, mountPoint);
-        });
-        //window.scrum = React.render(<MainContainer currentTeam={1} />, mountPoint);
+        //ReactRouter.run(routes, function (Root, state) {
+        //    React.render(<Root {...state} />, mountPoint);
+        //});
+        window.scrum = React.render(<MainContainer currentTeam={1} />, mountPoint);
     }
 );

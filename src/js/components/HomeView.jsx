@@ -1,6 +1,5 @@
-define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], function (_, React, Router, TeamView) {
+define(['lodash', 'React', 'components/team/TeamComponent', 'constants'], function (_, React, TeamView, constants) {
     'use strict';
-    var Link = Router.Link;
     return React.createClass({
         displayName: 'HomeView',
 
@@ -14,7 +13,6 @@ define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], func
             flux: React.PropTypes.any
         },
 
-        mixins: [Router.Navigation],
 
         getTeams: function () {
             return this.context.flux.teamsStore.getAllTeams();
@@ -25,7 +23,8 @@ define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], func
         },
 
         handleChangeTeam: function (e) {
-            this.transitionTo('team', {id: e.target.value}, this.props.query);
+            this.context.flux.dispatcher.dispatchAction(constants.CHANGE_CURRENT_TEAM, e.target.value);
+            //this.transitionTo('team', {id: e.target.value}, this.props.query);
         },
 
         render: function () {
@@ -45,12 +44,12 @@ define(['lodash', 'React', 'ReactRouter', 'components/team/TeamComponent'], func
 
                         <div className="right">
                             <button className='clearButton' type='button' onClick={this.clearStorage}>Clear LocalStorage</button>
-                            <button><Link to='team-management'>Manage Teams</Link></button>
+                            <button>Manage Teams</button>
                         </div>
                     </div>
 
                     <div className="team-view-container">
-                        <TeamView currTeamId={this.props.params.id || this.getTeams()[0].id} />
+                        <TeamView currTeamId={this.context.flux.teamsStore.getCurrentTeam()} />
                     </div>
                 </div>
             );
