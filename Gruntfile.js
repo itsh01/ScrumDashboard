@@ -38,8 +38,18 @@ module.exports = function (grunt) {
                 ]
             },
             build: {
-                src: 'src/vendor/require.js',
-                dest: 'build/vendor/require.js'
+                files: [
+                    {
+                        src: 'src/vendor/require.js',
+                        dest: 'build/vendor/require.js'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'src/img/',
+                        src: '**/*',
+                        dest: 'build/img'
+                    }
+                ]
             }
         },
         react: {

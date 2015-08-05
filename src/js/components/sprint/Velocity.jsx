@@ -16,12 +16,7 @@ define([
             },
             getDefaultProps: function () {
                 return {
-                    cardLifecycle: ['Backlog', 'In progress', 'Done'],
-                    sprintMembers: [
-                        '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
-                        '15fc4096-b641-436a-bf2d-8fbdeedec7b2',
-                        '061804a2-1f93-40e1-bf49-57b82e5b568b'
-                    ]
+                    cardLifecycle: ['Backlog', 'In progress', 'Done']
                 };
             },
             render: function () {
