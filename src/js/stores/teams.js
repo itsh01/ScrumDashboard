@@ -28,7 +28,7 @@ define([
                     filterFunc: {type: 'function', defaultValue: null}
                 },
                 teamsData;
-            if (dataFileVersion === localStorage.getItem('teamVersion')) {
+            if (dataFileVersion === +localStorage.getItem('teamVersion')) {
                 teamsData = restoreFromLocalStorage();
             }else {
                 teamsData = defaultTeamData;
@@ -291,7 +291,7 @@ define([
             ];
             _.forEach(actions, function (action) {
                 dispatcher.registerAction(action.name, action.callback.bind(this));
-            }, this);
+            }.bind(this));
         }
 
         return TeamStore;

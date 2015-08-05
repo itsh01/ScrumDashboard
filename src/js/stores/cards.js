@@ -34,7 +34,7 @@ define([
                 },
                 currentCards;
 
-            if (dataFileVersion === localStorage.getItem('cardsVersion')) {
+            if (dataFileVersion === +localStorage.getItem('cardsVersion')) {
                 currentCards = restoreFromLocalStorage();
             }else {
                 currentCards = defaultCardsData;
@@ -156,7 +156,7 @@ define([
             ];
             _.forEach(actions, function (action) {
                 dispatcher.registerAction(action.name, action.callback.bind(this));
-            });
+            }.bind(this));
         }
 
         return CardsStore;
