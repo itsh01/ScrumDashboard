@@ -104,14 +104,14 @@
     border: none;
 }
 
-.new-member-img {
+.member-img {
     height: 128px;
     width: 128px;
     margin: 0.4rem;
 }
 
 .new-member-profile {
-    width: 150px;
+    /*width: 150px;*/
     margin: 0 auto;
     padding: 0.4rem;
     border: 2px dotted hotpink;

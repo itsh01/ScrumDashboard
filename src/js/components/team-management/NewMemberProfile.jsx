@@ -11,16 +11,23 @@ define([
         'use strict';
         return React.createClass({
             displayName: 'New Member Profile',
+            propTypes: {
+                team: React.PropTypes.object
+            },
             contextTypes: {
                 flux: React.PropTypes.any
             },
+
             addNewMember: function () {
+                var teamId = this.props.team.id;
+                console.log(teamId);
                 var memberName = this.refs.memberName.getDOMNode().value;
                 var memberImgUrl = this.refs.memberImgUrl.getDOMNode().value || 'img/mosh.jpg';
-                var newMember = this.context.flux.teamsStore.getBlankMember();
+                var newMember = this.context.flux.membersStore.getBlankMember();
                 newMember.name = memberName;
                 newMember.image = memberImgUrl;
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER, newMember);
+                this.context.flux.dispatcher.dispatchAction(
+                    constants.actionNames.CREATE_MEMBER_INTO_TEAM, newMember, teamId);
 
                 //addMemberToTeam()
 
@@ -33,7 +40,7 @@ define([
                         <form onSubmit={this.addNewMember}>
                             <input ref='memberName' type='text' placeholder='Member name'
                                    className='member-name-input'/>
-                            <img src='img/mosh.jpg' alt='mosh is cute' className='new-member-img'/>
+                            <img src='img/mosh.jpg' alt='mosh is cute' className='member-img'/>
                             <input ref='memberImgUrl' type='url' placeholder='image url' className='img-url-input'/>
                             <button type="submit" className="hidden"></button>
                         </form>
