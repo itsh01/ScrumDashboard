@@ -286,7 +286,15 @@ define([
                 return -1;
             };
 
+            function resetCurrentSprintIfInvalid() {
+                var isCurrSprintValid = this.getSprintIndex(currentViewState.currentSprint) !== -1;
+                if (!isCurrSprintValid) {
+                    currentViewState.currentSprint = _.last(this.getCurrentTeam().sprints);
+                }
+            }
+
             this.getCurrentSprint = function () {
+                resetCurrentSprintIfInvalid.call(this);
                 return this.getSprintById(currentViewState.currentSprint);
             };
 
