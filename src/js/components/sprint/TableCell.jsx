@@ -35,6 +35,12 @@ define([
                     acceptableDrops: ['card'],
                     drop: function (card) {
 
+                        var isInProgress = constants.SPRINT_STATUS.IN_PROGRESS === self.context.sprintState;
+
+                        if (card.status === 'unassigned' && isInProgress) {
+                            return;
+                        }
+
                         var newCardData = {
                             status: self.props.status,
                             assignee: self.props.assignee,
