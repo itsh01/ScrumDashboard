@@ -86,6 +86,11 @@ define([
                 }.bind(this));
             };
 
+            function createMemberIntoTeam(memberData, teamId) {
+                var newMemberId = addMember(memberData);
+                dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER_TO_TEAM, teamId, newMemberId);
+                saveToLocalStorage();
+            }
 
             function saveToLocalStorage() {
                 helpers.saveToLocalStorage('members', currentMembers);
@@ -104,7 +109,8 @@ define([
             var actions = [
                 {name: constants.actionNames.ADD_MEMBER, callback: addMember},
                 {name: constants.actionNames.UPDATE_MEMBER, callback: updateMember},
-                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: deactivateMember}
+                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: deactivateMember},
+                {name: constants.actionNames.CREATE_MEMBER_INTO_TEAM, callback: createMemberIntoTeam}
             ];
             _.forEach(actions, function (action) {
                 dispatcher.registerAction(action.name, action.callback.bind(this));

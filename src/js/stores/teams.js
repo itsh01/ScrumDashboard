@@ -99,24 +99,27 @@ define([
             function removeDeactivatedMemberFromTeams(memberId) {
                 var teams = this.getAllTeams();
                 teamsData = _.forEach(teams, function (team) {
-                    _.remove(team.members, function (member) {
+                    team.members = _.remove(team.members, function (member) {
                         return member === memberId;
-                        // TODO: save
                     });
                 });
+                saveToLocalStorage();
             }
 
             function addMemberToTeam(teamId, memberId) {
                 var team = this.getTeamById(teamId);
                 if (team.active) {
                     team.members.push(memberId);
+                    saveToLocalStorage();
                 }
             }
 
             function removeMemberFromSingleTeam(teamId, memberId) {
+                console.log(memberId);
                 var team = this.getTeamById(teamId);
                 if (team.active) {
-                    _.remove(team.members, {id: memberId});
+                    team.members = _.remove(team.members, {id: memberId});
+                    saveToLocalStorage();
                 }
             }
 
@@ -125,6 +128,7 @@ define([
                 var sprint = _.filter(team.sprints, {id: sprintId});
                 if (!sprint.endDate) {
                     sprint.members.push(memberId);
+                    saveToLocalStorage();
                 }
             }
 
@@ -132,7 +136,8 @@ define([
                 var team = this.getTeamById(teamId);
                 var sprint = _.filter(team.sprints, {id: sprintId});
                 if (!sprint.endDate) {
-                    _.remove(sprint.members, {id: memberId});
+                    sprint.members = _.remove(sprint.members, {id: memberId});
+                    saveToLocalStorage();
                 }
             }
 

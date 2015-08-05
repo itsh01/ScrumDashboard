@@ -14,24 +14,24 @@
     display: inline-block;
     padding: 0.5rem;
     margin: 0.5rem;
-    background: rgba(136,0,255,0.5);
+    background: rgba(136, 0, 255, 0.5);
     border-radius: 28px;
     color: white;
     text-decoration: none;
     cursor: pointer;
     line-height: 15px;
     text-align: center;
-    width:6rem;
+    width: 6rem;
     height: 1rem;
     vertical-align: middle;
 }
+
 .team-name:hover {
     background: #3cb0fd;
     text-decoration: none;
 }
 
-
-.member-name{
+.member-name {
     padding: 0 0.7rem 0.7rem 0.7rem;
     vertical-align: top;
     margin: 0;
@@ -39,6 +39,26 @@
 
 .member-profile {
     margin: 0.5rem;
+    padding: 0.3rem;
+    width: 220px;
+    height: 200px;
+    border: 2px solid transparent;
+    position: relative;
+}
+
+.member-profile:hover {
+    border: 2px dotted;
+}
+
+.remove-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+}
+
+.member-profile:hover > .remove-button {
+    display: inherit;
 }
 
 .team-view {
@@ -51,15 +71,15 @@
     display: block;
 }
 
-.team-input  {
+.team-input {
     display: inline-block;
-    width:5rem;
+    width: 5rem;
     outline: none;
     vertical-align: middle;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     border-radius: 15px;
-    border:none;
+    border: none;
 }
 
 .new-member-img {
