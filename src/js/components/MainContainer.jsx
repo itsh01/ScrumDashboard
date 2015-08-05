@@ -5,7 +5,6 @@
 define([
         'lodash',
         'React',
-        'ReactRouter',
 
         'components/HomeView',
         'stores/flux',
@@ -13,7 +12,7 @@ define([
         'components/pop-up/Basic',
         'components/card-edit/CardEditCreate'
     ],
-    function (_, React, Router, HomeView, Flux, Popup, CardEditCreate) {
+    function (_, React, HomeView, Flux, Popup, CardEditCreate) {
         'use strict';
 
 
@@ -21,9 +20,6 @@ define([
         return React.createClass({
             displayName: 'MainContainer',
 
-            contextTypes: {
-                router: React.PropTypes.func
-            },
             childContextTypes: {
                 flux: React.PropTypes.any
             },

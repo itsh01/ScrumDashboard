@@ -23,7 +23,7 @@ define(['lodash', 'React', 'components/team/TeamComponent', 'constants'], functi
         },
 
         handleChangeTeam: function (e) {
-            this.context.flux.dispatcher.dispatchAction(constants.CHANGE_CURRENT_TEAM, e.target.value);
+            this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM, e.target.value);
             //this.transitionTo('team', {id: e.target.value}, this.props.query);
         },
 
@@ -49,7 +49,7 @@ define(['lodash', 'React', 'components/team/TeamComponent', 'constants'], functi
                     </div>
 
                     <div className="team-view-container">
-                        <TeamView currTeamId={this.context.flux.teamsStore.getCurrentTeam()} />
+                        <TeamView currTeamId={this.context.flux.teamsStore.getCurrentTeam().id} />
                     </div>
                 </div>
             );

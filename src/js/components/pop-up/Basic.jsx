@@ -1,18 +1,37 @@
-define(['React'], function (React) {
-    'use strict';
-    return React.createClass({
-        displayName: 'BasicPopUp',
+define([
+        'React',
 
-        propTypes: {
-            children: React.PropTypes.element
-        },
+        'constants'
+    ],
+    function (React, constants) {
+        'use strict';
+        return React.createClass({
+            displayName: 'BasicPopUp',
 
-        render: function () {
-            return (
-                <div className='pop pop-basic'>
-                    {this.props.children}
-                </div>
-            );
-        }
-    });
-});
+            propTypes: {
+                children: React.PropTypes.element
+            },
+
+            contextTypes: {
+                flux: React.PropTypes.any
+            },
+
+            requireClosePopup: function (e) {
+                e.stopPropagation();
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_DONE_ADDING_CARD);
+            },
+
+            render: function () {
+                return (
+                    <div className='pop pop-basic' onClick={this.requireClosePopup}>
+                        <div className="pop-dialog">
+                            <div className='pop-content slide-down'>
+                                {this.props.children}
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        });
+    }
+);

@@ -49,16 +49,10 @@ requirejs.config({
     paths: {
         lodash: '../vendor/lodash',
         React: '../vendor/react-with-addons',
-        ReactRouter: '../vendor/ReactRouter',
         DragDropMixin: '../vendor/DragDropMixin',
         components: '../js/components',
         mixins: '../js/mixins',
         stores: '../js/stores'
-    },
-    map: {
-        '*': {
-            react: 'React'
-        }
     },
     shim: {
         lodash: {

@@ -1,7 +1,7 @@
 define(['lodash', 'React',
-        'components/team-management/MemberProfile', 'ReactRouter',
+        'components/team-management/MemberProfile',
         'components/team-management/NewMemberProfile'],
-    function (_, React, MemberProfile, Router, NewMemberProfile) {
+    function (_, React, MemberProfile, NewMemberProfile) {
         'use strict';
         return React.createClass({
             displayName: 'TeamView',
@@ -12,7 +12,6 @@ define(['lodash', 'React',
             contextTypes: {
                 flux: React.PropTypes.any
             },
-            mixins: [Router.Navigation],
             getTeamTitle: function () {
                 return 'Team ' + this.props.team.name;
             },

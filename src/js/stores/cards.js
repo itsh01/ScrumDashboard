@@ -21,8 +21,9 @@ define([
         };
 
         function CardsStore(dispatcher) {
-            var dataFileVersion = 1,
+            var dataFileVersion = '1',
                 CARDS_SCHEMA = {
+                    id: {type: 'string'},
                     name: {type: 'string'},
                     description: {type: 'string', defaultValue: ''},
                     score: {type: 'number', defaultValue: null},
@@ -34,7 +35,7 @@ define([
                 },
                 currentCards;
 
-            if (dataFileVersion === +localStorage.getItem('cardsVersion')) {
+            if (dataFileVersion === localStorage.getItem('cardsVersion')) {
                 currentCards = restoreFromLocalStorage();
             }else {
                 currentCards = defaultCardsData;

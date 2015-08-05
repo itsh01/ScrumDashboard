@@ -36,12 +36,11 @@ define([
 
             getStackCardStyle: function (cardIndex, card) {
                 var cardStyle = {
-                    transform: 'translate(' + (cardIndex * 0.6) + 'rem, ' + (cardIndex * 0.6) + 'rem)'
+                    transform: 'translate(' + (cardIndex * 0.9) + 'rem, ' + (cardIndex * 0.6) + 'rem)'
                 };
                 cardStyle.zIndex = (this.state.openCardId === card.id) ? this.state.cards.length : cardIndex;
                 return cardStyle;
             },
-
 
             render: function () {
                 var cards = _.map(this.state.cards, function (card, cardIndex) {

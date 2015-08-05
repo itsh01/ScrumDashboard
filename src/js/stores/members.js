@@ -11,7 +11,7 @@ define([
         };
 
         function MembersStore(dispatcher) {
-            var dataFileVersion = 1,
+            var dataFileVersion = '1',
                 MEMBERS_SCHEMA = {
                     name: {type: 'string'},
                     image: {type: 'string', defaultValue: ''},
@@ -19,7 +19,7 @@ define([
                 },
                 currentMembers;
 
-            if (dataFileVersion === +localStorage.getItem('membersVersion')) {
+            if (dataFileVersion === localStorage.getItem('membersVersion')) {
                 currentMembers = restoreFromLocalStorage();
             }else {
                 currentMembers = defaultMembersData;

@@ -11,7 +11,7 @@ define([
         };
 
         function TeamStore(dispatcher, getUserCards) {
-            var dataFileVersion = 1,
+            var dataFileVersion = '1',
                 SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
                     scrumMaster: {type: 'string', defaultValue: null},
@@ -29,7 +29,7 @@ define([
                     active: {type: 'boolean', defaultValue: true}
                 },
                 teamsData;
-            if (dataFileVersion === +localStorage.getItem('teamVersion')) {
+            if (dataFileVersion === localStorage.getItem('teamVersion')) {
                 teamsData = restoreFromLocalStorage();
             } else {
                 teamsData = defaultTeamData;
@@ -257,13 +257,11 @@ define([
 
             var currentViewState = {
                 currentTeam: teamsData[0].id,
-                currentSprint: (_.last(teamsData[0].sprints)).id,
-                currentExistingMemberId: teamsData[0].members[0]
+                currentSprint: (_.last(teamsData[0].sprints)).id
             };
 
 
             this.getCurrentTeam = function () {
-
                 return this.getTeamById(currentViewState.currentTeam);
             };
 
@@ -279,7 +277,7 @@ define([
             }
 
             function changeCurrentTeam(teamId) {
-                currentViewState.currentTeam = this.getTeamById(teamId);
+                currentViewState.currentTeam = teamId;
             }
 
             function changeExistingMember(memberId) {
