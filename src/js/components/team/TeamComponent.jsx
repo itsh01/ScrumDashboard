@@ -104,20 +104,35 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             planNewSprint: function () {
                 var newSprint = this.context.flux.teamsStore.getBlankSprint();
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT, this.props.currTeamId, newSprint);
+                this.setState(this.getSprintValues({currTeamId: this.props.currTeamId}));
             },
 
-            getLockSprintButton: function () {
+            getSprintButton: function () {
                 if (this.state.currSprint.state === constants.SPRINT_STATUS.RETRO) {
-                    return <button className='main-view-btn main-view-btn-lock' onClick={this.planNewSprint}>Plan New
+                    return <button className='main-view-btn' onClick={this.planNewSprint}>Plan New
                         Sprint</button>;
                 }
                 if (this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING) {
-                    return (<div className='main-view-buttons-container'>
-                        <button className='main-view-btn' onClick={this.addCardClicked}>Add Card</button>
-                        <button className='main-view-btn' onClick={this.finishPlanningClicked}>Finish Planning</button>
+                    return (<div>
+                        <div className='main-view-buttons-container'>
+                            <button className='main-view-btn' onClick={this.addCardClicked}>Add Card</button>
+                            <button className='main-view-btn' onClick={this.finishPlanningClicked}>Finish Planning
+                            </button>
+                        </div>
+                        <div>
+                            <EditSprint teamId={this.props.team} sprintId={this.state.currSprint.id}/>
+                        </div>
                     </div>);
                 }
+                if (this.state.currSprint.state === constants.SPRINT_STATUS.IN_PROGRESS) {
+                    return <button className = 'main-view-btn main-view-btn-lock' onClick={this.lockSprint}>Lock Sprint</button>;
+                }
                 return null;
+            },
+
+            lockSprint: function () {
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_SPRINT, this.state.currSprint.id);
+                this.setState(this.getSprintValues({currTeamId: this.props.currTeamId}));
             },
 
             render: function () {
@@ -146,11 +161,8 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                             <SprintTable sprint={this.state.currSprint}/>
                         </div>
 
-                        {this.getLockSprintButton()}
+                        {this.getSprintButton()}
 
-                        <div>
-                            <EditSprint teamId={this.props.team} sprintId={this.state.currSprint.id}/>
-                        </div>
                     </div>
                 );
             }

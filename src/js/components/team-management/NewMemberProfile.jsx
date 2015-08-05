@@ -20,7 +20,6 @@ define([
 
             addNewMember: function () {
                 var teamId = this.props.team.id;
-                console.log(teamId);
                 var memberName = this.refs.memberName.getDOMNode().value;
                 var memberImgUrl = this.refs.memberImgUrl.getDOMNode().value || 'img/mosh.jpg';
                 var newMember = this.context.flux.membersStore.getBlankMember();
@@ -28,9 +27,6 @@ define([
                 newMember.image = memberImgUrl;
                 this.context.flux.dispatcher.dispatchAction(
                     constants.actionNames.CREATE_MEMBER_INTO_TEAM, newMember, teamId);
-
-                //addMemberToTeam()
-
 
             },
             render: function () {
