@@ -117,7 +117,7 @@ define([
             function removeMemberFromSingleTeam(teamId, memberId) {
                 var team = _.find(teamsData, {id: teamId});
                 if (team.active) {
-                    _.remove(team.members, function(id){
+                    _.remove(team.members, function (id) {
                         return id === memberId;
                     });
                     saveToLocalStorage();
