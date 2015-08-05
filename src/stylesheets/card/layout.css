@@ -36,3 +36,16 @@
     visibility: visible;
 }
 
+.card-btn-edit{
+    visibility: hidden;
+    background-image: linear-gradient(to bottom, #ee9090, #DDa0a0);
+    position: absolute;
+    bottom:2px;
+    padding:1px 10px;
+    border-radius: 5px;
+}
+
+.card-editable .card-btn-edit{
+    visibility: visible;
+}
+

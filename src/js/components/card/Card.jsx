@@ -85,6 +85,8 @@ define([
                             style={{width: '1rem', height: '1rem'}}
                             className='card-delete'
                             onClick={this.removeCard}/>
+
+                        <button className='card-btn-edit'>edit</button>
                         {this.getCardContent()}
                     </div>
 
