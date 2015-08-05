@@ -21,7 +21,7 @@ define([
                     key={member.id}
                     member={member}/>
                 ) : null;
-            }, 
+            },
             render: function () {
                 var sprint = this.props.sprint,
                     rows = _(sprint.members)

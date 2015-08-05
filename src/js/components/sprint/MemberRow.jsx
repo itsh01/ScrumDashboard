@@ -31,12 +31,8 @@ define([
                 return card;
             },
 
-            render: function () {
-                var retro = this.props.retro;
-                var memberId = this.props.member.id,
-                    cards = [],
-                    cells = [];
-
+            getMemberRetroCards: function (retro, memberId) {
+                var cards = [];
                 if (retro) {
                     cards = _(retro)
                         .filter(function (history) {
@@ -47,8 +43,10 @@ define([
                 } else {
                     cards = this.context.flux.cardsStore.getUserCards(memberId);
                 }
-
-                cells = _.map(this.props.cardLifecycle, function mapPhasesToTableCells(phase) {
+                return cards;
+            },
+            createCellByCard: function (cards) {
+                return _.map(this.props.cardLifecycle, function mapPhasesToTableCells(phase) {
 
                     var phaseCards = _.filter(cards, function filterCardsByPhase(card) {
                         return card.status === phase;
@@ -58,11 +56,20 @@ define([
                         <TableCell
                             key={phase}
                             cards={phaseCards}
-                            assignee={memberId}
-                            status={phase} />
+                            assignee={this.props.member.id}
+                            status={phase}/>
                     );
 
                 }, this);
+            }, render: function () {
+                var retro = this.props.retro;
+                var memberId = this.props.member.id,
+                    cards = [],
+                    cells = [];
+
+                cards = this.getMemberRetroCards(retro, memberId);
+
+                cells = this.createCellByCard(cards);
 
                 return (<div className="table-row">
                     <div className="table-cell sprint-member-cell">
