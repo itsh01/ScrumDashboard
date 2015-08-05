@@ -32,14 +32,27 @@ define([
             render: function () {
                 var classSet = React.addons.classSet;
                 return (
-                    <div className={classSet('member-profile', 'new-member-profile')}>
-                        <form onSubmit={this.addNewMember}>
-                            <input ref='memberName' type='text' placeholder='Member name'
-                                   className='member-name-input'/>
-                            <img src='img/mosh.jpg' alt='mosh is cute' className='member-img'/>
-                            <input ref='memberImgUrl' type='url' placeholder='image url' className='img-url-input'/>
-                            <button type="submit" className="hidden"></button>
-                        </form>
+                    <div>
+                        <div>
+                            <h3> add member to team </h3>
+
+                            <form className='member-type'>
+                                <input type='radio' id='newMember' name='memberType' value='newMember'/>
+                                <label htmlFor='newMember'>New member</label>
+                                <input type='radio' id='existingMember' name='memberType' value='existingMember'/>
+                                <label htmlFor='existingMember'>Existing member</label>
+                            </form>
+                        </div>
+                        <div className={classSet('member-profile', 'new-member-profile')}>
+                            <form onSubmit={this.addNewMember}>
+                                <input ref='memberName' type='text' placeholder='Member name'
+                                       className='member-name-input'/>
+                                <img src='img/mosh.jpg' alt='mosh is cute' className='member-img'/>
+                                <input ref='memberImgUrl' type='url' placeholder='image url'
+                                       className='img-url-input'/>
+                                <button type="submit" className="hidden"></button>
+                            </form>
+                        </div>
                     </div>
                 );
             }
