@@ -68,7 +68,7 @@ define([
             }
 
             return (
-                <div>
+                <div className='card-editable'>
                     <h3>{this.props.title} </h3>
                     {cardsListToDisplay}
                 </div>
