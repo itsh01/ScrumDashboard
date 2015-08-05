@@ -24,7 +24,8 @@ define(['lodash', 'React', 'components/team/TeamComponent', 'constants'], functi
 
         handleChangeTeam: function (e) {
             this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM, e.target.value);
-            //this.transitionTo('team', {id: e.target.value}, this.props.query);
+            var team = this.context.flux.teamsStore.getTeamById(e.target.value);
+            this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, team.sprints[team.sprints.length - 1].id);
         },
 
         render: function () {

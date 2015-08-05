@@ -9,79 +9,22 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 flux: React.PropTypes.any
             },
 
-            getInitialState: function () {
-                var sprintValues = this.getSprintValues(this.props);
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, sprintValues.currSprint.id);
-                return sprintValues;
-            },
-
-            componentWillReceiveProps: function (nextProps) {
-                var allSprints = this.context.flux.teamsStore.getTeamById(nextProps.currTeamId).sprints;
-                var sprintsIds = _.pluck(allSprints, 'id');
-                if (!this.state.currSprint.id || !_.contains(sprintsIds, this.state.currSprint.id)) {
-                    var newState = this.getSprintValues(nextProps);
-                    this.setState(newState);
-                    this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, newState.currSprint.id);
-                }
-            },
-
-            componentWillUnmount: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, null);
-            },
-
-            getSprintValues: function (props) {
-                var team = this.getTeamObject(props.currTeamId);
-                return {
-                    currSprint: team.sprints[team.sprints.length - 1],
-                    currSprintIndex: team.sprints.length - 1
-                };
-            },
-
             handleSprintChange: function (direction) {
-                var allSprints = this.context.flux.teamsStore.getTeamById(this.props.currTeamId).sprints;
-                var newState;
-                if (direction === 'backwards' && this.state.currSprintIndex !== 0) {
-                    newState = {
-                        currSprint: allSprints[this.state.currSprintIndex - 1],
-                        currSprintIndex: this.state.currSprintIndex - 1
-                    };
-
-                } else if (direction === 'forward' && this.state.currSprintIndex !== allSprints.length - 1) {
-
-                    newState = {
-                        currSprint: allSprints[this.state.currSprintIndex + 1],
-                        currSprintIndex: this.state.currSprintIndex + 1
-                    };
-                }
-                if (newState) {
-                    this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, newState.currSprint.id);
-                    this.setState(newState);
-                }
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, direction);
             },
 
             addCardClicked: function () {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
             },
 
-            finishPlanningClicked: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, this.state.currSprint.id);
-                this.setState(this.getSprintValues({currTeamId: this.props.currTeamId}));
-
-            },
-
-            getSprintState: function () {
-                if (this.state.currSprint.state === 0) {
-                    return 'In Planning';
-                }
-                if (this.state.currSprint.state === 1) {
-                    return 'In Progress';
-                }
-                return 'Locked';
+            finishPlanning: function () {
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE);
             },
 
             planNewSprint: function () {
                 var newSprint = this.context.flux.teamsStore.getBlankSprint();
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT, this.props.currTeamId, newSprint);
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, newSprint);
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, 'next');
             },
 
             lockSprint: function () {
@@ -96,7 +39,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                     return (<div>
                         <div className='main-view-buttons-container'>
                             <button className='main-view-btn' onClick={this.addCardClicked}>Add Card</button>
-                            <button className='main-view-btn' onClick={this.finishPlanningClicked}>Finish Planning</button>
+                            <button className='main-view-btn' onClick={this.finishPlanning}>Finish Planning</button>
                         </div>
                         <div>
                             <EditSprint/>
@@ -109,6 +52,16 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 return null;
             },
 
+            getSprintState: function (sprint) {
+                if (sprint.state === 0) {
+                    return 'In Planning';
+                }
+                if (sprint.state === 1) {
+                    return 'In Progress';
+                }
+                return 'Locked';
+            },
+
             render: function () {
                 var team = this.context.flux.teamsStore.getCurrentTeam();
                 var sprint = this.context.flux.teamsStore.getCurrentSprint();
@@ -118,10 +71,10 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                         <h2>Scrum DashBoard</h2>
                         <div className="flex-centered one-row">
                             <ChangeSprint direction='backwards'
-                                          handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
-                            <h3>Sprint {this.state.currSprintIndex} : {sprint.name} - {this.getSprintState()}</h3>
+                                          handleSprintChangeFunc={this.handleSprintChange.bind(this, 'previous')}/>
+                            <h3>Sprint {this.context.flux.teamsStore.getSprintIndex(sprint.id)} : {sprint.name} - {this.getSprintState(sprint)}</h3>
                             <ChangeSprint direction='forward'
-                                          handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
+                                          handleSprintChangeFunc={this.handleSprintChange.bind(this, 'next')}/>
                         </div>
 
                         <div className="flex-base  one-row">

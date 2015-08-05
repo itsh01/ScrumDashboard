@@ -70,6 +70,11 @@ define([
                 });
             }
 
+            var currentViewState = {
+                currentTeam: teamsData[0].id,
+                currentSprint: (_.last(teamsData[0].sprints)).id
+            };
+
             function addTeam(teamData) {
                 var blankTeam = this.getBlankTeam(),
                     teamWithDefaults = _.assign(blankTeam, teamData);
@@ -95,6 +100,10 @@ define([
                     saveToLocalStorage();
                     return sprintWithDefaults.id;
                 }
+            }
+
+            function addSprintToCurrentTeam(sprintData) {
+                addSprint.call(this, currentViewState.currentTeam, sprintData);
             }
 
             function removeDeactivatedMemberFromTeams(memberId) {
@@ -205,12 +214,13 @@ define([
                 saveToLocalStorage();
             }
 
-            function retrofyCurrentSprint () {
-                retrofySprint(currentViewState.sprintId)
+            function retrofyCurrentSprint() {
+                retrofySprint(currentViewState.currentSprint);
             }
 
             // teamId is an optional argument
             function moveSprintToNextState(sprintId, teamId) {
+                sprintId = sprintId || currentViewState.currentSprint;
                 var sprint = getSprint(sprintId, teamId);
                 if (!validateSprintBeforeMovingToNextState(sprint, sprintId)) {
                     return;
@@ -259,22 +269,36 @@ define([
 
             /*eslint-enable no-unused-vars */
 
-            var currentViewState = {
-                currentTeam: teamsData[0].id,
-                currentSprint: (_.last(teamsData[0].sprints)).id
-            };
-
-
             this.getCurrentTeam = function () {
                 return this.getTeamById(currentViewState.currentTeam);
+            };
+
+            this.getSprintIndex = function (sprintId) {
+                var sprints = this.getTeamById(currentViewState.currentTeam).sprints;
+                for (var i = 0; i < sprints.length; i++) {
+                    if (sprints[i].id === sprintId) {
+                        return i;
+                    }
+                }
+                return -1;
             };
 
             this.getCurrentSprint = function () {
                 return this.getSprintById(currentViewState.currentSprint);
             };
 
-            function changeCurrentSprint(sprintId) {
-                currentViewState.currentSprint = sprintId;
+            // This function gets 'next'/'prev'/sprint id as the destination string
+            function changeCurrentSprint(destination) {
+                var sprintsLastIndex = this.getTeamById(currentViewState.currentTeam).sprints.length - 1;
+                var currSprintIndex = this.getSprintIndex(currentViewState.currentSprint);
+                if (destination === 'next' && currSprintIndex < sprintsLastIndex) {
+                    currentViewState.currentSprint = this.getTeamById(currentViewState.currentTeam).sprints[currSprintIndex + 1].id;
+                }
+                if (destination === 'previous' && currSprintIndex > 0) {
+                    currentViewState.currentSprint = this.getTeamById(currentViewState.currentTeam).sprints[currSprintIndex - 1].id;
+                } else if (destination !== 'next' && destination !== 'previous') {
+                    currentViewState.currentSprint = destination;
+                }
             }
 
             function changeCurrentTeam(teamId) {
@@ -294,7 +318,9 @@ define([
                 {name: constants.actionNames.ADD_MEMBER_TO_TEAM, callback: addMemberToTeam},
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_TEAM, callback: removeMemberFromSingleTeam},
                 {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
-                {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSingleSprint}
+                {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSingleSprint},
+                {name: constants.actionNames.RETROFY_CURRENT_SPRINT, callback: retrofyCurrentSprint},
+                {name: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, callback: addSprintToCurrentTeam}
             ];
             _.forEach(actions, function (action) {
                 dispatcher.registerAction(action.name, action.callback.bind(this));

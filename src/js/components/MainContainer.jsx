@@ -36,6 +36,7 @@ define([
                 };
 
             },
+
             popUpFactory: function () {
                 if (!this.flux.planningStore.isAddingCard) {
                     return null;
