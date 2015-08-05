@@ -257,7 +257,8 @@ define([
 
             var currentViewState = {
                 currentTeam: teamsData[0].id,
-                currentSprint: (_.last(teamsData[0].sprints)).id
+                currentSprint: (_.last(teamsData[0].sprints)).id,
+                currentExistingMemberId: teamsData[0].members[0]
             };
 
 
