@@ -98,10 +98,9 @@ define([
             }
 
             function removeDeactivatedMemberFromTeams(memberId) {
-                var teams = this.getAllTeams();
-                teamsData = _.forEach(teams, function (team) {
-                    team.members = _.remove(team.members, function (member) {
-                        return member === memberId;
+                _.forEach(teamsData, function(team) {
+                    _.remove(team.members, function(member) {
+                        return member.id === memberId;
                     });
                 });
                 saveToLocalStorage();
