@@ -1,13 +1,13 @@
-define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Table', 'components/backlog/Backlog', 'constants'],
-    function (_, React, ChangeSprint, SprintTable, BackLog, constants) {
+define(['lodash', 'React', 'constants'],
+    function (_, React, constants) {
         'use strict';
 
         return React.createClass({
-            displayName: 'TeamView',
+            displayName: 'EditSprint',
 
             propTypes: {
-                currTeamId: React.PropTypes.string
-                sprintId: React.PropTypes.substringData,
+                currTeamId: React.PropTypes.string,
+                sprintId: React.PropTypes.substringData
             },
 
             contextTypes: {
@@ -15,9 +15,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             },
 
             getInitialState: function () {
-                var sprintValues = this.getSprintValues(this.props);
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, sprintValues.currSprint.id);
-                return sprintValues;
+
             },
 
 

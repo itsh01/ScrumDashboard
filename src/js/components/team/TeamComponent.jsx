@@ -24,13 +24,6 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 return sprintValues;
             },
 
-            getSprintValues: function (props) {
-                var team = this.getTeamObject(props.currTeamId);
-                return {
-                    currSprint: team.sprints[team.sprints.length - 1],
-                    currSprintIndex: team.sprints.length - 1
-                };
-            },
 
             getChildContext: function () {
                 return {
@@ -53,6 +46,15 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             componentWillUnmount: function () {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, null);
             },
+
+            getSprintValues: function (props) {
+                var team = this.getTeamObject(props.currTeamId);
+                return {
+                    currSprint: team.sprints[team.sprints.length - 1],
+                    currSprintIndex: team.sprints.length - 1
+                };
+            },
+
             handleSprintChange: function (direction) {
                 var allSprints = this.context.flux.teamsStore.getTeamById(this.props.currTeamId).sprints;
                 var newState;
