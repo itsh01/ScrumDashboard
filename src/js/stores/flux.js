@@ -5,8 +5,7 @@ define(
         './members',
         './teams',
         './planning',
-        './dispatcher',
-        '../../../tests/store/test'
+        './dispatcher'
     ],
     function (_, Cards, Members, Teams, Planning, Dispatcher) {
         'use strict';
@@ -18,7 +17,6 @@ define(
             this.planningStore = new Planning(this.dispatcher);
             this.teamsStore = new Teams(this.dispatcher, this.cardsStore.getUserCards);
 
-            //Test.run();
         }
 
         return Flux;
