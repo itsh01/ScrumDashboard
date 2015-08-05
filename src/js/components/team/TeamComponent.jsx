@@ -1,5 +1,5 @@
-define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Table', 'components/backlog/Backlog', 'constants'],
-    function (_, React, ChangeSprint, SprintTable, BackLog, constants) {
+define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Table', 'components/backlog/Backlog', 'components/team/EditSprint', 'constants'],
+    function (_, React, ChangeSprint, SprintTable, BackLog, EditSprint, constants) {
         'use strict';
 
         return React.createClass({
@@ -24,6 +24,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 return sprintValues;
             },
 
+
             getChildContext: function () {
                 return {
                     teamId: this.props.currTeamId
@@ -45,6 +46,15 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             componentWillUnmount: function () {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, null);
             },
+
+            getSprintValues: function (props) {
+                var team = this.getTeamObject(props.currTeamId);
+                return {
+                    currSprint: team.sprints[team.sprints.length - 1],
+                    currSprintIndex: team.sprints.length - 1
+                };
+            },
+
             handleSprintChange: function (direction) {
                 var allSprints = this.context.flux.teamsStore.getTeamById(this.props.currTeamId).sprints;
                 var newState;
@@ -71,14 +81,6 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 return this.context.flux.teamsStore.getTeamById(teamId);
             },
 
-            getSprintValues: function (props) {
-                var team = this.getTeamObject(props.currTeamId);
-                return {
-                    currSprint: team.sprints[team.sprints.length - 1],
-                    currSprintIndex: team.sprints.length - 1
-                };
-            },
-
             addCardClicked: function () {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
             },
@@ -98,8 +100,8 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             },
 
             planNewSprint: function () {
-                //var newSprint = this.context.flux.teamsStore.getBlankSprint();
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT, this.state.currSprint.id);
+                var newSprint = this.context.flux.teamsStore.getBlankSprint();
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT, this.props.currTeamId, newSprint);
             },
 
             getLockSprintButton: function () {
@@ -141,7 +143,12 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
                             <SprintTable sprint={this.state.currSprint}/>
                         </div>
+
                         {this.getLockSprintButton()}
+
+                        <div>
+                            <EditSprint teamId={this.props.team} sprintId={this.state.currSprint.id}/>
+                        </div>
                     </div>
                 );
             }
@@ -149,3 +156,4 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
     }
 );
 
+//

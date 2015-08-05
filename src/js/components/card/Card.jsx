@@ -69,13 +69,15 @@ define([
                 var classesObject = {
                     card: true,
                     'card-open': this.state.isDescriptionOpened,
-                    'card-editable': currentSprint && currentSprint.state === constants.SPRINT_STATUS.PLANNING};
+                    'card-editable': currentSprint && currentSprint.state === constants.SPRINT_STATUS.PLANNING
+                };
                 classesObject[this.pointsClass[this.getCardScore()]] = true;
                 var classes = cx(classesObject);
                 return (
                     <div
                         className={classes}
                         onClick={this.toggleDescriptionOpened}>
+                        <img src='img/close.svg' style={{width: '1rem', height: '1rem'}} className='card-delete' />
                         {this.getCardContent()}
                     </div>
 
