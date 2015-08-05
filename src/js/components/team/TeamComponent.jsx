@@ -5,30 +5,14 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
         return React.createClass({
             displayName: 'TeamView',
 
-            propTypes: {
-                currTeamId: React.PropTypes.string
-            },
-
             contextTypes: {
-                flux: React.PropTypes.any,
-                router: React.PropTypes.func
-            },
-
-            childContextTypes: {
-                teamId: React.PropTypes.string
+                flux: React.PropTypes.any
             },
 
             getInitialState: function () {
                 var sprintValues = this.getSprintValues(this.props);
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, sprintValues.currSprint.id);
                 return sprintValues;
-            },
-
-
-            getChildContext: function () {
-                return {
-                    teamId: this.props.currTeamId
-                };
             },
 
             componentWillReceiveProps: function (nextProps) {
@@ -75,10 +59,6 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 }
             },
 
-            getTeamObject: function (teamId) {
-                return this.context.flux.teamsStore.getTeamById(teamId);
-            },
-
             addCardClicked: function () {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
             },
@@ -102,41 +82,36 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             planNewSprint: function () {
                 var newSprint = this.context.flux.teamsStore.getBlankSprint();
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT, this.props.currTeamId, newSprint);
-                this.setState(this.getSprintValues({currTeamId: this.props.currTeamId}));
-
             },
 
             lockSprint: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_SPRINT, this.state.currSprint.id);
-                this.setState(this.getSprintValues({currTeamId: this.props.currTeamId}));
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_CURRENT_SPRINT);
             },
 
-            getSprintButton: function () {
-                if (this.state.currSprint.state === constants.SPRINT_STATUS.RETRO) {
-                    return (<button className='main-view-btn' onClick={this.planNewSprint}>Plan New
-                        Sprint</button>);
+            getSprintButton: function (sprint) {
+                if (sprint.state === constants.SPRINT_STATUS.RETRO) {
+                    return (<button className='main-view-btn' onClick={this.planNewSprint}>Plan New Sprint</button>);
                 }
-                if (this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING) {
+                if (sprint.state === constants.SPRINT_STATUS.PLANNING) {
                     return (<div>
                         <div className='main-view-buttons-container'>
                             <button className='main-view-btn' onClick={this.addCardClicked}>Add Card</button>
-                            <button className='main-view-btn' onClick={this.finishPlanningClicked}>Finish Planning
-                            </button>
+                            <button className='main-view-btn' onClick={this.finishPlanningClicked}>Finish Planning</button>
                         </div>
                         <div>
                             <EditSprint/>
                         </div>
                     </div>);
                 }
-                if (this.state.currSprint.state === constants.SPRINT_STATUS.IN_PROGRESS) {
+                if (sprint.state === constants.SPRINT_STATUS.IN_PROGRESS) {
                     return <button className = 'main-view-btn main-view-btn-lock' onClick={this.lockSprint}>Lock Sprint</button>;
                 }
                 return null;
             },
 
             render: function () {
-                var team = this.getTeamObject(this.props.currTeamId);
-                var sprintName = team.sprints[this.state.currSprintIndex].name;
+                var team = this.context.flux.teamsStore.getCurrentTeam();
+                var sprint = this.context.flux.teamsStore.getCurrentSprint();
                 return (
                     <div>
                         <h1>{team.name} Team</h1>
@@ -144,19 +119,19 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                         <div className="flex-centered one-row">
                             <ChangeSprint direction='backwards'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
-                            <h3>Sprint {this.state.currSprintIndex} : {sprintName} - {this.getSprintState()}</h3>
+                            <h3>Sprint {this.state.currSprintIndex} : {sprint.name} - {this.getSprintState()}</h3>
                             <ChangeSprint direction='forward'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
                         </div>
 
                         <div className="flex-base  one-row">
                             <div style={{display: 'inline-block'}}>
-                                <BackLog className="backlog"/>
+                                <BackLog className="backlog" teamId={team.id}/>
                             </div>
-                            <SprintTable sprint={this.state.currSprint}/>
+                            <SprintTable sprint={sprint}/>
                         </div>
 
-                        {this.getSprintButton()}
+                        {this.getSprintButton(sprint)}
 
                     </div>
                 );

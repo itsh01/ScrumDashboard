@@ -14,17 +14,13 @@ define([
             propTypes: {
                 teamId: React.PropTypes.string
             },
-            contextTypes: {
-                flux: React.PropTypes.any,
-                teamId: React.PropTypes.string
-            },
-            getInitialState: function () {
-                return {
 
-                };
+            contextTypes: {
+                flux: React.PropTypes.any
             },
+
             render: function () {
-                var teamCards = this.context.flux.cardsStore.getTeamCards(this.context.teamId);
+                var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
                 var CompanyCards = this.context.flux.cardsStore.getCompanyCards();
 
                 teamCards = _.filter(teamCards, function (card) {

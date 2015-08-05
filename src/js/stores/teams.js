@@ -205,6 +205,10 @@ define([
                 saveToLocalStorage();
             }
 
+            function retrofyCurrentSprint () {
+                retrofySprint(currentViewState.sprintId)
+            }
+
             // teamId is an optional argument
             function moveSprintToNextState(sprintId, teamId) {
                 var sprint = getSprint(sprintId, teamId);
