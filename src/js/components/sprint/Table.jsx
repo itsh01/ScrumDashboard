@@ -44,14 +44,16 @@ define([
 
             render: function () {
 
+                var sprint = this.props.sprint;
+                
                 return ( <div className="sprint-table-wrapper">
                     <div className="table-layout board">
-                        <TableHeader cardLifecycle={this.props.sprint.cardLifecycle} />
-                        <TableBody sprint={this.props.sprint} />
+                        <TableHeader cardLifecycle={sprint.cardLifecycle} />
+                        <TableBody sprint={sprint} />
                     </div>
                     <Velocity
-                        cardLifecycle={this.props.sprint.cardLifecycle}
-                        sprintMembers={this.props.sprint.members} />
+                        cardLifecycle={sprint.cardLifecycle}
+                        sprintMembers={sprint.members} />
                     {this.getLockSprintButton()}
                 </div>);
             }
