@@ -266,7 +266,7 @@ define([
                 return currentViewState.currentTeam;
             };
 
-            this.getCurrentSprint = function(){
+            this.getCurrentSprint = function () {
                 return this.getSprintById(currentViewState.currentSprint);
             };
 

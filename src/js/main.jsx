@@ -27,14 +27,14 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash', 'React', 'ReactRouter', 'components/MainContainer', 'components/router-config/routes'],
-    function (_, React, ReactRouter, MainContainer, routes) {
+requirejs(['lodash', 'React', 'ReactRouter', 'components/MainContainer'],
+    function (_, React, ReactRouter, MainContainer) {
         'use strict';
         var mountPoint = document.getElementById('main-container');
 
         //ReactRouter.run(routes, function (Root, state) {
         //    React.render(<Root {...state} />, mountPoint);
         //});
-        window.scrum = React.render(<MainContainer currentTeam={1} />, mountPoint);
+        window.scrum = React.render(<MainContainer currentTeam={1}/>, mountPoint);
     }
 );
