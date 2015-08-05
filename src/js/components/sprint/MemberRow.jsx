@@ -2,9 +2,11 @@ define([
         'lodash',
         'React',
         'components/sprint/Member',
-        'components/sprint/TableCell'
+        'components/sprint/TableCell',
+
+        'mixins/HistoryMixin'
     ],
-    function (_, React, SprintMember, TableCell) {
+    function (_, React, SprintMember, TableCell, HistoryMixin) {
         'use strict';
 
         return React.createClass({
@@ -17,18 +19,12 @@ define([
             contextTypes: {
                 flux: React.PropTypes.any
             },
+            mixins: [HistoryMixin],
+
             getDefaultProps: function () {
                 return {
                     cardLifecycle: ['Backlog', 'In progress', 'Done']
                 };
-            },
-
-            mapHistoryToCards: function (history) {
-                var card = this.context.flux.cardsStore.getCardById(history.cardId);
-                card.assignee = history.assigneeId;
-                card.status = history.status;
-
-                return card;
             },
 
             getMemberRetroCards: function (retro, memberId) {
