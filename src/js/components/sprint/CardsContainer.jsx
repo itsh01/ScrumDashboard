@@ -20,11 +20,10 @@ define([
 
             cardClicked: function (cardId) {
                 var openCardId = (this.state.openCardId === cardId) ? null : cardId;
-                
                 this.setState({openCardId: openCardId});
             },
 
-            getCardStyle: function (card, cardIndex) {
+            getStackCardStyle: function (card, cardIndex) {
                 var cardStyle = {
                     top: cardIndex * 0.6 + 'rem',
                     left: cardIndex * 0.6 + 'rem'
@@ -33,16 +32,22 @@ define([
                 return cardStyle;
             },
 
+            getHeapCardStyle: function (cardIndex) {
+                return {
+                    top: 0,
+                    left: 0,
+                    zIndex: cardIndex
+                };
+            },
+
             render: function () {
-                var cards = _.map(this.props.cards, function (card, cardIndex) {
-
-                    var cardStyle = this.getCardStyle(card, cardIndex);
-
-                    return (<div style={cardStyle} key={card.id} className="sprint-card-wrapper">
-                        <Card card={card} cardClickHandler={this.cardClicked} />
-                    </div>);
-
-                }.bind(this));
+                var cardsNum = this.props.cards.length,
+                    cards = _.map(this.props.cards, function (card, cardIndex) {
+                        var cardStyle = (cardsNum < 5) ? this.getStackCardStyle(card, cardIndex) : this.getHeapCardStyle(card);
+                        return (<div style={cardStyle} key={card.id} className="sprint-card-wrapper">
+                            <Card card={card} cardClickHandler={this.cardClicked}/>
+                        </div>);
+                    }.bind(this));
 
                 return (<div className="sprint-cards-container">
                     {cards}

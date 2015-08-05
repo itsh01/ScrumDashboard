@@ -28,7 +28,7 @@ define([
                     filterFunc: {type: 'function', defaultValue: null}
                 },
                 teamsData;
-            if (dataFileVersion === localStorage.getItem('teamVersion')) {
+            if (dataFileVersion === +localStorage.getItem('teamVersion')) {
                 teamsData = restoreFromLocalStorage();
             }else {
                 teamsData = defaultTeamData;
@@ -115,10 +115,11 @@ define([
             }
 
             function removeMemberFromSingleTeam(teamId, memberId) {
-                console.log(memberId);
-                var team = this.getTeamById(teamId);
+                var team = _.find(teamsData, {id: teamId});
                 if (team.active) {
-                    team.members = _.remove(team.members, {id: memberId});
+                    _.remove(team.members, function (id) {
+                        return id === memberId;
+                    });
                     saveToLocalStorage();
                 }
             }
@@ -290,7 +291,7 @@ define([
             ];
             _.forEach(actions, function (action) {
                 dispatcher.registerAction(action.name, action.callback.bind(this));
-            }, this);
+            }.bind(this));
         }
 
         return TeamStore;

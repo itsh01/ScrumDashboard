@@ -19,7 +19,7 @@ define([
                 },
                 currentMembers;
 
-            if (dataFileVersion === localStorage.getItem('membersVersion')) {
+            if (dataFileVersion === +localStorage.getItem('membersVersion')) {
                 currentMembers = restoreFromLocalStorage();
             }else {
                 currentMembers = defaultMembersData;
@@ -114,7 +114,7 @@ define([
             ];
             _.forEach(actions, function (action) {
                 dispatcher.registerAction(action.name, action.callback.bind(this));
-            });
+            }.bind(this));
         }
 
         return MembersStore;

@@ -24,7 +24,7 @@ define([
             render: function () {
                 var memberId = this.props.member.id,
                     cards = this.context.flux.cardsStore.getUserCards(memberId),
-                    cells = _.map(this.props.cardLifecycle, function (phase) {
+                    cells = _.map(this.props.cardLifecycle, function mapPhasesToTableCells(phase) {
 
                         var phaseCards = _.filter(cards, function filterCardsByPhase(card) {
                             return card.status === phase;
