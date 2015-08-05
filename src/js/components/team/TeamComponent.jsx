@@ -106,15 +106,21 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT, this.props.currTeamId, newSprint);
             },
 
-            getLockSprintButton: function () {
+            getSprintButton: function () {
                 if (this.state.currSprint.state === constants.SPRINT_STATUS.RETRO) {
                     return <button className='main-view-btn main-view-btn-lock' onClick={this.planNewSprint}>Plan New
                         Sprint</button>;
                 }
                 if (this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING) {
-                    return (<div className='main-view-buttons-container'>
-                        <button className='main-view-btn' onClick={this.addCardClicked}>Add Card</button>
-                        <button className='main-view-btn' onClick={this.finishPlanningClicked}>Finish Planning</button>
+                    return (<div>
+                        <div className='main-view-buttons-container'>
+                            <button className='main-view-btn' onClick={this.addCardClicked}>Add Card</button>
+                            <button className='main-view-btn' onClick={this.finishPlanningClicked}>Finish Planning
+                            </button>
+                        </div>
+                        <div>
+                            <EditSprint teamId={this.props.team} sprintId={this.state.currSprint.id}/>
+                        </div>
                     </div>);
                 }
                 return null;
@@ -146,11 +152,8 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                             <SprintTable sprint={this.state.currSprint}/>
                         </div>
 
-                        {this.getLockSprintButton()}
+                        {this.getSprintButton()}
 
-                        <div>
-                            <EditSprint teamId={this.props.team} sprintId={this.state.currSprint.id}/>
-                        </div>
                     </div>
                 );
             }
