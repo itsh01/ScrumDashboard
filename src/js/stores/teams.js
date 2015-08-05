@@ -264,11 +264,11 @@ define([
             };
 
             this.getCurrentSprint = function () {
-                return currentViewState.currentSprint;
+                return this.getSprintById(currentViewState.currentSprint);
             };
 
             function changeCurrentSprint(sprintId) {
-                currentViewState.currentSprint = this.getSprintById(sprintId);
+                currentViewState.currentSprint = sprintId;
             }
 
             function changeCurrentTeam(teamId) {
