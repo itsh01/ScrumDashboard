@@ -16,10 +16,10 @@ define(['lodash', 'React',
             },
             mixins: [Router.Navigation],
             getCurrentTeam: function () {
-                return this.context.flux.teamsStore.getTeamById(this.props.params.id) || this.context.flux.teamsStore.getCurrentTeam();
+                return this.context.flux.teamsStore.getCurrentTeam();
             },
             getCurrentTeamMembers: function () {
-                var currentTeam = this.getCurrentTeam();
+                var currentTeam = this.context.flux.teamsStore.getCurrentTeam();
                 return _.map(currentTeam.members, function (memberId) {
                     return this.context.flux.membersStore.getMemberById(memberId);
                 }, this);
