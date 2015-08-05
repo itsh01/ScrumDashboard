@@ -2,13 +2,14 @@ define([
         'lodash',
         'React',
 
-        'components/sprint/CardsContainer',
+        'components/sprint/HeapCardsContainer',
+        'components/sprint/StackCardsContainer',
 
         'DragDropMixin',
 
         'constants'
     ],
-    function (_, React, CardsContainer, DragDropMixin, constants) {
+    function (_, React, HeapCardsContainer, StackCardsContainer, DragDropMixin, constants) {
         'use strict';
 
         return React.createClass({
@@ -58,9 +59,10 @@ define([
                 };
             },
             render: function () {
+                var cardsContainer = (this.props.cards.length > 3) ? <HeapCardsContainer cards={this.props.cards} /> : <StackCardsContainer cards={this.props.cards} />;
                 return (
                     <div className="table-cell">
-                       <CardsContainer cards={this.props.cards}/>
+                        {cardsContainer}
                     </div>
                 );
             }

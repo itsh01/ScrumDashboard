@@ -7,7 +7,7 @@ define([
         'use strict';
 
         return React.createClass({
-            displayName: 'Sprint Cards Container',
+            displayName: 'Sprint Cards Container - Stack View',
 
             propTypes: {
                 cards: React.PropTypes.array
@@ -34,11 +34,6 @@ define([
                 this.setState({openCardId: openCardId, cards: cards});
             },
 
-            heapCardClicked: function (cardId) {
-                var openCardId = (this.state.openCardId === cardId) ? null : cardId;
-                this.setState({openCardId: openCardId});
-            },
-
             getStackCardStyle: function (cardIndex, card) {
                 var cardStyle = {
                     transform: 'translate(' + (cardIndex * 0.6) + 'rem, ' + (cardIndex * 0.6) + 'rem)'
@@ -47,34 +42,16 @@ define([
                 return cardStyle;
             },
 
-            getHeapCardStyle: function (cardIndex) {
-                if (this.state.openCardId === null) {
-                    return { };
-                }
-                var cardsNum = this.state.cards.length;
-                var t = 2 * Math.PI * cardIndex / cardsNum;
-                var r = 10;
-                var a = 0, b = 0; // center
-                var x = a + r * Math.cos(t), y = b + r * Math.sin(t);
-                return {transform: 'translate(' + x + 'rem, ' + y + 'rem)'};
-            },
-
-            getHandlers: function () {
-                if (this.state.cards.length > 3) {
-                    return {style: this.getHeapCardStyle, click: this.heapCardClicked};
-                }
-                return {style: this.getStackCardStyle, click: this.stackCardClicked};
-            },
 
             render: function () {
-                var handlers = this.getHandlers(),
-                    cards = _.map(this.state.cards, function (card, cardIndex) {
-                        return (<div style={handlers.style(cardIndex, card)} key={card.id} className="sprint-card-wrapper">
-                            <Card card={card} cardClickHandler={handlers.click} />
+                var cards = _.map(this.state.cards, function (card, cardIndex) {
+                    return (
+                        <div style={this.getStackCardStyle(cardIndex, card)} key={card.id}
+                             className="sprint-card-wrapper">
+                            <Card card={card} cardClickHandler={this.stackCardClicked}/>
                         </div>);
-                    });
-
-                return (<div className="sprint-cards-container">
+                }.bind(this));
+                return (<div className="sprint-cards-container stack-view">
                     {cards}
                 </div>);
             }
