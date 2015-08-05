@@ -257,25 +257,33 @@ define([
 
             var currentViewState = {
                 currentTeam: teamsData[0].id,
-                currentSprint: (_.last(teamsData[0].sprints)).id
+                currentSprint: (_.last(teamsData[0].sprints)).id,
+                currentExistingMemberId: teamsData[0].members[0]
             };
 
 
             this.getCurrentTeam = function () {
 
-                return currentViewState.currentTeam;
+                return this.getTeamById(currentViewState.currentTeam);
             };
 
-            this.getCurrentSprint = function(){
+            this.getCurrentSprint = function () {
                 return this.getSprintById(currentViewState.currentSprint);
             };
 
+            this.getCurrentExistingMemberId = function () {
+                return currentViewState.currentExistingMemberId;
+            };
             function changeCurrentSprint(sprintId) {
                 currentViewState.currentSprint = sprintId;
             }
 
             function changeCurrentTeam(teamId) {
                 currentViewState.currentTeam = this.getTeamById(teamId);
+            }
+
+            function changeExistingMember(memberId) {
+                currentViewState.currentExistingMemberId = memberId;
             }
 
             var actions = [
@@ -291,7 +299,8 @@ define([
                 {name: constants.actionNames.ADD_MEMBER_TO_TEAM, callback: addMemberToTeam},
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_TEAM, callback: removeMemberFromSingleTeam},
                 {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
-                {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSingleSprint}
+                {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSingleSprint},
+                {name: constants.actionNames.CHANGE_EXISTING_MEMBER, callback: changeExistingMember}
             ];
             _.forEach(actions, function (action) {
                 dispatcher.registerAction(action.name, action.callback.bind(this));

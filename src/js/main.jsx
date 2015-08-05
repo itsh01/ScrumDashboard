@@ -27,8 +27,8 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash', 'React', 'ReactRouter', 'components/MainContainer', 'components/router-config/routes'],
-    function (_, React, ReactRouter, MainContainer, routes) {
+requirejs(['lodash', 'React', 'ReactRouter', 'components/MainContainer'],
+    function (_, React, ReactRouter, MainContainer) {
         'use strict';
         var mountPoint = document.getElementById('main-container');
 
