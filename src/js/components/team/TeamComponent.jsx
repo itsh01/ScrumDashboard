@@ -107,10 +107,15 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 this.setState(this.getSprintValues({currTeamId: this.props.currTeamId}));
             },
 
+            lockSprint: function () {
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_SPRINT, this.state.currSprint.id);
+                this.setState(this.getSprintValues({currTeamId: this.props.currTeamId}));
+            },
+
             getSprintButton: function () {
                 if (this.state.currSprint.state === constants.SPRINT_STATUS.RETRO) {
-                    return <button className='main-view-btn' onClick={this.planNewSprint}>Plan New
-                        Sprint</button>;
+                    return (<button className='main-view-btn' onClick={this.planNewSprint}>Plan New
+                        Sprint</button>);
                 }
                 if (this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING) {
                     return (<div>
@@ -120,7 +125,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                             </button>
                         </div>
                         <div>
-                            <EditSprint teamId={this.props.team} sprintId={this.state.currSprint.id}/>
+                            <EditSprint/>
                         </div>
                     </div>);
                 }
@@ -128,11 +133,6 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                     return <button className = 'main-view-btn main-view-btn-lock' onClick={this.lockSprint}>Lock Sprint</button>;
                 }
                 return null;
-            },
-
-            lockSprint: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_SPRINT, this.state.currSprint.id);
-                this.setState(this.getSprintValues({currTeamId: this.props.currTeamId}));
             },
 
             render: function () {

@@ -29,65 +29,38 @@ define(['lodash', 'React', 'constants'],
 
             teamMembersCheckBoxes: function () {
                 var teamMembers = this.context.flux.teamsStore.getCurrentTeam().members;
-                var options = _.map(teamMembers, function (member) {
+                var options = _.map(teamMembers, function (member, index) {
                     var memberName = this.context.flux.membersStore.getMemberById(member).name;
-                    return (<input type='checkbox' value={member}>{memberName}</input>);
+                    return (<input type='checkbox' value={member} key={index}>{memberName}</input>);
                 }.bind(this));
                 return options;
+            },
+
+            getFieldWrapper: function (text, fields) {
+                return (
+                    <div className=''>
+                        <div className=''>
+                            <span>{text}</span>
+                        </div>
+                        <div className=''>
+                            {fields}
+                        </div>
+                    </div>
+                );
             },
 
             render: function () {
                 return (
                     <div>
-                        <div className=''>
-                            <div className=''>
-                                <span>Sprint Name:</span>
-                            </div>
-                            <div className=''>
-                                <input type='text' valueLink={this.linkState('name')}></input>
-                            </div>
-                        </div>
-                        <div className=''>
-                            <div className=''>
-                                <span>Scrum Master:</span>
-                            </div>
-                            <div className=''>
-                                {this.teamMemberOptionsBox()}
-                            </div>
-                        </div>
-                        <div className=''>
-                            <div className=''>
-                                <span>Select Sprint Members:</span>
-                            </div>
-                            <div className=''>
-                                {this.teamMembersCheckBoxes()}
-                            </div>
-                        </div>
-                        <div className=''>
-                            <div className=''>
-                                <span>Start Date:</span>
-                            </div>
-                            <div className=''>
-                                <input type='text' valueLink={this.linkState('startDate')}></input>
-                            </div>
-                        </div>
-                        <div className=''>
-                            <div className=''>
-                                <span>End Date:</span>
-                            </div>
-                            <div className=''>
-                                <input type='text' valueLink={this.linkState('endDate')}></input>
-                            </div>
-                        </div>
-
+                        {this.getFieldWrapper('Sprint Name:', <input type='text' valueLink={this.linkState('name')}></input>)}
+                        {this.getFieldWrapper('Scrum Master:', this.teamMemberOptionsBox())}
+                        {this.getFieldWrapper('Select Sprint Members:', this.teamMembersCheckBoxes())}
+                        {this.getFieldWrapper('Start Date:', <input type='text' valueLink={this.linkState('startDate')}></input>)}
+                        {this.getFieldWrapper('End Date:', <input type='text' valueLink={this.linkState('endDate')}></input>)}
+                        {this.getFieldWrapper('Add Phase To Lifecycle', <input type='text' onClick={this.addPhaseToLifecycle}></input>)}
                     </div>
                 );
             }
         });
     }
 );
-
-// add members
-// change name
-// scrum master
-//<EditSprint teamId={this.props.team} sprintId={this.state.currSprint}/>
