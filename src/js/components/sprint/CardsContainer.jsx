@@ -20,6 +20,10 @@ define([
                 };
             },
 
+            componentWillReceiveProps: function (nextProps) {
+                this.setState({cards: nextProps.cards});
+            },
+
             stackCardClicked: function (cardId) {
                 var openCardId = (this.state.openCardId === cardId) ? null : cardId;
                 var cards = this.state.cards;
