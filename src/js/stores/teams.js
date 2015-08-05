@@ -25,7 +25,8 @@ define([
                 TEAM_SCHEMA = {
                     name: {type: 'string'},
                     members: {type: 'string-array', defaultValue: []},
-                    filterFunc: {type: 'function', defaultValue: null}
+                    filterFunc: {type: 'function', defaultValue: null},
+                    active: {type: 'boolean', defaultValue: true}
                 },
                 teamsData;
             if (dataFileVersion === +localStorage.getItem('teamVersion')) {
