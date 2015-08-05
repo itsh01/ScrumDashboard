@@ -25,7 +25,7 @@ define([
                 return (
                     <div className='pop pop-basic' onClick={this.requireClosePopup}>
                         <div className="pop-dialog">
-                            <div className='pop-content'>
+                            <div className='pop-content slide-down'>
                                 {this.props.children}
                             </div>
                         </div>
