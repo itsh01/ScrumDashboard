@@ -13,11 +13,11 @@ define([
         function TeamStore(dispatcher, getUserCards) {
             var dataFileVersion = 1,
                 SPRINT_SCHEMA = {
-                    name: {type: 'string', defaultValue: 'Sprint 0'},
+                    name: {type: 'string', defaultValue: 'New Sprint'},
                     scrumMaster: {type: 'string', defaultValue: null},
                     startDate: {type: 'string', defaultValue: null},
                     endDate: {type: 'string', defaultValue: null},
-                    cardLifecycle: {type: 'string-array', defaultValue: []},
+                    cardLifecycle: {type: 'string-array', defaultValue: ['Backlog', 'In progress', 'Done']},
                     members: {type: 'string-array', defaultValue: []},
                     retroCardsStatus: {type: 'object', defaultValue: null},
                     state: {type: 'number', defaultValue: 0}
