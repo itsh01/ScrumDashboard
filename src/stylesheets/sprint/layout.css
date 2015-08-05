@@ -50,6 +50,13 @@
     transition: all 1s ease-in-out;
 }
 
+.sprint-cards-container-close-heap-btn {
+    top: 2rem;
+    left: 1rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
 .sprint-card-wrapper .card {
     box-shadow: -0.2rem -0.2rem 0.2rem;
     margin: 0;

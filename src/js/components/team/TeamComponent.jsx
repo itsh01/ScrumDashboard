@@ -33,9 +33,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             componentWillReceiveProps: function (nextProps) {
                 var allSprints = this.context.flux.teamsStore.getTeamById(nextProps.currTeamId).sprints;
-                var sprintsIds = _.map(allSprints, function (sprint) {
-                    return sprint.id;
-                });
+                var sprintsIds = _.pluck(allSprints, 'id');
                 if (!this.state.currSprint.id || !_.contains(sprintsIds, this.state.currSprint.id)) {
                     var newState = this.getSprintValues(nextProps);
                     this.setState(newState);
@@ -105,6 +103,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 var newSprint = this.context.flux.teamsStore.getBlankSprint();
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT, this.props.currTeamId, newSprint);
                 this.setState(this.getSprintValues({currTeamId: this.props.currTeamId}));
+
             },
 
             lockSprint: function () {
@@ -141,13 +140,10 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 return (
                     <div>
                         <h1>{team.name} Team</h1>
-
                         <h2>Scrum DashBoard</h2>
-
                         <div className="flex-centered one-row">
                             <ChangeSprint direction='backwards'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'backwards')}/>
-
                             <h3>Sprint {this.state.currSprintIndex} : {sprintName} - {this.getSprintState()}</h3>
                             <ChangeSprint direction='forward'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'forward')}/>
@@ -157,7 +153,6 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                             <div style={{display: 'inline-block'}}>
                                 <BackLog className="backlog"/>
                             </div>
-
                             <SprintTable sprint={this.state.currSprint}/>
                         </div>
 
