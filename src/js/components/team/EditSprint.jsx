@@ -1,5 +1,5 @@
 define(['lodash', 'React', 'constants'],
-    function (_, React, constants) {
+    function (_, React) {
         'use strict';
 
         return React.createClass({
@@ -19,7 +19,7 @@ define(['lodash', 'React', 'constants'],
             getInitialState: function () {
                 var sprint = this.context.flux.teamsStore.getSprintById(this.props.sprintId);
                 console.log(sprint);
-                return {sprint};
+                return sprint;
             },
 
             render: function () {
