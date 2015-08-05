@@ -42,7 +42,6 @@ define([
                 return cardStyle;
             },
 
-
             render: function () {
                 var cards = _.map(this.state.cards, function (card, cardIndex) {
                     return (
