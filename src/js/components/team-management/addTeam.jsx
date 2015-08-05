@@ -31,11 +31,12 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
                     <input ref='teamName' onBlur={this.toggleInput} type='text' className='team-input'
                            autoFocus={true}/>
                 </form> :
-                <div onClick={this.toggleInput}>Plus</div>;
+                <div onClick={this.toggleInput}
+                     className='team-name'>Plus</div>;
 
             var classSet = React.addons.classSet;
             return (
-                <div className={classSet('team-name', 'add-team-button')}>
+                <div className={classSet('team-name-container', 'add-team-button')}>
                     {resultContent}
                 </div>
             );

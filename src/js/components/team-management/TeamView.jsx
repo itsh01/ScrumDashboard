@@ -19,7 +19,7 @@ define(['lodash', 'React',
         render: function () {
             return (
                 <div className='team-view'>
-                    <h1>{this.getTeamTitle()}</h1>
+                    <h1 className='team-title'>{this.getTeamTitle()}</h1>
                     {
                         _.map(this.props.teamMembers, function (member) {
                             return <MemberProfile member={member} key={member.id}/>;
