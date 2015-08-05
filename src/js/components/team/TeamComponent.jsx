@@ -87,6 +87,8 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             finishPlanningClicked: function () {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, this.state.currSprint.id);
+                this.setState(this.getSprintValues({currTeamId: this.props.currTeamId}));
+
             },
 
             getSprintState: function () {
