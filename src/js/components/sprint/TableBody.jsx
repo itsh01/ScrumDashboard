@@ -14,20 +14,20 @@ define([
             contextTypes: {
                 flux: React.PropTypes.any
             },
+            createSprintMemberRow: function (sprint, member) {
+                return member ? (<SprintMemberRow
+                    retro={sprint.retroCardsStatus}
+                    cardLifecycle={sprint.cardLifecycle}
+                    key={member.id}
+                    member={member}/>
+                ) : null;
+            }, 
             render: function () {
                 var sprint = this.props.sprint,
                     rows = _(sprint.members)
-                        .map(function (memberId) {
-                            return this.context.flux.membersStore.getMemberById(memberId);
-                        }, this)
+                        .map(this.context.flux.membersStore.getMemberById)
                         .map(function (member) {
-                            if (member) {
-                                return (<SprintMemberRow
-                                    retro={sprint.retroCardsStatus}
-                                    cardLifecycle={sprint.cardLifecycle}
-                                    key={member.id}
-                                    member={member} />);
-                            }
+                            return this.createSprintMemberRow(sprint, member);
                         }, this)
                         .value();
 
