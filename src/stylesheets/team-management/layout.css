@@ -1,13 +1,14 @@
 .team-management {
     text-align: center;
     padding: 4rem;
+    width: 100rem;
 }
 
 .sidebar {
     display: inline-block;
     vertical-align: top;
     text-align: center;
-    padding: 4rem;
+    padding-top: 4rem;
 }
 
 .teams-selector {
