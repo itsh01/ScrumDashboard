@@ -39,8 +39,6 @@ define([
                     }, this);
                 }
 
-                console.log(cards);
-
                 expectedVelocity = _(cards)
                     .pluck('score')
                     .sum();
