@@ -63,6 +63,9 @@ define([
                 13: 'card-13',
                 No: 'card-none'
             },
+            removeCard: function () {
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.REMOVE_CARD, this.props.card.id);
+            },
             render: function () {
                 var cx = React.addons.classSet;
                 var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
@@ -77,7 +80,11 @@ define([
                     <div
                         className={classes}
                         onClick={this.toggleDescriptionOpened}>
-                        <img src='img/close.svg' style={{width: '1rem', height: '1rem'}} className='card-delete' />
+                        <img
+                            src='img/close.svg'
+                            style={{width: '1rem', height: '1rem'}}
+                            className='card-delete'
+                            onClick={this.removeCard}/>
                         {this.getCardContent()}
                     </div>
 
