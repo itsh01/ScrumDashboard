@@ -76,6 +76,7 @@ define([
                     <div
                         className={classes}
                         onClick={this.toggleDescriptionOpened}>
+                        <img src='img/close.svg' style={{ width: '1rem', height:'1rem' }} />
                         {this.getCardContent()}
                     </div>
 
