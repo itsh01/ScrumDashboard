@@ -5,17 +5,25 @@
 define([
         'lodash',
         'React',
-        'constants'
+        'constants',
+        'components/team-management/MembersComboBox'
     ],
-    function (_, React, constants) {
+    function (_, React, constants, MembersComboBox) {
         'use strict';
         return React.createClass({
             displayName: 'New Member Profile',
             propTypes: {
-                team: React.PropTypes.object
+                team: React.PropTypes.object,
+                currentMember: React.PropTypes.object
             },
             contextTypes: {
                 flux: React.PropTypes.any
+            },
+            getInitialState: function () {
+                return {
+                    memberType: 'newMember',
+                    searchStr: ''
+                };
             },
 
             addNewMember: function () {
@@ -29,6 +37,40 @@ define([
                     constants.actionNames.CREATE_MEMBER_INTO_TEAM, newMember, teamId);
 
             },
+            searchMember: function (event) {
+                var searchStr = event.target.value;
+                this.setState({
+                    searchStr: searchStr
+                });
+
+            },
+            getNewMemberContent: function () {
+                return this.state.memberType === 'newMember' ?
+                    <form className='add-new-member' onSubmit={this.addNewMember}>
+                        <input ref='memberName' type='text' placeholder='Member name'
+                               className='member-name-input'/>
+                        <img src='img/mosh.jpg' alt='mosh is cute' className='member-img'/>
+                        <input ref='memberImgUrl' type='url' placeholder='image url'
+                               className='img-url-input'/>
+                        <button type="submit" className="hidden"></button>
+                    </form> :
+                    <div className='add-existing-member'>
+                        <div className='search-bar'>
+                            <input onChange={this.searchMember} className='search-input' type='text'/>
+                            <MembersComboBox searchStr={this.state.searchStr}/>
+                            <img className='member-img'
+                                 alt={this.props.currentMember.name}
+                                 src={this.props.currentMember.image}/>
+
+                        </div>
+                    </div>;
+            },
+            changeMemberType: function (event) {
+                var selectedMember = event.target.value;
+                this.setState({
+                    memberType: selectedMember
+                });
+            },
             render: function () {
                 var classSet = React.addons.classSet;
                 return (
@@ -36,7 +78,7 @@ define([
                         <div>
                             <h3> add member to team </h3>
 
-                            <form className='member-type'>
+                            <form onChange={this.changeMemberType} className='member-type'>
                                 <input type='radio' id='newMember' name='memberType' value='newMember'/>
                                 <label htmlFor='newMember'>New member</label>
                                 <input type='radio' id='existingMember' name='memberType' value='existingMember'/>
@@ -44,14 +86,7 @@ define([
                             </form>
                         </div>
                         <div className={classSet('member-profile', 'new-member-profile')}>
-                            <form onSubmit={this.addNewMember}>
-                                <input ref='memberName' type='text' placeholder='Member name'
-                                       className='member-name-input'/>
-                                <img src='img/mosh.jpg' alt='mosh is cute' className='member-img'/>
-                                <input ref='memberImgUrl' type='url' placeholder='image url'
-                                       className='img-url-input'/>
-                                <button type="submit" className="hidden"></button>
-                            </form>
+                            {this.getNewMemberContent()}
                         </div>
                     </div>
                 );

@@ -13,7 +13,8 @@ define([
             displayName: 'Card',
             propTypes: {
                 card: React.PropTypes.object,
-                cardClickHandler: React.PropTypes.func
+                cardClickHandler: React.PropTypes.func,
+                forceReset: React.PropTypes.bool
             },
             contextTypes: {
                 flux: React.PropTypes.any,
@@ -21,11 +22,18 @@ define([
 
             },
             mixins: [DragDropMixin],
+
             getInitialState: function () {
-                return {
-                    isDescriptionOpened: false
-                };
+                var opened = (this.props.forceReset === true);
+                return {isDescriptionOpened: opened};
             },
+
+            componentWillReceiveProps: function (nextProps) {
+                if (nextProps.forceReset === true) {
+                    this.setState({isDescriptionOpened: false});
+                }
+            },
+
             dragDrop: function () {
 
                 var locked = constants.SPRINT_STATUS.RETRO === this.context.sprintState;

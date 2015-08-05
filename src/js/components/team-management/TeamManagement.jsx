@@ -1,9 +1,7 @@
 define(['lodash', 'React',
         'components/team-management/TeamView',
-        'components/team-management/TeamSidebar',
-        'ReactRouter'
-    ],
-    function (_, React, TeamView, TeamSidebar, Router) {
+        'components/team-management/TeamSidebar'],
+    function (_, React, TeamView, TeamSidebar) {
         'use strict';
         return React.createClass({
             displayName: 'TeamManagement',
@@ -14,7 +12,6 @@ define(['lodash', 'React',
             contextTypes: {
                 flux: React.PropTypes.any
             },
-            mixins: [Router.Navigation],
             getCurrentTeam: function () {
                 return this.context.flux.teamsStore.getCurrentTeam();
             },

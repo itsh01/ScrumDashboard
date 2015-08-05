@@ -1,33 +1,34 @@
 define(['lodash', 'React',
-        'components/team-management/MemberProfile', 'ReactRouter',
+        'components/team-management/MemberProfile',
         'components/team-management/NewMemberProfile'],
-    function (_, React, MemberProfile, Router, NewMemberProfile) {
-    'use strict';
-    return React.createClass({
-        displayName: 'TeamView',
-        propTypes: {
-            team: React.PropTypes.object,
-            teamMembers: React.PropTypes.array
-        },
-        contextTypes: {
-            flux: React.PropTypes.any
-        },
-        mixins: [Router.Navigation],
-        getTeamTitle: function () {
-            return 'Team ' + this.props.team.name;
-        },
-        render: function () {
-            return (
-                <div className='team-view'>
-                    <h1 className='team-title'>{this.getTeamTitle()}</h1>
-                    {
-                        _.map(this.props.teamMembers, function (member) {
-                            return <MemberProfile member={member} key={member.id}/>;
-                        }, this)
-                    }
-                    <NewMemberProfile team={this.props.team}/>
-                </div>
-            );
-        }
+    function (_, React, MemberProfile, NewMemberProfile) {
+        'use strict';
+        return React.createClass({
+            displayName: 'TeamView',
+            propTypes: {
+                team: React.PropTypes.object,
+                teamMembers: React.PropTypes.array
+            },
+            contextTypes: {
+                flux: React.PropTypes.any
+            },
+            getTeamTitle: function () {
+                return 'Team ' + this.props.team.name;
+            },
+            render: function () {
+                var existingMemberId = this.context.flux.teamsStore.getCurrentExistingMemberId();
+                var existingMember = this.context.flux.membersStore.getMemberById(existingMemberId);
+                return (
+                    <div className='team-view'>
+                        <h1 className='team-title'>{this.getTeamTitle()}</h1>
+                        {
+                            _.map(this.props.teamMembers, function (member) {
+                                return <MemberProfile member={member} key={member.id}/>;
+                            }, this)
+                        }
+                        <NewMemberProfile team={this.props.team} currentMember={existingMember}/>
+                    </div>
+                );
+            }
+        });
     });
-});

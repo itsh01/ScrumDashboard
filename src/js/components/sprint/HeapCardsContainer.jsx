@@ -33,7 +33,7 @@ define([
                 var cardsNum = this.props.cards.length,
                     t = 2 * Math.PI * cardIndex / cardsNum,
                     r = 10,
-                    x = r * Math.cos(t),
+                    x = 1.5 * r * Math.cos(t),
                     y = r * Math.sin(t);
                 return {transform: 'translate(' + x + 'rem, ' + y + 'rem)', zIndex: 1};
             },
@@ -46,7 +46,7 @@ define([
                 var cardStyle = (this.state.open) ? this.getOpenHeapCardStyle : this.getClosedHeapCardStyle,
                     cards = _.map(this.props.cards, function (card, cardIndex) {
                         return (<div style={cardStyle(cardIndex)} key={card.id} className="sprint-card-wrapper">
-                            <Card card={card} cardClickHandler={this.cardClickHandler} />
+                            <Card card={card} cardClickHandler={this.cardClickHandler} forceReset={!this.state.open} />
                         </div>);
                     }.bind(this));
 

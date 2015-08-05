@@ -11,7 +11,7 @@ define([
         };
 
         function TeamStore(dispatcher, getUserCards) {
-            var dataFileVersion = 1,
+            var dataFileVersion = '1',
                 SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
                     scrumMaster: {type: 'string', defaultValue: null},
@@ -29,7 +29,7 @@ define([
                     active: {type: 'boolean', defaultValue: true}
                 },
                 teamsData;
-            if (dataFileVersion === +localStorage.getItem('teamVersion')) {
+            if (dataFileVersion === localStorage.getItem('teamVersion')) {
                 teamsData = restoreFromLocalStorage();
             } else {
                 teamsData = defaultTeamData;
@@ -41,6 +41,12 @@ define([
                     return _.filter(teamsData, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
                 };
             }, this);
+
+            var currentViewState = {
+                currentTeam: teamsData[0].id,
+                currentSprint: (_.last(teamsData[0].sprints)).id,
+                currentExistingMemberId: teamsData[0].members[0]
+            };
 
             this.getTeamById = function (id) {
                 return _.cloneDeep(_.find(teamsData, {id: id}));
@@ -70,10 +76,6 @@ define([
                 });
             }
 
-            var currentViewState = {
-                currentTeam: teamsData[0].id,
-                currentSprint: (_.last(teamsData[0].sprints)).id
-            };
 
             function addTeam(teamData) {
                 var blankTeam = this.getBlankTeam(),
@@ -269,6 +271,7 @@ define([
 
             /*eslint-enable no-unused-vars */
 
+
             this.getCurrentTeam = function () {
                 return this.getTeamById(currentViewState.currentTeam);
             };
@@ -301,8 +304,17 @@ define([
                 }
             }
 
+            this.getCurrentExistingMemberId = function () {
+                return currentViewState.currentExistingMemberId;
+            };
+
+
             function changeCurrentTeam(teamId) {
                 currentViewState.currentTeam = teamId;
+            }
+
+            function changeExistingMember(memberId) {
+                currentViewState.currentExistingMemberId = memberId;
             }
 
             var actions = [
@@ -319,6 +331,8 @@ define([
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_TEAM, callback: removeMemberFromSingleTeam},
                 {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSingleSprint},
+                {name: constants.actionNames.CHANGE_EXISTING_MEMBER, callback: changeExistingMember},
+                {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSingleSprint},
                 {name: constants.actionNames.RETROFY_CURRENT_SPRINT, callback: retrofyCurrentSprint},
                 {name: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, callback: addSprintToCurrentTeam}
             ];
@@ -327,5 +341,7 @@ define([
             }.bind(this));
         }
 
+
         return TeamStore;
+
     });
