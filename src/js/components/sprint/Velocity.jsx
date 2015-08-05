@@ -1,19 +1,23 @@
 define([
         'lodash',
-        'React'
+        'React',
+
+        'mixins/HistoryMixin'
     ],
-    function (_, React) {
+    function (_, React, HistoryMixin) {
         'use strict';
 
         return React.createClass({
             displayName: 'Velocity',
             propTypes: {
                 cardLifecycle: React.PropTypes.array,
+                retro: React.PropTypes.array,
                 sprintMembers: React.PropTypes.array
             },
             contextTypes: {
                 flux: React.PropTypes.any
             },
+            mixins: [HistoryMixin],
             getDefaultProps: function () {
                 return {
                     cardLifecycle: ['Backlog', 'In progress', 'Done']
@@ -26,9 +30,14 @@ define([
                     actualVelocity = 0,
                     expectedVelocity = 0;
 
-                _.forEach(this.props.sprintMembers, function (memberId) {
-                    cards = cards.concat(this.context.flux.cardsStore.getUserCards(memberId));
-                }, this);
+                var retro = this.props.retro;
+                if (retro) {
+                    cards = _.map(retro, this.mapHistoryToCards);
+                } else {
+                    _.forEach(this.props.sprintMembers, function (memberId) {
+                        cards = cards.concat(this.context.flux.cardsStore.getUserCards(memberId));
+                    }, this);
+                }
 
                 expectedVelocity = _(cards)
                     .pluck('score')

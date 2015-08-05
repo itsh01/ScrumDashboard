@@ -10,7 +10,6 @@ define([
     ],
     function (_, React, Card, DragDropMixin, constants) {
     'use strict';
-//hello
     return React.createClass({
 
         displayName: 'CardsList',
@@ -54,10 +53,19 @@ define([
                 }
             };
         },
+        emptyCard: {
+            name: 'Add new card',
+            description: 'Please add me',
+            score: -1
+        },
         render: function () {
             var cardsListToDisplay = _.map(this.props.cardsList, function (card) {
                 return <Card card={card} key={card.id}/>;
             }, this);
+
+            if (this.props.cardsList.length === 0) {
+                cardsListToDisplay = <Card card={this.emptyCard} key='empty'/>;
+            }
 
             return (
                 <div>
