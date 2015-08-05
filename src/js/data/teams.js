@@ -39,7 +39,7 @@ define([], function () {
                         'aaef53cc-34bd-4d1f-bdda-9bf5e07ca2be'
                     ],
                     "state": 2,
-                    "retroCardsStatus": null
+                    "retroCardsStatus": [{"cardId":"b97fff13-de90-4e1f-abb7-39f786d11450","assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511","status":"In progress"},{"cardId":"90eed4aa-40fe-496e-999a-54a436d66427","assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511","status":"Done"},{"cardId":"4796b5fd-1d11-4c2b-bdd3-d36796bb65ed","assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511","status":"Done"},{"cardId":"e9c3f04d-8796-4249-8a4f-bba085ab0271","assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511","status":"Done"}]
                 },
                 {
                     "id": "55b8a16069c3c3bcd5425303",

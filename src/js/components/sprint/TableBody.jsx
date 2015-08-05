@@ -15,19 +15,21 @@ define([
                 flux: React.PropTypes.any
             },
             render: function () {
-                var rows = _(this.props.sprint.members)
-                    .map(function (memberId) {
-                        return this.context.flux.membersStore.getMemberById(memberId);
-                    }, this)
-                    .map(function (member) {
-                        if (member) {
-                            return (<SprintMemberRow
-                                cardLifecycle={this.props.sprint.cardLifecycle}
-                                key={member.id}
-                                member={member} />);
-                        }
-                    }, this)
-                    .value();
+                var sprint = this.props.sprint,
+                    rows = _(sprint.members)
+                        .map(function (memberId) {
+                            return this.context.flux.membersStore.getMemberById(memberId);
+                        }, this)
+                        .map(function (member) {
+                            if (member) {
+                                return (<SprintMemberRow
+                                    retro={sprint.retroCardsStatus}
+                                    cardLifecycle={sprint.cardLifecycle}
+                                    key={member.id}
+                                    member={member} />);
+                            }
+                        }, this)
+                        .value();
 
                 return (<div className="tbody">
                     {rows}
