@@ -6,16 +6,10 @@ requirejs.config({
     paths: {
         lodash: '../vendor/lodash',
         React: '../vendor/react-with-addons',
-        ReactRouter: '../vendor/ReactRouter',
         DragDropMixin: '../vendor/DragDropMixin',
         components: '../js/components',
         mixins: '../js/mixins',
         stores: '../js/stores'
-    },
-    map: {
-        '*': {
-            react: 'React'
-        }
     },
     shim: {
         lodash: {
@@ -32,9 +26,6 @@ requirejs(['lodash', 'React', 'components/MainContainer'],
         'use strict';
         var mountPoint = document.getElementById('main-container');
 
-        //ReactRouter.run(routes, function (Root, state) {
-        //    React.render(<Root {...state} />, mountPoint);
-        //});
         window.scrum = React.render(<MainContainer currentTeam={1}/>, mountPoint);
     }
 );
