@@ -24,6 +24,14 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 return sprintValues;
             },
 
+            getSprintValues: function (props) {
+                var team = this.getTeamObject(props.currTeamId);
+                return {
+                    currSprint: team.sprints[team.sprints.length - 1],
+                    currSprintIndex: team.sprints.length - 1
+                };
+            },
+
             getChildContext: function () {
                 return {
                     teamId: this.props.currTeamId
@@ -71,14 +79,6 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 return this.context.flux.teamsStore.getTeamById(teamId);
             },
 
-            getSprintValues: function (props) {
-                var team = this.getTeamObject(props.currTeamId);
-                return {
-                    currSprint: team.sprints[team.sprints.length - 1],
-                    currSprintIndex: team.sprints.length - 1
-                };
-            },
-
             addCardClicked: function () {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
             },
@@ -98,8 +98,8 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             },
 
             planNewSprint: function () {
-                //var newSprint = this.context.flux.teamsStore.getBlankSprint();
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT, this.state.currSprint.id);
+                var newSprint = this.context.flux.teamsStore.getBlankSprint();
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT, this.props.currTeamId, newSprint);
             },
 
             getLockSprintButton: function () {
@@ -141,7 +141,12 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
                             <SprintTable sprint={this.state.currSprint}/>
                         </div>
+
                         {this.getLockSprintButton()}
+
+                        <div>
+
+                        </div>
                     </div>
                 );
             }
@@ -149,3 +154,4 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
     }
 );
 
+//<EditSprint teamId={this.props.team} sprintId={this.state.currSprint}/>
