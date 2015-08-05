@@ -10,6 +10,10 @@ define(
                 this.isAddingCard = isAdding;
                 currentCard = card;
             };
+            this.editCard = function (isAdding, card) {
+                this.isAddingCard = isAdding;
+                currentCard = card;
+            };
 
             this.getCurrentCard = function () {
                 return currentCard;
@@ -20,7 +24,7 @@ define(
 
             dispatcher.registerAction(constants.actionNames.PLANNING_ADD_CARD, this.addingCard.bind(this, true));
             dispatcher.registerAction(constants.actionNames.PLANNING_DONE_ADDING_CARD, this.addingCard.bind(this, false));
-            dispatcher.registerAction(constants.actionNames.PLANNING_EDIT_CARD, this.addingCard.bind(this, true));
+            dispatcher.registerAction(constants.actionNames.PLANNING_EDIT_CARD, this.editCard.bind(this, true));
 
         }
 
