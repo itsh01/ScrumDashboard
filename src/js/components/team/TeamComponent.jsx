@@ -1,5 +1,5 @@
-define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Table', 'components/backlog/Backlog', 'constants'],
-    function (_, React, ChangeSprint, SprintTable, BackLog, constants) {
+define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Table', 'components/backlog/Backlog', 'components/team/EditSprint', 'constants'],
+    function (_, React, ChangeSprint, SprintTable, BackLog, EditSprint, constants) {
         'use strict';
 
         return React.createClass({
@@ -147,7 +147,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                         {this.getLockSprintButton()}
 
                         <div>
-
+                            <EditSprint teamId={this.props.team} sprintId={this.state.currSprint.id}/>
                         </div>
                     </div>
                 );
@@ -156,4 +156,4 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
     }
 );
 
-//<EditSprint teamId={this.props.team} sprintId={this.state.currSprint}/>
+//
