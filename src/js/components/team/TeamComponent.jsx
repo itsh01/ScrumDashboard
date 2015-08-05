@@ -31,7 +31,15 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             },
 
             componentWillReceiveProps: function (nextProps) {
-                this.setState(this.getSprintValues(nextProps));
+                var allSprints = this.context.flux.teamsStore.getTeamById(nextProps.currTeamId).sprints;
+                var sprintsIds = _.map(allSprints, function (sprint) {
+                    return sprint.id;
+                });
+                if (!this.state.currSprint.id || !_.contains(sprintsIds, this.state.currSprint.id)) {
+                    var newState = this.getSprintValues(nextProps);
+                    this.setState(newState);
+                    this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, newState.currSprint.id);
+                }
             },
 
             componentWillUnmount: function () {
@@ -96,7 +104,8 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             getLockSprintButton: function () {
                 if (this.state.currSprint.state === constants.SPRINT_STATUS.RETRO) {
-                    return <button className='main-view-btn main-view-btn-lock' onClick={this.planNewSprint}>Plan New Sprint</button>;
+                    return <button className='main-view-btn main-view-btn-lock' onClick={this.planNewSprint}>Plan New
+                        Sprint</button>;
                 }
                 if (this.state.currSprint.state === constants.SPRINT_STATUS.PLANNING) {
                     return (<div className='main-view-buttons-container'>
