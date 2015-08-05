@@ -98,8 +98,8 @@ define([
             }
 
             function removeDeactivatedMemberFromTeams(memberId) {
-                _.forEach(teamsData, function(team) {
-                    _.remove(team.members, function(member) {
+                _.forEach(teamsData, function (team) {
+                    _.remove(team.members, function (member) {
                         return member.id === memberId;
                     });
                 });
