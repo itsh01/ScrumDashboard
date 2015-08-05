@@ -49,8 +49,11 @@ define([
                 );
             },
             toggleDescriptionOpened: function () {
+                if (this.preventToggleCard) {
+                    return;
+                }
                 this.setState({isDescriptionOpened: !this.state.isDescriptionOpened});
-                if (this.props.cardClickHandler) {
+                if (this.props.cardClickHandler && !this.state.preventToggleCard) {
                     this.props.cardClickHandler(this.props.card.id);
                 }
             },
@@ -66,7 +69,14 @@ define([
             removeCard: function () {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.REMOVE_CARD, this.props.card.id);
             },
+            editCard: function (e) {
+                this.preventToggleCard = true;
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_EDIT_CARD, this.props.card);
+                //this.preventToggleCard = false;
+                e.stopPropagation();
+            },
             render: function () {
+                this.preventToggleCard = false;
                 var cx = React.addons.classSet;
                 var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
                 var classesObject = {
@@ -86,7 +96,7 @@ define([
                             className='card-delete'
                             onClick={this.removeCard}/>
 
-                        <button className='card-btn-edit'>edit</button>
+                        <button className='card-btn-edit' onClick={this.editCard}>edit</button>
                         {this.getCardContent()}
                     </div>
 

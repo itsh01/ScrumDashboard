@@ -5,13 +5,22 @@ define(
 
         function Planning(dispatcher) {
             this.isAddingCard = false;
-            this.addingCard = function (isAdding) {
+            var currentCard = null;
+            this.addingCard = function (isAdding, card) {
                 this.isAddingCard = isAdding;
+                currentCard = card;
             };
+
+            this.getCurrentCard = function () {
+                return currentCard;
+            };
+
+
 
 
             dispatcher.registerAction(constants.actionNames.PLANNING_ADD_CARD, this.addingCard.bind(this, true));
             dispatcher.registerAction(constants.actionNames.PLANNING_DONE_ADDING_CARD, this.addingCard.bind(this, false));
+            dispatcher.registerAction(constants.actionNames.PLANNING_EDIT_CARD, this.addingCard.bind(this, true));
 
         }
 

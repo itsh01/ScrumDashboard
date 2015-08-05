@@ -38,21 +38,25 @@ define([
                 return {
                     flux: this.flux
                 };
-            },
 
-            render: function () {
-                var popUp = null;
-                if (this.flux.planningStore.isAddingCard) {
-                    popUp = (
-                        <Popup>
-                            <CardEditCreate isPop={false}/>
-                        </Popup>
-                    );
+            },
+            popUpFactory: function () {
+                if (!this.flux.planningStore.isAddingCard) {
+                    return null;
                 }
                 return (
+                    <Popup>
+                        <CardEditCreate />
+                    </Popup>
+                );
+
+            },
+            render: function () {
+
+                return (
                     <div>
-                        {popUp}
-                        <RouteHandler {...this.props} customProp={true} />
+                        {this.popUpFactory()}
+                        <RouteHandler {...this.props} customProp={true}/>
                     </div>);
             }
         });
