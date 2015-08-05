@@ -53,6 +53,10 @@ define([
                 }
             };
         },
+        addNewCard: function () {
+            this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
+        },
+
         emptyCard: {
             name: 'Add new card',
             description: 'Please add me',
@@ -64,7 +68,12 @@ define([
             }, this);
 
             if (this.props.cardsList.length === 0) {
-                cardsListToDisplay = <Card card={this.emptyCard} key='empty'/>;
+                cardsListToDisplay = <img
+                    src='img/plus-640.png'
+                    style={{width: '5rem'}}
+  //                  className='card-delete'
+                    onClick={this.addNewCard}/>;
+                //cardsListToDisplay = <Card onClick={this.addNewCard} card={this.emptyCard} key='empty'/>;
             }
 
             return (
