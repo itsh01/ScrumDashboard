@@ -28,7 +28,7 @@ define([
                     filterFunc: {type: 'function', defaultValue: null}
                 },
                 teamsData;
-            if (dataFileVersion === localStorage.getItem('teamVersion')) {
+            if (dataFileVersion === +localStorage.getItem('teamVersion')) {
                 teamsData = restoreFromLocalStorage();
             }else {
                 teamsData = defaultTeamData;

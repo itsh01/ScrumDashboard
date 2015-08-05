@@ -19,7 +19,7 @@ define([
                 },
                 currentMembers;
 
-            if (dataFileVersion === localStorage.getItem('membersVersion')) {
+            if (dataFileVersion === +localStorage.getItem('membersVersion')) {
                 currentMembers = restoreFromLocalStorage();
             }else {
                 currentMembers = defaultMembersData;
