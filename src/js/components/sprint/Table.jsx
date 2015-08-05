@@ -3,10 +3,9 @@ define([
         'React',
         'components/sprint/TableHeader',
         'components/sprint/TableBody',
-        'components/sprint/Velocity',
-        'constants'
+        'components/sprint/Velocity'
     ],
-    function (_, React, TableHeader, TableBody, Velocity, constants) {
+    function (_, React, TableHeader, TableBody, Velocity) {
         'use strict';
 
         return React.createClass({
@@ -31,17 +30,6 @@ define([
                 };
             },
 
-            lockSprint: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_SPRINT, this.props.sprint.id);
-            },
-
-            getLockSprintButton: function () {
-                if (this.props.sprint.state === constants.SPRINT_STATUS.IN_PROGRESS) {
-                    return <button className = 'main-view-btn main-view-btn-lock' onClick={this.lockSprint}>Lock Sprint</button>;
-                }
-                return null;
-            },
-
             render: function () {
 
                 var sprint = this.props.sprint;
@@ -54,7 +42,6 @@ define([
                     <Velocity
                         cardLifecycle={sprint.cardLifecycle}
                         sprintMembers={sprint.members} />
-                    {this.getLockSprintButton()}
                 </div>);
             }
         });
