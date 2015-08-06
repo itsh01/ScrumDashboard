@@ -236,6 +236,7 @@ define([
 
             // teamId is an optional argument
             function updateSprint(sprintId, newSprintData, teamId) {
+                delete newSprintData.id;
                 if (isValidSprint(newSprintData)) {
                     var sprint = getSprint(sprintId, teamId),
                         didUpdate = helpers.updateItem([sprint], sprintId, newSprintData, 'Team Store');
