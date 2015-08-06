@@ -3,6 +3,7 @@ define(['lodash', 'React',
         'components/team-management/TeamSidebar'],
     function (_, React, TeamView, TeamSidebar) {
         'use strict';
+        var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
         return React.createClass({
             displayName: 'TeamManagement',
             propTypes: {
@@ -25,11 +26,13 @@ define(['lodash', 'React',
                 var currentTeam = this.getCurrentTeam();
                 var allTeams = this.context.flux.teamsStore.getAllTeams();
                 return (
-                    <div className='team-management'>
-                        <TeamSidebar allTeams={allTeams}/>
-                        <TeamView team={currentTeam}
-                                  teamMembers={this.getCurrentTeamMembers()}/>
-                    </div>
+                    <ReactCSSTransitionGroup transitionName='team-management-transition' transitionAppear={true}>
+                        <div className='team-management'>
+                            <TeamSidebar allTeams={allTeams}/>
+                            <TeamView team={currentTeam}
+                                      teamMembers={this.getCurrentTeamMembers()}/>
+                        </div>
+                    </ReactCSSTransitionGroup>
                 );
             }
         });
