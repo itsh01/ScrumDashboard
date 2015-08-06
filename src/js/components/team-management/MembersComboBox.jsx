@@ -17,13 +17,14 @@ define(['lodash', 'React', 'constants'],
             },
             render: function () {
                 var allMembers = this.context.flux.membersStore.getAllMembers();
+
                 return (
                     this.props.searchStr === '' ? <li className='matched-member'></li> :
                         <div className='matched-member-container'>
                             <ul className='matched-member-list'>
                                 {
                                     _(allMembers).filter(function (member) {
-                                        return _.includes(member.name, this.props.searchStr);
+                                        return _.includes(member.name.toLowerCase(), this.props.searchStr.toLowerCase());
                                     }, this)
                                         .map(function (member) {
                                             return (
