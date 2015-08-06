@@ -23,12 +23,17 @@ define([
                 };
             },
             render: function () {
-                var isScrumMaster = this.props.member.id === this.context.scrumMaster;
+                var isScrumMaster = this.props.member.id === this.context.scrumMaster,
+                    imagePath = 'img/crown.png',
+                    scrumMasterComp = <img className='scrum-master' src={imagePath} />;
+
 
                 return (<div className="sprint-member">
-                    <figure className={isScrumMaster ? 'scrum-master' : ''}>
+                    <figure>
+                        { isScrumMaster ? scrumMasterComp : null}
                         <img
                             alt={this.props.member.name}
+                            className="sprint-member-image"
                             draggable="false"
                             src={this.props.member.image}/>
                         <figcaption className="text-center">{this.props.member.name}</figcaption>
