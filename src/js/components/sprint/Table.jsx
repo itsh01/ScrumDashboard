@@ -21,12 +21,15 @@ define([
             },
 
             childContextTypes: {
-                sprintState: React.PropTypes.number
+                sprintState: React.PropTypes.number,
+                scrumMaster: React.PropTypes.string
             },
 
             getChildContext: function () {
+                var sprint = this.props.sprint;
                 return {
-                    sprintState: this.props.sprint.state
+                    sprintState: sprint.state,
+                    scrumMaster: sprint.scrumMaster
                 };
             },
 

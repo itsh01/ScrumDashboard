@@ -44,7 +44,7 @@ define([], function () {
                 {
                     "id": "55b8a160-69c3-c3bc-d542-5303e41ce41c",
                     "name": "R2D2",
-                    "scrumMaster": null,
+                    "scrumMaster": 'c2ea9955-081c-4da5-8bc7-be27e1a19c6e',
                     "startDate": null,
                     "endDate": null,
                     cardLifecycle: ['Backlog', 'In progress', 'Done'],
@@ -120,7 +120,7 @@ define([], function () {
                 {
                     "id": "55b8a160-5e45-5984-35ff-07a7e41ce41c",
                     "name": "aliquip laboris",
-                    "scrumMaster": null,
+                    "scrumMaster": '183323c8-d707-4471-8736-373eba8aaa8c',
                     "startDate": null,
                     "endDate": null,
                     cardLifecycle: ['Backlog', 'In progress', 'Done'],

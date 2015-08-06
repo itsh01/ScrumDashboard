@@ -10,6 +10,9 @@ define([
             propTypes: {
                 member: React.PropTypes.object
             },
+            contextTypes: {
+                scrumMaster: React.PropTypes.string
+            },
             getDefaultProps: function () {
                 return {
                     member: {
@@ -20,8 +23,10 @@ define([
                 };
             },
             render: function () {
+                var isScrumMaster = this.props.member.id === this.context.scrumMaster;
+
                 return (<div className="sprint-member">
-                    <figure>
+                    <figure className={isScrumMaster ? 'scrum-master' : ''}>
                         <img
                             alt={this.props.member.name}
                             draggable="false"
