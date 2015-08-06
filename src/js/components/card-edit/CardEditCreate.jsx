@@ -32,6 +32,7 @@ define([
                 }
                 return card;
             },
+
             isCreating: function () {
                 return !this.context.flux.planningStore.getCurrentCard();
             },
@@ -93,6 +94,9 @@ define([
             getLifecycleOptions: function () {
                 if (!this.state.assignee) {
                     return null;
+                }
+                if (!this.state.team) {
+                    throw new Error('INVALID STATE ON THE SYSTEM: card has assignee but not team!!! id: '+this.state.id);
                 }
                 var team = this.context.flux.teamsStore.getTeamById(this.state.team);
                 return team.sprints[team.sprints.length - 1].cardLifecycle;

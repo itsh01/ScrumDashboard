@@ -18,7 +18,7 @@ define([], function () {
             "status": "Done",
             "score": 1,
             "team": null,
-            "assignee": '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
+            "assignee": null,
             "startDate": null,
             "endDate": null
         },
