@@ -12,7 +12,7 @@ define([], function () {
             "filterFunc": null,
             "id": "1f7a4375-e7db-4798-969e-17325acde499",
             "sprints": [{
-                    "id": "55b8a16038989631e6ace41c",
+                    "id": "55b8a160-3898-9631-e6ac-e41ce41ce41c",
                     "name": "zero calories",
                     "scrumMaster": null,
                     "startDate": null,
@@ -27,7 +27,7 @@ define([], function () {
                     "retroCardsStatus": null
                 },
                 {
-                    "id": "55b8a160a101c202d3b588bc",
+                    "id": "55b8a160-a101-c202-d3b5-88bce41ce41c",
                     "name": "one for all",
                     "scrumMaster": null,
                     "startDate": null,
@@ -42,7 +42,7 @@ define([], function () {
                     "retroCardsStatus": [{"cardId":"b97fff13-de90-4e1f-abb7-39f786d11450","assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511","status":"In progress"},{"cardId":"90eed4aa-40fe-496e-999a-54a436d66427","assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511","status":"Done"},{"cardId":"4796b5fd-1d11-4c2b-bdd3-d36796bb65ed","assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511","status":"Done"},{"cardId":"e9c3f04d-8796-4249-8a4f-bba085ab0271","assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511","status":"Done"}]
                 },
                 {
-                    "id": "55b8a16069c3c3bcd5425303",
+                    "id": "55b8a160-69c3-c3bc-d542-5303e41ce41c",
                     "name": "R2D2",
                     "scrumMaster": null,
                     "startDate": null,
@@ -73,7 +73,7 @@ define([], function () {
             "id": "c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d",
             "sprints": [
                 {
-                    "id": "55b8a16041950d8383c61083",
+                    "id": "55b8a160-4195-0d83-83c6-1083e41ce41c",
                     "name": "anim qui",
                     "scrumMaster": null,
                     "startDate": null,
@@ -88,7 +88,7 @@ define([], function () {
                     "retroCardsStatus": null
                 },
                 {
-                    "id": "55b8a1602bba6dbc0765eced",
+                    "id": "55b8a160-2bba-6dbc-0765-ecede41ce41c",
                     "name": "est minim",
                     "scrumMaster": null,
                     "startDate": null,
@@ -118,7 +118,7 @@ define([], function () {
             "id": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
             "sprints": [
                 {
-                    "id": "55b8a1605e45598435ff07a7",
+                    "id": "55b8a160-5e45-5984-35ff-07a7e41ce41c",
                     "name": "aliquip laboris",
                     "scrumMaster": null,
                     "startDate": null,
