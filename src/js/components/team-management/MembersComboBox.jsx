@@ -15,6 +15,15 @@ define(['lodash', 'React', 'constants'],
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_EXISTING_MEMBER, memberId);
 
             },
+            boldenMatch: function(str, match){
+                var splitted = str.split(match);
+                var bolded = <b>{match}</b>;
+                var boldedArr = [];
+                for(var i = 0; i < splitted.length; i++) {
+
+
+                }
+            },
             render: function () {
                 var allMembers = this.context.flux.membersStore.getAllMembers();
 
