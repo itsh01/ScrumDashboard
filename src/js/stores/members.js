@@ -68,6 +68,7 @@ define([
             }
 
             function updateMember(memberId, newMemberData) {
+                delete newMemberData.id;
                 if (isValidMember(newMemberData)) {
                     var didUpdate = helpers.updateItem(currentMembers, memberId, newMemberData, 'Member Store');
                     saveToLocalStorage();

@@ -23,7 +23,6 @@ define([
         function CardsStore(dispatcher) {
             var dataFileVersion = '1',
                 CARDS_SCHEMA = {
-                    id: {type: 'string'},
                     name: {type: 'string'},
                     description: {type: 'string', defaultValue: ''},
                     score: {type: 'number', defaultValue: null},
@@ -103,6 +102,7 @@ define([
              *  }
              */
             function updateCard(cardId, newCardData) {
+                delete newCardData.id;
                 if (isValidCard(newCardData)) {
                     var didUpdate = helpers.updateItem(currentCards, cardId, newCardData, 'Card Store');
                     // TODO: if assignee or team provided then make sure that they exist
