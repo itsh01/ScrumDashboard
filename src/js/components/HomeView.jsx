@@ -18,7 +18,7 @@ define(['lodash', 'React', 'components/team/TeamComponent',
             getInitialState: function () {
                 return {
                     view: 'HomeView'
-                }
+                };
             },
 
             getTeams: function () {
@@ -56,7 +56,7 @@ define(['lodash', 'React', 'components/team/TeamComponent',
                     );
                 }
             },
-            changeView: function(event) {
+            changeView: function (event) {
                 var view = event.target.dataset.view;
                 this.setState({
                     view: this.views[view]
@@ -81,7 +81,8 @@ define(['lodash', 'React', 'components/team/TeamComponent',
                                 <button className='clearButton' type='button' onClick={this.clearStorage}>Clear
                                     LocalStorage
                                 </button>
-                                <button data-view={this.views.TeamManagement} onClick={this.changeView}>Manage Teams</button>
+                                <button data-view={this.views.TeamManagement} onClick={this.changeView}>Manage Teams
+                                </button>
                                 <button data-view={this.views.HomeView} onClick={this.changeView}>Home</button>
                             </div>
                         </div>
