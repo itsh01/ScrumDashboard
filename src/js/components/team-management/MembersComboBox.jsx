@@ -13,9 +13,10 @@ define(['lodash', 'React', 'constants'],
             },
             changeExistingMember: function (event) {
                 var memberId = event.target.dataset.id;
+                var memberName = event.target.dataset.name;
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_EXISTING_MEMBER, memberId);
                 this.refs.matchedMemberContainer.getDOMNode().style.display = 'none';
-                this.refs.searchInput.getDOMNode().value = event.target.dataset.name;
+                this.refs.searchInput.getDOMNode().value = memberName;
 
             },
             getComboBox: function () {

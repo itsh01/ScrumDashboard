@@ -29,7 +29,8 @@ define([
                 this.refs[this.state.memberType].getDOMNode().checked = 'checked';
             },
 
-            addNewMember: function () {
+            addNewMember: function (event) {
+                event.preventDefault();
                 var teamId = this.props.team.id;
                 var memberName = this.refs.memberName.getDOMNode().value;
                 var memberImgUrl = this.refs.memberImgUrl.getDOMNode().value || 'img/mosh.jpg';
