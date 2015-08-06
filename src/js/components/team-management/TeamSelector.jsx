@@ -1,4 +1,4 @@
-define(['lodash', 'React', 'constants'], function (_, React, constants) {
+define(['lodash', 'React', 'components/team-management/TeamButton'], function (_, React, TeamButton) {
     'use strict';
 
 
@@ -11,32 +11,12 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
         contextTypes: {
             flux: React.PropTypes.any
         },
-
-        changeCurrentTeam: function (e) {
-            var teamId = e.target.dataset.id;
-            this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM, teamId);
-
-        },
-        removeTeam: function (event) {
-            var teamId = event.target.id;
-            this.context.flux.dispatcher.dispatchAction(constants.actionNames.DEACTIVATE_TEAM, teamId);
-        },
-
         render: function () {
             return (
                 <div className='teams-selector'>
                     {
                         _.map(this.props.teams, function (team) {
-                            return (
-                                <div className='team-management-button' onClick={this.changeCurrentTeam} key={team.id}
-                                    data-id={team.id}>
-                                    <div className='team-name' data-id={team.id} key={team.name}>{team.name}
-                                    </div>
-                                    <button onClick={this.removeTeam}
-                                            className='remove-button'
-                                            id={team.id}>X</button>
-                                </div>
-                            );
+                            return <TeamButton team={team}/>;
                         }, this)
                     }
                 </div>

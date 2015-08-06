@@ -47,7 +47,8 @@
 }
 
 .team-management-button:hover .remove-button {
-    display: block;
+    visibility: visible;
+    opacity: 1;
 }
 
 .team-management-button:hover {

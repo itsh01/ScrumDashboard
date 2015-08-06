@@ -16,7 +16,7 @@ define(['lodash', 'React',
                 return this.context.flux.teamsStore.getCurrentTeam();
             },
             getCurrentTeamMembers: function () {
-                var currentTeam = this.context.flux.teamsStore.getCurrentTeam();
+                var currentTeam = this.getCurrentTeam();
                 return _.map(currentTeam.members, function (memberId) {
                     return this.context.flux.membersStore.getMemberById(memberId);
                 }, this);
