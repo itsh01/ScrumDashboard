@@ -18,10 +18,19 @@ define(['lodash', 'React', 'constants'],
             teamMemberOptionsBox: function () {
                 var flux = this.context.flux,
                     teamMembers = flux.teamsStore.getCurrentTeam().members,
-                    options = _.map(teamMembers, function (member) {
-                        var memberName = flux.membersStore.getMemberById(member).name;
-                        return (<option value={member} key={member}>{memberName}</option>);
-                    });
+                    options = _(teamMembers)
+                        .map(function (memberId) {
+                            return flux.membersStore.getMemberById(memberId);
+                        })
+                        .map(function (member) {
+                            return (<option
+                                value={member.id}
+                                key={member.id}>
+                                {member.name}
+                            </option>);
+                        })
+                        .value();
+
                 return (<select onChange={this.changeScrumMaster} value={this.state.scrumMaster}>
                     <option value={null} disabled>-</option>
                     {options}
