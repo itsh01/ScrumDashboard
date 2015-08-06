@@ -27,19 +27,9 @@ define(['lodash', 'React', 'constants'],
                 </select>);
             },
 
-            toggleTeamMember: function (memberId) {
-                var members = this.state.members,
+            updateSprint: function () {
+                var sprintData = _.cloneDeep(this.state),
                     teamsStore = this.context.flux.teamsStore;
-
-                if (_.includes(members, memberId)) {
-                    _.remove(members, function (currentMember) {
-                        return currentMember === memberId;
-                    });
-                } else {
-                    members.push(memberId);
-                }
-
-                var sprintData = _.cloneDeep(this.state);
                 delete sprintData.id;
 
 
@@ -49,6 +39,19 @@ define(['lodash', 'React', 'constants'],
                     sprintData,
                     teamsStore.getCurrentTeam().id
                 );
+            },
+            toggleTeamMember: function (memberId) {
+                var members = this.state.members;
+
+                if (_.includes(members, memberId)) {
+                    _.remove(members, function (currentMember) {
+                        return currentMember === memberId;
+                    });
+                } else {
+                    members.push(memberId);
+                }
+
+                this.updateSprint();
             },
 
             teamMembersCheckBoxes: function () {
@@ -88,10 +91,15 @@ define(['lodash', 'React', 'constants'],
                     </div>
                 );
             },
-
+            listenForStateChange: function () {
+                var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
+                if (!_.isEqual(currentSprint, this.state)) {
+                    this.updateSprint();
+                }
+            },
             render: function () {
                 return (
-                    <div className="edit-sprint">
+                    <div className="edit-sprint" onKeyUp={this.listenForStateChange}>
                         {this.getFieldWrapper('Sprint Name:', <input type='text' valueLink={this.linkState('name')}></input>)}
                         {this.getFieldWrapper('Scrum Master:', this.teamMemberOptionsBox())}
                         {this.getFieldWrapper('Select Sprint Members:', this.teamMembersCheckBoxes())}
