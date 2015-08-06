@@ -20,8 +20,8 @@ define(['lodash', 'React', 'constants'],
                     teamMembers = flux.teamsStore.getCurrentTeam().members,
                     options = _.map(teamMembers, function (member) {
                         var memberName = flux.membersStore.getMemberById(member).name;
-                            return (<option value={member} key={member}>{memberName}</option>);
-                    }.bind(this));
+                        return (<option value={member} key={member}>{memberName}</option>);
+                    });
                 return (<select onChange={this.changeScrumMaster} value={this.state.scrumMaster}>
                     <option value={null} disabled>-</option>
                     {options}
@@ -29,8 +29,7 @@ define(['lodash', 'React', 'constants'],
             },
 
             changeScrumMaster: function (e) {
-                this.setState({scrumMaster: e.target.value},this.updateSprint);
-
+                this.setState({scrumMaster: e.target.value}, this.updateSprint);
             },
 
             updateSprint: function () {
