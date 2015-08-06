@@ -54,6 +54,15 @@
 .main-view-btn-lock {
 
 }
-.clearButton{
+.clearButton {
     color: red;
+}
+
+.edit-sprint {
+    display: block;
+    margin: 0 auto;
+    width: 40rem;
+    border: 1px solid #000;
+    padding: 2rem;
+    margin-top: 1rem;
 }
