@@ -1,3 +1,7 @@
 .matched-member-container {
     background-color: #ffffff;
 }
+
+.matched-member:hover {
+    background-color: rgba(58, 68, 255, 0.2);
+}
