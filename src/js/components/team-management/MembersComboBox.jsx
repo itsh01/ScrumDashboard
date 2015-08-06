@@ -15,6 +15,7 @@ define(['lodash', 'React', 'constants'],
                 var memberId = event.target.dataset.id;
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_EXISTING_MEMBER, memberId);
                 this.refs.matchedMemberContainer.getDOMNode().style.display = 'none';
+                this.refs.searchInput.getDOMNode().value = event.target.dataset.name;
 
             },
             getComboBox: function () {
@@ -28,7 +29,7 @@ define(['lodash', 'React', 'constants'],
                                 }, this)
                                     .map(function (member) {
                                         return (
-                                            <li data-id={member.id} onClick={this.changeExistingMember}
+                                            <li data-id={member.id} data-name={member.name} onClick={this.changeExistingMember}
                                                 className='matched-member'>
                                                 {member.name}
                                             </li>
@@ -48,7 +49,7 @@ define(['lodash', 'React', 'constants'],
             render: function () {
                 return (
                     <div>
-                        <input onChange={this.searchMember} className='search-input' type='text'/>
+                        <input ref='searchInput' onChange={this.searchMember} className='search-input' type='text'/>
                         {this.getComboBox()}
                     </div>
                 );
