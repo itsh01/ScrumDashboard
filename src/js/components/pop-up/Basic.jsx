@@ -1,9 +1,8 @@
 define([
-        'React',
+        'React'
 
-        'constants'
     ],
-    function (React, constants) {
+    function (React) {
         'use strict';
         return React.createClass({
             displayName: 'BasicPopUp',
@@ -16,14 +15,10 @@ define([
                 flux: React.PropTypes.any
             },
 
-            requireClosePopup: function (e) {
-                e.stopPropagation();
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_DONE_ADDING_CARD);
-            },
 
             render: function () {
                 return (
-                    <div className='pop pop-basic' onClick={this.requireClosePopup}>
+                    <div className='pop pop-basic' >
                         <div className="pop-dialog">
                             <div className='pop-content slide-down'>
                                 {this.props.children}
