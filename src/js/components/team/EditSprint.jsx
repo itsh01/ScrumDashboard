@@ -36,14 +36,16 @@ define(['lodash', 'React', 'constants'],
                         return membersStore.getMemberById(memberId);
                     })
                     .map(function mapMemberToInput(member) {
-                        return (<input
-                            type='checkbox'
-                            value={member.name}
-                            key={member.id}>
+                        return (<label>
+                            <input
+                                checked = {_.includes(this.state.members, member.id)}
+                                type='checkbox'
+                                key={member.id}>
+                            </input>
                             {member.name}
-                        </input>);
+                        </label>);
 
-                    })
+                    }, this)
                     .value();
             },
 
