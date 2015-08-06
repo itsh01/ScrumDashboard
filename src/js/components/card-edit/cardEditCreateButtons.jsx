@@ -47,12 +47,9 @@ define([
             },
 
             render: function () {
-                var deleteBtn = this.props.isCreating ? null :
-                    <button className='card-edit-btn card-edit-btn-delete' onClick={this.deleteCard}>
-                        Delete</button>;
                 return (
                     <div className='card-edit-btn-container'>
-                        {deleteBtn}
+
                         <button className='card-edit-btn card-edit-btn-cancel' onClick={this.requireClosePopup}>Cancel
                         </button>
                         <button className='card-edit-btn card-edit-btn-save' onClick={this.saveCard}>

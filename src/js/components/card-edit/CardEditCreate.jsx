@@ -69,7 +69,7 @@ define([
                 var options = _.map(values, function (value) {
                     return (<option value={value.id}>{value.name}</option>);
                 });
-                return (<select onChange={this.handleSelectChange.bind(this, stateKey)}>
+                return (<select value={this.state[stateKey]} onChange={this.handleSelectChange.bind(this, stateKey)}>
                     <option selected disabled>Choose {stateKey}</option>
                     {options}
                 </select>);
