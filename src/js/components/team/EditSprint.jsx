@@ -21,14 +21,15 @@ define(['lodash', 'React', 'constants'],
                     var memberName = this.context.flux.membersStore.getMemberById(member).name;
                     return (<option value={member} key={member}>{memberName}</option>);
                 }.bind(this));
-                return (<select onChange={callback}>
-                    <option selected disabled>-</option>
+                return (<select onChange={callback} value={null}>
+                    <option value={null} disabled>-</option>
                     {options}
                 </select>);
             },
 
             toggleTeamMember: function (memberId) {
-                var members = this.state.members;
+                var members = this.state.members,
+                    teamsStore = this.context.flux.teamsStore;
 
                 if (_.includes(members, memberId)) {
                     _.remove(members, function (currentMember) {
@@ -38,11 +39,15 @@ define(['lodash', 'React', 'constants'],
                     members.push(memberId);
                 }
 
+                var sprintData = _.cloneDeep(this.state);
+                delete sprintData.id;
+
+
                 this.context.flux.dispatcher.dispatchAction(
                     constants.actionNames.UPDATE_SPRINT,
                     this.state.id,
-                    this.state,
-                    this.context.flux.teamsStore.getCurrentTeam()
+                    sprintData,
+                    teamsStore.getCurrentTeam().id
                 );
             },
 
@@ -57,8 +62,8 @@ define(['lodash', 'React', 'constants'],
                     .map(function mapMemberToInput(member) {
                         return (<label>
                             <input
-                                checked = {_.includes(this.state.members, member.id)}
-                                onClick={this.toggleTeamMember.bind(this, member.id)}
+                                checked={_.includes(this.state.members, member.id)}
+                                onChange={this.toggleTeamMember.bind(this, member.id)}
                                 type='checkbox'
                                 key={member.id}>
                             </input>
