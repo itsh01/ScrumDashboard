@@ -3,6 +3,7 @@ define(['lodash', 'React',
         'components/team-management/NewMemberProfile'],
     function (_, React, MemberProfile, NewMemberProfile) {
         'use strict';
+        var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
         return React.createClass({
             displayName: 'TeamView',
             propTypes: {
@@ -21,11 +22,13 @@ define(['lodash', 'React',
                 return (
                     <div className='team-view'>
                         <h1 className='team-title'>{this.getTeamTitle()}</h1>
-                        {
-                            _.map(this.props.teamMembers, function (member) {
-                                return <MemberProfile member={member} key={member.id}/>;
-                            }, this)
-                        }
+                        <ReactCSSTransitionGroup transitionName='member-profile-transition'>
+                            {
+                                _.map(this.props.teamMembers, function (member) {
+                                    return <MemberProfile member={member} key={member.id}/>;
+                                }, this)
+                            }
+                        </ReactCSSTransitionGroup>
                         <NewMemberProfile team={this.props.team} currentMember={existingMember}/>
                     </div>
                 );
