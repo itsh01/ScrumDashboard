@@ -26,6 +26,10 @@ define([
                 };
             },
 
+            componentDidMount: function() {
+                this.refs[this.state.memberType].getDOMNode().checked = 'checked';
+            },
+
             addNewMember: function () {
                 var teamId = this.props.team.id;
                 var memberName = this.refs.memberName.getDOMNode().value;
@@ -79,9 +83,9 @@ define([
                             <h3> add member to team </h3>
 
                             <form onChange={this.changeMemberType} className='member-type'>
-                                <input type='radio' id='newMember' name='memberType' value='newMember'/>
+                                <input ref='newMember' type='radio' id='newMember' name='memberType' value='newMember'/>
                                 <label htmlFor='newMember'>New member</label>
-                                <input type='radio' id='existingMember' name='memberType' value='existingMember'/>
+                                <input ref='existingMember' type='radio' id='existingMember' name='memberType' value='existingMember'/>
                                 <label htmlFor='existingMember'>Existing member</label>
                             </form>
                         </div>
