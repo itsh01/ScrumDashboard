@@ -110,8 +110,8 @@ define([
 
             function removeDeactivatedMemberFromTeams(memberId) {
                 _.forEach(teamsData, function (team) {
-                    _.remove(team.members, function (member) {
-                        return member.id === memberId;
+                    _.remove(team.members, function (id) {
+                        return id === memberId;
                     });
                 });
                 saveToLocalStorage();
@@ -340,7 +340,6 @@ define([
                 {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSingleSprint},
                 {name: constants.actionNames.CHANGE_EXISTING_MEMBER, callback: changeExistingMember},
-                {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSingleSprint},
                 {name: constants.actionNames.RETROFY_CURRENT_SPRINT, callback: retrofyCurrentSprint},
                 {name: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, callback: addSprintToCurrentTeam}
             ];
