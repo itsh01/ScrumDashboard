@@ -28,7 +28,7 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
                     {
                         _.map(this.props.teams, function (team) {
                             return (
-                                <div className='team-name-container' onClick={this.changeCurrentTeam} key={team.id}
+                                <div className='team-management-button' onClick={this.changeCurrentTeam} key={team.id}
                                     data-id={team.id}>
                                     <div className='team-name' data-id={team.id} key={team.name}>{team.name}
                                     </div>

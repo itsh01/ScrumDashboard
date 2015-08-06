@@ -36,7 +36,7 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
 
             var classSet = React.addons.classSet;
             return (
-                <div className={classSet('team-name-container', 'add-team-button')}>
+                <div className={classSet('team-management-button', 'add-team-button')}>
                     {resultContent}
                 </div>
             );

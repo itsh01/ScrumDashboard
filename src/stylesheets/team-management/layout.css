@@ -31,7 +31,7 @@
     margin: 1rem;
 }
 
-.team-name-container {
+.team-management-button {
     display: inline-block;
     position: relative;
     padding: 0.5rem;
@@ -46,11 +46,11 @@
     vertical-align: middle;
 }
 
-.team-name-container:hover .remove-button {
+.team-management-button:hover .remove-button {
     display: block;
 }
 
-.team-name-container:hover {
+.team-management-button:hover {
     background: #3cb0fd;
     text-decoration: none;
 }

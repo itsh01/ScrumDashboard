@@ -41,6 +41,11 @@ define([
                     constants.actionNames.CREATE_MEMBER_INTO_TEAM, newMember, teamId);
 
             },
+            addExistingMember: function () {
+                var memberId = this.props.currentMember.id;
+                var currentTeamId = this.context.flux.teamsStore.getCurrentTeam().id;
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER_TO_TEAM, currentTeamId, memberId);
+            },
             getNewMemberContent: function () {
                 return this.state.memberType === 'newMember' ?
                     <form className='add-new-member' onSubmit={this.addNewMember}>
@@ -59,6 +64,7 @@ define([
                                  src={this.props.currentMember.image}/>
 
                         </div>
+                        <div className="team-management-button" onClick={this.addExistingMember}>Add Member</div>
                     </div>;
             },
             changeMemberType: function (event) {
