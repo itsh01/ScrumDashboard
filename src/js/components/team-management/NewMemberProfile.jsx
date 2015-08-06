@@ -21,8 +21,7 @@ define([
             },
             getInitialState: function () {
                 return {
-                    memberType: 'newMember',
-                    searchStr: ''
+                    memberType: 'newMember'
                 };
             },
 
@@ -39,13 +38,6 @@ define([
                 newMember.image = memberImgUrl;
                 this.context.flux.dispatcher.dispatchAction(
                     constants.actionNames.CREATE_MEMBER_INTO_TEAM, newMember, teamId);
-
-            },
-            searchMember: function (event) {
-                var searchStr = event.target.value;
-                this.setState({
-                    searchStr: searchStr
-                });
 
             },
             getNewMemberContent: function () {
