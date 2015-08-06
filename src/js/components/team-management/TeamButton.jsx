@@ -32,7 +32,6 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
             removeTeam: function (event) {
                 event.stopPropagation();
                 var teamId = event.target.id;
-                console.log(teamId);
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.DEACTIVATE_TEAM, teamId);
             },
             render: function () {
