@@ -1,5 +1,10 @@
-define(['lodash', 'React', 'constants'],
-    function (_, React, constants) {
+define([
+        'lodash',
+        'React',
+        'constants',
+        'components/team/ComboBox'
+    ],
+    function (_, React, constants, ComboBox) {
         'use strict';
 
         return React.createClass({
@@ -122,8 +127,8 @@ define(['lodash', 'React', 'constants'],
                                                                     valueLink={this.linkState('startDate')}></input>)}
                         {this.getFieldWrapper('End Date:', <input type='text'
                                                                   valueLink={this.linkState('endDate')}></input>)}
-                        {this.getFieldWrapper('Add Phase To Lifecycle', <input type='text'
-                                                                               onClick={this.addPhaseToLifecycle}></input>)}
+                        {this.getFieldWrapper('Add Phase To Lifecycle', <ComboBox lifecycle={this.state.cardLifecycle} />)}
+
                     </div>
                 );
             }

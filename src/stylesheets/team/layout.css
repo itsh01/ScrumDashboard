@@ -66,3 +66,31 @@
     padding: 2rem;
     margin-top: 1rem;
 }
+
+.combo-box-list {
+    list-style: none;
+    padding: 0;
+    width: 8rem;
+    border: #999 1px solid;
+    margin: 0;
+    transition: 0.3s linear all;
+}
+
+.combo-box-item {
+    padding: 0.1rem 0.5rem;
+    overflow: hidden;
+}
+
+.combo-box-item:hover {
+    background-color: #E2E2FF;
+}
+
+.delete-phase {
+    float: right;
+    color: #fff;
+    background-color: #F14B4B;
+    padding: 0.1rem 0.33rem;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
