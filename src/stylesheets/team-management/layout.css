@@ -155,6 +155,8 @@
 }
 
 .matched-member-container {
+    position: absolute;
+    z-index: 1;
     height: 6rem;
     overflow: hidden;
     width: 100%;
