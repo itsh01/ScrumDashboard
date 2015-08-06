@@ -24,8 +24,9 @@
 @import 'sprint/colors.css';
 @import 'sprint/typography.css';
 
-@import "team-management/colors.css";
-@import "team-management/layout.css";
+@import 'team-management/colors.css';
+@import 'team-management/layout.css';
+@import 'team-management/animation.css';
 
 @import 'edit-card/layout.css';
 @import 'edit-card/colors.css';

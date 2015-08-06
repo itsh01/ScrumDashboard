@@ -1,6 +1,7 @@
 define(['lodash', 'React', 'components/team-management/TeamSelector', 'components/team-management/addTeam'],
     function (_, React, TeamSelector, AddTeam) {
         'use strict';
+        var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
         return React.createClass({
             displayName: 'Teams Sidebar',
             propTypes: {
@@ -11,10 +12,12 @@ define(['lodash', 'React', 'components/team-management/TeamSelector', 'component
                     return team.active;
                 });
                 return (
-                    <div className="sidebar">
-                        <TeamSelector teams={activeTeams}/>
-                        <AddTeam/>
-                    </div>
+                    <ReactCSSTransitionGroup transitionName='sidebar' transitionAppear={true} transitionLeave={false}>
+                        <div className="sidebar">
+                            <TeamSelector teams={activeTeams}/>
+                            <AddTeam/>
+                        </div>
+                    </ReactCSSTransitionGroup>
                 );
             }
         });
