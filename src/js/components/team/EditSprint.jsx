@@ -60,12 +60,13 @@ define(['lodash', 'React', 'constants'],
                         return membersStore.getMemberById(memberId);
                     })
                     .map(function mapMemberToInput(member) {
-                        return (<label>
+                        return (<label
+                                key={member.id}>
                             <input
                                 checked={_.includes(this.state.members, member.id)}
                                 onChange={this.toggleTeamMember.bind(this, member.id)}
                                 type='checkbox'
-                                key={member.id}>
+                                >
                             </input>
                             {member.name}
                         </label>);

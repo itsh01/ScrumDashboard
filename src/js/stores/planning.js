@@ -6,10 +6,12 @@ define(
         function Planning(dispatcher) {
             var IsAddingOrEditingCard = false;
             var currentCard = null;
+
             this.addingCard = function (isAdding, card) {
                 IsAddingOrEditingCard = isAdding;
                 currentCard = card;
             };
+
             this.editCard = function (isAdding, card) {
                 IsAddingOrEditingCard = isAdding;
                 currentCard = card;

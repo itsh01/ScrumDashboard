@@ -19,27 +19,17 @@ define([
                 flux: React.PropTypes.any
             },
 
-            saveOrDeleteCard: function (isSaving) {
+            saveCard: function () {
                 var dispatcher = this.context.flux.dispatcher;
 
-                if (isSaving && this.props.isCreating) {
+                if (this.props.isCreating) {
                     dispatcher.dispatchAction(constants.actionNames.ADD_CARD, this.props.card);
-                } else if (isSaving) {
+                } else {
                     dispatcher.dispatchAction(constants.actionNames.UPDATE_CARD,
                         this.props.card.id,
                         this.props.card);
-                } else {
-                    dispatcher.dispatchAction(constants.actionNames.REMOVE_CARD, this.props.card.id);
                 }
                 this.requireClosePopup();
-            },
-
-            saveCard: function () {
-                this.saveOrDeleteCard(true);
-            },
-
-            deleteCard: function () {
-                this.saveOrDeleteCard(false);
             },
 
             requireClosePopup: function () {

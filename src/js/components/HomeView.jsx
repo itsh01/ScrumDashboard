@@ -37,8 +37,8 @@ define(['lodash', 'React', 'components/team/TeamComponent', 'constants'], functi
                     <div className="header">
                         <div className="left">
                             <span>Choose Team: </span>
-                            <select onChange={this.handleChangeTeam}>
-                                <option selected disabled>-</option>
+                            <select onChange={this.handleChangeTeam} value={null}>
+                                <option value={null} disabled>-</option>
                                 {teamsOptions}
                             </select>
                         </div>
