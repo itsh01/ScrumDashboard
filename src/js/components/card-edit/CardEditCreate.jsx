@@ -133,7 +133,3 @@ define([
             }
         });
     });
-
-//<!--<div> TODO add this
-//    <input type='checkbox'>Assign to All</input>
-//</div>-->
