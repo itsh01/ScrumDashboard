@@ -29,14 +29,26 @@ define(['lodash', 'React', 'constants'],
 
             teamMembersCheckBoxes: function () {
                 var teamMembers = this.context.flux.teamsStore.getCurrentTeam().members;
-                var options = _.map(teamMembers, function (member, index) {
-                    var memberName = this.context.flux.membersStore.getMemberById(member).name;
-                    return (<input type='checkbox' value={member} key={index}>{memberName}</input>);
-                }.bind(this));
-                return options;
+                var membersStore = this.context.flux.membersStore;
+
+                return _(teamMembers)
+                    .map( function getMemberById(memberId) {
+                        return membersStore.getMemberById(memberId);
+                    })
+                    .map(function mapMemberToInput(member) {
+                        return (<input
+                            type='checkbox'
+                            value={member.name}
+                            key={member.id}>
+                            {member.name}
+                        </input>);
+
+                    })
+                    .value();
             },
 
             getFieldWrapper: function (text, fields) {
+
                 return (
                     <div className=''>
                         <div className=''>
