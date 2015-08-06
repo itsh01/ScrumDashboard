@@ -21,8 +21,8 @@ define(['lodash', 'React', 'constants'],
                     var memberName = this.context.flux.membersStore.getMemberById(member).name;
                     return (<option value={member} key={member}>{memberName}</option>);
                 }.bind(this));
-                return (<select onChange={callback}>
-                    <option selected disabled>-</option>
+                return (<select onChange={callback} value={null}>
+                    <option value={null} disabled>-</option>
                     {options}
                 </select>);
             },
@@ -62,8 +62,8 @@ define(['lodash', 'React', 'constants'],
                     .map(function mapMemberToInput(member) {
                         return (<label>
                             <input
-                                checked = {_.includes(this.state.members, member.id)}
-                                onClick={this.toggleTeamMember.bind(this, member.id)}
+                                checked={_.includes(this.state.members, member.id)}
+                                onChange={this.toggleTeamMember.bind(this, member.id)}
                                 type='checkbox'
                                 key={member.id}>
                             </input>
