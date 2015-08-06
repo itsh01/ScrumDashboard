@@ -38,7 +38,7 @@ define([
             },
 
             popUpFactory: function () {
-                if (!this.flux.planningStore.isAddingCard) {
+                if (!this.flux.planningStore.getIsAddingOrEditingCard()) {
                     return null;
                 }
                 return (

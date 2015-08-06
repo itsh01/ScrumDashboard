@@ -4,14 +4,14 @@ define(
         'use strict';
 
         function Planning(dispatcher) {
-            this.isAddingCard = false;
+            var IsAddingOrEditingCard = false;
             var currentCard = null;
             this.addingCard = function (isAdding, card) {
-                this.isAddingCard = isAdding;
+                IsAddingOrEditingCard = isAdding;
                 currentCard = card;
             };
             this.editCard = function (isAdding, card) {
-                this.isAddingCard = isAdding;
+                IsAddingOrEditingCard = isAdding;
                 currentCard = card;
             };
 
@@ -19,7 +19,9 @@ define(
                 return currentCard;
             };
 
-
+            this.getIsAddingOrEditingCard = function () {
+                return IsAddingOrEditingCard;
+            };
 
 
             dispatcher.registerAction(constants.actionNames.PLANNING_ADD_CARD, this.addingCard.bind(this, true));
