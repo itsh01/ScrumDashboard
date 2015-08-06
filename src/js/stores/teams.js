@@ -13,6 +13,7 @@ define([
         function TeamStore(dispatcher, getUserCards) {
             var dataFileVersion = '1',
                 SPRINT_SCHEMA = {
+                    id: {type: 'string'},
                     name: {type: 'string', defaultValue: 'New Sprint'},
                     scrumMaster: {type: 'string', defaultValue: null},
                     startDate: {type: 'string', defaultValue: null},

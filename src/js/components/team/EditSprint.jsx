@@ -28,7 +28,8 @@ define(['lodash', 'React', 'constants'],
             },
 
             toggleTeamMember: function (memberId) {
-                var members = this.state.members;
+                var members = this.state.members,
+                    teamsStore = this.context.flux.teamsStore;
 
                 if (_.includes(members, memberId)) {
                     _.remove(members, function (currentMember) {
@@ -42,7 +43,7 @@ define(['lodash', 'React', 'constants'],
                     constants.actionNames.UPDATE_SPRINT,
                     this.state.id,
                     this.state,
-                    this.context.flux.teamsStore.getCurrentTeam()
+                    teamsStore.getCurrentTeam().id
                 );
             },
 
