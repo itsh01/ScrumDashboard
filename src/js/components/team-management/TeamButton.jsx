@@ -1,5 +1,5 @@
-define(['lodash', 'React', 'constants'],
-    function (_, React, constants) {
+define(['lodash', 'React', 'constants', 'DragDropMixin'],
+    function (_, React, constants, DragDropMixin) {
         'use strict';
         return React.createClass({
             displayName: 'Team Button',
@@ -8,6 +8,21 @@ define(['lodash', 'React', 'constants'],
             },
             contextTypes: {
                 flux: React.PropTypes.any
+            },
+            mixins: [DragDropMixin],
+            dragDrop: function () {
+                return {
+                    droppable: true,
+                    acceptableDrops: ['memberId'],
+                    drop: this.handleMoveMember
+                };
+
+            },
+            handleMoveMember: function (memberId) {
+                var currentTeamId = this.context.flux.teamsStore.getCurrentTeam().id;
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.REMOVE_MEMBER_FROM_TEAM, currentTeamId, memberId);
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER_TO_TEAM, this.props.team.id, memberId);
+
             },
             changeCurrentTeam: function (e) {
                 var teamId = e.target.dataset.id;

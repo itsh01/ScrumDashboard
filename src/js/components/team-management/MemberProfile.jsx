@@ -13,7 +13,7 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
         dragDrop: function () {
             return {
                 draggable: true,
-                dropType: 'member',
+                dropType: 'memberId',
                 dataTransfer: this.props.member.id
             };
         },
