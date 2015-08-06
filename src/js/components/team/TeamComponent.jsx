@@ -8,6 +8,14 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             contextTypes: {
                 flux: React.PropTypes.any
             },
+            childContextTypes: {
+                teamId: React.PropTypes.string
+            },
+            getChildContext: function () {
+                return {
+                    teamId: this.context.flux.teamsStore.getCurrentTeam().id
+                };
+            },
 
             handleSprintChange: function (direction) {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, direction);
@@ -47,7 +55,8 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                     </div>);
                 }
                 if (sprint.state === constants.SPRINT_STATUS.IN_PROGRESS) {
-                    return <button className = 'main-view-btn main-view-btn-lock' onClick={this.lockSprint}>Lock Sprint</button>;
+                    return <button className='main-view-btn main-view-btn-lock' onClick={this.lockSprint}>Lock
+                        Sprint</button>;
                 }
                 return null;
             },
@@ -68,11 +77,15 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 return (
                     <div>
                         <h1>{team.name} Team</h1>
+
                         <h2>Scrum DashBoard</h2>
+
                         <div className="flex-centered one-row">
                             <ChangeSprint direction='backwards'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'previous')}/>
-                            <h3>Sprint {this.context.flux.teamsStore.getSprintIndex(sprint.id)} : {sprint.name} - {this.getSprintState(sprint)}</h3>
+
+                            <h3>Sprint {this.context.flux.teamsStore.getSprintIndex(sprint.id)} : {sprint.name}
+                                - {this.getSprintState(sprint)}</h3>
                             <ChangeSprint direction='forward'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'next')}/>
                         </div>

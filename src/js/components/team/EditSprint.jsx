@@ -1,5 +1,5 @@
 define(['lodash', 'React', 'constants'],
-    function (_, React) {
+    function (_, React, constants) {
         'use strict';
 
         return React.createClass({
@@ -27,6 +27,25 @@ define(['lodash', 'React', 'constants'],
                 </select>);
             },
 
+            toggleTeamMember: function (memberId) {
+                var members = this.state.members;
+
+                if (_.includes(members, memberId)) {
+                    _.remove(members, function (currentMember) {
+                        return currentMember === memberId;
+                    });
+                } else {
+                    members.push(memberId);
+                }
+
+                this.context.flux.dispatcher.dispatchAction(
+                    constants.actionNames.UPDATE_SPRINT,
+                    this.state.id,
+                    this.state,
+                    this.context.flux.teamsStore.getCurrentTeam()
+                );
+            },
+
             teamMembersCheckBoxes: function () {
                 var teamMembers = this.context.flux.teamsStore.getCurrentTeam().members;
                 var membersStore = this.context.flux.membersStore;
@@ -39,6 +58,7 @@ define(['lodash', 'React', 'constants'],
                         return (<label>
                             <input
                                 checked = {_.includes(this.state.members, member.id)}
+                                onClick={this.toggleTeamMember.bind(this, member.id)}
                                 type='checkbox'
                                 key={member.id}>
                             </input>
