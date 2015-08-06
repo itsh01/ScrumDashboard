@@ -51,7 +51,7 @@ define(['lodash', 'React', 'constants'],
 
             render: function () {
                 return (
-                    <div>
+                    <div className="edit-sprint">
                         {this.getFieldWrapper('Sprint Name:', <input type='text' valueLink={this.linkState('name')}></input>)}
                         {this.getFieldWrapper('Scrum Master:', this.teamMemberOptionsBox())}
                         {this.getFieldWrapper('Select Sprint Members:', this.teamMembersCheckBoxes())}
