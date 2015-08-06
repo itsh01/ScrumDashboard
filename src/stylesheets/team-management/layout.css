@@ -173,3 +173,6 @@
     cursor: pointer;
 }
 
+[draggable] {
+    cursor: -webkit-grab;
+}
