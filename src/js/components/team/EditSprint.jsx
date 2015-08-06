@@ -39,10 +39,14 @@ define(['lodash', 'React', 'constants'],
                     members.push(memberId);
                 }
 
+                var sprintData = _.cloneDeep(this.state);
+                delete sprintData.id;
+
+
                 this.context.flux.dispatcher.dispatchAction(
                     constants.actionNames.UPDATE_SPRINT,
                     this.state.id,
-                    this.state,
+                    sprintData,
                     teamsStore.getCurrentTeam().id
                 );
             },
