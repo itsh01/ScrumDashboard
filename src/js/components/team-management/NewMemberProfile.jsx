@@ -26,7 +26,7 @@ define([
                 };
             },
 
-            componentDidMount: function() {
+            componentDidMount: function () {
                 this.refs[this.state.memberType].getDOMNode().checked = 'checked';
             },
 
@@ -60,7 +60,6 @@ define([
                     </form> :
                     <div className='add-existing-member'>
                         <div className='search-bar'>
-                            <input onChange={this.searchMember} className='search-input' type='text'/>
                             <MembersComboBox searchStr={this.state.searchStr}/>
                             <img className='member-img'
                                  alt={this.props.currentMember.name}
@@ -85,7 +84,8 @@ define([
                             <form onChange={this.changeMemberType} className='member-type'>
                                 <input ref='newMember' type='radio' id='newMember' name='memberType' value='newMember'/>
                                 <label htmlFor='newMember'>New member</label>
-                                <input ref='existingMember' type='radio' id='existingMember' name='memberType' value='existingMember'/>
+                                <input ref='existingMember' type='radio' id='existingMember' name='memberType'
+                                       value='existingMember'/>
                                 <label htmlFor='existingMember'>Existing member</label>
                             </form>
                         </div>
