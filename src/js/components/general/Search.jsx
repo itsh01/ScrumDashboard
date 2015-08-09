@@ -1,4 +1,4 @@
-define(['lodash', 'React', 'constants'],
+define(['../../../vendor/lodash', 'React', 'constants'],
     function (_, React, constants) {
         'use strict';
         function createMemberItem(member) {
@@ -42,19 +42,19 @@ define(['lodash', 'React', 'constants'],
                     searchStr: ''
                 };
             },
-            invisibleMatchedMemberContainer: function () {
+            hideMatchedMemberContainer: function () {
                 if (this.refs.matchedMemberContainer) {
                     this.refs.matchedMemberContainer.getDOMNode().style.opacity = 0;
                 }
             },
-            visibleMatchedMemberContainer: function () {
+            showMatchedMemberContainer: function () {
                 if (this.refs.matchedMemberContainer) {
                     this.refs.matchedMemberContainer.getDOMNode().style.opacity = 1;
                 }
             },
             changeExistingMember: function (member) {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_EXISTING_MEMBER, member.id);
-                this.invisibleMatchedMemberContainer();
+                this.hideMatchedMemberContainer();
                 this.refs.searchInput.getDOMNode().value = member.name;
 
             },
@@ -77,18 +77,24 @@ define(['lodash', 'React', 'constants'],
                     </div>;
             },
             searchMember: function (event) {
-                this.visibleMatchedMemberContainer();
+                this.showMatchedMemberContainer();
                 var searchStr = event.target.value;
                 this.setState({
                     searchStr: searchStr
                 });
 
             },
+            getSearchElement: function () {
+                return (
+                    <input ref='searchInput' onChange={this.searchMember}
+                           onBlur={this.hideMatchedMemberContainer}
+                           className='search-input' type='text'/>
+                );
+            },
             render: function () {
                 return (
                     <div>
-                        <input ref='searchInput' onChange={this.searchMember}
-                               onBlur={this.invisibleMatchedMemberContainer} className='search-input' type='text'/>
+                        {this.getSearchElement()}
                         {this.getComboBox()}
                     </div>
                 );

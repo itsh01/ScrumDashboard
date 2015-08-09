@@ -9,7 +9,8 @@ requirejs.config({
         DragDropMixin: '../vendor/DragDropMixin',
         components: '../js/components',
         mixins: '../js/mixins',
-        stores: '../js/stores'
+        stores: '../js/stores',
+        general: '../js/general'
     },
     shim: {
         lodash: {
