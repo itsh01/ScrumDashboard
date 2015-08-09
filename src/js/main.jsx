@@ -9,7 +9,9 @@ requirejs.config({
         DragDropMixin: '../vendor/DragDropMixin',
         components: '../js/components',
         mixins: '../js/mixins',
-        stores: '../js/stores'
+        stores: '../js/stores',
+        flux: '../js/Flux'
+
     },
     shim: {
         lodash: {
@@ -17,11 +19,14 @@ requirejs.config({
         },
         React: {
             exports: 'React'
+        },
+        flux: {
+            exports: 'flux'
         }
     }
 });
 
-requirejs(['lodash', 'React', 'components/MainContainer'],
+requirejs(['lodash', 'React', 'components/MainContainer', 'flux'],
     function (_, React, MainContainer) {
         'use strict';
         var mountPoint = document.getElementById('main-container');
