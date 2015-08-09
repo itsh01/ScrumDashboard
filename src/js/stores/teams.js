@@ -7,7 +7,8 @@ define([
     function (_, defaultTeamData, helpers, constants) {
         'use strict';
         var filterFunctions = {
-            AllTeams: null
+            AllTeams: null,
+            AllActiveTeams: {active: true}
         };
 
         function TeamStore(dispatcher, getUserCards) {
@@ -271,7 +272,6 @@ define([
             }
 
             /*eslint-enable no-unused-vars */
-
 
             this.getCurrentTeam = function () {
                 return this.getTeamById(currentViewState.currentTeam);
