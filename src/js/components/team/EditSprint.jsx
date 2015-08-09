@@ -2,7 +2,7 @@ define([
         'lodash',
         'React',
         'constants',
-        'components/team/ComboBox',
+        'components/general/ComboBox',
         'moment',
         'DatePicker'
     ],
