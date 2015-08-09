@@ -101,7 +101,8 @@ define([
                     })
                     .map(function mapMemberToInput(member) {
                         return (<label
-                            key={member.id}>
+                            key={member.id}
+                            className="input-checkbox">
                             <input
                                 checked={_.includes(this.state.members, member.id)}
                                 onChange={this.toggleTeamMember.bind(this, member.id)}
