@@ -1,6 +1,13 @@
 
 
 /**
+    vendor css
+*/
+
+@import "vendor/tether.css";
+@import "vendor/date-picker.css";
+
+/**
     Main app css
     Can be overwritten in specific components
 */
