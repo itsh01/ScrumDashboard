@@ -56,6 +56,9 @@ define([
                     teamsStore = this.context.flux.teamsStore;
                 delete sprintData.id;
 
+                sprintData.startDate = this.formatDate(sprintData.startDate);
+                sprintData.endDate = this.formatDate(sprintData.endDate);
+
 
                 this.context.flux.dispatcher.dispatchAction(
                     constants.actionNames.UPDATE_SPRINT,
