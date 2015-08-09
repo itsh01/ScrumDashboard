@@ -18,7 +18,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             },
 
             handleSprintChange: function (direction) {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, direction);
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT_ID, direction);
             },
 
             addCardClicked: function () {
@@ -32,7 +32,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             planNewSprint: function () {
                 var newSprint = this.context.flux.teamsStore.getBlankSprint();
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, newSprint);
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, 'next');
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT_ID, 'next');
             },
 
             lockSprint: function () {

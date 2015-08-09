@@ -1,7 +1,7 @@
 define([
         'lodash',
         '../store/teams',
-        '../../constants',
+        '../../constants'
     ],
     function (_, teamsStore, constants) {
         'use strict';
@@ -21,27 +21,25 @@ define([
                     dispatcher.dispatch(constants.RETROFY_SPRINT, sprintId, teamId);
                 },
 
-                //addSprintToCurrentTeam(sprintData)
-                //removeDeactivatedMemberFromTeams(memberId)
                 addMemberToTeam: function (teamId, memberId) {
                     dispatcher.dispatch(constants.ADD_MEMBER_TO_TEAM, teamId, memberId);
                 },
 
-                removeMemberFromSingleTeam: function (teamId, memberId) {
+                removeMemberFromTeam: function (teamId, memberId) {
                     dispatcher.dispatch(constants.REMOVE_MEMBER_FROM_TEAM, teamId, memberId);
                 },
 
                 changeCurrentTeamId: function (teamId) {
-                    dispatcher.dispatch(constants.CHANGE_CURRENT_TEAM, teamId);
+                    dispatcher.dispatch(constants.CHANGE_CURRENT_TEAM_ID, teamId);
                 },
 
                 changeExistingMemberId: function (memberId) {
-                    dispatcher.dispatch(constants.CHANGE_EXISTING_MEMBER, memberId);
+                    dispatcher.dispatch(constants.CHANGE_EXISTING_MEMBER_ID, memberId);
                 },
 
                 // TODO: split into 3 functions
                 changeCurrentSprintId: function (destination) {
-                    dispatcher.dispatch(constants.CHANGE_CURRENT_SPRINT, destination);
+                    dispatcher.dispatch(constants.CHANGE_CURRENT_SPRINT_ID, destination);
                 },
 
                 moveSprintToNextState: function (sprintId, teamId) {
@@ -64,7 +62,7 @@ define([
                     dispatcher.dispatch(constants.ADD_MEMBER_TO_SPRINT, teamId, sprintId, memberId);
                 },
 
-                removeMemberFromSingleSprint: function (teamId, sprintId, memberId) {
+                removeMemberFromSprint: function (teamId, sprintId, memberId) {
                     dispatcher.dispatch(constants.REMOVE_MEMBER_FROM_SPRINT, teamId, sprintId, memberId);
                 },
 
