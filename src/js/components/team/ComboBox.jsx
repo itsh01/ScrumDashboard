@@ -21,6 +21,18 @@ define(['lodash', 'React'],
                 this.props.handleChange(items);
             },
 
+            addItem: function (e) {
+                e.preventDefault();
+
+                var domNode = this.refs.newItem.getDOMNode(),
+                    items = _.cloneDeep(this.props.items);
+
+                items.push(domNode.value);
+
+                this.props.handleChange(items);
+                domNode.value = '';
+            },
+
             render: function () {
                 var itemList = _.map(this.props.items, function (item) {
                     return (<li className="combo-box-item" key={item}>
@@ -34,7 +46,9 @@ define(['lodash', 'React'],
                 }, this);
 
                 return (<div>
-                    <input type="text"/>
+                    <form onSubmit={this.addItem}>
+                        <input type="text" ref="newItem"/>
+                    </form>
                     <ul className="combo-box-list">
                         {itemList}
                     </ul>
