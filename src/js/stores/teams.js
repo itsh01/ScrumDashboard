@@ -322,8 +322,8 @@ define([
                 currentViewState.currentTeamId = teamId;
             }
 
-            function changeExistingMember(memberId) {
-                currentViewState.currentExistingMemberId = memberId;
+            function changeExistingMemberId(data) {
+                currentViewState.currentExistingMemberId = data.memberId;
             }
 
             var actions = [
@@ -340,7 +340,7 @@ define([
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_TEAM, callback: removeMemberFromSingleTeam},
                 {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSingleSprint},
-                {name: constants.actionNames.CHANGE_EXISTING_MEMBER, callback: changeExistingMember},
+                {name: constants.actionNames.CHANGE_EXISTING_MEMBER, callback: changeExistingMemberId},
                 {name: constants.actionNames.RETROFY_CURRENT_SPRINT, callback: retrofyCurrentSprint},
                 {name: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, callback: addSprintToCurrentTeam}
             ];
