@@ -60,6 +60,13 @@ define([
                 this.setState({scrumMaster: e.target.value}, this.updateSprint);
             },
 
+
+            formatDate: function (rawDate) {
+                var formattedDate = moment(rawDate);
+                formattedDate.locale('en');
+                return formattedDate.format(constants.DATE_FORMAT);
+            },
+            
             updateSprint: function (data) {
                 var sprintData = _.cloneDeep(data || this.state),
                     teamsStore = this.context.flux.teamsStore;
@@ -125,28 +132,21 @@ define([
                 this.setState({cardLifecycle: newLifecycle}, this.updateSprint);
             },
 
-            formatDate: function (rawDate) {
-                var formattedDate = moment(rawDate);
-                formattedDate.locale('en');
-                return formattedDate.format('YYYY-MM-DD');
-            },
 
             changeStartDate: function (newStartDate) {
                 var sprintData = _.cloneDeep(this.state);
 
-                sprintData.startDate = newStartDate.format('YYYY-MM-DD');
-                sprintData.endDate = this.formatDate(sprintData.endDate);
-
+                sprintData.startDate = newStartDate.format(constants.DATE_FORMAT);
                 this.updateSprint(sprintData);
             },
+            
             changeEndDate: function (newEndDate) {
                 var sprintData = _.cloneDeep(this.state);
 
-                sprintData.endDate = newEndDate.format('YYYY-MM-DD');
-                sprintData.startDate = this.formatDate(sprintData.startDate);
-
+                sprintData.endDate = newEndDate.format(constants.DATE_FORMAT);
                 this.updateSprint(sprintData);
             },
+            
             render: function () {
                 return (
                     <div className="edit-sprint" onKeyUp={this.listenForStateChange}>
