@@ -2,9 +2,11 @@ define([
         'lodash',
         'React',
         'constants',
-        'components/team/ComboBox'
+        'components/team/ComboBox',
+        'moment',
+        'DatePicker'
     ],
-    function (_, React, constants, ComboBox) {
+    function (_, React, constants, ComboBox, moment, DatePicker) {
         'use strict';
 
         return React.createClass({
@@ -17,7 +19,18 @@ define([
             mixins: [React.addons.LinkedStateMixin],
 
             getInitialState: function () {
-                return this.context.flux.teamsStore.getCurrentSprint();
+                return this.fetchState();
+            },
+
+            componentWillReceiveProps: function () {
+                this.setState( this.fetchState() );
+            },
+
+            fetchState: function () {
+                var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
+                currentSprint.startDate = currentSprint.startDate ? moment(currentSprint.startDate) : moment();
+                currentSprint.endDate = currentSprint.endDate ? moment(currentSprint.endDate) : moment();
+                return currentSprint;
             },
 
             teamMemberOptionsBox: function () {
@@ -46,10 +59,13 @@ define([
                 this.setState({scrumMaster: e.target.value}, this.updateSprint);
             },
 
-            updateSprint: function () {
-                var sprintData = _.cloneDeep(this.state),
+            updateSprint: function (data) {
+                var sprintData = _.cloneDeep(data || this.state),
                     teamsStore = this.context.flux.teamsStore;
                 delete sprintData.id;
+
+                sprintData.startDate = this.formatDate(sprintData.startDate);
+                sprintData.endDate = this.formatDate(sprintData.endDate);
 
 
                 this.context.flux.dispatcher.dispatchAction(
@@ -58,6 +74,7 @@ define([
                     sprintData,
                     teamsStore.getCurrentTeam().id
                 );
+
             },
             toggleTeamMember: function (memberId) {
                 var members = this.state.members;
@@ -119,6 +136,29 @@ define([
             changeLifecycle: function (newLifecycle) {
                 this.setState({cardLifecycle: newLifecycle}, this.updateSprint);
             },
+
+            formatDate: function (rawDate) {
+                var formattedDate = moment(rawDate);
+                formattedDate.locale('en');
+                return formattedDate.format('YYYY-MM-DD');
+            },
+
+            changeStartDate: function (newStartDate) {
+                var sprintData = _.cloneDeep(this.state);
+
+                sprintData.startDate = newStartDate.format('YYYY-MM-DD');
+                sprintData.endDate = this.formatDate(sprintData.endDate);
+
+                this.updateSprint(sprintData);
+            },
+            changeEndDate: function (newEndDate) {
+                var sprintData = _.cloneDeep(this.state);
+
+                sprintData.endDate = newEndDate.format('YYYY-MM-DD');
+                sprintData.startDate = this.formatDate(sprintData.startDate);
+
+                this.updateSprint(sprintData);
+            },
             render: function () {
                 return (
                     <div className="edit-sprint" onKeyUp={this.listenForStateChange}>
@@ -126,13 +166,17 @@ define([
                                                                      valueLink={this.linkState('name')}></input>)}
                         {this.getFieldWrapper('Scrum Master:', this.teamMemberOptionsBox())}
                         {this.getFieldWrapper('Select Sprint Members:', this.teamMembersCheckBoxes())}
-                        {this.getFieldWrapper('Start Date:', <input type='text'
-                                                                    valueLink={this.linkState('startDate')}></input>)}
-                        {this.getFieldWrapper('End Date:', <input type='text'
-                                                                  valueLink={this.linkState('endDate')}></input>)}
+                        {this.getFieldWrapper('Start Date:', <DatePicker
+                            selected={this.state.startDate}
+                            onChange={this.changeStartDate}
+                            dateFormat="YYYY-MM-DD"/>)}
+                        {this.getFieldWrapper('End Date:', <DatePicker
+                            selected={this.state.endDate}
+                            onChange={this.changeEndDate}
+                            dateFormat="YYYY-MM-DD"/>)}
                         {this.getFieldWrapper('Add Phase To Lifecycle', <ComboBox
-                                                                            items={this.state.cardLifecycle}
-                                                                            handleChange={this.changeLifecycle}/>)}
+                            items={this.state.cardLifecycle}
+                            handleChange={this.changeLifecycle}/>)}
 
                     </div>
                 );

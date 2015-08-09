@@ -6,7 +6,7 @@ define([
         'lodash',
         'React',
         'constants',
-        'components/team-management/MembersComboBox'
+        '../general/Search'
     ],
     function (_, React, constants, MembersComboBox) {
         'use strict';
