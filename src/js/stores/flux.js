@@ -16,14 +16,15 @@ define(
         'use strict';
 
         function Flux() {
-            var emitter = new EventEmitter2(), newDispatcher = new flux.Dispatcher();
+            var newDispatcher = new flux.Dispatcher();
+            this.emitter = new EventEmitter2();
             this.cardsActions = cardsActions(newDispatcher);
             this.teamsActions = teamsActions(newDispatcher);
             this.dispatcher = new Dispatcher();
-            this.cardsStore = new Cards(this.dispatcher, newDispatcher, emitter);
+            this.cardsStore = new Cards(this.dispatcher, newDispatcher, this.emitter);
             this.membersStore = new Members(this.dispatcher);
             this.planningStore = new Planning(this.dispatcher);
-            this.teamsStore = new Teams(this.dispatcher, this.cardsStore.getUserCards, newDispatcher, emitter);
+            this.teamsStore = new Teams(this.dispatcher, this.cardsStore.getUserCards, newDispatcher, this.emitter);
 
         }
 
