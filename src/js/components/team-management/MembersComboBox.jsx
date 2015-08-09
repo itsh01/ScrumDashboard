@@ -3,11 +3,11 @@ define(['lodash', 'React', 'constants'],
         'use strict';
         function createMemberItem(member) {
             return (
-                <li data-id={member.id} data-name={member.name}
-                    onClick={this.changeExistingMember}
+                <li
+                    onClick={this.changeExistingMember.bind(null, member)}
                     className='matched-member'
                     key={member.id}>
-                    {createMatchedMemberName(member.name, this.state.searchStr)}
+                    {createMatchedMemberName(member, this.state.searchStr)}
                 </li>
             );
         }
@@ -18,10 +18,10 @@ define(['lodash', 'React', 'constants'],
                 memberNameArr;
         }
 
-        function createMatchedMemberName(memberName, searchStr) {
+        function createMatchedMemberName(member, searchStr) {
             var parenthesizedSearchStr = '(' + searchStr + ')';
             var re = new RegExp(parenthesizedSearchStr, 'gi');
-            var resultArr = memberName.split(re);
+            var resultArr = member.name.split(re);
             return (
                 <span>
                     {
@@ -52,12 +52,10 @@ define(['lodash', 'React', 'constants'],
                     this.refs.matchedMemberContainer.getDOMNode().style.opacity = 1;
                 }
             },
-            changeExistingMember: function (event) {
-                var memberId = event.target.dataset.id;
-                var memberName = event.target.dataset.name;
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_EXISTING_MEMBER, memberId);
+            changeExistingMember: function (member) {
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_EXISTING_MEMBER, member.id);
                 this.invisibleMatchedMemberContainer();
-                this.refs.searchInput.getDOMNode().value = memberName;
+                this.refs.searchInput.getDOMNode().value = member.name;
 
             },
             getComboBox: function () {

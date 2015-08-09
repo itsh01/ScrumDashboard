@@ -18,21 +18,28 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
                 };
 
             },
+
+            componentDidMount: function () {
+                this.dispatcher = this.context.flux.dispatcher;
+                this.teamsStore = this.context.flux.teamsStore;
+            },
+
+
             handleMoveMember: function (memberId) {
-                var currentTeamId = this.context.flux.teamsStore.getCurrentTeam().id;
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.REMOVE_MEMBER_FROM_TEAM, currentTeamId, memberId);
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER_TO_TEAM, this.props.team.id, memberId);
+                var currentTeamId = this.teamsStore.getCurrentTeam().id;
+                this.dispatcher.dispatchAction(constants.actionNames.REMOVE_MEMBER_FROM_TEAM, currentTeamId, memberId);
+                this.dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER_TO_TEAM, this.props.team.id, memberId);
 
             },
-            changeCurrentTeam: function (e) {
-                var teamId = e.target.dataset.id;
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM, teamId);
+            changeCurrentTeam: function (event) {
+                var teamId = event.target.dataset.id;
+                this.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM, teamId);
 
             },
             removeTeam: function (event) {
                 event.stopPropagation();
                 var teamId = event.target.id;
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.DEACTIVATE_TEAM, teamId);
+                this.dispatcher.dispatchAction(constants.actionNames.DEACTIVATE_TEAM, teamId);
             },
             render: function () {
                 var team = this.props.team;
