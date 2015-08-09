@@ -161,7 +161,7 @@ define([
                         {this.getFieldWrapper('End Date:', <DatePicker
                             selected={this.state.endDate}
                             onChange={this.changeEndDate}
-                            dateFormat="YYYY-MM-DD"/>)}}
+                            dateFormat="YYYY-MM-DD"/>)}
                         {this.getFieldWrapper('Add Phase To Lifecycle', <ComboBox
                             items={this.state.cardLifecycle}
                             handleChange={this.changeLifecycle}/>)}
