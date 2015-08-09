@@ -290,7 +290,7 @@ define([
             function resetCurrentSprintIfInvalid() {
                 var isCurrSprintValid = this.getSprintIndex(currentViewState.currentSprint) !== -1;
                 if (!isCurrSprintValid) {
-                    currentViewState.currentSprint = _.last(this.getCurrentTeam().sprints);
+                    currentViewState.currentSprint = _.last(this.getCurrentTeam().sprints).id;
                 }
             }
 
