@@ -117,7 +117,7 @@ requirejs(
                 var currentTeam = this.flux.teamsStore.getCurrentTeam();
 
                 return <div>
-                    <TeamManagement allTeams={allTeams} currentTeam={currentTeam}/>
+                    <TeamManagement allTeams={allTeams} currentTeam={currentTeamId}/>
 
                 </div>
 
