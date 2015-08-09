@@ -19,6 +19,14 @@ define([
             mixins: [React.addons.LinkedStateMixin],
 
             getInitialState: function () {
+                return this.fetchState();
+            },
+
+            componentWillReceiveProps: function () {
+                this.setState( this.fetchState() );
+            },
+
+            fetchState: function () {
                 var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
                 currentSprint.startDate = currentSprint.startDate ? moment(currentSprint.startDate) : moment();
                 currentSprint.endDate = currentSprint.endDate ? moment(currentSprint.endDate) : moment();
@@ -66,6 +74,7 @@ define([
                     sprintData,
                     teamsStore.getCurrentTeam().id
                 );
+
             },
             toggleTeamMember: function (memberId) {
                 var members = this.state.members;
