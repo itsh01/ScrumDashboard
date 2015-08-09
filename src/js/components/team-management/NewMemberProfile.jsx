@@ -6,9 +6,11 @@ define([
         'lodash',
         'React',
         'constants',
-        '../general/Search'
+        '../general/Search',
+        './AddExistingMember',
+        './AddNewMember'
     ],
-    function (_, React, constants, MembersComboBox) {
+    function (_, React, constants, MembersComboBox, AddExistingMember, AddNewMember) {
         'use strict';
         return React.createClass({
             displayName: 'New Member Profile',
@@ -29,43 +31,18 @@ define([
                 this.refs[this.state.memberType].getDOMNode().checked = 'checked';
             },
 
-            addNewMember: function (event) {
-                event.preventDefault();
-                var teamId = this.props.team.id;
-                var memberName = this.refs.memberName.getDOMNode().value;
-                var memberImgUrl = this.refs.memberImgUrl.getDOMNode().value || 'img/mosh.jpg';
-                var newMember = this.context.flux.membersStore.getBlankMember();
-                newMember.name = memberName;
-                newMember.image = memberImgUrl;
-                this.context.flux.dispatcher.dispatchAction(
-                    constants.actionNames.CREATE_MEMBER_INTO_TEAM, newMember, teamId);
 
+            getNewMemberForm: function () {
+                return <AddNewMember team = {this.props.team}/>;
             },
-            addExistingMember: function () {
-                var memberId = this.props.currentMember.id;
-                var currentTeamId = this.context.flux.teamsStore.getCurrentTeam().id;
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER_TO_TEAM, currentTeamId, memberId);
+
+            getExistingMemberForm: function () {
+                return <AddExistingMember team = {this.props.team} currentMember = {this.props.currentMember}/>;
             },
             getNewMemberContent: function () {
                 return this.state.memberType === 'newMember' ?
-                    <form className='add-new-member' onSubmit={this.addNewMember}>
-                        <input ref='memberName' type='text' placeholder='Member name'
-                               className='member-name-input'/>
-                        <img src='img/mosh.jpg' alt='mosh is cute' className='member-img'/>
-                        <input ref='memberImgUrl' type='url' placeholder='image url'
-                               className='img-url-input'/>
-                        <button type="submit" className="hidden"></button>
-                    </form> :
-                    <div className='add-existing-member'>
-                        <div className='search-bar'>
-                            <MembersComboBox searchStr={this.state.searchStr}/>
-                            <img className='member-img'
-                                 alt={this.props.currentMember.name}
-                                 src={this.props.currentMember.image}/>
-
-                        </div>
-                        <div className="team-management-button" onClick={this.addExistingMember}>Add Member</div>
-                    </div>;
+                    this.getNewMemberForm() :
+                    this.getExistingMemberForm();
             },
             changeMemberType: function (event) {
                 var selectedMember = event.target.value;
@@ -73,20 +50,27 @@ define([
                     memberType: selectedMember
                 });
             },
+
+            getMemberTypeForm: function () {
+                return (
+                    <form onChange={this.changeMemberType} className='member-type'>
+                        <input ref='newMember' type='radio' id='newMember' name='memberType'
+                               value='newMember'/>
+                        <label htmlFor='newMember'>New member</label>
+                        <input ref='existingMember' type='radio' id='existingMember' name='memberType'
+                               value='existingMember'/>
+                        <label htmlFor='existingMember'>Existing member</label>
+                    </form>
+                );
+            },
+
             render: function () {
                 var classSet = React.addons.classSet;
                 return (
                     <div>
                         <div>
                             <h3> add member to team </h3>
-
-                            <form onChange={this.changeMemberType} className='member-type'>
-                                <input ref='newMember' type='radio' id='newMember' name='memberType' value='newMember'/>
-                                <label htmlFor='newMember'>New member</label>
-                                <input ref='existingMember' type='radio' id='existingMember' name='memberType'
-                                       value='existingMember'/>
-                                <label htmlFor='existingMember'>Existing member</label>
-                            </form>
+                            {this.getMemberTypeForm()}
                         </div>
                         <div className={classSet('member-profile', 'new-member-profile')}>
                             {this.getNewMemberContent()}

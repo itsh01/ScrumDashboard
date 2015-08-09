@@ -33,42 +33,43 @@ define(['../../../vendor/lodash', 'React', 'constants'],
         }
 
         return React.createClass({
-            displayName: 'membersCombobox',
+            displayName: 'Search element',
+            propTypes: {
+                searchCollection: React.PropTypes.array,
+                excludedCollection: React.PropTypes.array
+
+            },
             contextTypes: {
                 flux: React.PropTypes.any
             },
+
             getInitialState: function () {
                 return {
                     searchStr: ''
                 };
             },
-            hideMatchedMemberContainer: function () {
+            setMatchedItemContainerVisibility: function (newVisibility) {
                 if (this.refs.matchedMemberContainer) {
-                    this.refs.matchedMemberContainer.getDOMNode().style.opacity = 0;
-                }
-            },
-            showMatchedMemberContainer: function () {
-                if (this.refs.matchedMemberContainer) {
-                    this.refs.matchedMemberContainer.getDOMNode().style.opacity = 1;
+                    this.refs.matchedMemberContainer.getDOMNode().style.opacity = newVisibility;
                 }
             },
             changeExistingMember: function (member) {
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_EXISTING_MEMBER, member.id);
-                this.hideMatchedMemberContainer();
+                this.setMatchedItemContainerVisibility(0);
                 this.refs.searchInput.getDOMNode().value = member.name;
 
             },
-            getComboBox: function () {
-                var allMembers = this.context.flux.membersStore.getAllMembers();
-                var currentTeamMembers = this.context.flux.teamsStore.getCurrentTeam().members;
+            getSearchResults: function () {
+                var allItems = this.props.searchCollection;
+                var excludedCollection = this.props.excludedCollection;
                 return this.state.searchStr === '' ?
                     '' :
                     <div className='matched-member-container' ref='matchedMemberContainer'>
                         <ul className='matched-member-list'>
                             {
 
-                                _(allMembers).filter(function (member) {
-                                    return !_.includes(currentTeamMembers, member.id) &&
+                                _(allItems).filter(function (member) {
+                                    return !_.includes(excludedCollection, member.id) &&
                                         _.includes(member.name.toLowerCase(), this.state.searchStr.toLowerCase());
                                 }, this)
                                     .map(createMemberItem, this).value()
@@ -76,26 +77,26 @@ define(['../../../vendor/lodash', 'React', 'constants'],
                         </ul>
                     </div>;
             },
-            searchMember: function (event) {
-                this.showMatchedMemberContainer();
+            searchItem: function (event) {
+                this.setMatchedItemContainerVisibility(1);
                 var searchStr = event.target.value;
                 this.setState({
                     searchStr: searchStr
                 });
 
             },
-            getSearchElement: function () {
+            getSearchInput: function () {
                 return (
-                    <input ref='searchInput' onChange={this.searchMember}
-                           onBlur={this.hideMatchedMemberContainer}
+                    <input ref='searchInput' onChange={this.searchItem}
+                           onBlur={this.setMatchedItemContainerVisibility.bind(this, 0)}
                            className='search-input' type='text'/>
                 );
             },
             render: function () {
                 return (
                     <div>
-                        {this.getSearchElement()}
-                        {this.getComboBox()}
+                        {this.getSearchInput()}
+                        {this.getSearchResults()}
                     </div>
                 );
             }
