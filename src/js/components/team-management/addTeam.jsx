@@ -5,6 +5,11 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
         contextTypes: {
             flux: React.PropTypes.any
         },
+        componentDidMount: function () {
+            this.dispatcher = this.context.flux.dispatcher;
+            this.teamsStore = this.context.flux.teamsStore;
+        },
+
         getInitialState: function () {
             return {
                 isInputVisible: false
@@ -17,22 +22,35 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
                 }
             );
         },
-        addNewTeam: function (e) {
-            e.preventDefault();
-            var newTeamInput = this.refs.teamName.getDOMNode();
-            var newTeamObject = this.context.flux.teamsStore.getBlankTeam();
-            newTeamObject.name = newTeamInput.value;
-            this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_TEAM, newTeamObject);
+        addNewTeam: function (event) {
+            event.preventDefault();
+            var newTeamName = this.refs.teamName.getDOMNode().value;
+            var newTeamObject = this.teamsStore.getBlankTeam();
+            newTeamObject.name = newTeamName;
+            this.dispatcher.dispatchAction(constants.actionNames.ADD_TEAM, newTeamObject);
+        },
+
+        createAddTeamElement: function () {
+            return (
+                <form onSubmit={this.addNewTeam}>
+                    <input ref='teamName' onBlur={this.toggleInput} type='text' className='team-input'
+                           autoFocus={true}/>
+                </form>
+            );
+        },
+
+        createPlusElement: function () {
+            return (
+                <div onClick={this.toggleInput}
+                     className='team-name'>Plus
+                </div>
+            );
         },
         render: function () {
             var resultContent = this.state.isInputVisible ?
 
-                <form onSubmit={this.addNewTeam}>
-                    <input ref='teamName' onBlur={this.toggleInput} type='text' className='team-input'
-                           autoFocus={true}/>
-                </form> :
-                <div onClick={this.toggleInput}
-                     className='team-name'>Plus</div>;
+                this.createAddTeamElement() :
+                this.createPlusElement();
 
             var classSet = React.addons.classSet;
             return (

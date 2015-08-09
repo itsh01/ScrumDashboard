@@ -1,9 +1,9 @@
-define(['lodash', 'React', 'components/team/TeamComponent',
+define(['lodash', 'React', 'components/team/HomeView',
         'constants', 'components/team-management/TeamManagement'],
-    function (_, React, TeamView, constants, TeamManagement) {
+    function (_, React, HomeView, constants, TeamManagement) {
         'use strict';
         return React.createClass({
-            displayName: 'HomeView',
+            displayName: 'MainView',
 
             propTypes: {
                 currTeam: React.PropTypes.object,
@@ -17,12 +17,12 @@ define(['lodash', 'React', 'components/team/TeamComponent',
 
             getInitialState: function () {
                 return {
-                    view: 'SprintView'
+                    view: 'HomeView'
                 };
             },
 
             getTeams: function () {
-                return this.context.flux.teamsStore.getAllTeams();
+                return this.context.flux.teamsStore.getAllActiveTeams();
             },
 
             clearStorage: function () {
@@ -35,17 +35,16 @@ define(['lodash', 'React', 'components/team/TeamComponent',
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, team.sprints[team.sprints.length - 1].id);
             },
             views: {
-                SprintView: 'SprintView',
+                HomeView: 'HomeView',
                 TeamManagement: 'TeamManagement'
             },
             getViewComponent: function () {
-                var allTeams = this.context.flux.teamsStore.getAllTeams();
+                var allTeams = this.context.flux.teamsStore.getAllActiveTeams();
                 var currentTeam = this.context.flux.teamsStore.getCurrentTeam();
-                if (this.state.view === 'SprintView') {
+                if (this.state.view === 'HomeView') {
                     return (
-                        //TODO: change TeamView component name (SprintView?)
-                        <div className="team-view-container">
-                            <TeamView currTeamId={currentTeam.id}/>
+                        <div className="home-view-container">
+                            <HomeView currTeamId={currentTeam.id}/>
                         </div>
                     );
                 }
@@ -84,7 +83,7 @@ define(['lodash', 'React', 'components/team/TeamComponent',
                                 </button>
                                 <button data-view={this.views.TeamManagement} onClick={this.changeView}>Manage Teams
                                 </button>
-                                <button data-view={this.views.SprintView} onClick={this.changeView}>Home</button>
+                                <button data-view={this.views.HomeView} onClick={this.changeView}>Home</button>
                             </div>
                         </div>
 

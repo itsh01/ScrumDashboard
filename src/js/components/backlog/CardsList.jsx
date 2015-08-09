@@ -64,20 +64,20 @@ define([
         },
         render: function () {
             var cardsListToDisplay = _.map(this.props.cardsList, function (card) {
-                return <Card card={card} key={card.id}/>;
+                return <Card isEditable={true} card={card} key={card.id}/>;
             }, this);
 
             if (this.props.cardsList.length === 0) {
-                cardsListToDisplay = <img
+                cardsListToDisplay = (<img
                     src='img/plus-640.png'
                     style={{width: '5rem'}}
   //                  className='card-delete'
-                    onClick={this.addNewCard}/>;
+                    onClick={this.addNewCard}/>);
                 //cardsListToDisplay = <Card onClick={this.addNewCard} card={this.emptyCard} key='empty'/>;
             }
 
             return (
-                <div className='card-editable'>
+                <div>
                     <h3>{this.props.title} </h3>
                     {cardsListToDisplay}
                 </div>

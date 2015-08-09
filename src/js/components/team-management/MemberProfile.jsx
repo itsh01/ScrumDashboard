@@ -18,22 +18,52 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
                 };
             },
 
+            componentDidMount: function () {
+                this.dispatcher = this.context.flux.dispatcher;
+                this.teamsStore = this.context.flux.teamsStore;
+            },
+
             removeMember: function (event) {
                 var memberId = event.target.id;
-                var teamId = this.context.flux.teamsStore.getCurrentTeam().id;
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.REMOVE_MEMBER_FROM_TEAM, teamId, memberId);
+                var teamId = this.teamsStore.getCurrentTeam().id;
+                this.dispatcher.dispatchAction(constants.actionNames.REMOVE_MEMBER_FROM_TEAM, teamId, memberId);
             },
-            render: function () {
+
+            getMemberHeading: function (member) {
                 var classSet = React.addons.classSet;
                 return (
+                    <h3
+                        className={classSet('member-name')}>{member.name}
+                    </h3>
+                );
+            },
+
+            getMemberImage: function (member) {
+                return (
+                    <img className='member-img'
+                         draggable={false}
+                         alt={member.name}
+                         src={member.image}/>
+                );
+            },
+
+            createRemoveMemberButton: function (member) {
+                return (
+                    <button
+                        className='remove-button' onClick={this.removeMember} id={member.id}>X
+                    </button>
+                );
+            },
+
+
+            render: function () {
+                var classSet = React.addons.classSet;
+                var member = this.props.member;
+                return (
                     <div className={classSet('member-profile', 'inline-block')}>
-                        <h3 className={classSet('member-name')}>{this.props.member.name}</h3>
-                        <img className='member-img'
-                             draggable={false}
-                             alt={this.props.member.name}
-                             src={this.props.member.image}/>
-                        <button className='remove-button' onClick={this.removeMember} id={this.props.member.id}>X
-                        </button>
+                        {this.getMemberHeading(member)}
+                        {this.getMemberImage(member)}
+                        {this.createRemoveMemberButton(member)}
                     </div>
                 );
             }

@@ -107,7 +107,7 @@ define([
             },
 
             getSelectBoxes: function () {
-                var teams = this.context.flux.teamsStore.getAllTeams();
+                var teams = this.context.flux.teamsStore.getAllActiveTeams();
                 return (<div>
                     {this.getSelectOptions(this.formatToIdAndName(this.getValidScores()), 'score')}
                     <div>

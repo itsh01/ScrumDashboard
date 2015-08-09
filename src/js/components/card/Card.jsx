@@ -14,7 +14,9 @@ define([
             propTypes: {
                 card: React.PropTypes.object,
                 cardClickHandler: React.PropTypes.func,
-                forceReset: React.PropTypes.bool
+                forceReset: React.PropTypes.bool,
+                isEditable: React.PropTypes.bool,
+                key: React.PropTypes.string
             },
             contextTypes: {
                 flux: React.PropTypes.any,
@@ -52,8 +54,8 @@ define([
                 return (
                     this.state.isDescriptionOpened ?
                         [<p className="card-description">{this.props.card.description}</p>] :
-                        [<h3 className="card-title">{this.props.card.name}</h3>,
-                            <div className="card-points">{pointsDescription}</div>]
+                        [<h3 className="card-title" key={1}>{this.props.card.name}</h3>,
+                            <div className="card-points" key={2}>{pointsDescription}</div>]
                 );
             },
             toggleDescriptionOpened: function () {
@@ -90,7 +92,7 @@ define([
                 var classesObject = {
                     card: true,
                     'card-open': this.state.isDescriptionOpened,
-                    'card-editable': currentSprint && currentSprint.state === constants.SPRINT_STATUS.PLANNING
+                    'card-editable': this.props.isEditable || currentSprint && currentSprint.state === constants.SPRINT_STATUS.PLANNING
                 };
                 classesObject[this.pointsClass[this.getCardScore()]] = true;
                 var classes = cx(classesObject);

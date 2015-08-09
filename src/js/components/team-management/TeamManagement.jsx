@@ -24,7 +24,7 @@ define(['lodash', 'React',
             },
             render: function () {
                 var currentTeam = this.getCurrentTeam();
-                var allTeams = this.context.flux.teamsStore.getAllTeams();
+                var allTeams = this.context.flux.teamsStore.getAllActiveTeams();
                 return (
                     <ReactCSSTransitionGroup transitionName='team-management-transition' transitionAppear={true}>
                         <div className='team-management'>
