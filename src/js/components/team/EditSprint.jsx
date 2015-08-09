@@ -116,6 +116,9 @@ define([
                     this.updateSprint();
                 }
             },
+            changeLifecycle: function (newLifecycle) {
+                this.setState({cardLifecycle: newLifecycle}, this.updateSprint);
+            },
             render: function () {
                 return (
                     <div className="edit-sprint" onKeyUp={this.listenForStateChange}>
@@ -127,7 +130,9 @@ define([
                                                                     valueLink={this.linkState('startDate')}></input>)}
                         {this.getFieldWrapper('End Date:', <input type='text'
                                                                   valueLink={this.linkState('endDate')}></input>)}
-                        {this.getFieldWrapper('Add Phase To Lifecycle', <ComboBox items={this.state.cardLifecycle} />)}
+                        {this.getFieldWrapper('Add Phase To Lifecycle', <ComboBox
+                                                                            items={this.state.cardLifecycle}
+                                                                            handleChange={this.changeLifecycle}/>)}
 
                     </div>
                 );
