@@ -52,7 +52,7 @@ define(['lodash', 'React', 'components/team/TeamComponent',
                 if (this.state.view === 'TeamManagement') {
                     return (
                         <div>
-                            <TeamManagement allTeams={allTeams} currentTeam={currentTeamId}/>
+                            <TeamManagement allTeams={allTeams} currentTeam={currentTeam}/>
                         </div>
                     );
                 }
