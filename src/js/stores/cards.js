@@ -105,7 +105,6 @@ define([
                 delete newCardData.id;
                 if (isValidCard(newCardData)) {
                     var didUpdate = helpers.updateItem(currentCards, cardId, newCardData, 'Card Store');
-                    // TODO: if assignee or team provided then make sure that they exist
                     saveToLocalStorage();
                     return didUpdate;
                 }
@@ -153,7 +152,7 @@ define([
                 {name: constants.actionNames.UPDATE_CARD, callback: updateCard},
                 {name: constants.actionNames.ADD_CARD, callback: addCard},
                 {name: constants.actionNames.REMOVE_CARD, callback: removeCard},
-                {name: constants.actionNames.MEMBER_DEACTIVATED, callback: unassignMemberFromCards}
+                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: unassignMemberFromCards}
             ];
 
             _.forEach(actions, function (action) {
@@ -165,7 +164,6 @@ define([
             CardsStore.dispatchToken = newDispatcher.register(function () {
                 var actionName = [].shift.apply(arguments),
                     payload = arguments,
-
                     action = _.find(actions, {name: actionName});
 
                 if (action) {
@@ -173,13 +171,9 @@ define([
                     saveToLocalStorage();
                     emitter.emit(constants.eventNames.CARDS_STORE_CHANGE_EVENT);
                 }
-
             });
 
         }
-
-
-
 
         return CardsStore;
     });

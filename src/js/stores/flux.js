@@ -23,7 +23,7 @@ define(
             this.cardsStore = new Cards(this.dispatcher, newDispatcher, emitter);
             this.membersStore = new Members(this.dispatcher);
             this.planningStore = new Planning(this.dispatcher);
-            this.teamsStore = new Teams(this.dispatcher, this.cardsStore.getUserCards);
+            this.teamsStore = new Teams(this.dispatcher, this.cardsStore.getUserCards, newDispatcher, emitter);
 
         }
 
