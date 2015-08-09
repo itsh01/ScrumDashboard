@@ -94,3 +94,18 @@
     font-size: 0.7rem;
     cursor: pointer;
 }
+
+.input-section {
+    margin: 1rem;
+}
+
+.input-section-label {
+    display: inline-block;
+    min-width: 11rem;
+    vertical-align: top;
+    margin-bottom: 0.5rem;
+}
+
+.input-section-field {
+    display: inline-block;
+}

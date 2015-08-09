@@ -117,11 +117,11 @@ define([
             getFieldWrapper: function (text, fields) {
 
                 return (
-                    <div className=''>
-                        <div className=''>
+                    <div className='input-section'>
+                        <div className='input-section-label'>
                             <span>{text}</span>
                         </div>
-                        <div className=''>
+                        <div className='input-section-field'>
                             {fields}
                         </div>
                     </div>
