@@ -22,7 +22,7 @@ define(['lodash', 'React', 'components/team/TeamComponent',
             },
 
             getTeams: function () {
-                return this.context.flux.teamsStore.getAllTeams();
+                return this.context.flux.teamsStore.getAllActiveTeams();
             },
 
             clearStorage: function () {
@@ -39,7 +39,7 @@ define(['lodash', 'React', 'components/team/TeamComponent',
                 TeamManagement: 'TeamManagement'
             },
             getViewComponent: function () {
-                var allTeams = this.context.flux.teamsStore.getAllTeams();
+                var allTeams = this.context.flux.teamsStore.getAllActiveTeams();
                 var currentTeam = this.context.flux.teamsStore.getCurrentTeam();
                 if (this.state.view === 'SprintView') {
                     return (
