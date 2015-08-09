@@ -1,12 +1,12 @@
 define([
         'lodash',
-        '../store/teams',
-        '../../constants'
+        '../../teams',
+        '../../../constants'
     ],
     function (_, teamsStore, constants) {
         'use strict';
 
-        function TeamsStoreActions(dispatcher) {
+        function teamsStoreActions(dispatcher) {
 
             return {
                 addTeam: function (teamData) {
@@ -72,5 +72,5 @@ define([
             }
         }
 
-        return TeamsStoreActions;
+        return teamsStoreActions;
     });

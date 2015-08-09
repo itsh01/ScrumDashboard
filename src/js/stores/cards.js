@@ -20,7 +20,7 @@ define([
             NotCompleted: {endDate: null}
         };
 
-        function CardsStore(dispatcher) {
+        function CardsStore(dispatcher, newDispatcher, emitter) {
             var dataFileVersion = '1',
                 CARDS_SCHEMA = {
                     name: {type: 'string'},
@@ -161,8 +161,8 @@ define([
             }.bind(this));
 
 
-            /*
-            CardsStore.dispatchToken = dispatcher.register(function () {
+
+            CardsStore.dispatchToken = newDispatcher.register(function () {
                 var actionName = [].shift.apply(arguments),
                     payload = arguments,
 
@@ -170,12 +170,12 @@ define([
 
                 if (action) {
                     action.callback.apply(this, payload);
-                    saveToLocalStorage;
-                    emitter.emitChange();
+                    saveToLocalStorage();
+                    emitter.emit(constants.eventNames.CARDS_STORE_CHANGE_EVENT);
                 }
 
             });
-            */
+
         }
 
 
