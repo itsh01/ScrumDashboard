@@ -6,13 +6,13 @@ define([
         'lodash',
         'React',
 
-        'components/HomeView',
+        'components/MainView',
         'stores/flux',
 
         'components/pop-up/Basic',
         'components/card-edit/CardEditCreate'
     ],
-    function (_, React, HomeView, Flux, Popup, CardEditCreate) {
+    function (_, React, MainView, Flux, Popup, CardEditCreate) {
         'use strict';
 
 
@@ -53,7 +53,7 @@ define([
                 return (
                     <div>
                         {this.popUpFactory()}
-                        <HomeView />
+                        <MainView />
                     </div>);
             }
         });
