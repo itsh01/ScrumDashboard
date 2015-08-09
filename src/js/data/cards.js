@@ -15,7 +15,7 @@ define([], function () {
             "id": "90eed4aa-40fe-496e-999a-54a436d66427",
             "name": "hack digital protocol",
             "description": "I'll compress the digital EXE protocol, that should protocol the EXE protocol!",
-            "status": "Done",
+            "status": "unassigned",
             "score": 1,
             "team": null,
             "assignee": null,
