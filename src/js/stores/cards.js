@@ -158,7 +158,27 @@ define([
             _.forEach(actions, function (action) {
                 dispatcher.registerAction(action.name, action.callback.bind(this));
             }.bind(this));
+
+
+            /*
+            CardsStore.dispatchToken = dispatcher.register(function () {
+                var actionName = [].shift.apply(arguments),
+                    payload = arguments,
+
+                    action = _.find(actions, {name: actionName});
+
+                if (action) {
+                    action.callback.apply(this, payload);
+                    saveToLocalStorage;
+                    emitter.emitChange();
+                }
+
+            });
+            */
         }
+
+
+
 
         return CardsStore;
     });

@@ -2,11 +2,12 @@ define([
         'lodash',
         'React',
         'constants',
-        'components/team/ComboBox',
+        'components/general/InputWrapper',
+        'components/general/ComboBox',
         'moment',
         'DatePicker'
     ],
-    function (_, React, constants, ComboBox, moment, DatePicker) {
+    function (_, React, constants, InputWrapper, ComboBox, moment, DatePicker) {
         'use strict';
 
         return React.createClass({
@@ -59,6 +60,13 @@ define([
                 this.setState({scrumMaster: e.target.value}, this.updateSprint);
             },
 
+
+            formatDate: function (rawDate) {
+                var formattedDate = moment(rawDate);
+                formattedDate.locale('en');
+                return formattedDate.format(constants.DATE_FORMAT);
+            },
+            
             updateSprint: function (data) {
                 var sprintData = _.cloneDeep(data || this.state),
                     teamsStore = this.context.flux.teamsStore;
@@ -100,7 +108,8 @@ define([
                     })
                     .map(function mapMemberToInput(member) {
                         return (<label
-                            key={member.id}>
+                            key={member.id}
+                            className="input-checkbox">
                             <input
                                 checked={_.includes(this.state.members, member.id)}
                                 onChange={this.toggleTeamMember.bind(this, member.id)}
@@ -113,20 +122,6 @@ define([
                     }, this)
                     .value();
             },
-
-            getFieldWrapper: function (text, fields) {
-
-                return (
-                    <div className=''>
-                        <div className=''>
-                            <span>{text}</span>
-                        </div>
-                        <div className=''>
-                            {fields}
-                        </div>
-                    </div>
-                );
-            },
             listenForStateChange: function () {
                 var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
                 if (!_.isEqual(currentSprint, this.state)) {
@@ -137,49 +132,60 @@ define([
                 this.setState({cardLifecycle: newLifecycle}, this.updateSprint);
             },
 
-            formatDate: function (rawDate) {
-                var formattedDate = moment(rawDate);
-                formattedDate.locale('en');
-                return formattedDate.format('YYYY-MM-DD');
-            },
 
             changeStartDate: function (newStartDate) {
                 var sprintData = _.cloneDeep(this.state);
 
-                sprintData.startDate = newStartDate.format('YYYY-MM-DD');
-                sprintData.endDate = this.formatDate(sprintData.endDate);
-
+                sprintData.startDate = newStartDate.format(constants.DATE_FORMAT);
                 this.updateSprint(sprintData);
             },
+            
             changeEndDate: function (newEndDate) {
                 var sprintData = _.cloneDeep(this.state);
 
-                sprintData.endDate = newEndDate.format('YYYY-MM-DD');
-                sprintData.startDate = this.formatDate(sprintData.startDate);
-
+                sprintData.endDate = newEndDate.format(constants.DATE_FORMAT);
                 this.updateSprint(sprintData);
             },
+            
             render: function () {
                 return (
                     <div className="edit-sprint" onKeyUp={this.listenForStateChange}>
-                        {this.getFieldWrapper('Sprint Name:', <input type='text'
-                                                                     valueLink={this.linkState('name')}></input>)}
-                        {this.getFieldWrapper('Scrum Master:', this.teamMemberOptionsBox())}
-                        {this.getFieldWrapper('Select Sprint Members:', this.teamMembersCheckBoxes())}
-                        {this.getFieldWrapper('Start Date:', <DatePicker
-                            selected={this.state.startDate}
-                            onChange={this.changeStartDate}
-                            dateFormat="YYYY-MM-DD"/>)}
-                        {this.getFieldWrapper('End Date:', <DatePicker
-                            selected={this.state.endDate}
-                            onChange={this.changeEndDate}
-                            dateFormat="YYYY-MM-DD"/>)}
-                        {this.getFieldWrapper('Add Phase To Lifecycle', <ComboBox
-                            items={this.state.cardLifecycle}
-                            handleChange={this.changeLifecycle}/>)}
+                        <InputWrapper
+                        text='Sprint Name:'
+                        fields={<input
+                                type='text'
+                                valueLink={this.linkState('name')}/>}/>
 
+                        <InputWrapper
+                            text='Scrum Master:'
+                            fields={this.teamMemberOptionsBox()}/>
+
+                        <InputWrapper
+                            text='Sprint Members:'
+                            fields={this.teamMembersCheckBoxes()}/>
+
+                        <InputWrapper
+                            text='Start Date:'
+                            fields={<DatePicker
+                                selected={this.state.startDate}
+                                onChange={this.changeStartDate}
+                                dateFormat="YYYY-MM-DD"/>}/>
+
+                        <InputWrapper
+                            text='End Date:'
+                            fields={<DatePicker
+                                selected={this.state.endDate}
+                                onChange={this.changeEndDate}
+                                dateFormat="YYYY-MM-DD"/>}/>
+
+                        <InputWrapper
+                            text='Sprint Members:'
+                            fields={<ComboBox
+                                items={this.state.cardLifecycle}
+                                handleChange={this.changeLifecycle}/>}/>
                     </div>
                 );
+
             }
         });
     }

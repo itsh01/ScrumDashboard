@@ -33,6 +33,7 @@ define([], function () {
             PLANNING_EDIT_CARD: 'PLANNING_EDIT_CARD'
         },
 
-        SPRINT_STATUS: {PLANNING: 0, IN_PROGRESS: 1, RETRO: 2}
+        SPRINT_STATUS: {PLANNING: 0, IN_PROGRESS: 1, RETRO: 2},
+        DATE_FORMAT: 'YYYY-MM-DD'
     };
 });

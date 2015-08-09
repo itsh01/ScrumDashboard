@@ -54,6 +54,10 @@ module.exports = function (grunt) {
                     {
                         src: 'node_modules/react-datepicker/node_modules/react-onclickoutside/index.js',
                         dest: 'src/vendor/react-onclickoutside.js'
+                    },
+                    {
+                        src: 'node_modules/eventemitter2/lib/eventemitter2.js',
+                        dest: 'src/vendor/eventemitter2.js'
                     }
                 ]
             },
