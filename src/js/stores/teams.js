@@ -7,7 +7,8 @@ define([
     function (_, defaultTeamData, helpers, constants) {
         'use strict';
         var filterFunctions = {
-            AllTeams: null
+            AllTeams: null,
+            AllActiveTeams: {active: true}
         };
 
         function TeamStore(dispatcher, getUserCards) {
@@ -43,9 +44,14 @@ define([
             }, this);
 
             var currentViewState = {
-                currentTeam: teamsData[0].id,
-                currentSprint: (_.last(teamsData[0].sprints)).id,
+                currentTeamId: teamsData[0].id,
+                currentSprintId: (_.last(teamsData[0].sprints)).id,
                 currentExistingMemberId: teamsData[0].members[0]
+            };
+
+            this.changeCurrentTeamToDefault = function () {
+                var defaultTeamId = this.getAllActiveTeams()[0].id;
+                dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM, defaultTeamId);
             };
 
             this.getTeamById = function (id) {
@@ -105,7 +111,7 @@ define([
             }
 
             function addSprintToCurrentTeam(sprintData) {
-                addSprint.call(this, currentViewState.currentTeam, sprintData);
+                addSprint.call(this, currentViewState.currentTeamId, sprintData);
             }
 
             function removeDeactivatedMemberFromTeams(memberId) {
@@ -217,12 +223,12 @@ define([
             }
 
             function retrofyCurrentSprint() {
-                retrofySprint(currentViewState.currentSprint);
+                retrofySprint(currentViewState.currentSprintId);
             }
 
             // teamId is an optional argument
             function moveSprintToNextState(sprintId, teamId) {
-                sprintId = sprintId || currentViewState.currentSprint;
+                sprintId = sprintId || currentViewState.currentSprintId;
                 var sprint = getSprint(sprintId, teamId);
                 if (!validateSprintBeforeMovingToNextState(sprint, sprintId)) {
                     return;
@@ -251,6 +257,9 @@ define([
                 if (team) {
                     team.active = false;
                     saveToLocalStorage();
+                    if (teamId === currentViewState.currentTeamId) {
+                        this.changeCurrentTeamToDefault();
+                    }
                     return true;
                 }
                 console.log('Team Store: attempt to deactivate non existent team (teamId: ', teamId, ')');
@@ -272,13 +281,12 @@ define([
 
             /*eslint-enable no-unused-vars */
 
-
             this.getCurrentTeam = function () {
-                return this.getTeamById(currentViewState.currentTeam);
+                return this.getTeamById(currentViewState.currentTeamId);
             };
 
             this.getSprintIndex = function (sprintId) {
-                var sprints = this.getTeamById(currentViewState.currentTeam).sprints;
+                var sprints = this.getTeamById(currentViewState.currentTeamId).sprints;
                 for (var i = 0; i < sprints.length; i++) {
                     if (sprints[i].id === sprintId) {
                         return i;
@@ -287,29 +295,29 @@ define([
                 return -1;
             };
 
-            function resetCurrentSprintIfInvalid() {
-                var isCurrSprintValid = this.getSprintIndex(currentViewState.currentSprint) !== -1;
+            function resetCurrentSprintIdIfInvalid() {
+                var isCurrSprintValid = this.getSprintIndex(currentViewState.currentSprintId) !== -1;
                 if (!isCurrSprintValid) {
-                    currentViewState.currentSprint = _.last(this.getCurrentTeam().sprints).id;
+                    currentViewState.currentSprintId = _.last(this.getCurrentTeam().sprints).id;
                 }
             }
 
             this.getCurrentSprint = function () {
-                resetCurrentSprintIfInvalid.call(this);
-                return this.getSprintById(currentViewState.currentSprint);
+                resetCurrentSprintIdIfInvalid.call(this);
+                return this.getSprintById(currentViewState.currentSprintId);
             };
 
             // This function gets 'next'/'prev'/sprint id as the destination string
-            function changeCurrentSprint(destination) {
-                var sprintsLastIndex = this.getTeamById(currentViewState.currentTeam).sprints.length - 1;
-                var currSprintIndex = this.getSprintIndex(currentViewState.currentSprint);
+            function changeCurrentSprintId(destination) {
+                var sprintsLastIndex = this.getTeamById(currentViewState.currentTeamId).sprints.length - 1;
+                var currSprintIndex = this.getSprintIndex(currentViewState.currentSprintId);
                 if (destination === 'next' && currSprintIndex < sprintsLastIndex) {
-                    currentViewState.currentSprint = this.getTeamById(currentViewState.currentTeam).sprints[currSprintIndex + 1].id;
+                    currentViewState.currentSprintId = this.getTeamById(currentViewState.currentTeamId).sprints[currSprintIndex + 1].id;
                 }
                 if (destination === 'previous' && currSprintIndex > 0) {
-                    currentViewState.currentSprint = this.getTeamById(currentViewState.currentTeam).sprints[currSprintIndex - 1].id;
+                    currentViewState.currentSprintId = this.getTeamById(currentViewState.currentTeamId).sprints[currSprintIndex - 1].id;
                 } else if (destination !== 'next' && destination !== 'previous') {
-                    currentViewState.currentSprint = destination;
+                    currentViewState.currentSprintId = destination;
                 }
             }
 
@@ -318,11 +326,11 @@ define([
             };
 
 
-            function changeCurrentTeam(teamId) {
-                currentViewState.currentTeam = teamId;
+            function changeCurrentTeamId(teamId) {
+                currentViewState.currentTeamId = teamId;
             }
 
-            function changeExistingMember(memberId) {
+            function changeExistingMemberId(memberId) {
                 currentViewState.currentExistingMemberId = memberId;
             }
 
@@ -330,8 +338,8 @@ define([
                 {name: constants.actionNames.ADD_TEAM, callback: addTeam},
                 {name: constants.actionNames.ADD_SPRINT, callback: addSprint},
                 {name: constants.actionNames.MEMBER_DEACTIVATED, callback: removeDeactivatedMemberFromTeams},
-                {name: constants.actionNames.CHANGE_CURRENT_TEAM, callback: changeCurrentTeam},
-                {name: constants.actionNames.CHANGE_CURRENT_SPRINT, callback: changeCurrentSprint},
+                {name: constants.actionNames.CHANGE_CURRENT_TEAM, callback: changeCurrentTeamId},
+                {name: constants.actionNames.CHANGE_CURRENT_SPRINT, callback: changeCurrentSprintId},
                 {name: constants.actionNames.RETROFY_SPRINT, callback: retrofySprint},
                 {name: constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, callback: moveSprintToNextState},
                 {name: constants.actionNames.UPDATE_SPRINT, callback: updateSprint},
@@ -340,7 +348,7 @@ define([
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_TEAM, callback: removeMemberFromSingleTeam},
                 {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSingleSprint},
-                {name: constants.actionNames.CHANGE_EXISTING_MEMBER, callback: changeExistingMember},
+                {name: constants.actionNames.CHANGE_EXISTING_MEMBER, callback: changeExistingMemberId},
                 {name: constants.actionNames.RETROFY_CURRENT_SPRINT, callback: retrofyCurrentSprint},
                 {name: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, callback: addSprintToCurrentTeam}
             ];
