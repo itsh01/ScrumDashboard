@@ -22,7 +22,6 @@
   "dependencies": {
     "lodash": "~3.10.0",
     "react": "~0.13.3",
-    "react-datepicker": "^0.11.3",
     "requirejs": "~2.1.19"
   },
   "devDependencies": {
