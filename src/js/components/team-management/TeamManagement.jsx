@@ -29,7 +29,7 @@ define(['lodash', 'React',
                     <ReactCSSTransitionGroup transitionName='team-management-transition' transitionAppear={true}>
                         <div className='team-management'>
                             <TeamSidebar allTeams={allTeams}/>
-                            <TeamView team={currentTeamId}
+                            <TeamView team={currentTeam}
                                       teamMembers={this.getCurrentTeamMembers()}/>
                         </div>
                     </ReactCSSTransitionGroup>
