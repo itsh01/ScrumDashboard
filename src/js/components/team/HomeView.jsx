@@ -41,13 +41,13 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             getSprintButton: function (sprint) {
                 if (sprint.state === constants.SPRINT_STATUS.RETRO) {
-                    return (<button className='main-view-btn' onClick={this.planNewSprint}>Plan New Sprint</button>);
+                    return (<button className='home-view-button' onClick={this.planNewSprint}>Plan New Sprint</button>);
                 }
                 if (sprint.state === constants.SPRINT_STATUS.PLANNING) {
                     return (<div>
-                        <div className='main-view-buttons-container'>
-                            <button className='main-view-btn' onClick={this.addCardClicked}>Add Card</button>
-                            <button className='main-view-btn' onClick={this.finishPlanning}>Finish Planning</button>
+                        <div className='home-view-buttons-container'>
+                            <button className='home-view-button' onClick={this.addCardClicked}>Add Card</button>
+                            <button className='home-view-button' onClick={this.finishPlanning}>Finish Planning</button>
                         </div>
                         <div>
                             <EditSprint/>
@@ -55,7 +55,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                     </div>);
                 }
                 if (sprint.state === constants.SPRINT_STATUS.IN_PROGRESS) {
-                    return <button className='main-view-btn main-view-btn-lock' onClick={this.lockSprint}>Lock
+                    return <button className='home-view-button home-view-button-lock' onClick={this.lockSprint}>Lock
                         Sprint</button>;
                 }
                 return null;
