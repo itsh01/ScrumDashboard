@@ -6,7 +6,7 @@ define(['lodash', 'React'],
             displayName: 'ComboBox',
 
             propTypes: {
-                lifecycle: React.PropTypes.array
+                items: React.PropTypes.array
             },
 
             contextTypes: {
@@ -14,7 +14,7 @@ define(['lodash', 'React'],
             },
 
             render: function () {
-                var phaseList = _.map(this.props.lifecycle, function (phase) {
+                var phaseList = _.map(this.props.items, function (phase) {
                     return (<li className="combo-box-item" key={phase}>
                         {phase}
                         <span className="delete-phase">X</span>

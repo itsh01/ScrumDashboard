@@ -127,7 +127,7 @@ define([
                                                                     valueLink={this.linkState('startDate')}></input>)}
                         {this.getFieldWrapper('End Date:', <input type='text'
                                                                   valueLink={this.linkState('endDate')}></input>)}
-                        {this.getFieldWrapper('Add Phase To Lifecycle', <ComboBox lifecycle={this.state.cardLifecycle} />)}
+                        {this.getFieldWrapper('Add Phase To Lifecycle', <ComboBox items={this.state.cardLifecycle} />)}
 
                     </div>
                 );
