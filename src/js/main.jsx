@@ -12,7 +12,7 @@ requirejs.config({
         mixins: '../js/mixins',
         general: '../js/general',
         stores: '../js/stores',
-        flux: '../js/Flux',
+        flux: '../js/stores/refactor/Flux',
 
         // DatePicker dependencies
 
@@ -39,7 +39,7 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash', 'React', 'components/MainContainer'],
+requirejs(['lodash', 'React', 'components/MainContainer', 'flux'],
     function (_, React, MainContainer) {
         'use strict';
         var mountPoint = document.getElementById('main-container');
