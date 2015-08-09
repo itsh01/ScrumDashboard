@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/itsh01/ScrumDashboard#readme",
   "dependencies": {
+    "eventemitter2": "^0.4.14",
     "lodash": "~3.10.0",
     "react": "~0.13.3",
     "react-datepicker": "^0.11.3",

@@ -8,11 +8,13 @@ requirejs.config({
         React: '../vendor/react-with-addons',
         DragDropMixin: '../vendor/DragDropMixin',
         DatePicker: '../vendor/DatePicker',
+        eventemitter2: '../vendor/eventemitter2',
         components: '../js/components',
         mixins: '../js/mixins',
         general: '../js/general',
         stores: '../js/stores',
         flux: '../js/stores/refactor/Flux',
+
 
         // DatePicker dependencies
 
@@ -35,11 +37,14 @@ requirejs.config({
         },
         flux: {
             exports: 'flux'
+        },
+        eventemitter2: {
+            exports: 'eventemitter2'
         }
     }
 });
 
-requirejs(['lodash', 'React', 'components/MainContainer', 'flux'],
+requirejs(['lodash', 'React', 'components/MainContainer', 'flux', 'eventemitter2'],
     function (_, React, MainContainer) {
         'use strict';
         var mountPoint = document.getElementById('main-container');
