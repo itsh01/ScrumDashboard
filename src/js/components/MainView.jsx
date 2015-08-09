@@ -43,7 +43,7 @@ define(['lodash', 'React', 'components/team/HomeView',
                 var currentTeam = this.context.flux.teamsStore.getCurrentTeam();
                 if (this.state.view === 'HomeView') {
                     return (
-                        <div className="team-view-container">
+                        <div className="home-view-container">
                             <HomeView currTeamId={currentTeam.id}/>
                         </div>
                     );
