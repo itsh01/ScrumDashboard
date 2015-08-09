@@ -49,6 +49,11 @@ define([
                 currentExistingMemberId: teamsData[0].members[0]
             };
 
+            this.changeCurrentTeamToDefault = function () {
+                var defaultTeamId = this.getAllActiveTeams()[0].id;
+                dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM, defaultTeamId);
+            };
+
             this.getTeamById = function (id) {
                 return _.cloneDeep(_.find(teamsData, {id: id}));
             };
@@ -252,6 +257,9 @@ define([
                 if (team) {
                     team.active = false;
                     saveToLocalStorage();
+                    if (teamId === currentViewState.currentTeamId) {
+                        this.changeCurrentTeamToDefault();
+                    }
                     return true;
                 }
                 console.log('Team Store: attempt to deactivate non existent team (teamId: ', teamId, ')');
