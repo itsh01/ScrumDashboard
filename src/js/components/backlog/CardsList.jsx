@@ -77,7 +77,7 @@ define([
             }
 
             return (
-                <div>
+                <div className="cards-list">
                     <h3>{this.props.title} </h3>
                     {cardsListToDisplay}
                 </div>
