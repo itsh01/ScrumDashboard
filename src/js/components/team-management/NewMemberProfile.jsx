@@ -13,8 +13,8 @@ define([
         return React.createClass({
             displayName: 'New Member Profile',
             propTypes: {
-                team: React.PropTypes.object,
-                currentMember: React.PropTypes.object
+                currentMember: React.PropTypes.object,
+                team: React.PropTypes.object
             },
             contextTypes: {
                 flux: React.PropTypes.any

@@ -1,6 +1,37 @@
 define(['lodash', 'React', 'constants'],
     function (_, React, constants) {
         'use strict';
+        function createMemberItem(member) {
+            return (
+                <li data-id={member.id} data-name={member.name}
+                    onClick={this.changeExistingMember}
+                    className='matched-member'
+                    key={member.id}>
+                    {createMatchedMemberName(member.name, this.state.searchStr)}
+                </li>
+            );
+        }
+
+        function boldenMatch(searchStr, memberNameArr) {
+            return memberNameArr.toLowerCase() === searchStr.toLowerCase() ?
+                <b>{memberNameArr}</b> :
+                memberNameArr;
+        }
+
+        function createMatchedMemberName(memberName, searchStr) {
+            var parenthesizedSearchStr = '(' + searchStr + ')';
+            var re = new RegExp(parenthesizedSearchStr, 'gi');
+            var resultArr = memberName.split(re);
+            return (
+                <span>
+                    {
+                        _.map(resultArr,
+                            boldenMatch.bind(null, searchStr))
+                    }
+                </span>
+            );
+        }
+
         return React.createClass({
             displayName: 'membersCombobox',
             contextTypes: {
@@ -42,16 +73,7 @@ define(['lodash', 'React', 'constants'],
                                     return !_.includes(currentTeamMembers, member.id) &&
                                         _.includes(member.name.toLowerCase(), this.state.searchStr.toLowerCase());
                                 }, this)
-                                    .map(function (member) {
-                                        return (
-                                            <li data-id={member.id} data-name={member.name}
-                                                onClick={this.changeExistingMember}
-                                                className='matched-member'
-                                                key={member.id}>
-                                                {member.name}
-                                            </li>
-                                        );
-                                    }, this).value()
+                                    .map(createMemberItem, this).value()
                             }
                         </ul>
                     </div>;
