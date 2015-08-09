@@ -3,7 +3,7 @@ define(['lodash', 'React', 'components/team/TeamComponent',
     function (_, React, TeamView, constants, TeamManagement) {
         'use strict';
         return React.createClass({
-            displayName: 'HomeView',
+            displayName: 'MainView',
 
             propTypes: {
                 currTeam: React.PropTypes.object,
