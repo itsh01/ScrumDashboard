@@ -308,6 +308,7 @@ define([
             };
 
             // This function gets 'next'/'prev'/sprint id as the destination string
+            // TODO: split
             function changeCurrentSprintId(destination) {
                 var sprintsLastIndex = this.getTeamById(currentViewState.currentTeamId).sprints.length - 1;
                 var currSprintIndex = this.getSprintIndex(currentViewState.currentSprintId);

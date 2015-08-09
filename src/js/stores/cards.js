@@ -155,6 +155,7 @@ define([
                 {name: constants.actionNames.REMOVE_CARD, callback: removeCard},
                 {name: constants.actionNames.MEMBER_DEACTIVATED, callback: unassignMemberFromCards}
             ];
+
             _.forEach(actions, function (action) {
                 dispatcher.registerAction(action.name, action.callback.bind(this));
             }.bind(this));
