@@ -322,8 +322,8 @@ define([
                 currentViewState.currentTeamId = teamId;
             }
 
-            function changeExistingMemberId(data) {
-                currentViewState.currentExistingMemberId = data.memberId;
+            function changeExistingMemberId(memberId) {
+                currentViewState.currentExistingMemberId = memberId;
             }
 
             var actions = [
