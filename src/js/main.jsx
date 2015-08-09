@@ -7,9 +7,21 @@ requirejs.config({
         lodash: '../vendor/lodash',
         React: '../vendor/react-with-addons',
         DragDropMixin: '../vendor/DragDropMixin',
+        DatePicker: '../vendor/DatePicker',
         components: '../js/components',
         mixins: '../js/mixins',
-        stores: '../js/stores'
+        stores: '../js/stores',
+
+        // DatePicker dependencies
+
+        tether: '../vendor/tether',
+        moment: '../vendor/moment',
+        'react-onclickoutside': '../vendor/react-onclickoutside'
+    },
+    map: {
+        '*': {
+            react: 'React'
+        }
     },
     shim: {
         lodash: {

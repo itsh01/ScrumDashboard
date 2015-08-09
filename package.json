@@ -22,6 +22,7 @@
   "dependencies": {
     "lodash": "~3.10.0",
     "react": "~0.13.3",
+    "react-datepicker": "^0.11.3",
     "requirejs": "~2.1.19"
   },
   "devDependencies": {
@@ -41,6 +42,7 @@
     "grunt-processhtml": "~0.3.8",
     "grunt-react": "~0.12.2",
     "jit-grunt": "0.9.1",
+    "react-datepicker": "^0.11.3",
     "react-dragdrop": "^0.1.0",
     "react-tools": "~0.13.3"
   }

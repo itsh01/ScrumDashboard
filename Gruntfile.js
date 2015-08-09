@@ -30,6 +30,30 @@ module.exports = function (grunt) {
                     {
                         src: 'node_modules/react-dragdrop/dist/DragDropMixin.js',
                         dest: 'src/vendor/DragDropMixin.js'
+                    },
+                    {
+                        src: 'node_modules/react-datepicker/dist/react-datepicker.js',
+                        dest: 'src/vendor/DatePicker.js'
+                    },
+                    {
+                        src: 'node_modules/react-datepicker/dist/react-datepicker.css',
+                        dest: 'src/stylesheets/vendor/date-picker.css'
+                    },
+                    {
+                        src: 'node_modules/react-datepicker/node_modules/tether/dist/js/tether.js',
+                        dest: 'src/vendor/tether.js'
+                    },
+                    {
+                        src: 'node_modules/react-datepicker/node_modules/tether/dist/css/tether.css',
+                        dest: 'src/stylesheets/vendor/tether.css'
+                    },
+                    {
+                        src: 'node_modules/react-datepicker/node_modules/moment/moment.js',
+                        dest: 'src/vendor/moment.js'
+                    },
+                    {
+                        src: 'node_modules/react-datepicker/node_modules/react-onclickoutside/index.js',
+                        dest: 'src/vendor/react-onclickoutside.js'
                     }
                 ]
             },
