@@ -1,5 +1,7 @@
+
+'use strict';
+
 define(['stores/helpers'], function (helpers) {
-    'use strict';
 
 
     describe('generateGuid', function () {
