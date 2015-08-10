@@ -77,14 +77,35 @@ define(['stores/helpers'], function (helpers) {
         });
 
         it('should return true if the value is in the scheme and of the right type', function () {
+            var result = helpers.isValidValue(22, 'name', mockScheme);
+            expect(result).toBeFalsy();
+        });
+
+        it('should return true if the value is in the scheme and of the right type', function () {
             var result = helpers.isValidValue(['Backlog', 'In progress', 'Done'], 'cardLifecycle', mockScheme);
             expect(result).toBeTruthy();
         });
 
         it('should return true if the value is in the scheme and of the right type', function () {
-            var result = helpers.isValidValue(22, 'name', mockScheme);
+            var result = helpers.isValidValue(['Backlog', 235, 'Done'], 'cardLifecycle', mockScheme);
             expect(result).toBeFalsy();
         });
+
+        it('should return true if the value is in the scheme and of the right type', function () {
+            var result = helpers.isValidValue('1989-05-27', 'startDate', mockScheme);
+            expect(result).toBeTruthy();
+        });
+
+        it('should return true if the value is in the scheme and of the right type', function () {
+            var result = helpers.isValidValue('19890527', 'endDate', mockScheme);
+            expect(result).toBeFalsy();
+        });
+
+        it('should return false because the key is not valid in the scheme', function () {
+            var result = helpers.isValidValue('garbage', 'notAValidKey', mockScheme);
+            expect(result).toBeFalsy();
+        });
+
     });
 
 
