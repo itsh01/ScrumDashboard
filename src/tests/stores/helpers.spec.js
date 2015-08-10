@@ -1,19 +1,24 @@
 define(['stores/helpers'], function (helpers) {
-    describe('helpers.js', function () {
-        it('should save to local storage', function () {
-            expect(true).toBeTruthy();
+    describe('helpers', function () {
+
+        'use strict';
+
+        describe('getBlankItem', function () {
+            it('should generate blank item by schema', function () {
+                var mockSchema = {
+                        name: {type: 'string'},
+                        image: {type: 'string', defaultValue: ''},
+                        active: {type: 'boolean', defaultValue: true}
+                    };
+
+                var blankItem = helpers.getBlankItem(mockSchema);
+
+                expect(blankItem.name).toEqual('');
+                expect(blankItem.image).toEqual('');
+                expect(blankItem.active).toEqual(jasmine.any(Boolean));
+            });
         });
-        it('should retrieve value from local storage', function () {
-        });
-        it('should remove value from local storage', function () {
-        });
-        it('should return random guid', function () {
-        });
-        //it('should return true when given array that contains only strings', function(){});
-        //it('should return false when given array that contains something other than string', function(){});
-        it('should', function () {
-        });
-        it('should', function () {
-        });
+
+
     });
 });
