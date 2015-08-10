@@ -1,8 +1,8 @@
-'use strict';
-
 define(['stores/helpers'], function (helpers) {
+    'use strict';
     var mockObj = {a: 1, b: 2};
     var mockStoreName = 'checkstore';
+
     describe('saveToLocalStorage.js', function () {
         it('should save to local storage ', function () {
             window.localStorage.clear();
