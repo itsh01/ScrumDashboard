@@ -20,6 +20,9 @@ define([
             },
 
             saveCard: function () {
+                if (this.props.card.assignee && this.props.card.status === 'unassigned') {
+                    return;
+                }
                 var dispatcher = this.context.flux.dispatcher;
 
                 if (this.props.isCreating) {
