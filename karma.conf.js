@@ -25,11 +25,13 @@ module.exports = function (config) {
             'src/vendor/require.js'
             ],
 
-
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
         reporters: ['progress', 'coverage'],
 
+        preprocessors: {
+            'src/**/*.js': ['coverage']
+        },
 
         // web server port
         port: 9876,
