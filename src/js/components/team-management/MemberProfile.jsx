@@ -10,17 +10,18 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
                 flux: React.PropTypes.any
             },
             mixins: [DragDropMixin],
+
+            componentDidMount: function () {
+                this.dispatcher = this.context.flux.dispatcher;
+                this.teamsStore = this.context.flux.teamsStore;
+            },
+
             dragDrop: function () {
                 return {
                     draggable: true,
                     dropType: 'memberId',
                     dataTransfer: this.props.member.id
                 };
-            },
-
-            componentDidMount: function () {
-                this.dispatcher = this.context.flux.dispatcher;
-                this.teamsStore = this.context.flux.teamsStore;
             },
 
             removeMember: function (event) {

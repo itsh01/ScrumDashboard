@@ -5,15 +5,14 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
         contextTypes: {
             flux: React.PropTypes.any
         },
-        componentDidMount: function () {
-            this.dispatcher = this.context.flux.dispatcher;
-            this.teamsStore = this.context.flux.teamsStore;
-        },
-
         getInitialState: function () {
             return {
                 isInputVisible: false
             };
+        },
+        componentDidMount: function () {
+            this.dispatcher = this.context.flux.dispatcher;
+            this.teamsStore = this.context.flux.teamsStore;
         },
         toggleInput: function () {
             this.setState(

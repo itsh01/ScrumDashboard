@@ -2,11 +2,11 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
     'use strict';
     return React.createClass({
         displayName: 'Add new member',
-        contextTypes: {
-            flux: React.PropTypes.any
-        },
         propTypes: {
             team: React.PropTypes.object
+        },
+        contextTypes: {
+            flux: React.PropTypes.any
         },
         componentDidMount: function componentDidMount() {
             this.dispatcher = this.context.flux.dispatcher;

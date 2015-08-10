@@ -2,14 +2,13 @@ define(['lodash', 'React', '../general/Search', 'constants'], function (_, React
     'use strict';
     return React.createClass({
         displayName: 'Add existing member',
-        contextTypes: {
-            flux: React.PropTypes.any
-        },
         propTypes: {
             currentMember: React.PropTypes.object,
             team: React.PropTypes.object
         },
-
+        contextTypes: {
+            flux: React.PropTypes.any
+        },
 
         getInitialState: function () {
 

@@ -10,6 +10,12 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
                 flux: React.PropTypes.any
             },
             mixins: [DragDropMixin],
+
+            componentDidMount: function () {
+                this.dispatcher = this.context.flux.dispatcher;
+                this.teamsStore = this.context.flux.teamsStore;
+            },
+
             dragDrop: function () {
                 return {
                     droppable: true,
@@ -18,12 +24,6 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
                 };
 
             },
-
-            componentDidMount: function () {
-                this.dispatcher = this.context.flux.dispatcher;
-                this.teamsStore = this.context.flux.teamsStore;
-            },
-
 
             handleMoveMember: function (memberId) {
                 var currentTeamId = this.teamsStore.getCurrentTeam().id;
