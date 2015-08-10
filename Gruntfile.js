@@ -98,7 +98,8 @@ module.exports = function (grunt) {
                 '!src/js/playground.*',
                 'Gruntfile.js',
                 'src/js/main.jsx',
-                'src/js/constants.js'
+                'src/js/constants.js',
+                'src/tests/**/*.js'
             ]
         },
         babel: {
