@@ -32,6 +32,9 @@ define([], function () {
             PLANNING_DONE_ADDING_CARD: 'PLANNING_DONE_ADDING_CARD',
             PLANNING_EDIT_CARD: 'PLANNING_EDIT_CARD'
         },
+        flux: {
+            CARDS_STORE_CHANGE: 'CARDS_STORE_CHANGE'
+        },
 
         SPRINT_STATUS: {PLANNING: 0, IN_PROGRESS: 1, RETRO: 2},
         DATE_FORMAT: 'YYYY-MM-DD'

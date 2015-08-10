@@ -8,11 +8,12 @@ define([
 
         'components/MainView',
         'stores/flux',
+        'stores/refactor/flux',
 
         'components/pop-up/Basic',
         'components/card-edit/CardEditCreate'
     ],
-    function (_, React, MainView, Flux, Popup, CardEditCreate) {
+    function (_, React, MainView, Flux, NewFlux, Popup, CardEditCreate) {
         'use strict';
 
 
@@ -21,20 +22,22 @@ define([
             displayName: 'MainContainer',
 
             childContextTypes: {
-                flux: React.PropTypes.any
+                flux: React.PropTypes.any,
+                newFlux: React.PropTypes.any
             },
 
             getInitialState: function () {
                 this.flux = new Flux();
                 this.flux.dispatcher.registerEventsHandled(this.forceUpdate.bind(this));
+                this.newFlux = new NewFlux();
                 return {};
             },
 
             getChildContext: function () {
                 return {
-                    flux: this.flux
+                    flux: this.flux,
+                    newFlux: this.newFlux
                 };
-
             },
 
             popUpFactory: function () {
