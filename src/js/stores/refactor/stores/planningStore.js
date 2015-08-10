@@ -27,20 +27,20 @@ define([
                 return IsAddingOrEditingCard;
             };
 
-            this.dispatchToken = dispatcher.register(function (action) {
+            this.dispatchToken = dispatcher.register(function (payload) {
 
-                var actionName = [].shift.apply(arguments),
-                    payload = Array.prototype.slice.call(arguments);
+                var actionName = payload.actionName,
+                    data = payload.payload;
 
                 switch (actionName) {
                     case (constants.actionNames.PLANNING_ADD_CARD):
-                        addingCard.apply(this, [true].concat(payload));
+                        addingCard.apply(this, [true].concat(data));
                         break;
                     case (constants.actionNames.PLANNING_DONE_ADDING_CARD):
-                        addingCard.apply(this, [false].concat(payload));
+                        addingCard.apply(this, [false].concat(data));
                         break;
                     case (constants.actionNames.PLANNING_EDIT_CARD):
-                        editCard.apply(this, [true].concat(payload));
+                        editCard.apply(this, [true].concat(data));
                         break;
                     default:
                         // do nothing
