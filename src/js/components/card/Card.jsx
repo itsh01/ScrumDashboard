@@ -26,8 +26,7 @@ define([
             mixins: [DragDropMixin],
 
             getInitialState: function () {
-                var opened = (this.props.forceReset === true);
-                return {isDescriptionOpened: opened};
+                return {isDescriptionOpened: false};
             },
 
             componentWillReceiveProps: function (nextProps) {
