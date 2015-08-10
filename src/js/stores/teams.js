@@ -67,7 +67,9 @@ define([
             };
 
             this.getBlankSprint = function () {
-                return helpers.getBlankItem(SPRINT_SCHEMA);
+                var sprint = helpers.getBlankItem(SPRINT_SCHEMA);
+                sprint.members = this.getCurrentTeam().members;
+                return sprint;
             };
 
             function isValidSprint(sprint) {
