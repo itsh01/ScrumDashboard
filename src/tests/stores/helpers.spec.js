@@ -59,4 +59,46 @@ define(['stores/helpers'], function (helpers) {
         });
     });
 
+    describe('isValidValue', function () {
+        var schema = {
+            name: {type: 'string'},
+            description: {type: 'string', defaultValue: ''},
+            score: {type: 'number', defaultValue: null},
+            team: {type: 'string', defaultValue: null},
+            status: {type: 'string', defaultValue: 'unassigned'},
+            assignee: {type: 'string', defaultValue: null},
+            startDate: {type: 'string', defaultValue: null},
+            endDate: {type: 'string', defaultValue: null}
+        };
+
+        it('should return true on valid value for key', function () {
+            var value = 'someName';
+            var key = 'name';
+            expect(helpers.isValidValue(value, key, schema)).toEqual(true);
+        });
+        it('should return false on invalid value for key without defined default value', function () {
+            var value = '';
+            var key = 'name';
+            expect(helpers.isValidValue(value, key, schema)).toEqual(false);
+        });
+
+
+        it('should return true on valid value for key', function () {
+            var value = '2015-10-10';
+            var key = 'startDate';
+            expect(helpers.isValidValue(value, key, schema)).toEqual(true);
+        });
+        it('should return false on invalid date format', function () {
+            var value = '22/12/2015';
+            var key = 'startDate';
+            expect(helpers.isValidValue(value, key, schema)).toEqual(false);
+        });
+
+        it('should return true on empty value if there exists default value for field', function () {
+            var value = null;
+            var key = 'assignee';
+            expect(helpers.isValidValue(value, key, schema)).toEqual(true);
+        });
+    });
+
 });
