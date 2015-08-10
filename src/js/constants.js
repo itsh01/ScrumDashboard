@@ -34,12 +34,6 @@ define([], function () {
         },
 
         SPRINT_STATUS: {PLANNING: 0, IN_PROGRESS: 1, RETRO: 2},
-        DATE_FORMAT: 'YYYY-MM-DD',
-
-        eventNames: {
-            CARDS_STORE_CHANGE_EVENT: 'CARDS_STORE_CHANGE_EVENT',
-            MEMBERS_STORE_CHANGE_EVENT: 'MEMBERS_STORE_CHANGE_EVENT',
-            TEAMS_STORE_CHANGE_EVENT: 'TEAMS_STORE_CHANGE_EVENT'
-        }
+        DATE_FORMAT: 'YYYY-MM-DD'
     };
 });
