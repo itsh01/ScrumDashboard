@@ -7,7 +7,7 @@ define(
         './teams',
         './planning',
         './dispatcher',
-        'flux',
+        'baseFlux',
         'eventemitter2',
         './refactor/actions/cardsStoreActions',
         './refactor/actions/teamsStoreActions'

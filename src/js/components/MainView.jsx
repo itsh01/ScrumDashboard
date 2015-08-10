@@ -12,7 +12,20 @@ define(['lodash', 'React', 'components/team/HomeView',
             },
 
             contextTypes: {
-                flux: React.PropTypes.any
+                flux: React.PropTypes.any,
+                newFlux: React.PropTypes.any
+            },
+
+            onChange: function () {
+                this.setState({});
+            },
+
+            componentDidMount: function () {
+                this.context.newFlux.cardsStore.addChangeListener(this.onChange);
+            },
+
+            componentWillUnmount: function () {
+                this.context.newFlux.cardsStore.removeChangeListener(this.onChange);
             },
 
             getInitialState: function () {
