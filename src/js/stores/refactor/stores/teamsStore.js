@@ -359,12 +359,12 @@ define([
 
             TeamStore.dispatchToken = dispatcher.register(function (payload) {
                 var actionName = payload.actionName,
-                    payload = payload.arguments,
+                    data = payload.payload,
 
                     action = _.find(actions, {name: actionName});
 
                 if (action) {
-                    action.callback.apply(this, payload);
+                    action.callback.apply(this, data);
                     saveToLocalStorage();
                     this.emitChange();
                 }

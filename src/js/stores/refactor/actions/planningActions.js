@@ -8,15 +8,15 @@ define([
 
             return {
                 planningAddCard: function (card) {
-                    dispatcher.dispatch(constants.PLANNING_ADD_CARD, card);
+                    dispatcher.dispatch({actionName: constants.actionNames.PLANNING_ADD_CARD, arguments: [card]});
                 },
 
                 planningDoneAddingCard: function (card) {
-                    dispatcher.dispatch(constants.PLANNING_DONE_ADDING_CARD, card);
+                    dispatcher.dispatch({actionName: constants.actionNames.PLANNING_DONE_ADDING_CARD, arguments: [card]});
                 },
 
                 editCard: function (card) {
-                    dispatcher.dispatch(constants.PLANNING_EDIT_CARD, card);
+                    dispatcher.dispatch({actionName: constants.actionNames.PLANNING_EDIT_CARD, arguments: [card]});
                 }
             };
         }
