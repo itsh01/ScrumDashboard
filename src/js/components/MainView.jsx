@@ -17,7 +17,6 @@ define(['lodash', 'React', 'components/team/HomeView',
             },
 
             onChange: function () {
-                console.log('Changed');
                 this.setState({});
             },
 
