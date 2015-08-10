@@ -1,6 +1,6 @@
-'use strict';
 
 define(['stores/helpers'], function (helpers) {
+    'use strict';
 
     describe('saveToLocalStorage.js', function () {
         it('should save to local storage ', function () {
