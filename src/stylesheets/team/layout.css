@@ -77,8 +77,11 @@
 }
 
 .combo-box-item {
+    background: #fff;
     padding: 0.1rem 0.5rem;
     overflow: hidden;
+    box-sizing: border-box;
+    border: #fff 2px solid;
 }
 
 .combo-box-item:hover {

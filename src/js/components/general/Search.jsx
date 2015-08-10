@@ -54,7 +54,7 @@ define(['../../../vendor/lodash', 'React', 'constants'],
                 }
             },
             changeExistingMember: function (member) {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_EXISTING_MEMBER, member.id);
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_EXISTING_MEMBER_ID, member.id);
                 this.setMatchedItemContainerVisibility(0);
                 this.refs.searchInput.getDOMNode().value = member.name;
 

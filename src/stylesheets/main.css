@@ -25,6 +25,8 @@
 @import 'card/layout.css';
 @import 'card/typography.css';
 
+@import 'backlog/layout.css';
+
 @import 'team/layout.css';
 
 @import 'sprint/layout.css';
