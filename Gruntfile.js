@@ -202,6 +202,13 @@ module.exports = function (grunt) {
                     ext: '.min.css'
                 }]
             }
+        },
+        karma: {
+            unit: {
+                port: 9999,
+                singleRun: true,
+                configFile: 'karma.conf.js'
+            }
         }
     });
 
@@ -212,10 +219,10 @@ module.exports = function (grunt) {
     require('jit-grunt')(grunt);
 
     grunt.registerTask('lint', ['eslint', 'csslint']);
-    grunt.registerTask('dev', ['asciify:banner', 'lint', 'babel']);
+    grunt.registerTask('dev', ['asciify:banner', 'lint', 'babel', 'test']);
     grunt.registerTask('minify', ['processhtml', 'requirejs', 'cssmin']);
     grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'babel', 'copy', 'minify']);
-    grunt.registerTask('test', []);
-    grunt.registerTask('default', ['test', 'build']);
+    grunt.registerTask('test', ['karma']);
+    grunt.registerTask('default', ['build', 'test']);
 
 };
