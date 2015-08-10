@@ -2,6 +2,7 @@
 
 .idea
 node_modules
+coverage
 src/vendor/**
 build
 **/.DS_Store
