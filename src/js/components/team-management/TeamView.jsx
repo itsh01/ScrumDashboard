@@ -14,11 +14,18 @@ define(['lodash', 'React',
                 flux: React.PropTypes.any
             },
             getTeamTitle: function () {
-                return 'Team ' + this.props.team.name;
+                return this.props.team.name ?
+                'Team ' + this.props.team.name :
+                    'Add a new team';
             },
-            render: function () {
+            getNewMemberProfile: function () {
                 var existingMemberId = this.context.flux.teamsStore.getCurrentExistingMemberId();
                 var existingMember = this.context.flux.membersStore.getMemberById(existingMemberId);
+                return this.props.team.name ?
+                    <NewMemberProfile team={this.props.team} currentMember={existingMember}/> :
+                    <div>Hiush</div>;
+            },
+            render: function () {
                 return (
                     <div className='team-view'>
                         <h1 className='team-title'>{this.getTeamTitle()}</h1>
@@ -29,7 +36,7 @@ define(['lodash', 'React',
                                 }, this)
                             }
                         </ReactCSSTransitionGroup>
-                        <NewMemberProfile team={this.props.team} currentMember={existingMember}/>
+                        {this.getNewMemberProfile()}
                     </div>
                 );
             }
