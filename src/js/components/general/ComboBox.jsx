@@ -33,9 +33,52 @@ define(['lodash', 'React'],
                 domNode.value = '';
             },
 
+            handleDragStart: function (item, e) {
+                e.dataTransfer.setData('data', item);
+            },
+
+            borderBottomOn: function (target) {
+                target.style.setProperty('border-bottom', '#008E99 2px solid');
+            },
+
+            borderBottomOff: function (target) {
+                target.style.setProperty('border-bottom', '#FFF 2px solid');
+            },
+
+            handleDragOver: function (e) {
+                e.preventDefault();
+                this.borderBottomOn(e.currentTarget);
+            },
+
+            handleDragLeave: function (e) {
+                e.preventDefault();
+                this.borderBottomOff(e.currentTarget);
+            },
+
+            handleDrop: function (e) {
+                e.preventDefault();
+                this.borderBottomOff(e.currentTarget);
+
+                var item = e.dataTransfer.getData('data'),
+                    indexTo = e.currentTarget.dataset.item,
+                    items = _.without(this.props.items, item);
+
+                items.splice(indexTo, 0, item);
+
+                this.props.handleChange(items);
+            },
+
             render: function () {
-                var itemList = _.map(this.props.items, function (item) {
-                    return (<li className="combo-box-item" key={item}>
+                var itemList = _.map(this.props.items, function (item, index) {
+                    return (<li
+                            className="combo-box-item"
+                            draggable="true"
+                            onDragStart={this.handleDragStart.bind(this, item)}
+                            onDragOver={this.handleDragOver}
+                            onDragLeave={this.handleDragLeave}
+                            onDrop={this.handleDrop}
+                            data-item={index}
+                            key={item}>
                         {item}
                         <span
                             className="delete-phase"

@@ -30,9 +30,9 @@ define(['lodash', 'React', 'components/team/HomeView',
             },
 
             handleChangeTeam: function (e) {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM, e.target.value);
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM_ID, e.target.value);
                 var team = this.context.flux.teamsStore.getTeamById(e.target.value);
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT, team.sprints[team.sprints.length - 1].id);
+                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT_ID, team.sprints[team.sprints.length - 1].id);
             },
             views: {
                 HomeView: 'HomeView',

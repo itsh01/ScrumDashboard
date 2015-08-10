@@ -4,6 +4,7 @@
 
 .sprint-member .sprint-member-image {
     width: 4rem;
+    cursor: default;
 }
 
 .sprint-member figure {

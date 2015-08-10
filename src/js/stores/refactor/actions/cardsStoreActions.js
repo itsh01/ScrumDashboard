@@ -1,12 +1,12 @@
 define([
         'lodash',
-        '../store/cards',
-        '../../constants',
+        '../../cards',
+        '../../../constants'
     ],
     function (_, cardsStore, constants) {
         'use strict';
 
-        function CardsStoreActions(dispatcher) {
+        function cardsStoreActions(dispatcher) {
 
             return {
                 updateCard: function (cardId, newCardData) {
@@ -23,5 +23,5 @@ define([
             }
         }
 
-        return CardsStoreActions;
+        return cardsStoreActions;
     });

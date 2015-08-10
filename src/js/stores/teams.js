@@ -11,7 +11,7 @@ define([
             AllActiveTeams: {active: true}
         };
 
-        function TeamStore(dispatcher, getUserCards) {
+        function TeamStore(dispatcher, getUserCards, newDispatcher, emitter) {
             var dataFileVersion = '1',
                 SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
@@ -51,7 +51,7 @@ define([
 
             this.changeCurrentTeamToDefault = function () {
                 var defaultTeamId = this.getAllActiveTeams()[0].id;
-                dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM, defaultTeamId);
+                dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM_ID, defaultTeamId);
             };
 
             this.getTeamById = function (id) {
@@ -131,7 +131,7 @@ define([
                 }
             }
 
-            function removeMemberFromSingleTeam(teamId, memberId) {
+            function removeMemberFromTeam(teamId, memberId) {
                 var team = _.find(teamsData, {id: teamId});
                 if (team.active) {
                     _.remove(team.members, function (id) {
@@ -150,7 +150,7 @@ define([
                 }
             }
 
-            function removeMemberFromSingleSprint(teamId, sprintId, memberId) {
+            function removeMemberFromSprint(teamId, sprintId, memberId) {
                 var team = _.find(teamsData, {id: teamId});
                 var sprint = _.filter(team.sprints, {id: sprintId});
                 if (!sprint.endDate) {
@@ -308,6 +308,7 @@ define([
             };
 
             // This function gets 'next'/'prev'/sprint id as the destination string
+            // TODO: split
             function changeCurrentSprintId(destination) {
                 var sprintsLastIndex = this.getTeamById(currentViewState.currentTeamId).sprints.length - 1;
                 var currSprintIndex = this.getSprintIndex(currentViewState.currentSprintId);
@@ -338,24 +339,39 @@ define([
                 {name: constants.actionNames.ADD_TEAM, callback: addTeam},
                 {name: constants.actionNames.ADD_SPRINT, callback: addSprint},
                 {name: constants.actionNames.MEMBER_DEACTIVATED, callback: removeDeactivatedMemberFromTeams},
-                {name: constants.actionNames.CHANGE_CURRENT_TEAM, callback: changeCurrentTeamId},
-                {name: constants.actionNames.CHANGE_CURRENT_SPRINT, callback: changeCurrentSprintId},
+                {name: constants.actionNames.CHANGE_CURRENT_TEAM_ID, callback: changeCurrentTeamId},
+                {name: constants.actionNames.CHANGE_CURRENT_SPRINT_ID, callback: changeCurrentSprintId},
                 {name: constants.actionNames.RETROFY_SPRINT, callback: retrofySprint},
                 {name: constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, callback: moveSprintToNextState},
                 {name: constants.actionNames.UPDATE_SPRINT, callback: updateSprint},
                 {name: constants.actionNames.DEACTIVATE_TEAM, callback: deactivateTeam},
                 {name: constants.actionNames.ADD_MEMBER_TO_TEAM, callback: addMemberToTeam},
-                {name: constants.actionNames.REMOVE_MEMBER_FROM_TEAM, callback: removeMemberFromSingleTeam},
+                {name: constants.actionNames.REMOVE_MEMBER_FROM_TEAM, callback: removeMemberFromTeam},
                 {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
-                {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSingleSprint},
-                {name: constants.actionNames.CHANGE_EXISTING_MEMBER, callback: changeExistingMemberId},
+                {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSprint},
+                {name: constants.actionNames.CHANGE_EXISTING_MEMBER_ID, callback: changeExistingMemberId},
                 {name: constants.actionNames.RETROFY_CURRENT_SPRINT, callback: retrofyCurrentSprint},
                 {name: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, callback: addSprintToCurrentTeam}
             ];
             _.forEach(actions, function (action) {
                 dispatcher.registerAction(action.name, action.callback.bind(this));
             }.bind(this));
+
+            TeamStore.dispatchToken = newDispatcher.register(function () {
+                var actionName = [].shift.apply(arguments),
+                    payload = arguments,
+
+                    action = _.find(actions, {name: actionName});
+
+                if (action) {
+                    action.callback.apply(this, payload);
+                    saveToLocalStorage();
+                    emitter.emit(constants.eventNames.TEAMS_STORE_CHANGE_EVENT);
+                }
+
+            });
         }
+
 
 
         return TeamStore;

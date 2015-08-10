@@ -33,7 +33,7 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
             },
             changeCurrentTeam: function (event) {
                 var teamId = event.target.dataset.id;
-                this.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM, teamId);
+                this.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM_ID, teamId);
 
             },
             removeTeam: function (event) {
