@@ -357,9 +357,9 @@ define([
                 {name: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, callback: addSprintToCurrentTeam}
             ];
 
-            TeamStore.dispatchToken = dispatcher.register(function () {
-                var actionName = [].shift.apply(arguments),
-                    payload = arguments,
+            TeamStore.dispatchToken = dispatcher.register(function (payload) {
+                var actionName = payload.actionName,
+                    payload = payload.arguments,
 
                     action = _.find(actions, {name: actionName});
 
@@ -369,7 +369,7 @@ define([
                     this.emitChange();
                 }
 
-            });
+            }.bind(this));
         }
 
 

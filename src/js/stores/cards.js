@@ -20,7 +20,7 @@ define([
             NotCompleted: {endDate: null}
         };
 
-        function CardsStore(dispatcher, newDispatcher, emitter) {
+        function CardsStore(dispatcher) {
             var dataFileVersion = '1',
                 CARDS_SCHEMA = {
                     name: {type: 'string'},
@@ -158,20 +158,6 @@ define([
             _.forEach(actions, function (action) {
                 dispatcher.registerAction(action.name, action.callback.bind(this));
             }.bind(this));
-
-
-
-            CardsStore.dispatchToken = newDispatcher.register(function () {
-                var actionName = [].shift.apply(arguments),
-                    payload = arguments,
-                    action = _.find(actions, {name: actionName});
-
-                if (action) {
-                    action.callback.apply(this, payload);
-                    saveToLocalStorage();
-                    emitter.emit(constants.flux.CARDS_STORE_CHANGE);
-                }
-            });
 
         }
 

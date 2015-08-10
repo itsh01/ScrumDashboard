@@ -44,8 +44,11 @@ define([
                             assignee: null,
                             team: isCompanyList ? null : self.context.teamId
                         };
-
-                    self.context.flux.cardsActions.updateCard(card.id, newCardData);
+                    this.context.flux.dispatcher.dispatchAction(
+                        constants.actionNames.UPDATE_CARD,
+                        card.id,
+                        newCardData
+                    );
                 }
             };
         },
