@@ -1,27 +1,26 @@
-
 'use strict';
 
 define(['stores/helpers'], function (helpers) {
-
+    var mockObj = {a: 1, b: 2};
+    var mockStoreName = 'checkstore';
     describe('saveToLocalStorage.js', function () {
-        var mockObj = {a: 1, b: 2};
-        var mockStoreName = 'checkstore';
         it('should save to local storage ', function () {
             window.localStorage.clear();
-            var mockObj = {a:1, b:2};
+            var mockObj = {a: 1, b: 2};
             var mockStoreName = 'checkstore';
             helpers.saveToLocalStorage(mockStoreName, mockObj);
             var restoredObj = helpers.restoreFromLocalStorage(mockStoreName);
 
             expect(JSON.stringify(mockObj)).toBe(JSON.stringify(restoredObj));
         });
+    });
 
-        describe('restoreFromLocalStorage', function () {
-            it('should retrieve from local storage', function () {
-                helpers.saveToLocalStorage(mockStoreName, mockObj);
-                expect(helpers.restoreFromLocalStorage(mockStoreName)).toEqual(mockObj);
-            });
+    describe('restoreFromLocalStorage', function () {
+        it('should retrieve from local storage', function () {
+            helpers.saveToLocalStorage(mockStoreName, mockObj);
+            expect(helpers.restoreFromLocalStorage(mockStoreName)).toEqual(mockObj);
         });
+    });
 
 
     describe('generateGuid', function () {
