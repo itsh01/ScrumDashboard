@@ -1,9 +1,7 @@
 define([
-        'lodash',
-        '../../cards',
         '../../../constants'
     ],
-    function (_, constants) {
+    function (constants) {
         'use strict';
 
         function cardsStoreActions(dispatcher) {

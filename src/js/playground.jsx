@@ -71,14 +71,16 @@ requirejs(
         'components/card/Card',
         'components/team-management/TeamManagement',
         'stores/flux',
-        'components/card-edit/CardEditCreate'
+        'components/card-edit/CardEditCreate',
+        'stores/refactor/flux'
     ],
     function (_,
               React,
               Card,
               TeamManagement,
               Flux,
-              PlanningCardEditCreate) {
+              PlanningCardEditCreate,
+              newFlux) {
 
 
         var CardShowcase = React.createClass({
@@ -100,6 +102,7 @@ requirejs(
 
             getInitialState(){
                 this.flux = new Flux();
+                this.newFlux = new newFlux();
                 this.flux.dispatcher.registerEventsHandled(this.forceUpdate.bind(this));
                 return {};
 

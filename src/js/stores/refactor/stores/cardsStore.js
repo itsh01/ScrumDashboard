@@ -82,14 +82,14 @@ define([
              *
              * @param {Object} newCardData
              *  {
-         *      name: [String],
-         *      description: [String] (optional, default: ''),
-         *      score: [Number] (optional, default: null),
-         *      team: [String] (optional, default: null),
-         *      status: [String] (optional, default: 'unassigned'),
-         *      assignee: [String] (optional, default: null),
-         *      startDate: [String] (optional, format: YYYY-MM-DD, default: null)
-         *  }
+             *      name: [String],
+             *      description: [String] (optional, default: ''),
+             *      score: [Number] (optional, default: null),
+             *      team: [String] (optional, default: null),
+             *      status: [String] (optional, default: 'unassigned'),
+             *      assignee: [String] (optional, default: null),
+             *      startDate: [String] (optional, format: YYYY-MM-DD, default: null)
+             *  }
              */
             function addCard(newCardData) {
                 var blankCard = this.getBlankCard(),

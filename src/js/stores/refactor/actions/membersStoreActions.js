@@ -1,5 +1,4 @@
 define([
-        'lodash',
         '../../../constants'
     ],
     function (_, constants) {

@@ -1,9 +1,7 @@
 define([
-        'lodash',
-        '../../teams',
         '../../../constants'
     ],
-    function (_, teamsStore, constants) {
+    function (constants) {
         'use strict';
 
         function teamsStoreActions(dispatcher) {
