@@ -3,7 +3,7 @@ define(['stores/helpers'], function (helpers) {
 
 
     describe('generateGuid', function () {
-        var GUID_FORMAT = /^[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}$/;
+        var GUID_FORMAT = /^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$/;
 
         it('should generate a string', function () {
             var guid = helpers.generateGuid();
