@@ -73,5 +73,5 @@ define(['stores/helpers'], function (helpers) {
             var actualResult = helpers.removeFromLocalStorage('blah');
             expect(actualResult).not.toBeDefined();
         });
-    })
+    });
 });
