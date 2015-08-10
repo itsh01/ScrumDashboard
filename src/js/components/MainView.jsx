@@ -17,15 +17,20 @@ define(['lodash', 'React', 'components/team/HomeView',
             },
 
             onChange: function () {
+                console.log('Changed');
                 this.setState({});
             },
 
             componentDidMount: function () {
                 this.context.newFlux.cardsStore.addChangeListener(this.onChange);
+                this.context.newFlux.teamsStore.addChangeListener(this.onChange);
+                this.context.newFlux.membersStore.addChangeListener(this.onChange);
             },
 
             componentWillUnmount: function () {
                 this.context.newFlux.cardsStore.removeChangeListener(this.onChange);
+                this.context.newFlux.teamsStore.removeChangeListener(this.onChange);
+                this.context.newFlux.membersStore.removeChangeListener(this.onChange);
             },
 
             getInitialState: function () {
@@ -43,6 +48,10 @@ define(['lodash', 'React', 'components/team/HomeView',
             },
 
             handleChangeTeam: function (e) {
+                this.context.newFlux.teamsActions.changeCurrentTeamId(e.target.value);
+                var team2 = this.context.newFlux.teamsStore.getTeamById(e.target.value);
+                this.context.newFlux.teamsActions.changeCurrentSprintId(team2.sprints[team2.sprints.length - 1].id);
+
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM_ID, e.target.value);
                 var team = this.context.flux.teamsStore.getTeamById(e.target.value);
                 this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT_ID, team.sprints[team.sprints.length - 1].id);
