@@ -11,7 +11,7 @@ define([
             AllActiveTeams: {active: true}
         };
 
-        function TeamStore(dispatcher, getUserCards, newDispatcher, emitter) {
+        function TeamStore(dispatcher, getUserCards) {
             var dataFileVersion = '1',
                 SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
@@ -359,19 +359,6 @@ define([
                 dispatcher.registerAction(action.name, action.callback.bind(this));
             }.bind(this));
 
-            TeamStore.dispatchToken = newDispatcher.register(function () {
-                var actionName = [].shift.apply(arguments),
-                    payload = arguments,
-
-                    action = _.find(actions, {name: actionName});
-
-                if (action) {
-                    action.callback.apply(this, payload);
-                    saveToLocalStorage();
-                    emitter.emit(constants.eventNames.TEAMS_STORE_CHANGE_EVENT);
-                }
-
-            });
         }
 
 

@@ -6,25 +6,17 @@ define(
         './members',
         './teams',
         './planning',
-        './dispatcher',
-        'flux',
-        'eventemitter2',
-        './refactor/actions/cardsStoreActions',
-        './refactor/actions/teamsStoreActions'
+        './dispatcher'
     ],
-    function (_, Cards, Members, Teams, Planning, Dispatcher, flux, EventEmitter2, cardsActions, teamsActions) {
+    function (_, Cards, Members, Teams, Planning, Dispatcher) {
         'use strict';
 
         function Flux() {
-            var newDispatcher = new flux.Dispatcher();
-            this.emitter = new EventEmitter2();
-            this.cardsActions = cardsActions(newDispatcher);
-            this.teamsActions = teamsActions(newDispatcher);
             this.dispatcher = new Dispatcher();
-            this.cardsStore = new Cards(this.dispatcher, newDispatcher, this.emitter);
+            this.cardsStore = new Cards(this.dispatcher);
             this.membersStore = new Members(this.dispatcher);
             this.planningStore = new Planning(this.dispatcher);
-            this.teamsStore = new Teams(this.dispatcher, this.cardsStore.getUserCards, newDispatcher, this.emitter);
+            this.teamsStore = new Teams(this.dispatcher, this.cardsStore.getUserCards);
 
         }
 
