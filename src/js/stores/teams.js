@@ -366,7 +366,7 @@ define([
                 if (action) {
                     action.callback.apply(this, payload);
                     saveToLocalStorage();
-                    emitter.emit(constants.eventNames.TEAMS_STORE_CHANGE_EVENT);
+                    emitter.emit(constants.flux.TEAMS_STORE_CHANGE);
                 }
 
             });

@@ -169,7 +169,7 @@ define([
                 if (action) {
                     action.callback.apply(this, payload);
                     saveToLocalStorage();
-                    emitter.emit(constants.eventNames.CARDS_STORE_CHANGE_EVENT);
+                    emitter.emit(constants.flux.CARDS_STORE_CHANGE);
                 }
             });
 

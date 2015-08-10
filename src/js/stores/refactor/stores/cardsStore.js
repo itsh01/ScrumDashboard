@@ -152,8 +152,9 @@ define([
                 {name: constants.actionNames.UPDATE_CARD, callback: updateCard},
                 {name: constants.actionNames.ADD_CARD, callback: addCard},
                 {name: constants.actionNames.REMOVE_CARD, callback: removeCard},
-                {name: constants.actionNames.MEMBER_DEACTIVATED, callback: unassignMemberFromCards}
+                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: unassignMemberFromCards}
             ];
+
             this.dispatchToken = dispatcher.register(function (action) {
 
                 var actionName = [].shift.apply(arguments),
