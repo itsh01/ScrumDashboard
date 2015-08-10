@@ -12,7 +12,7 @@ define(
         './stores/planningStore'
     ],
     function (_, EventEmitter, baseFlux, CardsActions, MembersActions, TeamsActions,
-              CardsStore, MembersStore, TeamsStore) {
+              CardsStore, MembersStore, TeamsStore, planningStore) {
         'use strict';
 
         var dispatcher = new baseFlux.Dispatcher();
@@ -25,7 +25,7 @@ define(
             this.cardsStore = new CardsStore(dispatcher, this.eventEmitter);
             this.membersStore = new MembersStore(dispatcher, this.eventEmitter);
             this.teamsStore = new TeamsStore(dispatcher, this.eventEmitter, this.cardsStore.getUserCards);
-            this.planningStore = new Planning(dispatcher);
+            this.planningStore = new planningStore(dispatcher);
         }
 
         return Flux;
