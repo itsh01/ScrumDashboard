@@ -30,17 +30,17 @@ define([
             this.dispatchToken = dispatcher.register(function (action) {
 
                 var actionName = [].shift.apply(arguments),
-                    payload = arguments;
+                    payload = Array.prototype.slice.call(arguments);
 
                 switch (actionName) {
                     case (constants.actionNames.PLANNING_ADD_CARD):
-                        addingCard.apply(this, [true].concat.call(payload));
+                        addingCard.apply(this, [true].concat(payload));
                         break;
                     case (constants.actionNames.PLANNING_DONE_ADDING_CARD):
-                        addingCard.apply(this, [false].concat.call(payload));
+                        addingCard.apply(this, [false].concat(payload));
                         break;
                     case (constants.actionNames.PLANNING_EDIT_CARD):
-                        editCard.apply(this, [true].concat.call(payload));
+                        editCard.apply(this, [true].concat(payload));
                         break;
                     default:
                         // do nothing
