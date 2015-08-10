@@ -18,8 +18,8 @@ define(['lodash', 'React', '../general/Search', 'constants'], function (_, React
             this.membersStore = this.context.flux.membersStore;
 
             return {
-                allMembers: this.getAllMembers(),
-                currentTeamMembers: this.getCurrentTeamMembers()
+                allMembers: this.getAllMembersNames(),
+                currentTeamMembers: this.getCurrentTeamMembersNames()
             };
         },
 
@@ -28,11 +28,11 @@ define(['lodash', 'React', '../general/Search', 'constants'], function (_, React
             var currentTeamId = this.teamsStore.getCurrentTeam().id;
             this.dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER_TO_TEAM, currentTeamId, memberId);
         },
-        getAllMembers: function () {
+        getAllMembersNames: function () {
             return this.membersStore && this.membersStore.getAllMembers();
         },
 
-        getCurrentTeamMembers: function () {
+        getCurrentTeamMembersNames: function () {
             return this.teamsStore && this.teamsStore.getCurrentTeam().members;
         },
 

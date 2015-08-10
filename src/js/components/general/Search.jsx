@@ -49,8 +49,8 @@ define(['../../../vendor/lodash', 'React', 'constants'],
                 };
             },
             setMatchedItemContainerVisibility: function (newVisibility) {
-                if (this.refs.matchedMemberContainer) {
-                    this.refs.matchedMemberContainer.getDOMNode().style.opacity = newVisibility;
+                if (this.refs.matchedItemContainer) {
+                    this.refs.matchedItemContainer.getDOMNode().style.opacity = newVisibility;
                 }
             },
             changeExistingMember: function (member) {
@@ -64,13 +64,13 @@ define(['../../../vendor/lodash', 'React', 'constants'],
                 var excludedCollection = this.props.excludedCollection;
                 return this.state.searchStr === '' ?
                     '' :
-                    <div className='matched-member-container' ref='matchedMemberContainer'>
+                    <div className='matched-member-container' ref='matchedItemContainer'>
                         <ul className='matched-member-list'>
                             {
 
-                                _(allItems).filter(function (member) {
-                                    return !_.includes(excludedCollection, member.id) &&
-                                        _.includes(member.name.toLowerCase(), this.state.searchStr.toLowerCase());
+                                _(allItems).filter(function (item) {
+                                    return !_.includes(excludedCollection, item) &&
+                                        _.includes(item.name.toLowerCase(), this.state.searchStr.toLowerCase());
                                 }, this)
                                     .map(createMemberItem, this).value()
                             }
