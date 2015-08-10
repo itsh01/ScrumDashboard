@@ -1,19 +1,20 @@
 define(['stores/helpers'], function (helpers) {
     describe('helpers.js', function () {
-        it('should save to local storage', function () {
-            expect(true).toBeTruthy();
+        var mockStore = 'mockStore';
+        var mockStoreObj = {test: 1234};
+        describe('saveToLocalStorage', function () {
+            it('should save to local storage', function () {
+                helpers.saveToLocalStorage(mockStore, mockStoreObj);
+                expect(localStorage[mockStore]).toEqual(JSON.stringify(mockStoreObj));
+            });
         });
-        it('should retrieve value from local storage', function () {
+
+        describe('restoreFromLocalStorage', function () {
+            it('should retrieve from local storage', function () {
+                helpers.saveToLocalStorage(mockStore, mockStoreObj);
+                expect(helpers.restoreFromLocalStorage(mockStore)).toEqual(mockStoreObj);
+            });
         });
-        it('should remove value from local storage', function () {
-        });
-        it('should return random guid', function () {
-        });
-        //it('should return true when given array that contains only strings', function(){});
-        //it('should return false when given array that contains something other than string', function(){});
-        it('should', function () {
-        });
-        it('should', function () {
-        });
+
     });
 });
