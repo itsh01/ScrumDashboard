@@ -34,13 +34,13 @@ define([
 
                 switch (actionName) {
                     case (constants.actionNames.PLANNING_ADD_CARD):
-                        addingCard.call(this, true, payload);
+                        addingCard.apply(this, [true].concat.call(payload));
                         break;
                     case (constants.actionNames.PLANNING_DONE_ADDING_CARD):
-                        addingCard.call(this, false, payload);
+                        addingCard.apply(this, [false].concat.call(payload));
                         break;
                     case (constants.actionNames.PLANNING_EDIT_CARD):
-                        editCard.call(this, true, payload);
+                        editCard.apply(this, [true].concat.call(payload));
                         break;
                     default:
                         // do nothing

@@ -98,8 +98,8 @@ define([
 
             function createMemberIntoTeam(memberData, teamId) {
                 var newMemberId = addMember.call(this, memberData);
-                // TODO: use teamsStoreActions
-                //dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER_TO_TEAM, teamId, newMemberId);
+                // TODO: change
+                dispatcher.dispatch(constants.actionNames.ADD_MEMBER_TO_TEAM, teamId, newMemberId);
             }
 
             var actions = [
