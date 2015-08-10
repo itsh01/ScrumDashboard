@@ -21,7 +21,7 @@ define(['stores/helpers'], function (helpers) {
 
         it('should generate a string', function () {
             var guid = helpers.generateGuid();
-            expect(typeof guid === 'string').toBe(true);
+            expect(typeof guid).toBe('string');
         });
 
         it('should generate a guid formatted string', function () {
@@ -32,7 +32,7 @@ define(['stores/helpers'], function (helpers) {
         it('should generate different strings', function () {
             var guid1 = helpers.generateGuid(),
                 guid2 = helpers.generateGuid();
-            expect(guid1).not.toBe(guid2);
+            expect(guid1).not.toEqual(guid2);
         });
 
     });
