@@ -9,7 +9,7 @@ define(['stores/helpers'], function (helpers) {
 
         it('should generate a string', function () {
             var guid = helpers.generateGuid();
-            expect(guid).toBeDefined();
+            expect(typeof guid === 'string').toBe(true);
         });
 
         it('should generate a guid formatted string', function () {
