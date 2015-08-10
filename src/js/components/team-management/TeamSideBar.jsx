@@ -1,4 +1,4 @@
-define(['lodash', 'React', 'components/team-management/TeamSelector', 'components/team-management/addTeam'],
+define(['lodash', 'React', 'components/team-management/TeamSelector', 'components/team-management/AddTeam'],
     function (_, React, TeamSelector, AddTeam) {
         'use strict';
         return React.createClass({

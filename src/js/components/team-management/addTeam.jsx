@@ -42,7 +42,7 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
         createPlusElement: function () {
             return (
                 <div onClick={this.toggleInput}
-                     className='team-name'>Plus
+                     className='team-name'>Add Team
                 </div>
             );
         },
