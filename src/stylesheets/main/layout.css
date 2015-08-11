@@ -25,3 +25,17 @@ h1, h2, h3 {
 .hidden{
     display: none;
 }
+
+.underline {
+    position: relative;
+}
+
+.underline:after {
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    content: "";
+    position: absolute;
+    background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
+}
