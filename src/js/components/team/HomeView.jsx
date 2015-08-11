@@ -74,6 +74,14 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             render: function () {
                 var team = this.context.flux.teamsStore.getCurrentTeam();
                 var sprint = this.context.flux.teamsStore.getCurrentSprint();
+                if (!team.id) {
+                    return (
+                        <div>
+                            <h1>No Teams Found :(</h1>
+                            <h2>Go ahead and add some in Manage Teams...</h2>
+                        </div>
+                    );
+                }
                 return (
                     <div>
                         <h1>{team.name} Team</h1>

@@ -6,12 +6,15 @@ h1, h2, h3 {
 
 .one-row {
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
 }
 
 .flex-centered {
     align-items: center;
+    -webkit-align-items: center;
     justify-content: center;
+    -webkit-justify-content: center;
 }
 
 .flex-base {
