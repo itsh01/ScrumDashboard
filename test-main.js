@@ -1,6 +1,7 @@
 var tests = [];
 for (var file in window.__karma__.files) {
   if (/spec\.js$/.test(file)) {
+    console.log(file);
     tests.push(file);
   }
 }
@@ -19,6 +20,7 @@ requirejs.config({
     general: '../js/general',
     stores: '../js/stores',
     flux: '../js/stores/refactor/Flux',
+    stubContext: '../vendor/stubContext',
 
 
     // DatePicker dependencies
@@ -50,6 +52,11 @@ requirejs.config({
     },
     eventemitter2: {
       exports: 'eventemitter2'
+    },
+    stubContext:{
+      deps: ['react'],
+      exports: 'stubContext'
     }
+
   }
 });

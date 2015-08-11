@@ -209,6 +209,20 @@ module.exports = function (grunt) {
                 singleRun: true,
                 configFile: 'karma.conf.js'
             }
+        },
+        umd: {
+            all: {
+                options: {
+                    src: 'node_modules/react-stub-context/dist/index.js',
+                    dest: 'src/vendor/stubContext.js',
+                    objectToExport: 'stubContext',
+                    amdModuleId: 'stubContext',
+                    deps: {
+                        'default': ['react', 'require', 'exports', 'module'],
+                        amd: ['react', 'require', 'exports', 'module']
+                    }
+                }
+            }
         }
     });
 
@@ -221,7 +235,7 @@ module.exports = function (grunt) {
     grunt.registerTask('lint', ['eslint', 'csslint']);
     grunt.registerTask('dev', ['asciify:banner', 'lint', 'babel', 'test']);
     grunt.registerTask('minify', ['processhtml', 'requirejs', 'cssmin']);
-    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'babel', 'copy', 'minify']);
+    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'babel', 'umd', 'copy', 'minify']);
     grunt.registerTask('test', ['karma']);
     grunt.registerTask('default', ['build', 'test']);
 
