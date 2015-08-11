@@ -38,4 +38,7 @@ h1, h2, h3 {
     content: "";
     position: absolute;
     background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
+    background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
+    background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
+    background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
 }
