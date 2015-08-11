@@ -23,14 +23,10 @@ define([
                     cardLifecycle: ['Backlog', 'In progress', 'Done']
                 };
             },
-            render: function () {
-
+            getSprintCards: function () {
                 var cards = [],
-                    lastLifecycleState = _.last(this.props.cardLifecycle),
-                    actualVelocity = 0,
-                    expectedVelocity = 0;
+                    retro = this.props.retro;
 
-                var retro = this.props.retro;
                 if (retro) {
                     cards = _.map(retro, this.mapHistoryToCards);
                 } else {
@@ -38,16 +34,25 @@ define([
                         cards = cards.concat(this.context.flux.cardsStore.getUserCards(memberId));
                     }, this);
                 }
-
-                expectedVelocity = _(cards)
+                return cards;
+            },
+            calcExpectedVelocity: function (cards) {
+                return _(cards)
                     .pluck('score')
                     .sum();
-
-                actualVelocity = _(cards)
+            },
+            calcActualVelocity: function (cards, lastLifecycleState) {
+                return _(cards)
                     .filter({status: lastLifecycleState})
                     .pluck('score')
                     .sum();
+            },
+            render: function () {
 
+                var cards = this.getSprintCards(),
+                    lastLifecycleState = _.last(this.props.cardLifecycle),
+                    actualVelocity = this.calcActualVelocity(cards, lastLifecycleState),
+                    expectedVelocity = this.calcExpectedVelocity(cards);
 
                 return (<div className="sprint-velocity text-center">
                     <h3 className="sprint-velocity-title underline">Sprint Velocity</h3>
