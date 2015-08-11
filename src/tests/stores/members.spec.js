@@ -8,9 +8,9 @@ define([
     ],
     function (Dispatcher, MembersStore) {
         'use strict';
-
-        var mockDispatcher = new Dispatcher();
-        var mockMembersStore = new MembersStore(mockDispatcher);
+        
+        var mockDispatcher = null;
+        var mockMembersStore = null;
 
         //var mockMemberData = {
         //        id: '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
@@ -21,7 +21,13 @@ define([
 
         describe('MembersStore', function () {
 
+            beforeEach(function () {
+                mockDispatcher = new Dispatcher();
+                mockMembersStore = new MembersStore(mockDispatcher);
+            });
+
             describe('getBlankMember', function () {
+
                 it('should generate a blank member', function () {
                     var blankMember = mockMembersStore.getBlankMember();
 
