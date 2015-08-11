@@ -43,11 +43,19 @@ define([
                 };
             }, this);
 
-            var currentViewState = {
-                currentTeamId: teamsData[0].id,
-                currentSprintId: (_.last(teamsData[0].sprints)).id,
-                currentExistingMemberId: teamsData[0].members[0]
+            this.getInitialViewState = function () {
+                var allActiveTeams = this.getAllActiveTeams();
+                if (allActiveTeams.length > 0) {
+                    return {
+                        currentTeamId: allActiveTeams[0].id,
+                        currentSprintId: (_.last(allActiveTeams[0].sprints)).id,
+                        currentExistingMemberId: allActiveTeams[0].members[0]
+                    };
+                }
+                return {};
             };
+
+            var currentViewState = this.getInitialViewState();
 
             this.changeCurrentTeamToDefault = function () {
                 var defaultTeamId = this.getAllActiveTeams()[0] ? this.getAllActiveTeams()[0].id : {};
