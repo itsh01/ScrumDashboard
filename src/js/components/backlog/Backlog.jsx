@@ -3,7 +3,7 @@ define([
         'React',
 
         'components/card/Card',
-        'components/backlog/cardsList'
+        'components/backlog/CardsList'
     ],
     function (_, React, Card, CardsList) {
         'use strict';
