@@ -1,17 +1,16 @@
 define([
         'lodash',
-        '../data/teams',
         './helpers',
         '../constants'
     ],
-    function (_, defaultTeamData, helpers, constants) {
+    function (_, helpers, constants) {
         'use strict';
         var filterFunctions = {
             AllTeams: null,
             AllActiveTeams: {active: true}
         };
 
-        function TeamStore(dispatcher, getUserCards) {
+        function TeamStore(dispatcher, teamsDefaultData, getUserCards) {
             var dataFileVersion = '1',
                 SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
@@ -33,7 +32,7 @@ define([
             if (dataFileVersion === localStorage.getItem('teamVersion')) {
                 teamsData = restoreFromLocalStorage();
             } else {
-                teamsData = defaultTeamData;
+                teamsData = teamsDefaultData;
                 saveToLocalStorage();
                 localStorage.setItem('teamVersion', dataFileVersion);
             }

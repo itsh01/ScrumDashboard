@@ -1,16 +1,15 @@
 define([
         'lodash',
-        '../data/members',
         './helpers',
         '../constants'
     ],
-    function (_, defaultMembersData, helpers, constants) {
+    function (_, helpers, constants) {
         'use strict';
         var filterFunctions = {
             AllMembers: null
         };
 
-        function MembersStore(dispatcher) {
+        function MembersStore(dispatcher, membersDefaultData) {
             var dataFileVersion = '1',
                 MEMBERS_SCHEMA = {
                     name: {type: 'string'},
@@ -22,7 +21,7 @@ define([
             if (dataFileVersion === localStorage.getItem('membersVersion')) {
                 currentMembers = restoreFromLocalStorage();
             }else {
-                currentMembers = defaultMembersData;
+                currentMembers = membersDefaultData;
                 saveToLocalStorage();
                 localStorage.setItem('membersVersion', dataFileVersion);
             }

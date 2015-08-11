@@ -1,10 +1,9 @@
 define([
         'lodash',
-        '../data/cards',
         './helpers',
         '../constants'
     ],
-    function (_, defaultCardsData, helpers, constants) {
+    function (_, helpers, constants) {
         'use strict';
         var filterFunctions = {
             AllCards: null,
@@ -20,7 +19,7 @@ define([
             NotCompleted: {endDate: null}
         };
 
-        function CardsStore(dispatcher) {
+        function CardsStore(dispatcher, cardsDefaultData) {
             var dataFileVersion = '1',
                 CARDS_SCHEMA = {
                     name: {type: 'string'},
@@ -36,8 +35,8 @@ define([
 
             if (dataFileVersion === localStorage.getItem('cardsVersion')) {
                 currentCards = restoreFromLocalStorage();
-            }else {
-                currentCards = defaultCardsData;
+            } else {
+                currentCards = cardsDefaultData;
                 saveToLocalStorage();
                 localStorage.setItem('cardsVersion', dataFileVersion);
             }
