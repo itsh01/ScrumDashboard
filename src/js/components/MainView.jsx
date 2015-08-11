@@ -41,19 +41,17 @@ define(['lodash', 'React', 'components/team/HomeView',
             },
 
             getViewComponent: function () {
-                var allTeams = this.context.flux.teamsStore.getAllActiveTeams();
-                var currentTeam = this.context.flux.teamsStore.getCurrentTeam();
                 if (this.state.view === 'HomeView') {
                     return (
                         <div className="home-view-container">
-                            <HomeView currTeamId={currentTeam.id}/>
+                            <HomeView />
                         </div>
                     );
                 }
                 if (this.state.view === 'TeamManagement') {
                     return (
                         <div>
-                            <TeamManagement allTeams={allTeams} currentTeam={currentTeam}/>
+                            <TeamManagement />
                         </div>
                     );
                 }
