@@ -18,7 +18,7 @@ define(['lodash', 'React', '../general/Search', 'constants'], function (_, React
 
             return {
                 allMembers: this.getAllMembersNames(),
-                currentTeamMembers: this.getCurrentTeamMembersNames()
+                currentTeamMembers: this.getCurrentTeamMembers()
             };
         },
 
@@ -31,7 +31,7 @@ define(['lodash', 'React', '../general/Search', 'constants'], function (_, React
             return this.membersStore && this.membersStore.getAllMembers();
         },
 
-        getCurrentTeamMembersNames: function () {
+        getCurrentTeamMembers: function () {
             return this.teamsStore && this.teamsStore.getCurrentTeam().members;
         },
 
