@@ -19,7 +19,7 @@ define(['lodash', 'React',
             getCurrentTeam: function () {
                 return this.context.flux.teamsStore.getCurrentTeam();
             },
-            getCurrentTeamMembersNames: function () {
+            getCurrentTeamMembers: function () {
                 var currentTeam = this.getCurrentTeam();
                 return _.map(currentTeam.members, function (memberId) {
                     return this.context.flux.membersStore.getMemberById(memberId);
@@ -34,7 +34,7 @@ define(['lodash', 'React',
                         <div className='team-management'>
                             <TeamSidebar allTeams={allTeams}/>
                             <TeamView team={currentTeam}
-                                      teamMembers={this.getCurrentTeamMembersNames()}/>
+                                      teamMembers={this.getCurrentTeamMembers()}/>
                         </div>
                     </ReactCSSTransitionGroup>
                 );
