@@ -288,10 +288,12 @@ define([
             };
 
             this.getSprintIndex = function (sprintId) {
-                var sprints = this.getTeamById(currentViewState.currentTeamId).sprints;
-                for (var i = 0; i < sprints.length; i++) {
-                    if (sprints[i].id === sprintId) {
-                        return i;
+                if (currentViewState.currentTeamId) {
+                    var sprints = this.getTeamById(currentViewState.currentTeamId).sprints;
+                    for (var i = 0; i < sprints.length; i++) {
+                        if (sprints[i].id === sprintId) {
+                            return i;
+                        }
                     }
                 }
                 return -1;
@@ -305,6 +307,9 @@ define([
             }
 
             this.getCurrentSprint = function () {
+                if (!this.getCurrentTeam().id) {
+                    return {};
+                }
                 resetCurrentSprintIdIfInvalid.call(this);
                 return this.getSprintById(currentViewState.currentSprintId);
             };
@@ -360,7 +365,6 @@ define([
             }.bind(this));
 
         }
-
 
 
         return TeamStore;

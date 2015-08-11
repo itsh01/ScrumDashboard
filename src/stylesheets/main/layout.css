@@ -6,12 +6,15 @@ h1, h2, h3 {
 
 .one-row {
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
 }
 
 .flex-centered {
     align-items: center;
+    -webkit-align-items: center;
     justify-content: center;
+    -webkit-justify-content: center;
 }
 
 .flex-base {
@@ -24,4 +27,21 @@ h1, h2, h3 {
 
 .hidden{
     display: none;
+}
+
+.underline {
+    position: relative;
+}
+
+.underline:after {
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    content: "";
+    position: absolute;
+    background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
+    background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
+    background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
+    background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
 }

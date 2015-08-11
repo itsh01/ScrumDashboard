@@ -50,7 +50,7 @@ define([
 
 
                 return (<div className="sprint-velocity text-center">
-                    <h3 className="sprint-velocity-title">Sprint Velocity</h3>
+                    <h3 className="sprint-velocity-title underline">Sprint Velocity</h3>
                     <div className="sprint-velocity-data">
                         <div className="sprint-velocity-line">
                             <span>Actual: </span>
