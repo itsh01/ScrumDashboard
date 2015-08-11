@@ -16,17 +16,17 @@ define([
             getInitialState: function () {
                 return {
                     openCardId: null,
-                    isOpen: false
+                    isHeapOpen: false
                 };
             },
 
             cardClickHandler: function (cardId) {
-                var openCardId = (this.state.openCardId === cardId) ? null : cardId;
-                this.setState({openCardId: openCardId, isOpen: true});
+                var openCardId = (!this.state.isHeapOpen && this.state.openCardId === null) ? null : cardId;
+                this.setState({openCardId: openCardId, isHeapOpen: true});
             },
 
             closeHeapBtnHandler: function () {
-                this.setState({isOpen: false});
+                this.setState({openCardId: null, isHeapOpen: false});
             },
 
             getOpenHeapCardStyle: function (cardIndex) {
@@ -42,11 +42,15 @@ define([
                 return { };
             },
 
+            toForceCardsReset: function () {
+                return (!this.state.isHeapOpen || this.state.openCardId === null);
+            },
+
             render: function () {
-                var cardStyle = (this.state.isOpen) ? this.getOpenHeapCardStyle : this.getClosedHeapCardStyle,
+                var cardStyle = (this.state.isHeapOpen) ? this.getOpenHeapCardStyle : this.getClosedHeapCardStyle,
                     cards = _.map(this.props.cards, function (card, cardIndex) {
                         return (<div style={cardStyle(cardIndex)} key={card.id} className="sprint-card-wrapper">
-                            <Card card={card} cardClickHandler={this.cardClickHandler} forceReset={!this.state.isOpen} />
+                            <Card card={card} cardClickHandler={this.cardClickHandler} forceReset={this.toForceCardsReset()} />
                         </div>);
                     }.bind(this));
 
