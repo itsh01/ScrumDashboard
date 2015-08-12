@@ -9,24 +9,25 @@ define([
         'use strict';
 
         var testUtils = React.addons.TestUtils,
-            stubFlux;
+            transformValue = 'translate(1rem, 1rem)',
+            transformStyle = {transform: transformValue},
+            stubFlux = {
+                teamsStore: {
+                    getCurrentSprint: function () {
+                        return {state: 2};
+                    }
+                },
+                dispatcher: {
+                    dispatchAction: function () {
+                    }
+                }
+            };
 
         describe('HeapCardsContainer', function () {
             var props = {cards: cardsData.slice(0, 3)},
                 heapContainerReactElement, heapReactElement, heapReactComponent, cardReactComponents;
 
             beforeEach(function () {
-                stubFlux = {
-                    teamsStore: {
-                        getCurrentSprint: function () {
-                            return {state: 2};
-                        }
-                    },
-                    dispatcher: {
-                        dispatchAction: function () {
-                        }
-                    }
-                };
                 var StubbedContextClass = stubbedContextHandler(HeapCardsContainer, {flux: stubFlux});
                 heapReactElement = React.createElement(StubbedContextClass, props);
                 heapContainerReactElement = testUtils.renderIntoDocument(heapReactElement);
@@ -39,6 +40,8 @@ define([
                     return (component.getDOMNode().classList.contains('card') && component.state);
                 });
 
+                spyOn(heapReactComponent, 'getOpenHeapCardStyle').and.returnValue(transformStyle);
+
             });
 
             describe('props', function () {
@@ -47,7 +50,6 @@ define([
                     function func() {
                         testUtils.renderIntoDocument(React.createElement(HeapCardsContainer, {cards: []}));
                     }
-
                     expect(func).not.toThrow();
                 });
 
@@ -65,9 +67,16 @@ define([
 
             });
 
-            describe('UI event handlers', function () {
+            describe('UI Event Handlers', function () {
 
                 describe('Closed Heap', function () {
+
+                    it('should not set openCardId after a card is clicked', function () {
+                        var card = cardReactComponents[0];
+                        testUtils.Simulate.click(card.getDOMNode());
+                        expect(heapReactComponent.state.openCardId).toBe(null);
+                    });
+
                     it('should open the heap after the first card is clicked', function () {
                         var firstCard = cardReactComponents[0];
                         testUtils.Simulate.click(firstCard.getDOMNode());
@@ -97,8 +106,8 @@ define([
                                 return component.getDOMNode().classList.contains('sprint-card-wrapper');
                             }),
                             notTransformed = _.every(cardWrappers, function (card) {
-                            return _.isEmpty(card.getDOMNode().style.transform);
-                        });
+                                return _.isEmpty(card.getDOMNode().style.transform);
+                            });
                         expect(notTransformed).toBe(true);
                     });
 
@@ -115,6 +124,13 @@ define([
                         var card = cardReactComponents[0];
                         testUtils.Simulate.click(card.getDOMNode());
                         expect(card.state.isDescriptionOpened).toBe(true);
+                    });
+
+                    it('should set openCardId to the id of the last clicked card', function () {
+                        var card1 = cardReactComponents[0], card2 = cardReactComponents[1];
+                        testUtils.Simulate.click(card1.getDOMNode());
+                        testUtils.Simulate.click(card2.getDOMNode());
+                        expect(heapReactComponent.state.openCardId).toBe(cardsData[1].id);
                     });
 
                     it('should open descriptions of two cards after they are clicked', function () {
@@ -143,12 +159,12 @@ define([
 
                     it('should transform cards', function () {
                         var cardWrappers = testUtils.findAllInRenderedTree(heapContainerReactElement, function (component) {
-                                return component.getDOMNode().classList.contains('sprint-card-wrapper');
-                            }),
-                            transformed = _.every(cardWrappers, function (card) {
-                            return !_.isEmpty(card.getDOMNode().style.transform);
+                            return component.getDOMNode().classList.contains('sprint-card-wrapper');
                         });
-                        expect(transformed).toBe(true);
+                        _.forEach(cardWrappers, function (cardWrapper) {
+                            expect(cardWrapper.getDOMNode().style.transform).toEqual(transformValue);
+                        });
+
                     });
                 });
 
