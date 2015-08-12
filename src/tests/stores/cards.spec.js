@@ -17,7 +17,7 @@ define([
         describe('CardsStore', function () {
 
 
-            var mockDispatcher, mockCardsStore, mockCardsData, mockBlankCard, mockCard, mockNewCard, mockUserId;
+            var mockDispatcher, mockCardsStore, mockCardsData, mockBlankCard, mockCard, mockNewCard, mockUserId, mockTeamId;
             beforeEach(function () {
                 localStorage.clear();
                 mockCardsData = [
@@ -76,6 +76,7 @@ define([
                     endDate: null
                 };
                 mockUserId = mockCardsData[0].assignee;
+                mockTeamId = mockCardsData[0].team;
                 mockDispatcher = new Dispatcher();
                 mockDispatcher.registerEventsHandled(function () {
                     return true;
@@ -109,6 +110,14 @@ define([
                     var allCards = mockCardsStore.getAllCards();
                     expect(mockCardsData).toEqual(allCards);
                     expect(allCards.length).toEqual(3);
+                });
+            });
+
+            describe('getTeamCards', function () {
+                it('should return all cards assigned to a specific team by id', function () {
+                    var teamCards = mockCardsStore.getTeamCards(mockTeamId);
+                    expect(teamCards.length).toEqual(2);
+                    expect(teamCards[0]).toEqual(mockCardsData[0]);
                 });
             });
 
