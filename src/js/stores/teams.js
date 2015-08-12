@@ -76,6 +76,7 @@ define([
             this.getBlankSprint = function () {
                 var sprint = helpers.getBlankItem(SPRINT_SCHEMA);
                 sprint.members = this.getCurrentTeam().members;
+                sprint.scrumMaster = _.first(sprint.members);
                 return sprint;
             };
 
