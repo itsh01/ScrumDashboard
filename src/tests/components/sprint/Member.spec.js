@@ -22,16 +22,6 @@ define([
             }
         };
 
-        var mockProps2 = {
-            member: {
-                id: '1',
-                name: 'Elissa Collier',
-                image: 'https://s3.amazonaws.com/uifaces/faces/twitter/ciaranr/128.jpg',
-                active: true
-            }
-        };
-
-
         var MemberWithContext = null;
 
         describe('Sprint Member', function () {
@@ -59,7 +49,9 @@ define([
             });
 
             it('should not display scrum master when member id is not identical', function () {
-                var rendered = renderCompWithProps(mockProps2),
+                var rendered = renderCompWithProps({
+                        member: _.assign(mockProps.member,{id:'1'})
+                    }),
                     scrumMaster = queryMaster(rendered);
 
                 expect(scrumMaster).toBeNull();
