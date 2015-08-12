@@ -30,8 +30,8 @@ define([
                 return (
                     <div>
                         <h2>Backlog</h2>
-                        <CardsList title="Team" cardsList={teamCards}/>
-                        <CardsList title="Company" cardsList={CompanyCards}/>
+                        <CardsList ref="teamCardList" title="Team" cardsList={teamCards}/>
+                        <CardsList ref="companyCardList" title="Company" cardsList={CompanyCards}/>
                     </div>
                 );
             }

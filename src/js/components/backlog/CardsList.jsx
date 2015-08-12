@@ -69,6 +69,7 @@ define([
 
             if (this.props.cardsList.length === 0) {
                 cardsListToDisplay = (<img
+                    ref= 'plusAddButton'
                     src='img/plus-640.png'
                     style={{width: '5rem'}}
   //                  className='card-delete'
