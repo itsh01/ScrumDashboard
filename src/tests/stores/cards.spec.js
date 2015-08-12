@@ -6,7 +6,7 @@ define([
         'constants'
 
     ],
-    function (_, Dispatcher, CardsStore) {
+    function (_, Dispatcher, CardsStore, helpers, constants) {
         'use strict';
         beforeAll(function () {
             //var mockGuid = '9999-9999-9999-9999';
@@ -17,7 +17,7 @@ define([
         describe('CardsStore', function () {
 
 
-            var mockDispatcher, mockCardsStore, mockCardsData, mockBlankCard, mockCard;
+            var mockDispatcher, mockCardsStore, mockCardsData, mockBlankCard, mockCard, mockNewCard;
             beforeEach(function () {
                 localStorage.clear();
                 mockCardsData = [
@@ -65,7 +65,20 @@ define([
                     startDate: null,
                     endDate: null
                 };
+                mockNewCard = {
+                    name: 'Open-source the universe',
+                    description: 'The flux capacitor is whack. Fix it.!',
+                    status: 'unassigned',
+                    score: 12,
+                    team: null,
+                    assignee: null,
+                    startDate: null,
+                    endDate: null
+                };
                 mockDispatcher = new Dispatcher();
+                mockDispatcher.registerEventsHandled(function () {
+                    return true;
+                });
                 mockCardsStore = new CardsStore(mockDispatcher, mockCardsData);
                 mockCard = mockCardsData[0];
             });
@@ -97,7 +110,42 @@ define([
                 });
             });
 
-        });
+            describe('getAllCards', function () {
+                it('should return the array of card objects given as default', function () {
+                    var allCards = mockCardsStore.getAllCards();
+                    expect(mockCardsData).toEqual(allCards);
+                    expect(allCards.length).toEqual(3);
+                });
+            });
 
+            describe('addCard', function () {
+
+                var mockGuid;
+                beforeEach(function () {
+                    spyOn(mockCardsStore, 'getBlankCard').and.returnValue(mockBlankCard);
+                    mockGuid = '295a6ee1-0e46-45be-8c8f-8be30ee78635';
+                    spyOn(helpers, 'generateGuid').and.returnValue(mockGuid);
+                });
+
+                it('should add a new valid card to the store', function () {
+                    spyOn(helpers, 'isValidValue').and.returnValue(true);
+                    var initialAllCards = mockCardsStore.getAllCards();
+                    mockDispatcher.dispatchAction(constants.actionNames.ADD_CARD, mockNewCard);
+                    var modifiedAllCards = mockCardsStore.getAllCards();
+                    var expectedCardResult = mockNewCard;
+                    expectedCardResult.id = mockGuid;
+                    expect(initialAllCards.length + 1).toEqual(modifiedAllCards.length);
+                    expect(expectedCardResult).toEqual(modifiedAllCards[3]);
+                });
+
+                it('should not add an invalid card to the store', function () {
+                    spyOn(helpers, 'isValidValue').and.callThrough();
+                    mockNewCard.name = undefined;
+                    mockDispatcher.dispatchAction(constants.actionNames.ADD_CARD, mockNewCard);
+                    var allCards = mockCardsStore.getAllCards();
+                    expect(allCards).toEqual(mockCardsData);
+                });
+            });
+        });
     }
 );
