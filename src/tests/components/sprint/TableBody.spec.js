@@ -29,10 +29,9 @@ define([
                 retroCardsStatus: null
             }
         };
-
         var TableBodyWithContext = null;
 
-        describe('Sprint Velocity', function () {
+        describe('Table Body', function () {
 
             var instance = null;
             var renderedInstance = null;

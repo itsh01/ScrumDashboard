@@ -85,7 +85,7 @@ define([
         var MemberRow = null;
         var MemberRowWithContext = null;
 
-        describe('Sprint Velocity', function () {
+        describe('Table Row', function () {
 
             var instance = null;
             var renderedInstance = null;
