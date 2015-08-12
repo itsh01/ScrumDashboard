@@ -13,7 +13,7 @@ define([
 
         describe('HeapCardsContainer', function () {
             var props = {cards: cardsData.slice(0, 3)},
-                heapContainerReactElement, heapReactElement, heapReactComponent, cardReactElements;
+                heapContainerReactElement, heapReactElement, heapReactComponent, cardReactComponents;
 
             beforeEach(function () {
                 stubFlux = {
@@ -35,7 +35,7 @@ define([
                     return (component.getDOMNode().classList.contains('heap-view') && component.state);
                 })[0];
 
-                cardReactElements = testUtils.findAllInRenderedTree(heapReactComponent, function (component) {
+                cardReactComponents = testUtils.findAllInRenderedTree(heapContainerReactElement, function (component) {
                     return (component.getDOMNode().classList.contains('card') && component.state);
                 });
 
@@ -69,27 +69,37 @@ define([
 
                 describe('Closed Heap', function () {
                     it('should open the heap after the first card is clicked', function () {
-                        var firstCard = cardReactElements[0];
+                        var firstCard = cardReactComponents[0];
                         testUtils.Simulate.click(firstCard.getDOMNode());
                         expect(heapReactComponent.state.isHeapOpen).toBe(true);
                     });
 
                     it('should open the heap after the last card is clicked', function () {
-                        var lastCard = cardReactElements[cardReactElements.length - 1];
+                        var lastCard = cardReactComponents[cardReactComponents.length - 1];
                         testUtils.Simulate.click(lastCard.getDOMNode());
                         expect(heapReactComponent.state.isHeapOpen).toBe(true);
                     });
 
                     it('should open the heap after a middle card is clicked', function () {
-                        var middleCard = cardReactElements[1];
+                        var middleCard = cardReactComponents[1];
                         testUtils.Simulate.click(middleCard.getDOMNode());
                         expect(heapReactComponent.state.isHeapOpen).toBe(true);
                     });
 
                     it('should not open description if the card is clicked once', function () {
-                        var card = cardReactElements[1];
+                        var card = cardReactComponents[1];
                         testUtils.Simulate.click(card.getDOMNode());
                         expect(card.state.isDescriptionOpened).toBe(false);
+                    });
+
+                    it('should not transform cards', function () {
+                        var cardWrappers = testUtils.findAllInRenderedTree(heapContainerReactElement, function (component) {
+                                return component.getDOMNode().classList.contains('sprint-card-wrapper');
+                            }),
+                            notTransformed = _.every(cardWrappers, function (card) {
+                            return _.isEmpty(card.getDOMNode().style.transform);
+                        });
+                        expect(notTransformed).toBe(true);
                     });
 
                 });
@@ -98,18 +108,18 @@ define([
                 describe('Open Heap', function () {
 
                     beforeEach(function () {
-                        testUtils.Simulate.click(cardReactElements[0].getDOMNode()); // open the heap
+                        testUtils.Simulate.click(cardReactComponents[0].getDOMNode()); // open the heap
                     });
 
-                    it('should open description if the card is clicked', function () {
-                        var card = cardReactElements[0];
+                    it('should open description after the card is clicked', function () {
+                        var card = cardReactComponents[0];
                         testUtils.Simulate.click(card.getDOMNode());
                         expect(card.state.isDescriptionOpened).toBe(true);
                     });
 
-                    it('should open descriptions of two cards if they are clicked', function () {
-                        var card1 = cardReactElements[0],
-                            card2 = cardReactElements[1];
+                    it('should open descriptions of two cards after they are clicked', function () {
+                        var card1 = cardReactComponents[0],
+                            card2 = cardReactComponents[1];
                         testUtils.Simulate.click(card1.getDOMNode());
                         testUtils.Simulate.click(card2.getDOMNode());
                         expect(card1.state.isDescriptionOpened).toBe(true);
@@ -125,10 +135,20 @@ define([
                     it('should close all the cards after the close button is clicked', function () {
                         var closeBtn = testUtils.findRenderedDOMComponentWithClass(heapReactComponent, 'sprint-cards-container-close-heap-btn');
                         testUtils.Simulate.click(closeBtn.getDOMNode());
-                        var res = _.every(cardReactElements, function (card) {
+                        var res = _.every(cardReactComponents, function (card) {
                             return card.state.isDescriptionOpened === false;
                         });
                         expect(res).toBe(true);
+                    });
+
+                    it('should transform cards', function () {
+                        var cardWrappers = testUtils.findAllInRenderedTree(heapContainerReactElement, function (component) {
+                                return component.getDOMNode().classList.contains('sprint-card-wrapper');
+                            }),
+                            transformed = _.every(cardWrappers, function (card) {
+                            return !_.isEmpty(card.getDOMNode().style.transform);
+                        });
+                        expect(transformed).toBe(true);
                     });
                 });
 
