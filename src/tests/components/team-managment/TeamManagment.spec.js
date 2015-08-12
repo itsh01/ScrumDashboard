@@ -12,7 +12,7 @@ define(['React', 'components/team-management/TeamManagement', 'stubContext', 'st
             beforeEach(function () {
                 localStorage.clear();
                 var flux = new Flux();
-                spyOn(flux.teamsStore,'getCurrentTeam').and.returnValue(mockTeam);
+                spyOn(flux.teamsStore, 'getCurrentTeam').and.returnValue(mockTeam);
                 spyOn(flux.membersStore, 'getMemberById').and.returnValue(mockMember);
                 var TeamManagementWithContext = stubContext(TeamManagement, {flux: flux});
                 var instance = React.createElement(TeamManagementWithContext, {});

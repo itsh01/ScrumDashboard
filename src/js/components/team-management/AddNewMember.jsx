@@ -15,13 +15,14 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
             event.preventDefault();
             var teamId = this.props.team.id;
             var memberName = this.refs.memberName.getDOMNode().value;
-            var memberImgUrl = this.refs.memberImgUrl.getDOMNode().value || 'img/mosh.jpg';
-            var newMember = this.context.flux.membersStore.getBlankMember();
-            newMember.name = memberName;
-            newMember.image = memberImgUrl;
-            this.dispatcher.dispatchAction(
-                constants.actionNames.CREATE_MEMBER_INTO_TEAM, newMember, teamId);
-
+            if (memberName) {
+                var memberImgUrl = this.refs.memberImgUrl.getDOMNode().value || 'img/mosh.jpg';
+                var newMember = this.context.flux.membersStore.getBlankMember();
+                newMember.name = memberName;
+                newMember.image = memberImgUrl;
+                this.dispatcher.dispatchAction(
+                    constants.actionNames.CREATE_MEMBER_INTO_TEAM, newMember, teamId);
+            }
         },
 
         render: function render() {
