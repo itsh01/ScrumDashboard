@@ -64,10 +64,17 @@ define(['lodash', 'React', 'components/team/HomeView',
                 });
             },
 
+            getOption: function (teamId, teamName) {
+                if (this.context.flux.teamsStore.getCurrentTeam().id === teamId) {
+                    return (<option value={teamId} key={teamId} selected>{teamName}</option>);
+                }
+                return (<option value={teamId} key={teamId}>{teamName}</option>);
+            },
+
             render: function () {
                 var teamsOptions = _.map(this.getTeams(), function (team) {
-                    return (<option value={team.id} key={team.id}>{team.name}</option>);
-                });
+                    return this.getOption(team.id, team.name);
+                }.bind(this));
                 return (
                     <div>
                         <div className="header">
