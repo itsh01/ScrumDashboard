@@ -35,8 +35,8 @@ define(['../../../vendor/lodash', 'React', 'constants'],
         return React.createClass({
             displayName: 'Search element',
             propTypes: {
-                searchCollection: React.PropTypes.array,
-                excludedCollection: React.PropTypes.array
+                excludedCollection: React.PropTypes.array,
+                searchCollection: React.PropTypes.array
 
             },
             contextTypes: {
