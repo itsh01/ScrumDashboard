@@ -113,7 +113,7 @@ define([
                 expect(Velocity.prototype.calcActualVelocity(mockCards, lastPhase)).toEqual(4);
             });
 
-            it('shuold use retro cards when provided', function () {
+            it('should use retro cards when provided', function () {
 
                 instance = React.createElement(VelocityWithContext, mockProps);
                 React.addons.TestUtils.renderIntoDocument(instance);
