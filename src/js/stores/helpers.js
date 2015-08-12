@@ -7,7 +7,8 @@ define(['lodash'], function (_) {
     }
 
     function restoreFromLocalStorage(storeName) {
-        return JSON.parse(localStorage.getItem(storeName));
+        var localStorageMembers = localStorage.getItem(storeName);
+        return localStorageMembers !== 'undefined' ? JSON.parse(localStorageMembers) : undefined;
     }
 
     function removeFromLocalStorage(storeName) {
