@@ -27,7 +27,7 @@ define([
                 };
             },
 
-            getMemberRetroCards: function (retro, memberId) {
+            getMemberCards: function (retro, memberId) {
                 var cards = [];
                 if (retro) {
                     cards = _(retro)
@@ -59,7 +59,7 @@ define([
                 }, this);
             }, render: function () {
                 var member = this.props.member,
-                    cards = this.getMemberRetroCards(this.props.retro, member.id),
+                    cards = this.getMemberCards(this.props.retro, member.id),
                     cells = this.createCellByCard(cards);
 
                 return (<div className="table-row">
