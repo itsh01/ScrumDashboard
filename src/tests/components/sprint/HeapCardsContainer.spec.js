@@ -1,16 +1,35 @@
 define([
         'lodash',
         'React',
-        'data/cards',
         'components/sprint/HeapCardsContainer',
         'stubContext'
     ],
-    function (_, React, cardsData, HeapCardsContainer, stubbedContextHandler) {
+    function (_, React, HeapCardsContainer, stubbedContextHandler) {
         'use strict';
 
         var testUtils = React.addons.TestUtils,
             transformValue = 'translate(1rem, 1rem)',
             transformStyle = {transform: transformValue},
+            cards = [
+                {
+                    id: 'b97fff13-de90-4e1f-abb7-39f786d11450',
+                    name: 'card 1',
+                    description: 'description',
+                    score: 1
+                },
+                {
+                    id: '90eed4aa-40fe-496e-999a-54a436d66427',
+                    name: 'card 2',
+                    description: 'description',
+                    score: 2
+                },
+                {
+                    id: 'eaf1abfe-639f-4a8b-8e02-add0acc9833a',
+                    name: 'card 3',
+                    description: 'description',
+                    score: 3
+                }
+            ],
             stubFlux = {
                 teamsStore: {
                     getCurrentSprint: function () {
@@ -24,7 +43,7 @@ define([
             };
 
         describe('HeapCardsContainer', function () {
-            var props = {cards: cardsData.slice(0, 3)},
+            var props = {cards: cards},
                 heapContainerReactElement, heapReactElement, heapReactComponent, cardReactComponents;
 
             beforeEach(function () {
@@ -130,7 +149,7 @@ define([
                         var card1 = cardReactComponents[0], card2 = cardReactComponents[1];
                         testUtils.Simulate.click(card1.getDOMNode());
                         testUtils.Simulate.click(card2.getDOMNode());
-                        expect(heapReactComponent.state.openCardId).toBe(cardsData[1].id);
+                        expect(heapReactComponent.state.openCardId).toBe(cards[1].id);
                     });
 
                     it('should open descriptions of two cards after they are clicked', function () {

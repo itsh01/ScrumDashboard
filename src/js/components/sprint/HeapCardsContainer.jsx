@@ -1,13 +1,14 @@
 define([
         'lodash',
         'React',
-        'components/card/Card'
+        'components/card/Card',
+        'components/sprint/ContainerSize'
     ],
-    function (_, React, Card) {
+    function (_, React, Card, ContainerSize) {
         'use strict';
 
         return React.createClass({
-            displayName: 'Sprint Cards Container - Heap View',
+            displayName: 'SprintCardsHeapContainer',
 
             propTypes: {
                 cards: React.PropTypes.array
@@ -48,7 +49,7 @@ define([
             },
 
             getClosedHeapCardStyle: function () {
-                return { };
+                return {};
             },
 
             toForceCardsReset: function () {
@@ -59,14 +60,25 @@ define([
                 var cardStyle = (this.state.isHeapOpen) ? this.getOpenHeapCardStyle : this.getClosedHeapCardStyle,
                     cards = _.map(this.props.cards, function (card, cardIndex) {
                         return (<div style={cardStyle(cardIndex)} key={card.id} className="sprint-card-wrapper">
-                            <Card card={card} cardClickHandler={this.cardClickHandler} forceReset={this.toForceCardsReset()} />
+                            <Card card={card} cardClickHandler={this.cardClickHandler}
+                                  forceReset={this.toForceCardsReset()}/>
                         </div>);
                     }.bind(this));
 
-                return (<div className="sprint-cards-container heap-view">
-                    <button className='sprint-cards-container-close-heap-btn' onClick={this.closeHeapBtnHandler}>Close</button>
-                    {cards}
-                </div>);
+                if (!this.state.isHeapOpen) {
+                    cards.push(<ContainerSize
+                        containerSize={this.props.cards.length}
+                        clickHandler={this.cardClickHandler}/>);
+                }
+
+                return (
+                    <div className="sprint-cards-container heap-view">
+                        <button className='sprint-cards-container-close-heap-btn'
+                                onClick={this.closeHeapBtnHandler}>Close
+                        </button>
+                        {cards}
+                    </div>
+                );
             }
         });
     });
