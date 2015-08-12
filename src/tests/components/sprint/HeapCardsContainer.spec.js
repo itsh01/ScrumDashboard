@@ -50,7 +50,6 @@ define([
                     function func() {
                         testUtils.renderIntoDocument(React.createElement(HeapCardsContainer, {cards: []}));
                     }
-
                     expect(func).not.toThrow();
                 });
 
@@ -68,7 +67,7 @@ define([
 
             });
 
-            describe('UI event handlers', function () {
+            describe('UI Event Handlers', function () {
 
                 describe('Closed Heap', function () {
 
