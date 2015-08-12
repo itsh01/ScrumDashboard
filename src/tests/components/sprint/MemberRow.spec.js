@@ -88,6 +88,7 @@ define([
         describe('Sprint Velocity', function () {
 
             var instance = null;
+            var renderedInstance = null;
 
             beforeEach(function () {
 
@@ -96,21 +97,24 @@ define([
                 MemberRow = memberRowDefinition(_, React, SprintMember, TableCell, HistoryMixin);
                 MemberRowWithContext = stubContext(MemberRow, {flux: new Flux()});
 
-                instance = React.createElement(MemberRowWithContext, {
-                    member: mockProps.member
-                });
-                React.addons.TestUtils.renderIntoDocument(instance);
+                instance = React.createElement(MemberRowWithContext, mockProps);
+                renderedInstance = React.addons.TestUtils.renderIntoDocument(instance);
 
+            });
+
+            it('should use create table cells as the amount of lifecycle phases', function () {
+
+                var tableCellsAmount = renderedInstance
+                    .getDOMNode()
+                    .querySelectorAll('.table-cell')
+                    .length;
+
+                expect(tableCellsAmount).toEqual(mockProps.cardLifecycle.length + 1);
 
             });
 
             it('should use retro cards when provided', function () {
-
-                instance = React.createElement(MemberRowWithContext, mockProps);
-                React.addons.TestUtils.renderIntoDocument(instance);
-
                 expect(HistoryMixin.mapHistoryToCards).toHaveBeenCalled();
-
             });
 
         });
