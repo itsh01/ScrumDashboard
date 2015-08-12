@@ -1,25 +1,32 @@
 define(['React', 'components/team-management/TeamManagement', 'stubContext', 'stores/flux'],
     function (React, TeamManagement, stubContext, Flux) {
         'use strict';
-        //console.log(stubContext);
-        //var mockTeam = {
-        //    members: ['1234']
-        //};
-        //var mockMember = {name: 'shlomo', id: '1234'};
+        var mockTeam = {
+            members: ['1234']
+        };
+        var mockMember = {name: 'shlomo', id: '1234'};
         var reactTestUtils = React.addons.TestUtils;
         describe('Team management tests', function () {
+            var comp;
+
             beforeEach(function () {
                 localStorage.clear();
                 var flux = new Flux();
+                spyOn(flux.teamsStore,'getCurrentTeam').and.returnValue(mockTeam);
+                spyOn(flux.membersStore, 'getMemberById').and.returnValue(mockMember);
                 var TeamManagementWithContext = stubContext(TeamManagement, {flux: flux});
                 var instance = React.createElement(TeamManagementWithContext, {});
-                reactTestUtils.renderIntoDocument(instance);
+                var wrappedEl = reactTestUtils.renderIntoDocument(instance).getWrappedElement();
+                comp = reactTestUtils.renderIntoDocument(wrappedEl);
 
             });
 
             it('should return member', function () {
-                //var mainComp = reactTestUtils.renderIntoDocument(React.createElement(MainContainer));
-                //var teamComp = reactTestUtils.renderIntoDocument(React.createElement(TeamManagement));
+                var actualMembers = comp.getCurrentTeamMembers();
+                var expectedMembers = [mockMember];
+                expect(actualMembers).toEqual(expectedMembers);
+
+
             });
         });
 
