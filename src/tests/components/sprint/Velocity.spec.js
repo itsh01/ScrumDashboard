@@ -5,9 +5,12 @@
 define([
         'lodash',
         'React',
-        'components/sprint/Velocity'
+        'definition!components/sprint/Velocity',
+        'stubContext',
+        'stores/flux',
+        'mixins/HistoryMixin'
     ],
-    function (_, React, Velocity) {
+    function (_, React, velocityDefinition, stubContext, Flux, HistoryMixin) {
         'use strict';
 
         var mockProps = {
@@ -77,15 +80,24 @@ define([
             }
         ];
 
+        var Velocity = null;
+        var VelocityWithContext = null;
+
         describe('Sprint Velocity', function () {
 
             var instance = null;
 
             beforeEach(function () {
-                instance = React.createElement(Velocity, {});
-                //spyOn(instance, 'calcExpectedVelocity');
 
+                spyOn(HistoryMixin, 'mapHistoryToCards').and.returnValue(mockCards);
+
+                Velocity = velocityDefinition(_, React, HistoryMixin);
+
+                instance = React.createElement(Velocity, {});
                 React.addons.TestUtils.renderIntoDocument(instance);
+
+                VelocityWithContext = stubContext(Velocity, {flux: new Flux()});
+
             });
 
             it('should get default card lifecycle', function () {
@@ -99,6 +111,15 @@ define([
             it('should calculate actual velocity', function () {
                 var lastPhase = _.last(mockProps.cardLifecycle);
                 expect(Velocity.prototype.calcActualVelocity(mockCards, lastPhase)).toEqual(4);
+            });
+
+            it('shuold use retro cards when provided', function () {
+
+                instance = React.createElement(VelocityWithContext, mockProps);
+                React.addons.TestUtils.renderIntoDocument(instance);
+
+                expect(HistoryMixin.mapHistoryToCards).toHaveBeenCalled();
+
             });
 
         });
