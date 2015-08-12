@@ -32,8 +32,8 @@ define([
                 });
             });
 
-            function renderCompWithProps(mockProps) {
-                var instance = React.createElement(MemberWithContext, mockProps);
+            function renderCompWithProps(props) {
+                var instance = React.createElement(MemberWithContext, props);
                 return React.addons.TestUtils.renderIntoDocument(instance);
             }
 
@@ -50,7 +50,7 @@ define([
 
             it('should not display scrum master when member id is not identical', function () {
                 var rendered = renderCompWithProps({
-                        member: _.assign(mockProps.member,{id:'1'})
+                        member: _.assign(mockProps.member, {id: '1'})
                     }),
                     scrumMaster = queryMaster(rendered);
 
