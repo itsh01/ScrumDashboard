@@ -59,31 +59,31 @@ define(['../../../vendor/lodash', 'React', 'constants'],
                 this.refs.searchInput.getDOMNode().value = member.name;
 
             },
-            getSearchResults: function () {
+            filterSearchResults: function () {
                 var allItems = this.props.searchCollection;
                 var excludedCollection = this.props.excludedCollection;
+                return _(allItems).filter(function (item) {
+                    return !_.includes(excludedCollection, item) &&
+                        _.includes(item.name.toLowerCase(), this.state.searchStr.toLowerCase());
+                }, this).value();
+            },
+            getSearchResults: function () {
                 return this.state.searchStr === '' ?
                     '' :
                     <div className='matched-member-container' ref='matchedItemContainer'>
                         <ul className='matched-member-list'>
                             {
-
-                                _(allItems).filter(function (item) {
-                                    return !_.includes(excludedCollection, item) &&
-                                        _.includes(item.name.toLowerCase(), this.state.searchStr.toLowerCase());
-                                }, this)
-                                    .map(createMemberItem, this).value()
+                                _.map(this.filterSearchResults(), createMemberItem, this)
                             }
                         </ul>
                     </div>;
             },
             searchItem: function (event) {
-                this.setMatchedItemContainerVisibility(1);
                 var searchStr = event.target.value;
                 this.setState({
                     searchStr: searchStr
                 });
-
+                this.setMatchedItemContainerVisibility(1);
             },
             getSearchInput: function () {
                 return (
