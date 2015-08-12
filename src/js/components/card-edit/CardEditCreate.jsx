@@ -1,7 +1,7 @@
 define([
         'lodash',
         'React',
-        'components/card-edit/cardEditCreateButtons',
+        'components/card-edit/CardEditCreateButtons',
         'components/pop-up/Basic'
     ],
     function (_, React, CardEditButtons) {
