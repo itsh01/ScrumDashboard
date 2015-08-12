@@ -1,7 +1,7 @@
 define(['React', 'components/team-management/TeamManagement', 'stubContext', 'stores/flux'],
     function (React, TeamManagement, stubContext, Flux) {
         'use strict';
-        console.log(stubContext);
+        //console.log(stubContext);
         //var mockTeam = {
         //    members: ['1234']
         //};

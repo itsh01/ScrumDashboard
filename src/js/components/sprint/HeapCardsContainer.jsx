@@ -22,20 +22,29 @@ define([
 
             cardClickHandler: function (cardId) {
                 var openCardId = (!this.state.isHeapOpen && this.state.openCardId === null) ? null : cardId;
-                this.setState({openCardId: openCardId, isHeapOpen: true});
+                this.setState({
+                    openCardId: openCardId,
+                    isHeapOpen: true
+                });
             },
 
             closeHeapBtnHandler: function () {
-                this.setState({openCardId: null, isHeapOpen: false});
+                this.setState({
+                    openCardId: null,
+                    isHeapOpen: false
+                });
             },
 
             getOpenHeapCardStyle: function (cardIndex) {
                 var cardsNum = this.props.cards.length,
                     t = 2 * Math.PI * cardIndex / cardsNum,
-                    r = 10,
+                    r = 2 + cardsNum,
                     x = 1.5 * r * Math.cos(t),
                     y = r * Math.sin(t);
-                return {transform: 'translate(' + x + 'rem, ' + y + 'rem)', zIndex: 2};
+                return {
+                    transform: 'translate(' + x + 'rem, ' + y + 'rem)',
+                    zIndex: 100
+                };
             },
 
             getClosedHeapCardStyle: function () {
