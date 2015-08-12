@@ -55,8 +55,10 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                     </div>);
                 }
                 if (sprint.state === constants.SPRINT_STATUS.IN_PROGRESS) {
-                    return <button className='home-view-button home-view-button-lock' onClick={this.lockSprint}>Lock
-                        Sprint</button>;
+                    return (
+                        <button className='home-view-button home-view-button-lock' onClick={this.lockSprint}>Lock
+                        Sprint</button>
+                    );
                 }
                 return null;
             },

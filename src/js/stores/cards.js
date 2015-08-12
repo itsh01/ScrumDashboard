@@ -10,9 +10,7 @@ define([
             TeamCards: function (id) {
                 return {team: id};
             },
-            CompanyCards: function () {
-                return {team: null};
-            },
+            CompanyCards: {team: null},
             UserCards: function (id, teamId) {
                 return (teamId) ? {assignee: id, team: teamId} : {assignee: id};
             },

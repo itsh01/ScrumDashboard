@@ -179,7 +179,7 @@ define([
                                 dateFormat="YYYY-MM-DD"/>}/>
 
                         <InputWrapper
-                            text='Sprint Members:'
+                            text='Sprint Lifecycle:'
                             fields={<ComboBox
                                 items={this.state.cardLifecycle}
                                 handleChange={this.changeLifecycle}/>}/>
