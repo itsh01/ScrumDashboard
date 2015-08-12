@@ -88,7 +88,6 @@ define([
         describe('Sprint Velocity', function () {
 
             var instance = null;
-            var renderedInstance = null;
 
             beforeEach(function () {
 
@@ -100,7 +99,7 @@ define([
                 instance = React.createElement(MemberRowWithContext, {
                     member: mockProps.member
                 });
-                renderedInstance = React.addons.TestUtils.renderIntoDocument(instance);
+                React.addons.TestUtils.renderIntoDocument(instance);
 
 
             });
