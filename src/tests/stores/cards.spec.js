@@ -17,7 +17,7 @@ define([
         describe('CardsStore', function () {
 
 
-            var mockDispatcher, mockCardsStore, mockCardsData, mockBlankCard, mockCard, mockNewCard;
+            var mockDispatcher, mockCardsStore, mockCardsData, mockBlankCard, mockCard, mockNewCard, mockUserId;
             beforeEach(function () {
                 localStorage.clear();
                 mockCardsData = [
@@ -75,6 +75,7 @@ define([
                     startDate: null,
                     endDate: null
                 };
+                mockUserId = mockCardsData[0].assignee;
                 mockDispatcher = new Dispatcher();
                 mockDispatcher.registerEventsHandled(function () {
                     return true;
@@ -103,13 +104,6 @@ define([
                 });
             });
 
-            describe('getBlankCard', function () {
-                it('should return a blank card object', function () {
-                    var blankCard = mockCardsStore.getBlankCard();
-                    expect(blankCard).toEqual(mockBlankCard);
-                });
-            });
-
             describe('getAllCards', function () {
                 it('should return the array of card objects given as default', function () {
                     var allCards = mockCardsStore.getAllCards();
@@ -118,8 +112,38 @@ define([
                 });
             });
 
-            describe('addCard', function () {
+            describe('getCompanyCards', function () {
+                it('should return all cards not assigned to a specific team', function () {
+                    var companyCards = mockCardsStore.getCompanyCards();
+                    expect(companyCards.length).toEqual(1);
+                    expect(companyCards[0]).toEqual(mockCardsData[1]);
+                });
+            });
 
+            describe('getUserCards', function () {
+                it('should return all cards assigned to a specific user id', function () {
+                    var userCards = mockCardsStore.getUserCards(mockUserId);
+                    expect(userCards.length).toEqual(1);
+                    expect(userCards[0]).toEqual(mockCardsData[0]);
+                });
+            });
+
+            describe('getNotCompleted', function () {
+                it('should return all cards with endDate of null', function () {
+                    var unfinishedCards = mockCardsStore.getNotCompleted();
+                    expect(unfinishedCards.length).toEqual(3);
+                    expect(unfinishedCards).toEqual(mockCardsData);
+                });
+            });
+
+            describe('getBlankCard', function () {
+                it('should return a blank card object', function () {
+                    var blankCard = mockCardsStore.getBlankCard();
+                    expect(blankCard).toEqual(mockBlankCard);
+                });
+            });
+
+            describe('addCard', function () {
                 var mockGuid;
                 beforeEach(function () {
                     spyOn(mockCardsStore, 'getBlankCard').and.returnValue(mockBlankCard);
