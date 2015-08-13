@@ -22,20 +22,13 @@ define(['lodash', 'React', 'components/team/HomeView',
 
             componentDidMount: function () {
                 this.context.newFlux.cardsStore.addChangeListener(this.onChange);
-<<<<<<< HEAD
-=======
                 this.context.newFlux.teamsStore.addChangeListener(this.onChange);
                 this.context.newFlux.membersStore.addChangeListener(this.onChange);
->>>>>>> d8fe1ff27d34c356e53cac975ff06d80bd816ba4
             },
 
             componentWillUnmount: function () {
                 this.context.newFlux.cardsStore.removeChangeListener(this.onChange);
-<<<<<<< HEAD
-=======
-                this.context.newFlux.teamsStore.removeChangeListener(this.onChange);
                 this.context.newFlux.membersStore.removeChangeListener(this.onChange);
->>>>>>> d8fe1ff27d34c356e53cac975ff06d80bd816ba4
             },
 
             getInitialState: function () {
