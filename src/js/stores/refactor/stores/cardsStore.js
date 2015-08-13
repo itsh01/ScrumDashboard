@@ -82,14 +82,14 @@ define([
              *
              * @param {Object} newCardData
              *  {
-         *      name: [String],
-         *      description: [String] (optional, default: ''),
-         *      score: [Number] (optional, default: null),
-         *      team: [String] (optional, default: null),
-         *      status: [String] (optional, default: 'unassigned'),
-         *      assignee: [String] (optional, default: null),
-         *      startDate: [String] (optional, format: YYYY-MM-DD, default: null)
-         *  }
+             *      name: [String],
+             *      description: [String] (optional, default: ''),
+             *      score: [Number] (optional, default: null),
+             *      team: [String] (optional, default: null),
+             *      status: [String] (optional, default: 'unassigned'),
+             *      assignee: [String] (optional, default: null),
+             *      startDate: [String] (optional, format: YYYY-MM-DD, default: null)
+             *  }
              */
             function addCard(newCardData) {
                 var blankCard = this.getBlankCard(),
@@ -98,7 +98,6 @@ define([
                     cardWithDefaults.id = helpers.generateGuid();
                     cardWithDefaults.status = cardWithDefaults.status || 'unassigned';
                     currentCards.push(cardWithDefaults);
-                    saveToLocalStorage();
                     return cardWithDefaults.id;
                 }
             }
@@ -118,10 +117,7 @@ define([
             function updateCard(cardId, newCardData) {
                 delete newCardData.id;
                 if (isValidCard(newCardData)) {
-                    var didUpdate = helpers.updateItem(currentCards, cardId, newCardData, 'Card Store');
-                    // TODO: if assignee or team provided then make sure that they exist
-                    saveToLocalStorage();
-                    return didUpdate;
+                    return helpers.updateItem(currentCards, cardId, newCardData, 'Card Store');
                 }
                 return false;
             }
@@ -149,27 +145,15 @@ define([
             }
 
 
-            function saveToLocalStorage() {
-                helpers.saveToLocalStorage('cards', currentCards);
-            }
-
-            function restoreFromLocalStorage() {
-                return helpers.restoreFromLocalStorage('cards');
-            }
-
-            /*eslint-disable no-unused-vars */
-            function removeFromLocalStorage() {
-                helpers.removeFromLocalStorage('cards');
-            }
-
             /*eslint-enable no-unused-vars */
 
             var actions = [
                 {name: constants.actionNames.UPDATE_CARD, callback: updateCard},
                 {name: constants.actionNames.ADD_CARD, callback: addCard},
                 {name: constants.actionNames.REMOVE_CARD, callback: removeCard},
-                {name: constants.actionNames.MEMBER_DEACTIVATED, callback: unassignMemberFromCards}
+                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: unassignMemberFromCards}
             ];
+
             this.dispatchToken = dispatcher.register(function (action) {
 
                 var actionName = [].shift.apply(arguments),
@@ -182,6 +166,19 @@ define([
                     this.emitChange();
                 }
             }.bind(this));
+
+            function saveToLocalStorage() {
+                helpers.saveToLocalStorage('cards', currentCards);
+            }
+
+            function restoreFromLocalStorage() {
+                return helpers.restoreFromLocalStorage('cards');
+            }
+
+            /*eslint-disable no-unused-vars */
+            function removeFromLocalStorage() {
+                helpers.removeFromLocalStorage('cards');
+            }
 
         };
 

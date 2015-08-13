@@ -20,7 +20,6 @@ define(
             this.membersStore = new Members(this.dispatcher, membersData);
             this.planningStore = new Planning(this.dispatcher);
             this.teamsStore = new Teams(this.dispatcher, teamsData, this.cardsStore.getUserCards);
-
         }
 
         return Flux;

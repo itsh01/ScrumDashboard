@@ -156,7 +156,6 @@ define([
                 dispatcher.registerAction(action.name, action.callback.bind(this));
             }.bind(this));
 
-
         }
 
         return CardsStore;

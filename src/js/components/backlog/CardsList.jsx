@@ -44,8 +44,12 @@ define([
                             assignee: null,
                             team: isCompanyList ? null : self.context.teamId
                         };
+<<<<<<< HEAD
 
                     self.context.flux.dispatcher.dispatchAction(
+=======
+                    this.context.flux.dispatcher.dispatchAction(
+>>>>>>> d8fe1ff27d34c356e53cac975ff06d80bd816ba4
                         constants.actionNames.UPDATE_CARD,
                         card.id,
                         newCardData

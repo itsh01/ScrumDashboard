@@ -1,5 +1,4 @@
-module.exports = function (config) {
-
+module.exports = function(config) {
     config.set({
 
         // base path, that will be used to resolve files and exclude
@@ -18,7 +17,6 @@ module.exports = function (config) {
 
             'test-main.js'
             ],
-
 
         // list of files to exclude
         exclude: [
