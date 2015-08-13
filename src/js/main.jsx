@@ -13,7 +13,7 @@ requirejs.config({
         mixins: '../js/mixins',
         general: '../js/general',
         stores: '../js/stores',
-        flux: '../js/stores/refactor/Flux',
+        baseFlux: '../js/stores/refactor/baseFlux',
 
 
         // DatePicker dependencies
@@ -35,8 +35,8 @@ requirejs.config({
         React: {
             exports: 'React'
         },
-        flux: {
-            exports: 'flux'
+        baseFlux: {
+            exports: 'baseFlux'
         },
         eventemitter2: {
             exports: 'eventemitter2'
@@ -44,7 +44,7 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash', 'React', 'components/MainContainer', 'flux', 'eventemitter2'],
+requirejs(['lodash', 'React', 'components/MainContainer'],
     function (_, React, MainContainer) {
         'use strict';
         var mountPoint = document.getElementById('main-container');
