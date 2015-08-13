@@ -63,32 +63,13 @@ define([
 
             });
 
-            /*
-            describe('HeapCardsContainerSize', function () {
-
-                it('should set containerSize to containerSize passed in props', function () {
-                    var size = 5,
-                        comp = testUtils.find
-                    expect(comp.props.containerSize).toBe(size);
-                });
-
-                it('should call the function passed in props after it is clicked', function (done) {
-                    function fakeHandler() {
-                        done();
-                    }
-                    var comp = renderHeapCardsContainerSizeElement({clickHandler: fakeHandler});
-                    testUtils.Simulate.click(comp.getDOMNode());
-                });
-
-            });
-            */
-
             describe('props', function () {
 
                 it('should not throw an error when receiving an empty array in props', function () {
                     function func() {
                         testUtils.renderIntoDocument(React.createElement(HeapCardsContainer, {cards: []}));
                     }
+
                     expect(func).not.toThrow();
                 });
 
@@ -149,7 +130,7 @@ define([
                             });
                         expect(notTransformed).toBe(true);
                     });
-
+                    
                 });
 
 
