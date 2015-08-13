@@ -28,6 +28,7 @@ define(['lodash', 'React', 'components/team/HomeView',
 
             componentWillUnmount: function () {
                 this.context.newFlux.cardsStore.removeChangeListener(this.onChange);
+                this.context.newFlux.teamsStore.removeChangeListener(this.onChange);
                 this.context.newFlux.membersStore.removeChangeListener(this.onChange);
             },
 
