@@ -18,7 +18,7 @@ define(
         var dispatcher = new baseFlux.Dispatcher();
 
         function Flux() {
-            
+
             this.eventEmitter = new EventEmitter();
             this.cardsActions = new CardsActions(dispatcher);
             this.membersActions = new MembersActions(dispatcher);
