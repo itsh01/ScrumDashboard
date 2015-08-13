@@ -50,7 +50,7 @@ define([
             getClosedHeapCardStyle: function (cardIndex) {
                 return {
                     top: cardIndex * 0.2 + 'rem',
-                    left: cardIndex * 0.2 + 'rem'
+                    left: cardIndex * 0.3 + 'rem'
                 };
             },
 

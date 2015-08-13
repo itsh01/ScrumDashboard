@@ -67,7 +67,7 @@
 }
 
 .sprint-card-wrapper .card {
-    box-shadow: -0.2rem -0.2rem 0.2rem;
+    border: 1px #000;
     margin: 0;
 }
 
