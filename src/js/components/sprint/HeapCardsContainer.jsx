@@ -72,7 +72,7 @@ define([
                         <div className='card sprint-card-wrapper cards-container-heap-size'
                              onClick={this.cardClickHandler}
                              style={cardStyle(this.props.cards.length - 1)}>
-                            <div className='container-size'>( {this.props.cards.length} )</div>
+                            <div className='container-size'>{this.props.cards.length} cards</div>
                             <img className='open-heap-img' src="img/open-heap-container.png" alt=""/>
                         </div>
                     );
