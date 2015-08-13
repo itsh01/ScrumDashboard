@@ -1,37 +1,35 @@
 define([
-        'lodash',
         '../../../constants'
     ],
-    function (_, constants) {
+    function (constants) {
         'use strict';
 
-        function CardsStoreActions(dispatcher) {
+        function cardsActions(dispatcher) {
 
             return {
                 updateCard: function (cardId, newCardData) {
-                    dispatcher.dispatch(
-                        constants.UPDATE_CARD,
-                        cardId,
-                        newCardData
-                    );
+                    dispatcher.dispatch({
+                        actionName: constants.actionNames.UPDATE_CARD,
+                        payload: [cardId, newCardData]
+                    });
                 },
 
                 addCard: function (newCardData) {
-                    dispatcher.dispatch(
-                        constants.ADD_CARD,
-                        newCardData
-                    );
+                    dispatcher.dispatch({
+                        actionName: constants.actionNames.ADD_CARD,
+                        payload: [newCardData]
+                    });
                 },
 
                 removeCard: function (cardId) {
                     dispatcher.dispatch({
-                        name: constants.REMOVE_CARD,
-                        cardId: cardId
+                        actionName: constants.actionNames.REMOVE_CARD,
+                        payload: [cardId]
                     });
 
                 }
             };
         }
 
-        return CardsStoreActions;
+        return cardsActions;
     });

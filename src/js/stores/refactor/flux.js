@@ -15,11 +15,10 @@ define(
               CardsStore, MembersStore, TeamsStore, planningStore) {
         'use strict';
 
-        var dispatcher = new baseFlux.Dispatcher();
+        var dispatcher = new baseFlux.Dispatcher(),
+            eventEmitter = new EventEmitter();
 
         function Flux() {
-
-            this.eventEmitter = new EventEmitter();
             this.cardsActions = new CardsActions(dispatcher);
             this.membersActions = new MembersActions(dispatcher);
             this.teamsActions = new TeamsActions(dispatcher);
