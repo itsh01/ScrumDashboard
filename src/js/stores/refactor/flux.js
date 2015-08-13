@@ -22,9 +22,9 @@ define(
             this.cardsActions = new CardsActions(dispatcher);
             this.membersActions = new MembersActions(dispatcher);
             this.teamsActions = new TeamsActions(dispatcher);
-            this.cardsStore = new CardsStore(dispatcher, this.eventEmitter);
-            this.membersStore = new MembersStore(dispatcher, this.eventEmitter);
-            this.teamsStore = new TeamsStore(dispatcher, this.eventEmitter, this.cardsStore.getUserCards);
+            this.cardsStore = new CardsStore(dispatcher, eventEmitter);
+            this.membersStore = new MembersStore(dispatcher, eventEmitter);
+            this.teamsStore = new TeamsStore(dispatcher, eventEmitter, this.cardsStore.getUserCards);
             this.planningStore = new planningStore(dispatcher);
         }
 
