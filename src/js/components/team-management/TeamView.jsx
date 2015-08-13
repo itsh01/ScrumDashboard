@@ -15,7 +15,7 @@ define(['lodash', 'React',
             },
             getTeamTitle: function () {
                 return this.props.team.name ?
-                'Team ' + this.props.team.name :
+                this.props.team.name + ' Team' :
                     'Add a new team';
             },
             getNewMemberProfile: function () {
@@ -23,7 +23,7 @@ define(['lodash', 'React',
                 var existingMember = this.context.flux.membersStore.getMemberById(existingMemberId);
                 return this.props.team.name ?
                     <NewMemberProfile team={this.props.team} currentMember={existingMember}/> :
-                    <div>Hiush</div>;
+                    <div>Hiush :)</div>;
             },
             render: function () {
                 return (
