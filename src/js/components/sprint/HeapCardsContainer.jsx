@@ -1,10 +1,9 @@
 define([
         'lodash',
         'React',
-        'components/card/Card',
-        'components/sprint/ContainerSize'
+        'components/card/Card'
     ],
-    function (_, React, Card, ContainerSize) {
+    function (_, React, Card) {
         'use strict';
 
         return React.createClass({
@@ -48,8 +47,11 @@ define([
                 };
             },
 
-            getClosedHeapCardStyle: function () {
-                return {};
+            getClosedHeapCardStyle: function (cardIndex) {
+                return {
+                    top: cardIndex * 0.2 + 'rem',
+                    left: cardIndex * 0.2 + 'rem'
+                };
             },
 
             toForceCardsReset: function () {
@@ -66,9 +68,14 @@ define([
                     }.bind(this));
 
                 if (!this.state.isHeapOpen) {
-                    cards.push(<ContainerSize
-                        containerSize={this.props.cards.length}
-                        clickHandler={this.cardClickHandler}/>);
+                    cards.push(
+                        <div className='card sprint-card-wrapper cards-container-heap-size'
+                             onClick={this.cardClickHandler}
+                             style={cardStyle(this.props.cards.length - 1)}>
+                            <div className='container-size'>( {this.props.cards.length} )</div>
+                            <img className='open-heap-img' src="img/open-heap-container.png" alt=""/>
+                        </div>
+                    );
                 }
 
                 return (
