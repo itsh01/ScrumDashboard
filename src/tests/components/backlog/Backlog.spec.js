@@ -58,12 +58,12 @@ define([
                 });
 
                 it('should call addNewCard() when click on plus (empty state) img', function () {
-                    spyOn(CardsListComp.context.newFlux.planningActions, 'planningAddCard').and.stub();
+                    spyOn(CardsListComp.context.flux.planningActions, 'planningAddCard').and.stub();
 
                     var node = React.findDOMNode(CardsListComp.refs.plusAddButton);
                     React.addons.TestUtils.Simulate.click(node);
 
-                    expect(CardsListComp.context.newFlux.planningActions.planningAddCard).toHaveBeenCalled();
+                    expect(CardsListComp.context.flux.planningActions.planningAddCard).toHaveBeenCalled();
                 });
 
 
