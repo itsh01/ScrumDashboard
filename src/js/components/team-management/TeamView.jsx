@@ -11,18 +11,13 @@ define(['lodash', 'React',
                 teamMembers: React.PropTypes.array,
                 allMembers: React.PropTypes.array
             },
-            contextTypes: {
-                flux: React.PropTypes.any,
-                newFlux: React.PropTypes.any
-            },
             getTeamTitle: function () {
                 return this.props.team.name ?
                 'Team ' + this.props.team.name :
                     'Add a new team';
             },
             getNewMemberProfile: function () {
-                var existingMemberId = this.context.newFlux.teamsStore.getCurrentExistingMemberId();
-                var existingMember = this.context.newFlux.membersStore.getMemberById(existingMemberId);
+                var existingMember = this.props.existingMember;
                 return this.props.team.name ?
                     <NewMemberProfile team={this.props.team} currentMember={existingMember}
                                       allMembers={this.props.allMembers}/> :
@@ -35,7 +30,7 @@ define(['lodash', 'React',
                         <ReactCSSTransitionGroup transitionName='member-profile-transition'>
                             {
                                 _.map(this.props.teamMembers, function (member) {
-                                    return <MemberProfile member={member} key={member.id}/>;
+                                    return <MemberProfile member={member} team={this.props.team} key={member.id}/>;
                                 }, this)
                             }
                         </ReactCSSTransitionGroup>

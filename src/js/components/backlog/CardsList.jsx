@@ -5,8 +5,6 @@ define([
         'components/card/Card',
 
         'DragDropMixin'
-
-        //'constants'
     ],
     function (_, React, Card, DragDropMixin) {
     'use strict';
@@ -31,17 +29,7 @@ define([
 
             };
         },
-        componentDidMount: function () {
-            this.context.newFlux.cardsStore.addChangeListener(this.onChange);
-            this.context.newFlux.teamsStore.addChangeListener(this.onChange);
-            this.context.newFlux.membersStore.addChangeListener(this.onChange);
-        },
 
-        componentWillUnmount: function () {
-            this.context.newFlux.cardsStore.removeChangeListener(this.onChange);
-            this.context.newFlux.teamsStore.removeChangeListener(this.onChange);
-            this.context.newFlux.membersStore.removeChangeListener(this.onChange);
-        },
         onChange: function () {
             this.setState({});
         },
@@ -60,11 +48,6 @@ define([
                             assignee: null,
                             team: isCompanyList ? null : self.context.teamId
                         };
-                    //this.context.flux.dispatcher.dispatchAction(
-                    //    constants.actionNames.UPDATE_CARD,
-                    //    card.id,
-                    //    newCardData
-                    //);
                     self.context.newFlux.cardsActions.updateCard(card.id, newCardData);
 
                 }
