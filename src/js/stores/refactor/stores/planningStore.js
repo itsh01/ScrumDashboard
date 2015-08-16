@@ -5,7 +5,7 @@ define([
     function (constants) {
         'use strict';
 
-        function Planning(dispatcher, eventEmitter) {
+        function Planning(dispatcher, eventEmitter, waitForTokens) {
             var IsAddingOrEditingCard = false;
             var currentCard = null;
 
