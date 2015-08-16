@@ -17,7 +17,7 @@ define([
             },
 
             contextTypes: {
-                newFlux: React.PropTypes.any
+                flux: React.PropTypes.any
             },
 
             childContextTypes: {

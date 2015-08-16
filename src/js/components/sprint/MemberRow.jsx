@@ -18,7 +18,7 @@ define([
             },
 
             contextTypes: {
-                newFlux: React.PropTypes.any
+                flux: React.PropTypes.any
             },
 
             mixins: [HistoryMixin],
@@ -42,7 +42,7 @@ define([
                         .map(this.mapHistoryToCards)
                         .value();
                 } else {
-                    cards = this.context.newFlux.cardsStore.getUserCards(memberId);
+                    cards = this.context.flux.cardsStore.getUserCards(memberId);
                 }
                 return cards;
             },

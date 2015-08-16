@@ -37,7 +37,7 @@ define(['React', 'stores/refactor/flux', 'constants', 'stubContext', 'components
             beforeEach(function () {
                 localStorage.clear();
                 flux = new Flux();
-                var SearchWithContext = stubContext(Search, {newFlux: flux});
+                var SearchWithContext = stubContext(Search, {flux: flux});
                 var instance = React.createElement(SearchWithContext, mockProps);
                 var wrappedElement = reactTestUtils.renderIntoDocument(instance).getWrappedElement();
                 comp = reactTestUtils.renderIntoDocument(wrappedElement);

@@ -11,7 +11,7 @@ define([
 
         function initComponent(compParams) {
             flux = new Flux();
-            var CardEditCreateWithContext = stubContext(CardEditCreate, {newFlux: flux});
+            var CardEditCreateWithContext = stubContext(CardEditCreate, {flux: flux});
             var instance = React.createElement(CardEditCreateWithContext, compParams);
             var wrappedEl = React.addons.TestUtils.renderIntoDocument(instance).getWrappedElement();
             return React.addons.TestUtils.renderIntoDocument(wrappedEl);

@@ -6,37 +6,37 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             displayName: 'ScrumBoardView',
 
             contextTypes: {
-                newFlux: React.PropTypes.any
+                flux: React.PropTypes.any
             },
             childContextTypes: {
                 teamId: React.PropTypes.string
             },
             getChildContext: function () {
                 return {
-                    teamId: this.context.newFlux.teamsStore.getCurrentTeam().id
+                    teamId: this.context.flux.teamsStore.getCurrentTeam().id
                 };
             },
 
             handleSprintChange: function (direction) {
-                this.context.newFlux.teamsActions.changeCurrentSprintId(direction);
+                this.context.flux.teamsActions.changeCurrentSprintId(direction);
             },
 
             addCardClicked: function () {
-                this.context.newFlux.planningActions.planningAddCard();
+                this.context.flux.planningActions.planningAddCard();
             },
 
             finishPlanning: function () {
-                this.context.newFlux.teamsActions.moveSprintToNextState();
+                this.context.flux.teamsActions.moveSprintToNextState();
             },
 
             planNewSprint: function () {
-                var newSprint = this.context.newFlux.teamsStore.getBlankSprint();
-                this.context.newFlux.teamsActions.addSprintToCurrentTeam(newSprint);
-                this.context.newFlux.teamsActions.changeCurrentSprintId('next');
+                var newSprint = this.context.flux.teamsStore.getBlankSprint();
+                this.context.flux.teamsActions.addSprintToCurrentTeam(newSprint);
+                this.context.flux.teamsActions.changeCurrentSprintId('next');
             },
 
             lockSprint: function () {
-                this.context.newFlux.teamsActions.retrofyCurrentSprint();
+                this.context.flux.teamsActions.retrofyCurrentSprint();
             },
 
             getSprintButton: function (sprint) {
@@ -74,8 +74,8 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             },
 
             render: function () {
-                var team = this.context.newFlux.teamsStore.getCurrentTeam();
-                var sprint = this.context.newFlux.teamsStore.getCurrentSprint();
+                var team = this.context.flux.teamsStore.getCurrentTeam();
+                var sprint = this.context.flux.teamsStore.getCurrentSprint();
                 if (!team.id) {
                     return (
                         <div>
@@ -94,7 +94,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                             <ChangeSprint direction='backwards'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'previous')}/>
 
-                            <h3>Sprint {this.context.newFlux.teamsStore.getSprintIndex(sprint.id)} : {sprint.name}
+                            <h3>Sprint {this.context.flux.teamsStore.getSprintIndex(sprint.id)} : {sprint.name}
                                 - {this.getSprintState(sprint)}</h3>
                             <ChangeSprint direction='forward'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'next')}/>

@@ -19,7 +19,7 @@ define([
                 key: React.PropTypes.string
             },
             contextTypes: {
-                newFlux: React.PropTypes.any,
+                flux: React.PropTypes.any,
                 sprintState: React.PropTypes.number
 
             },
@@ -75,17 +75,17 @@ define([
                 No: 'card-none'
             },
             removeCard: function () {
-                this.context.newFlux.cardsActions.removeCard(this.props.card.id);
+                this.context.flux.cardsActions.removeCard(this.props.card.id);
             },
             editCard: function (e) {
                 this.preventToggleCard = true;
-                this.context.newFlux.planningActions.editCard(this.props.card);
+                this.context.flux.planningActions.editCard(this.props.card);
                 e.stopPropagation();
             },
             render: function () {
                 this.preventToggleCard = false;
                 var cx = React.addons.classSet;
-                var currentSprint = this.context.newFlux.teamsStore.getCurrentSprint();
+                var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
                 var classesObject = {
                     card: true,
                     'card-open': this.state.isDescriptionOpened,

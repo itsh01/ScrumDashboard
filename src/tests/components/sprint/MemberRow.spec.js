@@ -8,21 +8,20 @@ define([
         'components/sprint/Member',
         'components/sprint/TableCell',
         'stubContext',
-        'stores/flux',
         'stores/refactor/flux',
         'mixins/HistoryMixin'
     ],
-    function (_, React, memberRowDefinition, SprintMember, TableCell, stubContext, Flux, NewFlux, HistoryMixin) {
+    function (_, React, memberRowDefinition, SprintMember, TableCell, stubContext, Flux, HistoryMixin) {
         'use strict';
 
         var mockProps = {
             cardLifecycle: ['Backlog', 'In progress', 'QA', 'Done'],
             member: {
-                        id: '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
-                        name: 'Elissa Collier',
-                        image: 'https://s3.amazonaws.com/uifaces/faces/twitter/ciaranr/128.jpg',
-                        active: true
-                    },
+                id: '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
+                name: 'Elissa Collier',
+                image: 'https://s3.amazonaws.com/uifaces/faces/twitter/ciaranr/128.jpg',
+                active: true
+            },
             retro: [
                 {
                     cardId: 'b97fff13-de90-4e1f-abb7-39f786d11450',
@@ -96,7 +95,7 @@ define([
                 spyOn(HistoryMixin, 'mapHistoryToCards').and.returnValue(mockCards);
 
                 MemberRow = memberRowDefinition(_, React, SprintMember, TableCell, HistoryMixin);
-                MemberRowWithContext = stubContext(MemberRow, {flux: new Flux(), newFlux: new NewFlux()});
+                MemberRowWithContext = stubContext(MemberRow, {flux: new Flux()});
 
                 instance = React.createElement(MemberRowWithContext, mockProps);
                 renderedInstance = React.addons.TestUtils.renderIntoDocument(instance);

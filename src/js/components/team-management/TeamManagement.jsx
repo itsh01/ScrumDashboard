@@ -12,7 +12,7 @@ define(['lodash', 'React',
                 'params.id': React.PropTypes.string
             },
             contextTypes: {
-                newFlux: React.PropTypes.any
+                flux: React.PropTypes.any
             },
             childContextTypes: {
                 blankMemberSchema: React.PropTypes.object,
@@ -23,24 +23,24 @@ define(['lodash', 'React',
             },
             getChildContext: function () {
                 return {
-                    blankMemberSchema: this.context.newFlux.membersStore.getBlankMember(),
-                    blankTeamSchema: this.context.newFlux.teamsStore.getBlankTeam()
+                    blankMemberSchema: this.context.flux.membersStore.getBlankMember(),
+                    blankTeamSchema: this.context.flux.teamsStore.getBlankTeam()
                 };
             },
             componentDidMount: function () {
-                this.context.newFlux.teamsStore.addChangeListener(this._onChange);
-                this.context.newFlux.membersStore.addChangeListener(this._onChange);
+                this.context.flux.teamsStore.addChangeListener(this._onChange);
+                this.context.flux.membersStore.addChangeListener(this._onChange);
             },
 
             componentWillUnmount: function () {
-                this.context.newFlux.teamsStore.removeChangeListener(this._onChange);
-                this.context.newFlux.membersStore.removeChangeListener(this._onChange);
+                this.context.flux.teamsStore.removeChangeListener(this._onChange);
+                this.context.flux.membersStore.removeChangeListener(this._onChange);
             },
             getStateFromStore: function () {
-                var existingMemberId = this.context.newFlux.teamsStore.getCurrentExistingMemberId();
-                var existingMember = this.context.newFlux.membersStore.getMemberById(existingMemberId);
+                var existingMemberId = this.context.flux.teamsStore.getCurrentExistingMemberId();
+                var existingMember = this.context.flux.membersStore.getMemberById(existingMemberId);
                 return {
-                    allMembers: this.context.newFlux.membersStore.getAllMembers(),
+                    allMembers: this.context.flux.membersStore.getAllMembers(),
                     existingMember: existingMember
                 };
             },
@@ -49,17 +49,17 @@ define(['lodash', 'React',
             },
 
             getCurrentTeam: function () {
-                return this.context.newFlux.teamsStore.getCurrentTeam() || {};
+                return this.context.flux.teamsStore.getCurrentTeam() || {};
             },
             getTeamMembers: function (team) {
                 return _.map(team.members, function (memberId) {
-                    return this.context.newFlux.membersStore.getMemberById(memberId);
+                    return this.context.flux.membersStore.getMemberById(memberId);
                 }, this);
             },
 
             render: function () {
                 var currentTeam = this.getCurrentTeam();
-                var allTeams = this.context.newFlux.teamsStore.getAllActiveTeams();
+                var allTeams = this.context.flux.teamsStore.getAllActiveTeams();
                 return (
                     <ReactCSSTransitionGroup transitionName='team-management-transition' transitionAppear={true}>
                         <div className='team-management'>

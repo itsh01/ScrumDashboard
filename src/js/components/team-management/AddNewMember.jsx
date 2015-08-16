@@ -6,11 +6,11 @@ define(['lodash', 'React'], function (_, React) {
             team: React.PropTypes.object
         },
         contextTypes: {
-            newFlux: React.PropTypes.any,
+            flux: React.PropTypes.any,
             blankMemberSchema: React.PropTypes.object
         },
         componentDidMount: function componentDidMount() {
-            this.flux = this.context.newFlux;
+            this.flux = this.context.flux;
         },
         addNewMember: function (event) {
             event.preventDefault();

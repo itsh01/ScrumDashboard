@@ -7,11 +7,10 @@ define([
         'React',
         'definition!components/sprint/Velocity',
         'stubContext',
-        'stores/flux',
         'stores/refactor/flux',
         'mixins/HistoryMixin'
     ],
-    function (_, React, velocityDefinition, stubContext, Flux, NewFlux, HistoryMixin) {
+    function (_, React, velocityDefinition, stubContext, Flux, HistoryMixin) {
         'use strict';
 
         var mockProps = {
@@ -94,7 +93,7 @@ define([
 
                 Velocity = velocityDefinition(_, React, HistoryMixin);
 
-                VelocityWithContext = stubContext(Velocity, {flux: new Flux(), newFlux: new NewFlux()});
+                VelocityWithContext = stubContext(Velocity, {flux: new Flux()});
                 instance = React.createElement(VelocityWithContext, {});
                 React.addons.TestUtils.renderIntoDocument(instance);
 
