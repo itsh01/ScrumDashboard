@@ -44,11 +44,11 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash', 'React', 'components/MainContainer'],
-    function (_, React, MainContainer) {
+requirejs(['lodash', 'React', 'components/MainView'],
+    function (_, React, MainView) {
         'use strict';
         var mountPoint = document.getElementById('main-container');
 
-        window.scrum = React.render(<MainContainer currentTeam={1}/>, mountPoint);
+        window.scrum = React.render(<MainView currentTeam={1}/>, mountPoint);
     }
 );
