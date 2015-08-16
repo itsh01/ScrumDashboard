@@ -6,10 +6,12 @@
 
 module.exports = function (grunt) {
 
+    var VENDOR_TARGET = 'src/vendor/';
+
     grunt.initConfig({
         clean: {
             main: {
-                src: ['src/vendor/**/*']
+                src: [VENDOR_TARGET + '**/*']
             }
         },
         copy: {
@@ -17,23 +19,23 @@ module.exports = function (grunt) {
                 files: [
                     {
                         src: 'node_modules/requirejs/require.js',
-                        dest: 'src/vendor/require.js'
+                        dest: VENDOR_TARGET + 'require.js'
                     },
                     {
                         src: 'node_modules/lodash/index.js',
-                        dest: 'src/vendor/lodash.js'
+                        dest: VENDOR_TARGET + 'lodash.js'
                     },
                     {
                         src: 'node_modules/react/dist/react-with-addons.js',
-                        dest: 'src/vendor/react-with-addons.js'
+                        dest: VENDOR_TARGET + 'react-with-addons.js'
                     },
                     {
                         src: 'node_modules/react-dragdrop/dist/DragDropMixin.js',
-                        dest: 'src/vendor/DragDropMixin.js'
+                        dest: VENDOR_TARGET + 'DragDropMixin.js'
                     },
                     {
                         src: 'node_modules/react-datepicker/dist/react-datepicker.js',
-                        dest: 'src/vendor/DatePicker.js'
+                        dest: VENDOR_TARGET + 'DatePicker.js'
                     },
                     {
                         src: 'node_modules/react-datepicker/dist/react-datepicker.css',
@@ -41,7 +43,7 @@ module.exports = function (grunt) {
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/tether/dist/js/tether.js',
-                        dest: 'src/vendor/tether.js'
+                        dest: VENDOR_TARGET + 'tether.js'
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/tether/dist/css/tether.css',
@@ -49,22 +51,22 @@ module.exports = function (grunt) {
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/moment/moment.js',
-                        dest: 'src/vendor/moment.js'
+                        dest: VENDOR_TARGET + 'moment.js'
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/react-onclickoutside/index.js',
-                        dest: 'src/vendor/react-onclickoutside.js'
+                        dest: VENDOR_TARGET + 'react-onclickoutside.js'
                     },
                     {
                         src: 'node_modules/eventemitter2/lib/eventemitter2.js',
-                        dest: 'src/vendor/eventemitter2.js'
+                        dest: VENDOR_TARGET + 'eventemitter2.js'
                     }
                 ]
             },
             build: {
                 files: [
                     {
-                        src: 'src/vendor/require.js',
+                        src: VENDOR_TARGET + 'require.js',
                         dest: 'build/vendor/require.js'
                     },
                     {
@@ -218,7 +220,7 @@ module.exports = function (grunt) {
             all: {
                 options: {
                     src: 'node_modules/react-stub-context/dist/index.js',
-                    dest: 'src/vendor/stubContext.js',
+                    dest: VENDOR_TARGET + 'stubContext.js',
                     objectToExport: 'stubContext',
                     amdModuleId: 'stubContext',
                     deps: {
