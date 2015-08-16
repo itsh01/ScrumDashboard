@@ -1,6 +1,6 @@
-define(['lodash', 'React', 'components/team/HomeView',
+define(['lodash', 'React', 'components/team/BoardView',
         'constants', 'components/team-management/TeamManagement'],
-    function (_, React, HomeView, constants, TeamManagement) {
+    function (_, React, BoardView, constants, TeamManagement) {
         'use strict';
         return React.createClass({
             displayName: 'MainView',
@@ -18,7 +18,7 @@ define(['lodash', 'React', 'components/team/HomeView',
 
             getInitialState: function () {
                 return {
-                    view: 'HomeView'
+                    view: 'BoardView'
                 };
             },
 
@@ -57,15 +57,15 @@ define(['lodash', 'React', 'components/team/HomeView',
             },
 
             views: {
-                HomeView: 'HomeView',
+                BoardView: 'BoardView',
                 TeamManagement: 'TeamManagement'
             },
 
             getViewComponent: function () {
-                if (this.state.view === 'HomeView') {
+                if (this.state.view === 'BoardView') {
                     return (
                         <div className="home-view-container">
-                            <HomeView />
+                            <BoardView />
                         </div>
                     );
                 }
@@ -113,7 +113,7 @@ define(['lodash', 'React', 'components/team/HomeView',
                                 </button>
                                 <button data-view={this.views.TeamManagement} onClick={this.changeView}>Manage Teams
                                 </button>
-                                <button data-view={this.views.HomeView} onClick={this.changeView}>Home</button>
+                                <button data-view={this.views.BoardView} onClick={this.changeView}>Home</button>
                             </div>
                         </div>
 

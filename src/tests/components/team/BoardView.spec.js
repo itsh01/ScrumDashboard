@@ -1,26 +1,26 @@
-define(['React', 'components/team/HomeView', 'stubContext', 'stores/flux'],
-    function (React, HomeView, stubContext, Flux) {
+define(['React', 'components/team/BoardView', 'stubContext', 'stores/flux'],
+    function (React, BoardView, stubContext, Flux) {
         'use strict';
 
         var reactTestUtils;
         var flux;
-        var HomeViewWithContext;
+        var BoardViewWithContext;
         var instance;
         var comp;
 
-        describe('home view tests', function () {
-            describe('home view full state', function () {
+        describe('board view tests', function () {
+            describe('board view full state', function () {
                 beforeEach(function () {
                     localStorage.clear();
                     reactTestUtils = React.addons.TestUtils;
                     flux = new Flux();
                     spyOn(flux.dispatcher, 'dispatchAction').and.returnValue({});
-                    HomeViewWithContext = stubContext(HomeView, {flux: flux});
-                    instance = React.createElement(HomeViewWithContext, {});
+                    BoardViewWithContext = stubContext(BoardView, {flux: flux});
+                    instance = React.createElement(BoardViewWithContext, {});
                     comp = reactTestUtils.renderIntoDocument(instance);
                 });
 
-                it('should check that HomeView did render', function () {
+                it('should check that BoardView did render', function () {
                     expect(comp).toBeDefined();
                 });
 
@@ -31,23 +31,23 @@ define(['React', 'components/team/HomeView', 'stubContext', 'stores/flux'],
 
                 it('should call handleSprintChange when clicked', function () {
                     var wrapperEl = reactTestUtils.renderIntoDocument(instance).getWrappedElement();
-                    var homeViewComp = reactTestUtils.renderIntoDocument(wrapperEl);
-                    var arrows = reactTestUtils.scryRenderedDOMComponentsWithClass(homeViewComp, 'arrow');
-                    spyOn(homeViewComp, 'handleSprintChange');
+                    var boardViewComp = reactTestUtils.renderIntoDocument(wrapperEl);
+                    var arrows = reactTestUtils.scryRenderedDOMComponentsWithClass(boardViewComp, 'arrow');
+                    spyOn(boardViewComp, 'handleSprintChange');
                     reactTestUtils.Simulate.click(arrows[1].getDOMNode());
                     expect(flux.dispatcher.dispatchAction).toHaveBeenCalled();
                 });
 
 
             });
-            describe('home view empty state', function () {
+            describe('board view empty state', function () {
                 beforeEach(function () {
                     localStorage.clear();
                     reactTestUtils = React.addons.TestUtils;
                     flux = new Flux();
                     spyOn(flux.teamsStore, 'getCurrentTeam').and.returnValue({});
-                    HomeViewWithContext = stubContext(HomeView, {flux: flux});
-                    instance = React.createElement(HomeViewWithContext, {});
+                    BoardViewWithContext = stubContext(BoardView, {flux: flux});
+                    instance = React.createElement(BoardViewWithContext, {});
                     comp = reactTestUtils.renderIntoDocument(instance);
                 });
 
