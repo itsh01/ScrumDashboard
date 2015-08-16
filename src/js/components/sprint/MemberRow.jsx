@@ -16,9 +16,11 @@ define([
                 member: React.PropTypes.object,
                 retro: React.PropTypes.array
             },
+
             contextTypes: {
                 newFlux: React.PropTypes.any
             },
+            
             mixins: [HistoryMixin],
 
             getDefaultProps: function () {
