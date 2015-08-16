@@ -1,10 +1,9 @@
 define([
         'lodash',
-        '../../../data/cards',
         '../../helpers',
         '../../../constants'
     ],
-    function (_, defaultCardsData, helpers, constants) {
+    function (_, helpers, constants) {
         'use strict';
         var filterFunctions = {
             AllCards: null,
@@ -20,7 +19,7 @@ define([
             NotCompleted: {endDate: null}
         };
 
-        function CardsStore(dispatcher, eventEmitter) {
+        function CardsStore(dispatcher, eventEmitter, defaultCardsData) {
 
             this.emitChange = function() {
                 eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);

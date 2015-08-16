@@ -10,10 +10,13 @@ define(
         './stores/cardsStore',
         './stores/membersStore',
         './stores/teamsStore',
-        './stores/planningStore'
+        './stores/planningStore',
+        '../../data/cards',
+        '../../data/members',
+        '../../data/teams'
     ],
     function (_, EventEmitter, baseFlux, CardsActions, MembersActions, TeamsActions, PlanningActions,
-              CardsStore, MembersStore, TeamsStore, planningStore) {
+              CardsStore, MembersStore, TeamsStore, PlanningStore, defaultCardData, defaultMemberData, defaultTeamsData) {
         'use strict';
 
         var dispatcher = new baseFlux.Dispatcher(),
@@ -24,10 +27,10 @@ define(
             this.membersActions = new MembersActions(dispatcher);
             this.teamsActions = new TeamsActions(dispatcher);
             this.planningActions = new PlanningActions(dispatcher);
-            this.cardsStore = new CardsStore(dispatcher, eventEmitter);
-            this.membersStore = new MembersStore(dispatcher, eventEmitter);
-            this.teamsStore = new TeamsStore(dispatcher, eventEmitter, this.cardsStore.getUserCards);
-            this.planningStore = new planningStore(dispatcher);
+            this.cardsStore = new CardsStore(dispatcher, eventEmitter, defaultCardData);
+            this.membersStore = new MembersStore(dispatcher, eventEmitter, defaultMemberData);
+            this.teamsStore = new TeamsStore(dispatcher, eventEmitter, defaultTeamsData, this.cardsStore.getUserCards);
+            this.planningStore = new PlanningStore(dispatcher);
         }
 
         return Flux;

@@ -1,16 +1,15 @@
 define([
         'lodash',
-        '../../../data/members',
         '../../helpers',
         '../../../constants'
     ],
-    function (_, defaultMembersData, helpers, constants) {
+    function (_, helpers, constants) {
         'use strict';
         var filterFunctions = {
             AllMembers: null
         };
 
-        function MembersStore(dispatcher, eventEmitter) {
+        function MembersStore(dispatcher, eventEmitter, defaultMembersData) {
 
             this.emitChange = function() {
                 eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
@@ -39,7 +38,6 @@ define([
                 saveToLocalStorage();
                 localStorage.setItem('membersVersion', dataFileVersion);
             }
-
 
             _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                 this['get' + filterFuncName] = function () {

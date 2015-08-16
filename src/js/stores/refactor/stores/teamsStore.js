@@ -1,17 +1,16 @@
 define([
         'lodash',
-        '../../../data/teams',
         '../../helpers',
         '../../../constants'
     ],
-    function (_, defaultTeamData, helpers, constants) {
+    function (_, helpers, constants) {
         'use strict';
         var filterFunctions = {
             AllTeams: null,
             AllActiveTeams: {active: true}
         };
 
-        function TeamStore(dispatcher, eventEmitter, getUserCards) {
+        function TeamStore(dispatcher, eventEmitter, defaultTeamData, getUserCards) {
 
             this.emitChange = function () {
                 eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
