@@ -7,7 +7,8 @@ define(['lodash', 'React'], function (_, React) {
         },
         contextTypes: {
             flux: React.PropTypes.any,
-            newFlux: React.PropTypes.any
+            newFlux: React.PropTypes.any,
+            blankMemberSchema: React.PropTypes.object
         },
         componentDidMount: function componentDidMount() {
             this.flux = this.context.newFlux;
@@ -18,7 +19,7 @@ define(['lodash', 'React'], function (_, React) {
             var memberName = this.refs.memberName.getDOMNode().value;
             if (memberName) {
                 var memberImgUrl = this.refs.memberImgUrl.getDOMNode().value || 'img/mosh.jpg';
-                var newMember = this.flux.membersStore.getBlankMember();
+                var newMember = _.clone(this.context.blankMemberSchema);
                 newMember.name = memberName;
                 newMember.image = memberImgUrl;
                 this.flux.membersActions.createMemberIntoTeam(newMember, teamId);

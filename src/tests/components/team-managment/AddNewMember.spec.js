@@ -86,14 +86,14 @@ define(['React', 'stores/refactor/flux', 'constants', 'stubContext', 'components
         var mockMember = {
             name: 'shlomo',
             image: 'img/mosh.jpg',
-            active: 'true'
+            active: true
         };
 
         describe('add new member', function () {
             beforeEach(function () {
                 localStorage.clear();
                 flux = new Flux();
-                var AddNewMemberWithContext = stubContext(AddNewMember, {newFlux: flux});
+                var AddNewMemberWithContext = stubContext(AddNewMember, {newFlux: flux, blankMemberSchema: flux.membersStore.getBlankMember()});
                 var instance = React.createElement(AddNewMemberWithContext, mockProps);
                 var wrappedElement = reactTestUtils.renderIntoDocument(instance).getWrappedElement();
                 comp = reactTestUtils.renderIntoDocument(wrappedElement);

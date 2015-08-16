@@ -11,10 +11,20 @@ define(['lodash', 'React',
                 params: React.PropTypes.object,
                 'params.id': React.PropTypes.string
             },
+            childContextTypes: {
+                blankMemberSchema: React.PropTypes.array
+            },
+
 
             contextTypes: {
                 flux: React.PropTypes.any,
                 newFlux: React.PropTypes.any
+            },
+
+            getChildContext: function () {
+                return {
+                    blankMemberSchema: this.context.newFlux.membersStore.getBlankMember()
+                };
             },
 
             getStateFromStore: function () {
