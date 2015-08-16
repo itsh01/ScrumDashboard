@@ -30,7 +30,7 @@ define(
             this.cardsStore = new CardsStore(dispatcher, eventEmitter, defaultCardData);
             this.membersStore = new MembersStore(dispatcher, eventEmitter, defaultMemberData);
             this.teamsStore = new TeamsStore(dispatcher, eventEmitter, defaultTeamsData, this.cardsStore.getUserCards);
-            this.planningStore = new PlanningStore(dispatcher);
+            this.planningStore = new PlanningStore(dispatcher, eventEmitter);
         }
 
         return Flux;

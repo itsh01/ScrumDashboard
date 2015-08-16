@@ -16,10 +16,6 @@ define([
                 sprint: React.PropTypes.object
             },
 
-            contextTypes: {
-                flux: React.PropTypes.any
-            },
-
             childContextTypes: {
                 sprintState: React.PropTypes.number,
                 scrumMaster: React.PropTypes.string
