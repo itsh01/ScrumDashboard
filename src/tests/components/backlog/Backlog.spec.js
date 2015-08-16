@@ -57,14 +57,14 @@ define([
                     expect(CardsListComp).toBeDefined();
                 });
 
-                //it('should call addNewCard() when click on plus (empty state) img', function () {
-                //    spyOn(CardsListComp.context.flux.dispatcher, 'dispatchAction').and.stub();
-                //
-                //    var node = React.findDOMNode(CardsListComp.refs.plusAddButton);
-                //    React.addons.TestUtils.Simulate.click(node);
-                //
-                //    expect(CardsListComp.context.flux.dispatcher.dispatchAction).toHaveBeenCalled();
-                //});
+                it('should call addNewCard() when click on plus (empty state) img', function () {
+                    spyOn(CardsListComp.context.newFlux.planningActions, 'planningAddCard').and.stub();
+
+                    var node = React.findDOMNode(CardsListComp.refs.plusAddButton);
+                    React.addons.TestUtils.Simulate.click(node);
+
+                    expect(CardsListComp.context.newFlux.planningActions.planningAddCard).toHaveBeenCalled();
+                });
 
 
             });
