@@ -38,7 +38,7 @@ define(['lodash', 'React',
             },
 
             getCurrentTeam: function () {
-                return this.context.newFlux.teamsStore.getCurrentTeam();
+                return this.context.newFlux.teamsStore.getCurrentTeam() || {};
             },
             getTeamMembers: function (team) {
                 return _.map(team.members, function (memberId) {
@@ -47,7 +47,7 @@ define(['lodash', 'React',
             },
 
             render: function () {
-                var currentTeam = this.getCurrentTeam() || {};
+                var currentTeam = this.getCurrentTeam();
                 var allTeams = this.context.newFlux.teamsStore.getAllActiveTeams();
                 return (
                     <ReactCSSTransitionGroup transitionName='team-management-transition' transitionAppear={true}>
