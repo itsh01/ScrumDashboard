@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "eslint": "^0.24.1",
-    "eslint-config-coding-standard": "git+ssh://git@github.com/wix/eslint-config-coding-standard.git#v1.0.4",
     "eslint-plugin-react": "^3.1.0",
     "grunt": "~0.4.5",
     "grunt-asciify": "~0.2.2",
