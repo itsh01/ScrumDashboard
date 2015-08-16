@@ -224,6 +224,17 @@ module.exports = function (grunt) {
                     }
                 }
             }
+        },
+        sass: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/stylesheets',
+                    src: ['*.scss'],
+                    dest: 'src/stylesheets',
+                    ext: '.css'
+                }]
+            }
         }
     });
 
@@ -234,7 +245,7 @@ module.exports = function (grunt) {
     require('jit-grunt')(grunt);
 
     grunt.registerTask('lint', ['eslint', 'csslint']);
-    grunt.registerTask('dev', ['asciify:build', 'lint', 'babel', 'test']);
+    grunt.registerTask('dev', ['asciify:build', 'lint', 'sass', 'babel', 'test']);
     grunt.registerTask('minify', ['processhtml', 'requirejs', 'cssmin']);
     grunt.registerTask('build', ['asciify:build', 'lint', 'clean', 'babel', 'umd', 'copy', 'minify']);
     grunt.registerTask('test', ['karma']);
