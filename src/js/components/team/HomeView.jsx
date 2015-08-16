@@ -3,7 +3,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
         'use strict';
 
         return React.createClass({
-            displayName: 'TeamView',
+            displayName: 'HomeView',
 
             contextTypes: {
                 flux: React.PropTypes.any
