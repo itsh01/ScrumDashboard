@@ -11,11 +11,11 @@ define([
             displayName: 'CardEditCreate',
 
             propTypes: {
+                allTeams: React.PropTypes.any,
                 card: React.PropTypes.object,
-                isCreating: React.PropTypes.bool,
-                sprintLifeCycle: React.PropTypes.any,
                 currSprintMembers: React.PropTypes.any,
-                allTeams: React.PropTypes.any
+                isCreating: React.PropTypes.bool,
+                sprintLifeCycle: React.PropTypes.any
             },
 
             contextTypes: {
