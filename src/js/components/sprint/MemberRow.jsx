@@ -17,7 +17,8 @@ define([
                 retro: React.PropTypes.array
             },
             contextTypes: {
-                flux: React.PropTypes.any
+                flux: React.PropTypes.any,
+                newFlux: React.PropTypes.any
             },
             mixins: [HistoryMixin],
 
@@ -26,7 +27,19 @@ define([
                     cardLifecycle: ['Backlog', 'In progress', 'Done']
                 };
             },
-
+            componentDidMount: function () {
+                this.context.newFlux.cardsStore.addChangeListener(this.onChange);
+                this.context.newFlux.teamsStore.addChangeListener(this.onChange);
+                this.context.newFlux.membersStore.addChangeListener(this.onChange);
+            },
+            componentWillUnmount: function () {
+                this.context.newFlux.cardsStore.removeChangeListener(this.onChange);
+                this.context.newFlux.teamsStore.removeChangeListener(this.onChange);
+                this.context.newFlux.membersStore.removeChangeListener(this.onChange);
+            },
+            onChange: function () {
+                this.forceUpdate();
+            },
             getMemberCards: function (retro, memberId) {
                 var cards = [];
                 if (retro) {
@@ -37,7 +50,7 @@ define([
                         .map(this.mapHistoryToCards)
                         .value();
                 } else {
-                    cards = this.context.flux.cardsStore.getUserCards(memberId);
+                    cards = this.context.newFlux.cardsStore.getUserCards(memberId);
                 }
                 return cards;
             },
