@@ -3,40 +3,41 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
         'use strict';
 
         return React.createClass({
-            displayName: 'TeamView',
+            displayName: 'ScrumBoardView',
 
             contextTypes: {
-                flux: React.PropTypes.any
+                flux: React.PropTypes.any,
+                newFlux: React.PropTypes.any
             },
             childContextTypes: {
                 teamId: React.PropTypes.string
             },
             getChildContext: function () {
                 return {
-                    teamId: this.context.flux.teamsStore.getCurrentTeam().id
+                    teamId: this.context.newFlux.teamsStore.getCurrentTeam().id
                 };
             },
 
             handleSprintChange: function (direction) {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT_ID, direction);
+                this.context.newFlux.teamsActions.changeCurrentSprintId(direction);
             },
 
             addCardClicked: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
+                this.context.newFlux.planningActions.planningAddCard();
             },
 
             finishPlanning: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE);
+                this.context.newFlux.teamsActions.moveSprintToNextState();
             },
 
             planNewSprint: function () {
-                var newSprint = this.context.flux.teamsStore.getBlankSprint();
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, newSprint);
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT_ID, 'next');
+                var newSprint = this.context.newFlux.teamsStore.getBlankSprint();
+                this.context.newFlux.teamsActions.addSprintToCurrentTeam(newSprint);
+                this.context.newFlux.teamsActions.changeCurrentSprintId('next');
             },
 
             lockSprint: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_CURRENT_SPRINT);
+                this.context.newFlux.teamsActions.retrofySprint();
             },
 
             getSprintButton: function (sprint) {
@@ -57,7 +58,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 if (sprint.state === constants.SPRINT_STATUS.IN_PROGRESS) {
                     return (
                         <button className='home-view-button home-view-button-lock' onClick={this.lockSprint}>Lock
-                        Sprint</button>
+                            Sprint</button>
                     );
                 }
                 return null;
@@ -74,8 +75,8 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             },
 
             render: function () {
-                var team = this.context.flux.teamsStore.getCurrentTeam();
-                var sprint = this.context.flux.teamsStore.getCurrentSprint();
+                var team = this.context.newFlux.teamsStore.getCurrentTeam();
+                var sprint = this.context.newFlux.teamsStore.getCurrentSprint();
                 if (!team.id) {
                     return (
                         <div>
@@ -94,7 +95,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                             <ChangeSprint direction='backwards'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'previous')}/>
 
-                            <h3>Sprint {this.context.flux.teamsStore.getSprintIndex(sprint.id)} : {sprint.name}
+                            <h3>Sprint {this.context.newFlux.teamsStore.getSprintIndex(sprint.id)} : {sprint.name}
                                 - {this.getSprintState(sprint)}</h3>
                             <ChangeSprint direction='forward'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'next')}/>
