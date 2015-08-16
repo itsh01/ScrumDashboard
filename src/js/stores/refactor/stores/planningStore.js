@@ -5,9 +5,21 @@ define([
     function (constants) {
         'use strict';
 
-        function Planning(dispatcher) {
+        function Planning(dispatcher, eventEmitter) {
             var IsAddingOrEditingCard = false;
             var currentCard = null;
+
+            this.emitChange = function() {
+                eventEmitter.emit(constants.flux.PLANNING_STORE_CHANGE);
+            };
+
+            this.addChangeListener = function (callback) {
+                eventEmitter.on(constants.flux.PLANNING_STORE_CHANGE, callback);
+            };
+
+            this.removeChangeListener = function (callback) {
+                eventEmitter.removeListener(constants.flux.PLANNING_STORE_CHANGE, callback);
+            };
 
             function addingCard(isAdding, card) {
                 IsAddingOrEditingCard = isAdding;
@@ -43,8 +55,11 @@ define([
                         editCard.apply(this, [true].concat(data));
                         break;
                     default:
-                        // do nothing
+                        return;
                 }
+
+                this.emitChange();
+
             }.bind(this));
 
         }
