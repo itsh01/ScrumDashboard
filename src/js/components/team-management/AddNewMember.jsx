@@ -18,10 +18,10 @@ define(['lodash', 'React'], function (_, React) {
             var memberName = this.refs.memberName.getDOMNode().value;
             if (memberName) {
                 var memberImgUrl = this.refs.memberImgUrl.getDOMNode().value || 'img/mosh.jpg';
-                var newMember = this.context.flux.membersStore.getBlankMember();
+                var newMember = this.flux.membersStore.getBlankMember();
                 newMember.name = memberName;
                 newMember.image = memberImgUrl;
-                this.flux.teamsActions.createMemberIntoTeam(newMember, teamId);
+                this.flux.membersActions.createMemberIntoTeam(newMember, teamId);
             }
         },
 
