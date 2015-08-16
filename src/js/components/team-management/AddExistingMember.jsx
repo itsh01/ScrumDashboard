@@ -17,7 +17,7 @@ define(['lodash', 'React', '../general/Search'], function (_, React, SearchMembe
             this.flux = this.context.newFlux;
 
             return {
-                currentTeamMembers: this.getCurrentTeamMembers()
+                currentTeamMembers: this.getTeamMembers()
             };
         },
 
@@ -27,7 +27,7 @@ define(['lodash', 'React', '../general/Search'], function (_, React, SearchMembe
             this.flux.teamsActions.addMemberToTeam(currentTeamId, memberId);
         },
 
-        getCurrentTeamMembers: function () {
+        getTeamMembers: function () {
             return this.props.team && this.props.team.members;
         },
 

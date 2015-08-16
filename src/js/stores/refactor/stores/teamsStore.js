@@ -62,8 +62,8 @@ define([
             };
 
             this.changeCurrentTeamToDefault = function () {
-                var defaultTeamId = this.getAllActiveTeams()[0].id;
-                dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM_ID, defaultTeamId);
+                var defaultTeamId = this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id;
+                changeCurrentTeamId(defaultTeamId);
             };
 
             this.getTeamById = function (id) {
