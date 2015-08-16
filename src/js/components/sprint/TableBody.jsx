@@ -12,7 +12,7 @@ define([
                 sprint: React.PropTypes.object
             },
             contextTypes: {
-                flux: React.PropTypes.any
+                newFlux: React.PropTypes.any
             },
             createSprintMemberRow: function (sprint, member) {
                 return member ? (<SprintMemberRow
@@ -25,7 +25,7 @@ define([
             render: function () {
                 var sprint = this.props.sprint,
                     rows = _(sprint.members)
-                        .map(this.context.flux.membersStore.getMemberById)
+                        .map(this.context.newFlux.membersStore.getMemberById)
                         .map(function (member) {
                             return this.createSprintMemberRow(sprint, member);
                         }, this)

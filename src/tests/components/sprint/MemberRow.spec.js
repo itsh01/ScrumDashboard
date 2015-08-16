@@ -9,9 +9,10 @@ define([
         'components/sprint/TableCell',
         'stubContext',
         'stores/flux',
+        'stores/refactor/flux',
         'mixins/HistoryMixin'
     ],
-    function (_, React, memberRowDefinition, SprintMember, TableCell, stubContext, Flux, HistoryMixin) {
+    function (_, React, memberRowDefinition, SprintMember, TableCell, stubContext, Flux, NewFlux, HistoryMixin) {
         'use strict';
 
         var mockProps = {
@@ -95,7 +96,7 @@ define([
                 spyOn(HistoryMixin, 'mapHistoryToCards').and.returnValue(mockCards);
 
                 MemberRow = memberRowDefinition(_, React, SprintMember, TableCell, HistoryMixin);
-                MemberRowWithContext = stubContext(MemberRow, {flux: new Flux()});
+                MemberRowWithContext = stubContext(MemberRow, {flux: new Flux(), newFlux: new NewFlux()});
 
                 instance = React.createElement(MemberRowWithContext, mockProps);
                 renderedInstance = React.addons.TestUtils.renderIntoDocument(instance);
