@@ -6,7 +6,6 @@ define([
         'React',
         'components/sprint/TableBody',
         'stubContext',
-        'stores/flux',
         'stores/refactor/flux'
     ],
     function (_, React, TableBody, stubContext, Flux) {
