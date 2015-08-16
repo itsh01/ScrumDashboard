@@ -15,7 +15,8 @@ define([
             },
 
             contextTypes: {
-                flux: React.PropTypes.any
+                flux: React.PropTypes.any,
+                newFlux: React.PropTypes.any
             },
 
             mixins: [React.addons.LinkedStateMixin],
@@ -24,9 +25,9 @@ define([
             getInitialState: function () {
                 var card;
                 if (this.isCreating()) {
-                    card = this.context.flux.cardsStore.getBlankCard();
+                    card = this.context.newFlux.cardsStore.getBlankCard();
                 } else if (!this.props.card) {
-                    card = this.context.flux.planningStore.getCurrentCard();
+                    card = this.context.newFlux.planningStore.getCurrentCard();
                 } else {
                     card = _.cloneDeep(this.props.card);
                 }
@@ -34,7 +35,7 @@ define([
             },
 
             isCreating: function () {
-                return !this.context.flux.planningStore.getCurrentCard();
+                return !this.context.newFlux.planningStore.getCurrentCard();
             },
 
             makeTextInputElement: function (key) {
@@ -80,9 +81,9 @@ define([
                 if (!this.state.team) {
                     return null;
                 }
-                var team = this.context.flux.teamsStore.getTeamById(this.state.team);
+                var team = this.context.newFlux.teamsStore.getTeamById(this.state.team);
                 var sprintMembers = team.sprints[team.sprints.length - 1].members;
-                return this.context.flux.membersStore.getMembersByIdList(sprintMembers);
+                return this.context.newFlux.membersStore.getMembersByIdList(sprintMembers);
             },
 
             formatToIdAndName: function (arr) { //TODO change this name?
@@ -98,7 +99,7 @@ define([
                 if (!this.state.team) {
                     throw new Error('INVALID STATE ON THE SYSTEM: card has assignee but not team!!! id: ' + this.state.id);
                 }
-                var team = this.context.flux.teamsStore.getTeamById(this.state.team);
+                var team = this.context.newFlux.teamsStore.getTeamById(this.state.team);
                 return team.sprints[team.sprints.length - 1].cardLifecycle;
             },
 
@@ -107,7 +108,7 @@ define([
             },
 
             getSelectBoxes: function () {
-                var teams = this.context.flux.teamsStore.getAllActiveTeams();
+                var teams = this.context.newFlux.teamsStore.getAllActiveTeams();
                 return (<div>
                     {this.getSelectOptions(this.formatToIdAndName(this.getValidScores()), 'score')}
                     <div>

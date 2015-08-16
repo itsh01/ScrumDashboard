@@ -17,11 +17,16 @@ define(['lodash', 'React',
                 newFlux: React.PropTypes.any
             },
 
-            getInitialState: function () {
+            getStateFromStore: function () {
+                var existingMemberId = this.context.newFlux.teamsStore.getCurrentExistingMemberId();
+                var existingMember = this.context.newFlux.membersStore.getMemberById(existingMemberId);
                 return {
-                    allMembers: this.context.newFlux.membersStore.getAllMembers()
+                    allMembers: this.context.newFlux.membersStore.getAllMembers(),
+                    existingMember: existingMember
                 };
-
+            },
+            getInitialState: function () {
+                return this.getStateFromStore();
             },
             componentDidMount: function () {
                 this.context.newFlux.teamsStore.addChangeListener(this._onChange);
@@ -34,7 +39,7 @@ define(['lodash', 'React',
             },
 
             _onChange: function () {
-                this.setState({allMembers: this.context.newFlux.membersStore.getAllMembers()});
+                this.setState(this.getStateFromStore());
             },
 
             getCurrentTeam: function () {
@@ -52,10 +57,12 @@ define(['lodash', 'React',
                 return (
                     <ReactCSSTransitionGroup transitionName='team-management-transition' transitionAppear={true}>
                         <div className='team-management'>
-                            <TeamSidebar allTeams={allTeams}/>
+                            <TeamSidebar allTeams={allTeams} currentTeam={currentTeam}/>
                             <TeamView team={currentTeam}
                                       teamMembers={this.getTeamMembers(currentTeam)}
-                                      allMembers={this.state.allMembers}/>
+                                      allMembers={this.state.allMembers}
+                                      existingMember={this.state.existingMember}
+                                />
                         </div>
                     </ReactCSSTransitionGroup>
                 );
