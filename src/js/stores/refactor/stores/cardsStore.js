@@ -153,14 +153,14 @@ define([
                 {name: constants.actionNames.DEACTIVATE_MEMBER, callback: unassignMemberFromCards}
             ];
 
-            this.dispatchToken = dispatcher.register(function (action) {
+            this.dispatchToken = dispatcher.register(function (payload) {
+                var actionName = payload.actionName,
+                    data = payload.payload,
 
-                var actionName = [].shift.apply(arguments),
-                    payload = arguments,
                     action = _.find(actions, {name: actionName});
 
                 if (action) {
-                    action.callback.apply(this, payload);
+                    action.callback.apply(this, data);
                     saveToLocalStorage();
                     this.emitChange();
                 }
