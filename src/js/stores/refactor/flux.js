@@ -27,7 +27,7 @@ define(
             this.cardsStore = new CardsStore(dispatcher, eventEmitter);
             this.membersStore = new MembersStore(dispatcher, eventEmitter);
             this.teamsStore = new TeamsStore(dispatcher, eventEmitter, this.cardsStore.getUserCards);
-            this.planningStore = new planningStore(dispatcher);
+            this.planningStore = new planningStore(dispatcher, eventEmitter);
         }
 
         return Flux;
