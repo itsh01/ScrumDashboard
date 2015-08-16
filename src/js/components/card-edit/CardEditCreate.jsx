@@ -11,7 +11,11 @@ define([
             displayName: 'CardEditCreate',
 
             propTypes: {
-                card: React.PropTypes.object
+                card: React.PropTypes.object,
+                isCreating: React.PropTypes.bool,
+                sprintLifeCycle: React.PropTypes.any,
+                currSprintMembers: React.PropTypes.any,
+                allTeams: React.PropTypes.any
             },
 
             contextTypes: {
@@ -23,19 +27,11 @@ define([
 
 
             getInitialState: function () {
-                var card;
-                if (this.isCreating()) {
-                    card = this.context.newFlux.cardsStore.getBlankCard();
-                } else if (!this.props.card) {
-                    card = this.context.newFlux.planningStore.getCurrentCard();
-                } else {
-                    card = _.cloneDeep(this.props.card);
-                }
-                return card;
+                return _.cloneDeep(this.props.card);
             },
 
             isCreating: function () {
-                return !this.context.newFlux.planningStore.getCurrentCard();
+                return this.props.isCreating;
             },
 
             makeTextInputElement: function (key) {
@@ -81,9 +77,8 @@ define([
                 if (!this.state.team) {
                     return null;
                 }
-                var team = this.context.newFlux.teamsStore.getTeamById(this.state.team);
-                var sprintMembers = team.sprints[team.sprints.length - 1].members;
-                return this.context.newFlux.membersStore.getMembersByIdList(sprintMembers);
+
+                return this.props.currSprintMembers;
             },
 
             formatToIdAndName: function (arr) { //TODO change this name?
@@ -99,8 +94,8 @@ define([
                 if (!this.state.team) {
                     throw new Error('INVALID STATE ON THE SYSTEM: card has assignee but not team!!! id: ' + this.state.id);
                 }
-                var team = this.context.newFlux.teamsStore.getTeamById(this.state.team);
-                return team.sprints[team.sprints.length - 1].cardLifecycle;
+
+                return this.props.sprintLifeCycle;
             },
 
             getValidScores: function () {
@@ -108,11 +103,10 @@ define([
             },
 
             getSelectBoxes: function () {
-                var teams = this.context.newFlux.teamsStore.getAllActiveTeams();
                 return (<div>
                     {this.getSelectOptions(this.formatToIdAndName(this.getValidScores()), 'score')}
                     <div>
-                        {this.getSelectOptions(teams, 'team')}
+                        {this.getSelectOptions(this.props.allTeams, 'team')}
                         {this.getSelectOptions(this.getTeamMembersIdList(), 'assignee')}
                     </div>
                     {this.getSelectOptions(this.formatToIdAndName(this.getLifecycleOptions()), 'status')}

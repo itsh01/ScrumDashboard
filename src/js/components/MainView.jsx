@@ -121,13 +121,27 @@ define(['lodash',
             },
 
             popUpFactory: function () {
-                //if (!this.flux.planningStore.getIsAddingOrEditingCard()) {
                 if (!this.newFlux.planningStore.getIsAddingOrEditingCard()) {
                     return null;
                 }
+
+                var isCreating = false;
+                var currCard = this.newFlux.planningStore.getCurrentCard();
+                if (!currCard) {
+                    currCard = this.newFlux.cardsStore.getBlankCard();
+                    isCreating = true;
+                }
+
+                var currSprint = this.newFlux.teamsStore.getCurrentSprint();
+                var currSprintMembers = currSprint.members;
+                currSprintMembers = this.newFlux.membersStore.getMembersByIdList(currSprintMembers);
+                var allTeams = this.newFlux.teamsStore.getAllActiveTeams();
+                var sprintLifeCycle = currSprint.cardLifecycle;
+
                 return (
                     <Popup>
-                        <CardEditCreate />
+                        <CardEditCreate card={currCard} isCreating={isCreating} sprintLifeCycle={sprintLifeCycle}
+                                        currSprintMembers={currSprintMembers} allTeams={allTeams}/>
                     </Popup>
                 );
 
