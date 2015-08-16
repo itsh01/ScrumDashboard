@@ -7,6 +7,7 @@
 module.exports = function (grunt) {
 
     var VENDOR_TARGET = 'src/vendor/';
+    var VENDOR_STYLE_TARGET = 'src/stylesheets/vendor/';
 
     grunt.initConfig({
         clean: {
@@ -39,7 +40,7 @@ module.exports = function (grunt) {
                     },
                     {
                         src: 'node_modules/react-datepicker/dist/react-datepicker.css',
-                        dest: 'src/stylesheets/vendor/date-picker.css'
+                        dest: VENDOR_STYLE_TARGET + 'date-picker.css'
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/tether/dist/js/tether.js',
@@ -47,7 +48,7 @@ module.exports = function (grunt) {
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/tether/dist/css/tether.css',
-                        dest: 'src/stylesheets/vendor/tether.css'
+                        dest: VENDOR_STYLE_TARGET + 'tether.css'
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/moment/moment.js',
