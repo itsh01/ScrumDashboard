@@ -15,7 +15,7 @@ define([
             beforeEach(function () {
                 localStorage.clear();
                 var flux = new Flux();
-                var CardEditCreateWithContext = stubContext(CardEditCreate, {flux: flux});
+                var CardEditCreateWithContext = stubContext(CardEditCreate, {newFlux: flux});
                 var instance = React.createElement(CardEditCreateWithContext, {});
                 var wrappedEl = React.addons.TestUtils.renderIntoDocument(instance).getWrappedElement();
                 comp = React.addons.TestUtils.renderIntoDocument(wrappedEl);

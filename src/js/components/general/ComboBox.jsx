@@ -11,7 +11,7 @@ define(['lodash', 'React'],
             },
 
             contextTypes: {
-                flux: React.PropTypes.any
+                newFlux: React.PropTypes.any
             },
 
             deleteItem: function (item) {

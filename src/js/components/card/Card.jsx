@@ -37,7 +37,6 @@ define([
             },
 
             dragDrop: function () {
-
                 var locked = constants.SPRINT_STATUS.RETRO === this.context.sprintState;
 
                 return {
@@ -77,20 +76,16 @@ define([
                 No: 'card-none'
             },
             removeCard: function () {
-                //this.context.flux.dispatcher.dispatchAction(constants.actionNames.REMOVE_CARD, this.props.card.id);
                 this.context.newFlux.cardsActions.removeCard(this.props.card.id);
             },
             editCard: function (e) {
                 this.preventToggleCard = true;
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_EDIT_CARD, this.props.card);
                 this.context.newFlux.planningActions.editCard(this.props.card);
-                //this.preventToggleCard = false;
                 e.stopPropagation();
             },
             render: function () {
                 this.preventToggleCard = false;
                 var cx = React.addons.classSet;
-                //var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
                 var currentSprint = this.context.newFlux.teamsStore.getCurrentSprint();
                 var classesObject = {
                     card: true,

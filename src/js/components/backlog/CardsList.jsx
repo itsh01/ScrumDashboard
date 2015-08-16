@@ -72,7 +72,7 @@ define([
         },
         addNewCard: function () {
             //this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
-            this.context.newFlux.planningStore.planningAddCard();
+            this.context.newFlux.planningActions.planningAddCard();
 
         },
 
