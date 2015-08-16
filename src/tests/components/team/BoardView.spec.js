@@ -1,10 +1,10 @@
-define(['React', 'components/team/HomeView', 'stubContext', 'stores/flux'],
-    function (React, HomeView, stubContext, Flux) {
+define(['React', 'components/team/BoardView', 'stubContext', 'stores/flux'],
+    function (React, BoardView, stubContext, Flux) {
         'use strict';
 
         var reactTestUtils;
         var flux;
-        var HomeViewWithContext;
+        var BoardViewWithContext;
         var instance;
         var comp;
 
@@ -15,12 +15,12 @@ define(['React', 'components/team/HomeView', 'stubContext', 'stores/flux'],
                     reactTestUtils = React.addons.TestUtils;
                     flux = new Flux();
                     spyOn(flux.dispatcher, 'dispatchAction').and.returnValue({});
-                    HomeViewWithContext = stubContext(HomeView, {flux: flux});
-                    instance = React.createElement(HomeViewWithContext, {});
+                    BoardViewWithContext = stubContext(BoardView, {flux: flux});
+                    instance = React.createElement(BoardViewWithContext, {});
                     comp = reactTestUtils.renderIntoDocument(instance);
                 });
 
-                it('should check that HomeView did render', function () {
+                it('should check that BoardView did render', function () {
                     expect(comp).toBeDefined();
                 });
 
@@ -46,8 +46,8 @@ define(['React', 'components/team/HomeView', 'stubContext', 'stores/flux'],
                     reactTestUtils = React.addons.TestUtils;
                     flux = new Flux();
                     spyOn(flux.teamsStore, 'getCurrentTeam').and.returnValue({});
-                    HomeViewWithContext = stubContext(HomeView, {flux: flux});
-                    instance = React.createElement(HomeViewWithContext, {});
+                    BoardViewWithContext = stubContext(BoardView, {flux: flux});
+                    instance = React.createElement(BoardViewWithContext, {});
                     comp = reactTestUtils.renderIntoDocument(instance);
                 });
 
