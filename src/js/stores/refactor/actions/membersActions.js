@@ -27,6 +27,8 @@ define([
                 },
                 // if you can read this MDN has left her computer unlocked.
                 createMemberIntoTeam: function (memberData, teamId) {
+                    var previousLastMember = getLastMemberAdded().id;
+
                     // TODO: This is ugly I know, still working on it.
                     dispatcher.dispatch({
                         actionName: constants.actionNames.ADD_MEMBER,
@@ -35,10 +37,12 @@ define([
 
                     var newMemberId = getLastMemberAdded().id;
 
-                    dispatcher.dispatch({
-                        actionName: constants.actionNames.ADD_MEMBER_TO_TEAM,
-                        payload: [teamId, newMemberId]
-                    });
+                    if (newMemberId !== previousLastMember.id) {
+                        dispatcher.dispatch({
+                            actionName: constants.actionNames.ADD_MEMBER_TO_TEAM,
+                            payload: [teamId, newMemberId]
+                        });
+                    }
                 }
             };
         }
