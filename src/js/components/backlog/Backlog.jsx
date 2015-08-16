@@ -2,10 +2,9 @@ define([
         'lodash',
         'React',
 
-        'components/card/Card',
         'components/backlog/CardsList'
     ],
-    function (_, React, Card, CardsList) {
+    function (_, React, CardsList) {
         'use strict';
 
         return React.createClass({
@@ -16,12 +15,16 @@ define([
             },
 
             contextTypes: {
-                flux: React.PropTypes.any
+                flux: React.PropTypes.any,
+                newFlux: React.PropTypes.any
+
             },
 
             render: function () {
-                var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
-                var CompanyCards = this.context.flux.cardsStore.getCompanyCards();
+                //var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
+                var teamCards = this.context.newFlux.cardsStore.getTeamCards(this.props.teamId);
+                //var CompanyCards = this.context.flux.cardsStore.getCompanyCards();
+                var CompanyCards = this.context.newFlux.cardsStore.getCompanyCards();
 
                 teamCards = _.filter(teamCards, function (card) {
                     return card.status === 'unassigned';

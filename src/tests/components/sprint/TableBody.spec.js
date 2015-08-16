@@ -6,9 +6,10 @@ define([
         'React',
         'components/sprint/TableBody',
         'stubContext',
-        'stores/flux'
+        'stores/flux',
+        'stores/refactor/flux'
     ],
-    function (_, React, TableBody, stubContext, Flux) {
+    function (_, React, TableBody, stubContext, Flux, NewFlux) {
         'use strict';
 
         var mockProps = {
@@ -40,7 +41,9 @@ define([
 
                 window.localStorage.clear();
 
-                TableBodyWithContext = stubContext(TableBody, {flux: new Flux()});
+
+                TableBodyWithContext = stubContext(TableBody, {flux: new Flux(), newFlux: new NewFlux()});
+
 
                 instance = React.createElement(TableBodyWithContext, mockProps);
                 renderedInstance = React.addons.TestUtils.renderIntoDocument(instance);

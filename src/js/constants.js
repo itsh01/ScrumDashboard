@@ -32,6 +32,18 @@ define([], function () {
             PLANNING_DONE_ADDING_CARD: 'PLANNING_DONE_ADDING_CARD',
             PLANNING_EDIT_CARD: 'PLANNING_EDIT_CARD'
         },
+        flux: {
+            CARDS_STORE_CHANGE: 'CARDS_STORE_CHANGE',
+            MEMBERS_STORE_CHANGE: 'MEMBERS_STORE_CHANGE',
+            TEAMS_STORE_CHANGE: 'TEAMS_STORE_CHANGE',
+            PLANNING_STORE_CHANGE: 'PLANNING_STORE_CHANGE'
+        },
+        storesName: {
+            CARDS_STORE: 'cardsStore',
+            MEMBERS_STORE: 'membersStore',
+            TEAMS_STORE: 'teamsStore',
+            PLANNING_STORES: 'planningStore'
+        },
 
         SPRINT_STATUS: {PLANNING: 0, IN_PROGRESS: 1, RETRO: 2},
         DATE_FORMAT: 'YYYY-MM-DD'

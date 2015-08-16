@@ -15,13 +15,17 @@ define([
                 sprintMembers: React.PropTypes.array
             },
             contextTypes: {
-                flux: React.PropTypes.any
+                newFlux: React.PropTypes.any
             },
             mixins: [HistoryMixin],
             getDefaultProps: function () {
                 return {
                     cardLifecycle: ['Backlog', 'In progress', 'Done']
                 };
+            },
+
+            onChange: function () {
+                this.forceUpdate();
             },
             getSprintCards: function () {
                 var cards = [],
@@ -31,7 +35,7 @@ define([
                     cards = _.map(retro, this.mapHistoryToCards);
                 } else {
                     _.forEach(this.props.sprintMembers, function (memberId) {
-                        cards = cards.concat(this.context.flux.cardsStore.getUserCards(memberId));
+                        cards = cards.concat(this.context.newFlux.cardsStore.getUserCards(memberId));
                     }, this);
                 }
                 return cards;

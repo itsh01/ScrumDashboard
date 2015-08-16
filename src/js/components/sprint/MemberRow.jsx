@@ -10,15 +10,17 @@ define([
         'use strict';
 
         return React.createClass({
-            displayName: 'Sprint Member Row',
+            displayName: 'SprintMemberRow',
             propTypes: {
                 cardLifecycle: React.PropTypes.array,
                 member: React.PropTypes.object,
                 retro: React.PropTypes.array
             },
+
             contextTypes: {
-                flux: React.PropTypes.any
+                newFlux: React.PropTypes.any
             },
+
             mixins: [HistoryMixin],
 
             getDefaultProps: function () {
@@ -27,6 +29,9 @@ define([
                 };
             },
 
+            onChange: function () {
+                this.forceUpdate();
+            },
             getMemberCards: function (retro, memberId) {
                 var cards = [];
                 if (retro) {
@@ -37,7 +42,7 @@ define([
                         .map(this.mapHistoryToCards)
                         .value();
                 } else {
-                    cards = this.context.flux.cardsStore.getUserCards(memberId);
+                    cards = this.context.newFlux.cardsStore.getUserCards(memberId);
                 }
                 return cards;
             },

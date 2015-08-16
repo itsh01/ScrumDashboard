@@ -1,4 +1,4 @@
-define(['lodash', 'React', 'constants'], function (_, React, constants) {
+define(['lodash', 'React'], function (_, React) {
     'use strict';
     return React.createClass({
         displayName: 'Add new member',
@@ -6,10 +6,11 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
             team: React.PropTypes.object
         },
         contextTypes: {
-            flux: React.PropTypes.any
+            newFlux: React.PropTypes.any,
+            blankMemberSchema: React.PropTypes.object
         },
         componentDidMount: function componentDidMount() {
-            this.dispatcher = this.context.flux.dispatcher;
+            this.flux = this.context.newFlux;
         },
         addNewMember: function (event) {
             event.preventDefault();
@@ -17,11 +18,10 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
             var memberName = this.refs.memberName.getDOMNode().value;
             if (memberName) {
                 var memberImgUrl = this.refs.memberImgUrl.getDOMNode().value || 'img/mosh.jpg';
-                var newMember = this.context.flux.membersStore.getBlankMember();
+                var newMember = _.clone(this.context.blankMemberSchema);
                 newMember.name = memberName;
                 newMember.image = memberImgUrl;
-                this.dispatcher.dispatchAction(
-                    constants.actionNames.CREATE_MEMBER_INTO_TEAM, newMember, teamId);
+                this.flux.membersActions.createMemberIntoTeam(newMember, teamId);
             }
         },
 

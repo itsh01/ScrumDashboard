@@ -1,4 +1,4 @@
-define(['React', 'stores/flux', 'constants', 'stubContext', 'components/team-management/AddNewMember'],
+define(['React', 'stores/refactor/flux', 'constants', 'stubContext', 'components/team-management/AddNewMember'],
     function (React, Flux, constants, stubContext, AddNewMember) {
         'use strict';
         var comp;
@@ -86,18 +86,18 @@ define(['React', 'stores/flux', 'constants', 'stubContext', 'components/team-man
         var mockMember = {
             name: 'shlomo',
             image: 'img/mosh.jpg',
-            active: 'true'
+            active: true
         };
 
         describe('add new member', function () {
             beforeEach(function () {
                 localStorage.clear();
                 flux = new Flux();
-                var AddNewMemberWithContext = stubContext(AddNewMember, {flux: flux});
+                var AddNewMemberWithContext = stubContext(AddNewMember, {newFlux: flux, blankMemberSchema: flux.membersStore.getBlankMember()});
                 var instance = React.createElement(AddNewMemberWithContext, mockProps);
                 var wrappedElement = reactTestUtils.renderIntoDocument(instance).getWrappedElement();
                 comp = reactTestUtils.renderIntoDocument(wrappedElement);
-                spyOn(flux.dispatcher, 'dispatchAction').and.callFake(function () {
+                spyOn(flux.membersActions, 'createMemberIntoTeam').and.callFake(function () {
                 });
             });
 
@@ -107,7 +107,7 @@ define(['React', 'stores/flux', 'constants', 'stubContext', 'components/team-man
                 var memberNameInput = comp.refs.memberName.getDOMNode();
                 memberNameInput.value = 'shlomo';
                 React.addons.TestUtils.Simulate.submit(form);
-                expect(flux.dispatcher.dispatchAction).toHaveBeenCalled();
+                expect(flux.membersActions.createMemberIntoTeam).toHaveBeenCalled();
             });
 
             it('should call the add member action with the mock member', function () {
@@ -116,14 +116,14 @@ define(['React', 'stores/flux', 'constants', 'stubContext', 'components/team-man
                 var memberNameInput = comp.refs.memberName.getDOMNode();
                 memberNameInput.value = 'shlomo';
                 React.addons.TestUtils.Simulate.submit(form);
-                expect(flux.dispatcher.dispatchAction)
-                    .toHaveBeenCalledWith(constants.actionNames.CREATE_MEMBER_INTO_TEAM, mockMember, mockProps.team.id);
+                expect(flux.membersActions.createMemberIntoTeam)
+                    .toHaveBeenCalledWith(mockMember, mockProps.team.id);
             });
 
             it('should not call add member function when form is empty', function () {
                 var form = reactTestUtils.findRenderedDOMComponentWithClass(comp, 'add-new-member').getDOMNode();
                 React.addons.TestUtils.Simulate.submit(form);
-                expect(flux.dispatcher.dispatchAction).not.toHaveBeenCalled();
+                expect(flux.membersActions.createMemberIntoTeam).not.toHaveBeenCalled();
             });
 
         });

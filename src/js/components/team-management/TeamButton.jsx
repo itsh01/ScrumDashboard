@@ -4,16 +4,16 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
         return React.createClass({
             displayName: 'Team Button',
             propTypes: {
+                currentTeam: React.PropTypes.object,
                 team: React.PropTypes.object
             },
             contextTypes: {
-                flux: React.PropTypes.any
+                newFlux: React.PropTypes.any
             },
             mixins: [DragDropMixin],
 
             componentDidMount: function () {
-                this.dispatcher = this.context.flux.dispatcher;
-                this.teamsStore = this.context.flux.teamsStore;
+                this.flux = this.context.newFlux;
             },
 
             dragDrop: function () {
@@ -26,20 +26,20 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
             },
 
             handleMoveMember: function (memberId) {
-                var currentTeamId = this.teamsStore.getCurrentTeam().id;
-                this.dispatcher.dispatchAction(constants.actionNames.REMOVE_MEMBER_FROM_TEAM, currentTeamId, memberId);
-                this.dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER_TO_TEAM, this.props.team.id, memberId);
+                var currentTeamId = this.props.currentTeam.id;
+                this.flux.teamsActions.removeMemberFromTeam(currentTeamId, memberId);
+                this.flux.teamsActions.addMemberToTeam(this.props.team.id, memberId);
 
             },
             changeCurrentTeam: function (event) {
                 var teamId = event.target.dataset.id;
-                this.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM_ID, teamId);
+                this.flux.teamsActions.changeCurrentTeamId(teamId);
 
             },
             removeTeam: function (event) {
                 event.stopPropagation();
                 var teamId = event.target.id;
-                this.dispatcher.dispatchAction(constants.actionNames.DEACTIVATE_TEAM, teamId);
+                this.flux.teamsActions.deactivateTeam(teamId);
             },
             render: function () {
                 var team = this.props.team;

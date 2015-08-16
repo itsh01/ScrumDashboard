@@ -1,7 +1,7 @@
 define([
         'lodash',
-        './helpers',
-        '../constants'
+        '../../helpers',
+        '../../../constants'
     ],
     function (_, helpers, constants) {
         'use strict';
@@ -10,14 +10,30 @@ define([
             TeamCards: function (id) {
                 return {team: id};
             },
-            CompanyCards: {team: null},
+            CompanyCards: function () {
+                return {team: null};
+            },
             UserCards: function (id, teamId) {
                 return (teamId) ? {assignee: id, team: teamId} : {assignee: id};
             },
             NotCompleted: {endDate: null}
         };
 
-        function CardsStore(dispatcher, cardsDefaultData) {
+        function CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardsData) {
+
+            this.emitChange = function () {
+                eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
+            };
+
+            this.addChangeListener = function (callback) {
+                eventEmitter.on(constants.flux.CARDS_STORE_CHANGE, callback);
+            };
+
+            this.removeChangeListener = function (callback) {
+                eventEmitter.removeListener(constants.flux.CARDS_STORE_CHANGE, callback);
+            };
+
+
             var dataFileVersion = '1',
                 CARDS_SCHEMA = {
                     name: {type: 'string'},
@@ -34,7 +50,7 @@ define([
             if (dataFileVersion === localStorage.getItem('cardsVersion')) {
                 currentCards = restoreFromLocalStorage();
             } else {
-                currentCards = cardsDefaultData;
+                currentCards = defaultCardsData;
                 saveToLocalStorage();
                 localStorage.setItem('cardsVersion', dataFileVersion);
             }
@@ -65,14 +81,14 @@ define([
              *
              * @param {Object} newCardData
              *  {
-         *      name: [String],
-         *      description: [String] (optional, default: ''),
-         *      score: [Number] (optional, default: null),
-         *      team: [String] (optional, default: null),
-         *      status: [String] (optional, default: 'unassigned'),
-         *      assignee: [String] (optional, default: null),
-         *      startDate: [String] (optional, format: YYYY-MM-DD, default: null)
-         *  }
+             *      name: [String],
+             *      description: [String] (optional, default: ''),
+             *      score: [Number] (optional, default: null),
+             *      team: [String] (optional, default: null),
+             *      status: [String] (optional, default: 'unassigned'),
+             *      assignee: [String] (optional, default: null),
+             *      startDate: [String] (optional, format: YYYY-MM-DD, default: null)
+             *  }
              */
             function addCard(newCardData) {
                 var blankCard = this.getBlankCard(),
@@ -81,7 +97,6 @@ define([
                     cardWithDefaults.id = helpers.generateGuid();
                     cardWithDefaults.status = cardWithDefaults.status || 'unassigned';
                     currentCards.push(cardWithDefaults);
-                    saveToLocalStorage();
                     return cardWithDefaults.id;
                 }
             }
@@ -101,9 +116,7 @@ define([
             function updateCard(cardId, newCardData) {
                 delete newCardData.id;
                 if (isValidCard(newCardData)) {
-                    var didUpdate = helpers.updateItem(currentCards, cardId, newCardData, 'Card Store');
-                    saveToLocalStorage();
-                    return didUpdate;
+                    return helpers.updateItem(currentCards, cardId, newCardData, 'Card Store');
                 }
                 return false;
             }
@@ -131,6 +144,28 @@ define([
             }
 
 
+            /*eslint-enable no-unused-vars */
+
+            var actions = [
+                {name: constants.actionNames.UPDATE_CARD, callback: updateCard},
+                {name: constants.actionNames.ADD_CARD, callback: addCard},
+                {name: constants.actionNames.REMOVE_CARD, callback: removeCard},
+                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: unassignMemberFromCards}
+            ];
+
+            waitForTokens[constants.storesName.CARDS_STORE] = dispatcher.register(function (payload) {
+                var actionName = payload.actionName,
+                    data = payload.payload,
+
+                    action = _.find(actions, {name: actionName});
+
+                if (action) {
+                    action.callback.apply(this, data);
+                    saveToLocalStorage();
+                    this.emitChange();
+                }
+            }.bind(this));
+
             function saveToLocalStorage() {
                 helpers.saveToLocalStorage('cards', currentCards);
             }
@@ -143,20 +178,10 @@ define([
             function removeFromLocalStorage() {
                 helpers.removeFromLocalStorage('cards');
             }
-            /*eslint-enable no-unused-vars */
-
-            var actions = [
-                {name: constants.actionNames.UPDATE_CARD, callback: updateCard},
-                {name: constants.actionNames.ADD_CARD, callback: addCard},
-                {name: constants.actionNames.REMOVE_CARD, callback: removeCard},
-                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: unassignMemberFromCards}
-            ];
-
-            _.forEach(actions, function (action) {
-                dispatcher.registerAction(action.name, action.callback.bind(this));
-            }.bind(this));
 
         }
 
         return CardsStore;
+
     });
+

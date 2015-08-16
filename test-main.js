@@ -22,6 +22,7 @@ requirejs.config({
     flux: '../js/stores/refactor/Flux',
     stubContext: '../vendor/stubContext',
     definition: '../js/plugins/definition/src/main/definition',
+    baseFlux: '../js/stores/refactor/baseFlux',
 
     // DatePicker dependencies
 

@@ -1,5 +1,5 @@
-define(['../../../vendor/lodash', 'React', 'constants'],
-    function (_, React, constants) {
+define(['../../../vendor/lodash', 'React'],
+    function (_, React) {
         'use strict';
         function createMemberItem(member) {
             return (
@@ -12,9 +12,10 @@ define(['../../../vendor/lodash', 'React', 'constants'],
             );
         }
 
-        function boldenMatch(searchStr, memberNameArr) {
+        function boldenMatch(searchStr, memberNameArr, index) {
+
             return memberNameArr.toLowerCase() === searchStr.toLowerCase() ?
-                <b>{memberNameArr}</b> :
+                <b key={index}>{memberNameArr}</b> :
                 memberNameArr;
         }
 
@@ -40,7 +41,7 @@ define(['../../../vendor/lodash', 'React', 'constants'],
 
             },
             contextTypes: {
-                flux: React.PropTypes.any
+                newFlux: React.PropTypes.any
             },
 
             getInitialState: function () {
@@ -54,7 +55,7 @@ define(['../../../vendor/lodash', 'React', 'constants'],
                 }
             },
             changeExistingMember: function (member) {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_EXISTING_MEMBER_ID, member.id);
+                this.context.newFlux.teamsActions.changeExistingMemberId(member.id);
                 this.setMatchedItemContainerVisibility(0);
                 this.refs.searchInput.getDOMNode().value = member.name;
 
