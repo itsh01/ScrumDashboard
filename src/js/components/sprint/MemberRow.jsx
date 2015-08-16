@@ -20,7 +20,7 @@ define([
             contextTypes: {
                 newFlux: React.PropTypes.any
             },
-            
+
             mixins: [HistoryMixin],
 
             getDefaultProps: function () {

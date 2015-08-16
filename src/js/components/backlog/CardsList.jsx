@@ -65,7 +65,7 @@ define([
                     //    card.id,
                     //    newCardData
                     //);
-                    this.context.newFlux.cardsActions.updateCard(card.id, newCardData);
+                    self.context.newFlux.cardsActions.updateCard(card.id, newCardData);
 
                 }
             };
