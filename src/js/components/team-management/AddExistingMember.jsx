@@ -1,4 +1,4 @@
-define(['lodash', 'React', '../general/Search', 'constants'], function (_, React, SearchMember, constants) {
+define(['lodash', 'React', '../general/Search'], function (_, React, SearchMember) {
     'use strict';
     return React.createClass({
         displayName: 'Add existing member',
@@ -8,13 +8,13 @@ define(['lodash', 'React', '../general/Search', 'constants'], function (_, React
             allMembers: React.PropTypes.array
         },
         contextTypes: {
-            flux: React.PropTypes.any
+            flux: React.PropTypes.any,
+            newFlux: React.PropTypes.any
         },
 
         getInitialState: function () {
 
-            this.dispatcher = this.context.flux.dispatcher;
-            this.membersStore = this.context.flux.membersStore;
+            this.flux = this.context.newFlux;
 
             return {
                 currentTeamMembers: this.getCurrentTeamMembers()
@@ -24,7 +24,7 @@ define(['lodash', 'React', '../general/Search', 'constants'], function (_, React
         addExistingMember: function () {
             var memberId = this.props.currentMember.id;
             var currentTeamId = this.props.team.id;
-            this.dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER_TO_TEAM, currentTeamId, memberId);
+            this.flux.teamsActions.addMemberToTeam(currentTeamId, memberId);
         },
 
         getCurrentTeamMembers: function () {

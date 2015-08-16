@@ -1,9 +1,10 @@
-define(['lodash', 'React', 'constants'], function (_, React, constants) {
+define(['lodash', 'React'], function (_, React) {
     'use strict';
     return React.createClass({
         displayName: 'Add Team',
         contextTypes: {
-            flux: React.PropTypes.any
+            flux: React.PropTypes.any,
+            newFlux: React.PropTypes.any
         },
         getInitialState: function () {
             return {
@@ -11,8 +12,9 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
             };
         },
         componentDidMount: function () {
-            this.dispatcher = this.context.flux.dispatcher;
-            this.teamsStore = this.context.flux.teamsStore;
+            this.flux = this.context.newFlux;
+            //this.dispatcher = this.context.flux.dispatcher;
+            this.teamsStore = this.context.newFlux.teamsStore;
         },
         toggleInput: function () {
             this.setState(
@@ -26,7 +28,7 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
             var newTeamName = this.refs.teamName.getDOMNode().value;
             var newTeamObject = this.teamsStore.getBlankTeam();
             newTeamObject.name = newTeamName;
-            this.dispatcher.dispatchAction(constants.actionNames.ADD_TEAM, newTeamObject);
+            this.newFlux.teamsActions.addTeam(newTeamObject);
         },
 
         createAddTeamElement: function () {

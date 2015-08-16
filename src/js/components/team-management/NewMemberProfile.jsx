@@ -20,7 +20,8 @@ define([
                 allMembers: React.PropTypes.array
             },
             contextTypes: {
-                flux: React.PropTypes.any
+                flux: React.PropTypes.any,
+                newFlux: React.PropTypes.any
             },
             getInitialState: function () {
                 return {

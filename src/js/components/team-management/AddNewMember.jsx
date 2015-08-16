@@ -6,10 +6,11 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
             team: React.PropTypes.object
         },
         contextTypes: {
-            flux: React.PropTypes.any
+            flux: React.PropTypes.any,
+            newFlux: React.PropTypes.any
         },
         componentDidMount: function componentDidMount() {
-            this.dispatcher = this.context.flux.dispatcher;
+            this.flux = this.context.newFlux;
         },
         addNewMember: function (event) {
             event.preventDefault();
@@ -20,8 +21,7 @@ define(['lodash', 'React', 'constants'], function (_, React, constants) {
                 var newMember = this.context.flux.membersStore.getBlankMember();
                 newMember.name = memberName;
                 newMember.image = memberImgUrl;
-                this.dispatcher.dispatchAction(
-                    constants.actionNames.CREATE_MEMBER_INTO_TEAM, newMember, teamId);
+                this.flux.teamsActions.createMemberIntoTeam(newMember, teamId);
             }
         },
 

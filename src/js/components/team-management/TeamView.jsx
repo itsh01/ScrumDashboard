@@ -12,7 +12,8 @@ define(['lodash', 'React',
                 allMembers: React.PropTypes.array
             },
             contextTypes: {
-                flux: React.PropTypes.any
+                flux: React.PropTypes.any,
+                newFlux: React.PropTypes.any
             },
             getTeamTitle: function () {
                 return this.props.team.name ?
@@ -20,8 +21,8 @@ define(['lodash', 'React',
                     'Add a new team';
             },
             getNewMemberProfile: function () {
-                var existingMemberId = this.context.flux.teamsStore.getCurrentExistingMemberId();
-                var existingMember = this.context.flux.membersStore.getMemberById(existingMemberId);
+                var existingMemberId = this.context.newFlux.teamsStore.getCurrentExistingMemberId();
+                var existingMember = this.context.newFlux.membersStore.getMemberById(existingMemberId);
                 return this.props.team.name ?
                     <NewMemberProfile team={this.props.team} currentMember={existingMember}
                                       allMembers={this.props.allMembers}/> :

@@ -7,13 +7,14 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
                 member: React.PropTypes.object
             },
             contextTypes: {
-                flux: React.PropTypes.any
+                flux: React.PropTypes.any,
+                newFlux: React.PropTypes.any
             },
             mixins: [DragDropMixin],
 
             componentDidMount: function () {
-                this.dispatcher = this.context.flux.dispatcher;
-                this.teamsStore = this.context.flux.teamsStore;
+                this.flux = this.context.newFlux;
+                this.teamsStore = this.context.newFlux.teamsStore;
             },
 
             dragDrop: function () {
@@ -27,7 +28,7 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
             removeMember: function (event) {
                 var memberId = event.target.id;
                 var teamId = this.teamsStore.getCurrentTeam().id;
-                this.dispatcher.dispatchAction(constants.actionNames.REMOVE_MEMBER_FROM_TEAM, teamId, memberId);
+                this.flux.teamsActions.removeMemberFromTeam(teamId, memberId);
             },
 
             getMemberHeading: function (member) {
