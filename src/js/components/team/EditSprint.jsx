@@ -14,7 +14,7 @@ define([
             displayName: 'EditSprint',
 
             contextTypes: {
-                flux: React.PropTypes.any
+                newFlux: React.PropTypes.any
             },
 
             mixins: [React.addons.LinkedStateMixin],
@@ -28,14 +28,14 @@ define([
             },
 
             fetchState: function () {
-                var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
+                var currentSprint = this.context.newFlux.teamsStore.getCurrentSprint();
                 currentSprint.startDate = currentSprint.startDate ? moment(currentSprint.startDate) : moment();
                 currentSprint.endDate = currentSprint.endDate ? moment(currentSprint.endDate) : moment();
                 return currentSprint;
             },
 
             teamMemberOptionsBox: function () {
-                var flux = this.context.flux,
+                var flux = this.context.newFlux,
                     teamMembers = flux.teamsStore.getCurrentTeam().members,
                     options = _(teamMembers)
                         .map(function (memberId) {
@@ -69,15 +69,14 @@ define([
             
             updateSprint: function (data) {
                 var sprintData = _.cloneDeep(data || this.state),
-                    teamsStore = this.context.flux.teamsStore;
+                    teamsStore = this.context.newFlux.teamsStore;
                 delete sprintData.id;
 
                 sprintData.startDate = this.formatDate(sprintData.startDate);
                 sprintData.endDate = this.formatDate(sprintData.endDate);
 
 
-                this.context.flux.dispatcher.dispatchAction(
-                    constants.actionNames.UPDATE_SPRINT,
+                this.context.newFlux.teamsActions.updateSprint(
                     this.state.id,
                     sprintData,
                     teamsStore.getCurrentTeam().id
@@ -99,8 +98,8 @@ define([
             },
 
             teamMembersCheckBoxes: function () {
-                var teamMembers = this.context.flux.teamsStore.getCurrentTeam().members;
-                var membersStore = this.context.flux.membersStore;
+                var teamMembers = this.context.newFlux.teamsStore.getCurrentTeam().members;
+                var membersStore = this.context.newFlux.membersStore;
 
                 return _(teamMembers)
                     .map(function getMemberById(memberId) {
@@ -123,7 +122,7 @@ define([
                     .value();
             },
             listenForStateChange: function () {
-                var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
+                var currentSprint = this.context.newFlux.teamsStore.getCurrentSprint();
                 if (!_.isEqual(currentSprint, this.state)) {
                     this.updateSprint();
                 }
