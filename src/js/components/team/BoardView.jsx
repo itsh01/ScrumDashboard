@@ -6,7 +6,6 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             displayName: 'ScrumBoardView',
 
             contextTypes: {
-                flux: React.PropTypes.any,
                 newFlux: React.PropTypes.any
             },
             childContextTypes: {

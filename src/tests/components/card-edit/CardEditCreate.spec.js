@@ -2,7 +2,7 @@ define([
         'React',
         'components/card-edit/CardEditCreate',
         'stubContext',
-        'stores/flux'
+        'stores/refactor/flux'
         , 'lodash'
     ],
     function (React, CardEditCreate, stubContext, Flux, _) {

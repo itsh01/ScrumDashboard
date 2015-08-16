@@ -1,9 +1,9 @@
-define(['React', 'components/team/BoardView', 'stubContext', 'stores/flux', 'stores/refactor/flux'],
-    function (React, BoardView, stubContext, Flux, NewFlux) {
+define(['React', 'components/team/BoardView', 'stubContext', 'stores/refactor/flux'],
+    function (React, BoardView, stubContext, NewFlux) {
         'use strict';
 
         var reactTestUtils;
-        var flux, newFlux;
+        var newFlux;
         var BoardViewWithContext;
         var instance;
         var comp;
@@ -14,9 +14,8 @@ define(['React', 'components/team/BoardView', 'stubContext', 'stores/flux', 'sto
                 beforeEach(function () {
                     localStorage.clear();
                     reactTestUtils = React.addons.TestUtils;
-                    flux = new Flux();
                     newFlux = new NewFlux();
-                    BoardViewWithContext = stubContext(BoardView, {newFlux: newFlux, flux: flux});
+                    BoardViewWithContext = stubContext(BoardView, {newFlux: newFlux});
                     instance = React.createElement(BoardViewWithContext, {});
                     comp = reactTestUtils.renderIntoDocument(instance);
                     spyOn(newFlux.teamsActions, 'changeCurrentSprintId').and.returnValue({});
@@ -46,10 +45,9 @@ define(['React', 'components/team/BoardView', 'stubContext', 'stores/flux', 'sto
                 beforeEach(function () {
                     localStorage.clear();
                     reactTestUtils = React.addons.TestUtils;
-                    flux = new Flux();
                     newFlux = new NewFlux();
                     spyOn(newFlux.teamsStore, 'getCurrentTeam').and.returnValue({});
-                    BoardViewWithContext = stubContext(BoardView, {flux: flux, newFlux: newFlux});
+                    BoardViewWithContext = stubContext(BoardView, {newFlux: newFlux});
                     instance = React.createElement(BoardViewWithContext, {});
                     comp = reactTestUtils.renderIntoDocument(instance);
                 });

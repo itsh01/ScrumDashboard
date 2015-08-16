@@ -16,7 +16,6 @@ define([
             title: React.PropTypes.string
         },
         contextTypes: {
-            flux: React.PropTypes.any,
             newFlux: React.PropTypes.any,
             teamId: React.PropTypes.string
         },

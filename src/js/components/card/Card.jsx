@@ -19,7 +19,6 @@ define([
                 key: React.PropTypes.string
             },
             contextTypes: {
-                flux: React.PropTypes.any,
                 newFlux: React.PropTypes.any,
                 sprintState: React.PropTypes.number
 

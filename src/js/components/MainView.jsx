@@ -8,7 +8,6 @@ define(['lodash',
         'components/pop-up/Basic',
         'components/card-edit/CardEditCreate',
 
-        'stores/flux',
         'stores/refactor/flux'],
 
     function (_,
@@ -18,7 +17,6 @@ define(['lodash',
               TeamManagement,
               Popup,
               CardEditCreate,
-              Flux,
               NewFlux) {
 
         'use strict';
@@ -27,13 +25,10 @@ define(['lodash',
             displayName: 'MainView',
 
             childContextTypes: {
-                flux: React.PropTypes.any,
                 newFlux: React.PropTypes.any
             },
 
             getInitialState: function () {
-                this.flux = new Flux();
-                this.flux.dispatcher.registerEventsHandled(this.forceUpdate.bind(this));
                 this.newFlux = new NewFlux();
                 return {
                     view: 'BoardView'
@@ -42,7 +37,6 @@ define(['lodash',
 
             getChildContext: function () {
                 return {
-                    flux: this.flux,
                     newFlux: this.newFlux
                 };
             },
