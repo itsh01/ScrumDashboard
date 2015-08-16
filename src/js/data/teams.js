@@ -14,9 +14,9 @@ define([], function () {
             "sprints": [{
                     "id": "55b8a160-3898-9631-e6ac-e41ce41ce41c",
                     "name": "zero calories",
-                    "scrumMaster": null,
-                    "startDate": null,
-                    "endDate": null,
+                    "scrumMaster": '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
+                    "startDate": '2015-08-08',
+                    "endDate": '2015-08-15',
                     cardLifecycle: ['Backlog', 'In progress', 'Done'],
                     members: [
                         '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
@@ -45,9 +45,9 @@ define([], function () {
                 {
                     "id": "55b8a160-a101-c202-d3b5-88bce41ce41c",
                     "name": "one for all",
-                    "scrumMaster": null,
-                    "startDate": null,
-                    "endDate": null,
+                    "scrumMaster": '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
+                    "startDate": '2015-08-16',
+                    "endDate": '2015-08-23',
                     cardLifecycle: ['Backlog', 'In progress', 'Done', 'Released'],
                     members: [
                         '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
@@ -82,8 +82,8 @@ define([], function () {
                     "id": "55b8a160-69c3-c3bc-d542-5303e41ce41c",
                     "name": "R2D2",
                     "scrumMaster": 'c2ea9955-081c-4da5-8bc7-be27e1a19c6e',
-                    "startDate": null,
-                    "endDate": null,
+                    "startDate": '2015-08-24',
+                    "endDate": '2015-08-31',
                     cardLifecycle: ['Backlog', 'In progress', 'Done'],
                     members: [
                         '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
@@ -112,9 +112,9 @@ define([], function () {
                 {
                     "id": "55b8a160-4195-0d83-83c6-1083e41ce41c",
                     "name": "anim qui",
-                    "scrumMaster": null,
-                    "startDate": null,
-                    "endDate": null,
+                    "scrumMaster": 'dda8a5ee-0c2b-4269-b350-a75faedb776f',
+                    "startDate": '2015-08-15',
+                    "endDate": '2015-08-22',
                     cardLifecycle: ['Backlog', 'In progress', 'Done'],
                     members: [
                         'dda8a5ee-0c2b-4269-b350-a75faedb776f',
@@ -138,9 +138,9 @@ define([], function () {
                 {
                     "id": "55b8a160-2bba-6dbc-0765-ecede41ce41c",
                     "name": "est minim",
-                    "scrumMaster": null,
-                    "startDate": null,
-                    "endDate": null,
+                    "scrumMaster": 'dda8a5ee-0c2b-4269-b350-a75faedb776f',
+                    "startDate": '2015-08-23',
+                    "endDate": '2015-08-30',
                     cardLifecycle: ['Backlog', 'In progress', 'Done'],
                     members: [
                         'dda8a5ee-0c2b-4269-b350-a75faedb776f',
