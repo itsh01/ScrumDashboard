@@ -1,45 +1,81 @@
-define(['lodash', 'React', 'components/team/BoardView',
-        'constants', 'components/team-management/TeamManagement'],
-    function (_, React, BoardView, constants, TeamManagement) {
+define(['lodash',
+        'React',
+
+        'constants',
+
+        'components/team/HomeView',
+        'components/team-management/TeamManagement',
+        'components/pop-up/Basic',
+        'components/card-edit/CardEditCreate',
+
+        'stores/flux',
+        'stores/refactor/flux'],
+
+    function (_,
+              React,
+              constants,
+              HomeView,
+              TeamManagement,
+              Popup,
+              CardEditCreate,
+              Flux,
+              NewFlux) {
+
         'use strict';
+
         return React.createClass({
             displayName: 'MainView',
 
-            propTypes: {
-                currTeam: React.PropTypes.object,
-                params: React.PropTypes.object,
-                query: React.PropTypes.object
-            },
-
-            contextTypes: {
+            childContextTypes: {
                 flux: React.PropTypes.any,
                 newFlux: React.PropTypes.any
             },
 
             getInitialState: function () {
+                this.flux = new Flux();
+                this.flux.dispatcher.registerEventsHandled(this.forceUpdate.bind(this));
+                this.newFlux = new NewFlux();
                 return {
                     view: 'BoardView'
                 };
             },
 
+            getChildContext: function () {
+                return {
+                    flux: this.flux,
+                    newFlux: this.newFlux
+                };
+            },
+
             componentDidMount: function () {
-                this.context.newFlux.cardsStore.addChangeListener(this.onChange);
-                this.context.newFlux.teamsStore.addChangeListener(this.onChange);
-                this.context.newFlux.membersStore.addChangeListener(this.onChange);
+                this.newFlux.cardsStore.addChangeListener(this._onChange);
+                this.newFlux.teamsStore.addChangeListener(this._onChange);
+                this.newFlux.membersStore.addChangeListener(this._onChange);
+                this.newFlux.planningStore.addChangeListener(this._onChange);
             },
 
             componentWillUnmount: function () {
-                this.context.newFlux.cardsStore.removeChangeListener(this.onChange);
-                this.context.newFlux.teamsStore.removeChangeListener(this.onChange);
-                this.context.newFlux.membersStore.removeChangeListener(this.onChange);
+                this.newFlux.cardsStore.removeChangeListener(this._onChange);
+                this.newFlux.teamsStore.removeChangeListener(this._onChange);
+                this.newFlux.membersStore.removeChangeListener(this._onChange);
+                this.newFlux.planningStore.removeChangeListener(this._onChange);
             },
 
-            onChange: function () {
-                this.setState({});
+            views: {
+                BoardView: 'BoardView',
+                TeamManagement: 'TeamManagement'
+            },
+
+            _onChange: function () {
+                this.setState({
+                    //view: 'HomeView'
+                });
             },
 
             getTeams: function () {
-                return this.context.flux.teamsStore.getAllActiveTeams();
+                //return this.context.flux.teamsStore.getAllActiveTeams();
+
+                return this.newFlux.teamsStore.getAllActiveTeams();
             },
 
             clearStorage: function () {
@@ -47,18 +83,9 @@ define(['lodash', 'React', 'components/team/BoardView',
             },
 
             handleChangeTeam: function (e) {
-                this.context.newFlux.teamsActions.changeCurrentTeamId(e.target.value);
-                var team2 = this.context.newFlux.teamsStore.getTeamById(e.target.value);
-                this.context.newFlux.teamsActions.changeCurrentSprintId(team2.sprints[team2.sprints.length - 1].id);
-
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM_ID, e.target.value);
-                var team = this.context.flux.teamsStore.getTeamById(e.target.value);
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT_ID, team.sprints[team.sprints.length - 1].id);
-            },
-
-            views: {
-                BoardView: 'BoardView',
-                TeamManagement: 'TeamManagement'
+                this.newFlux.teamsActions.changeCurrentTeamId(e.target.value);
+                var team = this.newFlux.teamsStore.getTeamById(e.target.value);
+                this.newFlux.teamsActions.changeCurrentSprintId(team.sprints[team.sprints.length - 1].id);
             },
 
             getViewComponent: function () {
@@ -86,10 +113,24 @@ define(['lodash', 'React', 'components/team/BoardView',
             },
 
             getOption: function (teamId, teamName) {
-                if (this.context.flux.teamsStore.getCurrentTeam().id === teamId) {
+                //if (this.context.flux.teamsStore.getCurrentTeam().id === teamId) {
+                if (this.newFlux.teamsStore.getCurrentTeam().id === teamId) {
                     return (<option value={teamId} key={teamId} selected>{teamName}</option>);
                 }
                 return (<option value={teamId} key={teamId}>{teamName}</option>);
+            },
+
+            popUpFactory: function () {
+                //if (!this.flux.planningStore.getIsAddingOrEditingCard()) {
+                if (!this.newFlux.planningStore.getIsAddingOrEditingCard()) {
+                    return null;
+                }
+                return (
+                    <Popup>
+                        <CardEditCreate />
+                    </Popup>
+                );
+
             },
 
             render: function () {
@@ -98,29 +139,31 @@ define(['lodash', 'React', 'components/team/BoardView',
                 }.bind(this));
                 return (
                     <div>
-                        <div className="header">
-                            <div className="left">
-                                <span>Choose Team: </span>
-                                <select onChange={this.handleChangeTeam} value={null}>
-                                    <option value={null} disabled>-</option>
-                                    {teamsOptions}
-                                </select>
-                            </div>
+                        {this.popUpFactory()}
 
-                            <div className="right">
-                                <button className='clearButton' type='button' onClick={this.clearStorage}>Clear
-                                    LocalStorage
-                                </button>
-                                <button data-view={this.views.TeamManagement} onClick={this.changeView}>Manage Teams
-                                </button>
-                                <button data-view={this.views.BoardView} onClick={this.changeView}>Home</button>
+                        <div>
+                            <div className="header">
+                                <div className="left">
+                                    <span>Choose Team: </span>
+                                    <select onChange={this.handleChangeTeam} value={null}>
+                                        <option value={null} disabled>-</option>
+                                        {teamsOptions}
+                                    </select>
+                                </div>
+
+                                <div className="right">
+                                    <button className='clearButton' type='button' onClick={this.clearStorage}>Clear
+                                        LocalStorage
+                                    </button>
+                                    <button data-view={this.views.TeamManagement} onClick={this.changeView}>Manage Teams
+                                    </button>
+                                    <button data-view={this.views.BoardView} onClick={this.changeView}>Home</button>
+                                </div>
                             </div>
+                            {this.getViewComponent()}
                         </div>
-
-                        {this.getViewComponent()}
                     </div>
                 );
             }
         });
-
     });
