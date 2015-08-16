@@ -16,7 +16,8 @@ define([
             displayName: 'New Member Profile',
             propTypes: {
                 currentMember: React.PropTypes.object,
-                team: React.PropTypes.object
+                team: React.PropTypes.object,
+                allMembers: React.PropTypes.array
             },
             contextTypes: {
                 flux: React.PropTypes.any
@@ -33,11 +34,12 @@ define([
 
 
             getNewMemberForm: function () {
-                return <AddNewMember team = {this.props.team}/>;
+                return <AddNewMember team={this.props.team}/>;
             },
 
             getExistingMemberForm: function () {
-                return <AddExistingMember team = {this.props.team} currentMember = {this.props.currentMember}/>;
+                return <AddExistingMember team={this.props.team} currentMember={this.props.currentMember}
+                                          allMembers={this.props.allMembers}/>;
             },
             getNewMemberContent: function () {
                 return this.state.memberType === 'newMember' ?

@@ -16,6 +16,14 @@ define(['lodash', 'React',
                 flux: React.PropTypes.any
             },
 
+            getInitialState: function () {
+
+                return {
+                    allMembers: this.context.flux.membersStore.getAllMembers()
+                };
+
+            },
+
             getCurrentTeam: function () {
                 return this.context.flux.teamsStore.getCurrentTeam();
             },
@@ -34,7 +42,8 @@ define(['lodash', 'React',
                         <div className='team-management'>
                             <TeamSidebar allTeams={allTeams}/>
                             <TeamView team={currentTeam}
-                                      teamMembers={this.getCurrentTeamMembers()}/>
+                                      teamMembers={this.getCurrentTeamMembers()}
+                                      allMembers={this.state.allMembers}/>
                         </div>
                     </ReactCSSTransitionGroup>
                 );

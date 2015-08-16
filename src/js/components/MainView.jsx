@@ -16,8 +16,10 @@ define(['lodash', 'React', 'components/team/HomeView',
                 newFlux: React.PropTypes.any
             },
 
-            onChange: function () {
-                this.setState({});
+            getInitialState: function () {
+                return {
+                    view: 'HomeView'
+                };
             },
 
             componentDidMount: function () {
@@ -32,10 +34,8 @@ define(['lodash', 'React', 'components/team/HomeView',
                 this.context.newFlux.membersStore.removeChangeListener(this.onChange);
             },
 
-            getInitialState: function () {
-                return {
-                    view: 'HomeView'
-                };
+            onChange: function () {
+                this.setState({});
             },
 
             getTeams: function () {
