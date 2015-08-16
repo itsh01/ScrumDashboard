@@ -133,8 +133,15 @@ module.exports = function (grunt) {
             src: ['src/stylesheets/*.css']
         },
         asciify: {
-            banner: {
+            build: {
                 text: 'Building...',
+                options: {
+                    font: 'doom',
+                    log: true
+                }
+            },
+            dist: {
+                text: 'Distributing...',
                 options: {
                     font: 'doom',
                     log: true
@@ -240,9 +247,9 @@ module.exports = function (grunt) {
     require('jit-grunt')(grunt);
 
     grunt.registerTask('lint', ['eslint', 'csslint']);
-    grunt.registerTask('dev', ['asciify:banner', 'lint', 'babel', 'test']);
+    grunt.registerTask('dev', ['asciify:build', 'lint', 'babel', 'test']);
     grunt.registerTask('minify', ['processhtml', 'requirejs', 'cssmin']);
-    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'babel', 'umd', 'copy', 'minify']);
+    grunt.registerTask('build', ['asciify:build', 'lint', 'clean', 'babel', 'umd', 'copy', 'minify']);
     grunt.registerTask('test', ['karma']);
     grunt.registerTask('default', ['build', 'test']);
 
