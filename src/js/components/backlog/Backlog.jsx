@@ -2,10 +2,9 @@ define([
         'lodash',
         'React',
 
-        'components/card/Card',
         'components/backlog/CardsList'
     ],
-    function (_, React, Card, CardsList) {
+    function (_, React, CardsList) {
         'use strict';
 
         return React.createClass({
@@ -20,11 +19,6 @@ define([
                 newFlux: React.PropTypes.any
 
             },
-
-            onChange: function () {
-                this.setState({});
-            },
-
 
             render: function () {
                 //var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
