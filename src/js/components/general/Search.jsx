@@ -94,7 +94,6 @@ define(['../../../vendor/lodash', 'React'],
                 );
             },
             render: function () {
-                console.log(this.props.excludedCollection);
                 return (
                     <div>
                         {this.getSearchInput()}
