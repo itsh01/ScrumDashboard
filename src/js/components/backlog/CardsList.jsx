@@ -4,11 +4,11 @@ define([
 
         'components/card/Card',
 
-        'DragDropMixin',
+        'DragDropMixin'
 
-        'constants'
+        //'constants'
     ],
-    function (_, React, Card, DragDropMixin, constants) {
+    function (_, React, Card, DragDropMixin) {
     'use strict';
     return React.createClass({
 
@@ -19,6 +19,7 @@ define([
         },
         contextTypes: {
             flux: React.PropTypes.any,
+            newFlux: React.PropTypes.any,
             teamId: React.PropTypes.string
         },
         mixins: [DragDropMixin],
@@ -30,6 +31,21 @@ define([
 
             };
         },
+        componentDidMount: function () {
+            this.context.newFlux.cardsStore.addChangeListener(this.onChange);
+            this.context.newFlux.teamsStore.addChangeListener(this.onChange);
+            this.context.newFlux.membersStore.addChangeListener(this.onChange);
+        },
+
+        componentWillUnmount: function () {
+            this.context.newFlux.cardsStore.removeChangeListener(this.onChange);
+            this.context.newFlux.teamsStore.removeChangeListener(this.onChange);
+            this.context.newFlux.membersStore.removeChangeListener(this.onChange);
+        },
+        onChange: function () {
+            this.setState({});
+        },
+
         dragDrop: function () {
 
             var self = this;
@@ -44,16 +60,20 @@ define([
                             assignee: null,
                             team: isCompanyList ? null : self.context.teamId
                         };
-                    this.context.flux.dispatcher.dispatchAction(
-                        constants.actionNames.UPDATE_CARD,
-                        card.id,
-                        newCardData
-                    );
+                    //this.context.flux.dispatcher.dispatchAction(
+                    //    constants.actionNames.UPDATE_CARD,
+                    //    card.id,
+                    //    newCardData
+                    //);
+                    this.context.newFlux.cardsActions.updateCard(card.id, newCardData);
+
                 }
             };
         },
         addNewCard: function () {
-            this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
+            //this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
+            this.context.newFlux.planningStore.planningAddCard();
+
         },
 
         emptyCard: {
