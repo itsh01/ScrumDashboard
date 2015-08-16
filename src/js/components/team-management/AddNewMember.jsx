@@ -1,4 +1,4 @@
-define(['lodash', 'React', 'constants'], function (_, React, constants) {
+define(['lodash', 'React'], function (_, React) {
     'use strict';
     return React.createClass({
         displayName: 'Add new member',
