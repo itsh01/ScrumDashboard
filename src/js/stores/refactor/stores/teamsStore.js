@@ -10,7 +10,7 @@ define([
             AllActiveTeams: {active: true}
         };
 
-        function TeamStore(dispatcher, eventEmitter, defaultTeamData, getUserCards) {
+        function TeamStore(dispatcher, eventEmitter, waitForTokens, defaultTeamData, getUserCards) {
 
             this.emitChange = function () {
                 eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
@@ -356,7 +356,7 @@ define([
                 {name: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, callback: addSprintToCurrentTeam}
             ];
 
-            TeamStore.dispatchToken = dispatcher.register(function (payload) {
+            waitForTokens[constants.storesName.TEAMS_STORE] = dispatcher.register(function (payload) {
                 var actionName = payload.actionName,
                     data = payload.payload,
 

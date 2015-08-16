@@ -19,7 +19,7 @@ define([
             NotCompleted: {endDate: null}
         };
 
-        function CardsStore(dispatcher, eventEmitter, defaultCardsData) {
+        function CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardsData) {
 
             this.emitChange = function () {
                 eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
@@ -153,7 +153,7 @@ define([
                 {name: constants.actionNames.DEACTIVATE_MEMBER, callback: unassignMemberFromCards}
             ];
 
-            this.dispatchToken = dispatcher.register(function (payload) {
+            waitForTokens[constants.storesName.CARDS_STORE] = dispatcher.register(function (payload) {
                 var actionName = payload.actionName,
                     data = payload.payload,
 
