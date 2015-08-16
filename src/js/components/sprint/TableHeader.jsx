@@ -7,7 +7,7 @@ define([
         'use strict';
 
         return React.createClass({
-            displayName: 'Sprint Table Header',
+            displayName: 'SprintTableHeader',
             propTypes: {
                 cardLifecycle: React.PropTypes.array
             },

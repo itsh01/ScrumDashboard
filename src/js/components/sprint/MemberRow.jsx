@@ -10,7 +10,7 @@ define([
         'use strict';
 
         return React.createClass({
-            displayName: 'Sprint Member Row',
+            displayName: 'SprintMemberRow',
             propTypes: {
                 cardLifecycle: React.PropTypes.array,
                 member: React.PropTypes.object,
@@ -27,6 +27,9 @@ define([
                 };
             },
 
+            onChange: function () {
+                this.forceUpdate();
+            },
             getMemberCards: function (retro, memberId) {
                 var cards = [];
                 if (retro) {

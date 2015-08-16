@@ -7,7 +7,7 @@ define([
         'use strict';
 
         return React.createClass({
-            displayName: 'Sprint Table Body',
+            displayName: 'SprintTableBody',
             propTypes: {
                 sprint: React.PropTypes.object
             },

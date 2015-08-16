@@ -13,7 +13,7 @@ define([
         'use strict';
 
         return React.createClass({
-            displayName: 'Sprint Table Cell',
+            displayName: 'SprintTableCell',
             propTypes: {
                 assignee: React.PropTypes.string,
                 cards: React.PropTypes.array,
@@ -25,6 +25,11 @@ define([
                 sprintState: React.PropTypes.number
             },
             mixins: [DragDropMixin],
+
+            onChange: function () {
+                this.forceUpdate();
+            },
+
             dragDrop: function () {
 
 
@@ -49,7 +54,6 @@ define([
                         };
 
                         self.context.newFlux.cardsActions.updateCard(card.id, newCardData);
-
 
                     }
                 };
