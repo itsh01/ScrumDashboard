@@ -4,7 +4,7 @@ define([
     function (constants) {
         'use strict';
 
-        function MembersActions(dispatcher) {
+        function MembersActions(dispatcher, getLastMemberAdded) {
 
             return {
                 addMember: function (newMemberData) {
@@ -27,9 +27,17 @@ define([
                 },
                 // if you can read this MDN has left her computer unlocked.
                 createMemberIntoTeam: function (memberData, teamId) {
+                    // TODO: This is ugly I know, still working on it.
                     dispatcher.dispatch({
-                        actionName: constants.actionNames.CREATE_MEMBER_INTO_TEAM,
+                        actionName: constants.actionNames.ADD_MEMBER,
                         payload: [memberData, teamId]
+                    });
+
+                    var newMemberId = getLastMemberAdded().id;
+
+                    dispatcher.dispatch({
+                        actionName: constants.actionNames.ADD_MEMBER_TO_TEAM,
+                        payload: [teamId, newMemberId]
                     });
                 }
             };

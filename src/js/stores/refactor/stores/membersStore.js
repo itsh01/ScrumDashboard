@@ -9,7 +9,7 @@ define([
             AllMembers: null
         };
 
-        function MembersStore(dispatcher, eventEmitter, defaultMembersData) {
+        function MembersStore(dispatcher, eventEmitter, waitForTokens, defaultMembersData) {
 
             this.emitChange = function () {
                 eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
@@ -94,21 +94,18 @@ define([
                 }.bind(this));
             };
 
-            function createMemberIntoTeam(memberData, teamId) {
-                var newMemberId = addMember.call(this, memberData);
-                // TODO: change
-                dispatcher.dispatch(constants.actionNames.ADD_MEMBER_TO_TEAM, teamId, newMemberId);
-            }
+            this.getLastMemberAdded = function () {
+                return _.cloneDeep(_.last(currentMembers));
+            };
 
             var actions = [
                 {name: constants.actionNames.ADD_MEMBER, callback: addMember},
                 {name: constants.actionNames.UPDATE_MEMBER, callback: updateMember},
-                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: deactivateMember},
-                {name: constants.actionNames.CREATE_MEMBER_INTO_TEAM, callback: createMemberIntoTeam}
+                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: deactivateMember}
+                //{name: constants.actionNames.CREATE_MEMBER_INTO_TEAM, callback: createMemberIntoTeam}
             ];
 
-            this.dispatchToken = dispatcher.register(function (payload) {
-
+            waitForTokens[constants.storesName.MEMBERS_STORE] = dispatcher.register(function (payload) {
                 var actionName = payload.actionName,
                     data = payload.payload,
 
