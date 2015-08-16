@@ -56,7 +56,7 @@ define([
             }, this);
 
             var currentViewState = {
-                currentTeamId: teamsData[0].id,
+                currentTeamId: this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id,
                 currentSprintId: (_.last(teamsData[0].sprints)).id,
                 currentExistingMemberId: teamsData[0].members[0]
             };
