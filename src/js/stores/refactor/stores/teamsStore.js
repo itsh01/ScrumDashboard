@@ -305,6 +305,9 @@ define([
             }
 
             this.getCurrentSprint = function () {
+                if (!this.getCurrentTeam().id) {
+                    return {};
+                }
                 resetCurrentSprintIdIfInvalid.call(this);
                 return this.getSprintById(currentViewState.currentSprintId);
             };
