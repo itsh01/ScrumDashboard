@@ -19,10 +19,6 @@ define([
                 team: React.PropTypes.object,
                 allMembers: React.PropTypes.array
             },
-            contextTypes: {
-                flux: React.PropTypes.any,
-                newFlux: React.PropTypes.any
-            },
             getInitialState: function () {
                 return {
                     memberType: 'newMember'
@@ -32,7 +28,6 @@ define([
             componentDidMount: function () {
                 this.refs[this.state.memberType].getDOMNode().checked = 'checked';
             },
-
 
             getNewMemberForm: function () {
                 return <AddNewMember team={this.props.team}/>;

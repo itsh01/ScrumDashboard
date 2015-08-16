@@ -4,6 +4,7 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
         return React.createClass({
             displayName: 'Team Button',
             propTypes: {
+                currentTeam: React.PropTypes.object,
                 team: React.PropTypes.object
             },
             contextTypes: {
@@ -13,7 +14,6 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
 
             componentDidMount: function () {
                 this.flux = this.context.newFlux;
-                this.teamsStore = this.context.newFlux.teamsStore;
             },
 
             dragDrop: function () {
@@ -26,9 +26,9 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
             },
 
             handleMoveMember: function (memberId) {
-                var currentTeamId = this.teamsStore.getCurrentTeam().id;
+                var currentTeamId = this.props.currentTeam.id;
                 this.flux.teamsActions.removeMemberFromTeam(currentTeamId, memberId);
-                this.flux.teamsActions(this.props.team.id, memberId);
+                this.flux.teamsActions.addMemberToTeam(this.props.team.id, memberId);
 
             },
             changeCurrentTeam: function (event) {

@@ -40,7 +40,6 @@ define(['../../../vendor/lodash', 'React'],
 
             },
             contextTypes: {
-                flux: React.PropTypes.any,
                 newFlux: React.PropTypes.any
             },
 

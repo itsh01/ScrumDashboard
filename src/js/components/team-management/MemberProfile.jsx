@@ -4,17 +4,16 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
         return React.createClass({
             displayName: 'Member Profile',
             propTypes: {
-                member: React.PropTypes.object
+                member: React.PropTypes.object,
+                team: React.PropTypes.object
             },
             contextTypes: {
-                flux: React.PropTypes.any,
                 newFlux: React.PropTypes.any
             },
             mixins: [DragDropMixin],
 
             componentDidMount: function () {
                 this.flux = this.context.newFlux;
-                this.teamsStore = this.context.newFlux.teamsStore;
             },
 
             dragDrop: function () {
@@ -27,7 +26,7 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
 
             removeMember: function (event) {
                 var memberId = event.target.id;
-                var teamId = this.teamsStore.getCurrentTeam().id;
+                var teamId = this.props.team.id;
                 this.flux.teamsActions.removeMemberFromTeam(teamId, memberId);
             },
 
