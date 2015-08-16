@@ -1,6 +1,8 @@
 # ScrumDashboard
 
-Scrum dashboard web application
+[![Build Status](https://travis-ci.org/itsh01/ScrumDashboard.svg?branch=master)](https://travis-ci.org/itsh01/ScrumDashboard)
+
+> Scrum dashboard web application
 
 ## Installation
 
