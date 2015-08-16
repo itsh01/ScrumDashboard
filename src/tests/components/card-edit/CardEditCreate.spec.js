@@ -2,19 +2,15 @@ define([
         'React',
         'components/card-edit/CardEditCreate',
         'stubContext',
-        'stores/flux',
-        'lodash'
+        'stores/flux'
+        //,'lodash'
     ],
-    function (React, CardEditCreate, stubContext, Flux, _) {
+    function (React, CardEditCreate, stubContext, Flux/*, _*/) {
         'use strict';
-        var instance, instanceWithContext, renderedInstance;
+        var comp;
 
 
         describe('CardEditCreate', function () {
-            instanceWithContext = stubContext(CardEditCreate, {flux: new Flux()});
-            instance = React.createElement(instanceWithContext, {});
-            renderedInstance = React.addons.TestUtils.renderIntoDocument(instance);
-            var comp;
 
             beforeEach(function () {
                 localStorage.clear();
