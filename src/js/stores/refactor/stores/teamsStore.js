@@ -284,7 +284,7 @@ define([
             /*eslint-enable no-unused-vars */
 
             this.getCurrentTeam = function () {
-                return this.getTeamById(currentViewState.currentTeamId);
+                return this.getTeamById(currentViewState.currentTeamId) || {};
             };
 
             this.getSprintIndex = function (sprintId) {
@@ -305,6 +305,9 @@ define([
             }
 
             this.getCurrentSprint = function () {
+                if (!this.getCurrentTeam().id) {
+                    return {};
+                }
                 resetCurrentSprintIdIfInvalid.call(this);
                 return this.getSprintById(currentViewState.currentSprintId);
             };
