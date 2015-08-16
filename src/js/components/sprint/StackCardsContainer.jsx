@@ -7,7 +7,7 @@ define([
         'use strict';
 
         return React.createClass({
-            displayName: 'Sprint Cards Container - Stack View',
+            displayName: 'SprintCardsContainer-StackView',
 
             propTypes: {
                 cards: React.PropTypes.array

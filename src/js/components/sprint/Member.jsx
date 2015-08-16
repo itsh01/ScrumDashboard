@@ -6,7 +6,7 @@ define([
         'use strict';
 
         return React.createClass({
-            displayName: 'Sprint Member',
+            displayName: 'SprintMember',
             propTypes: {
                 member: React.PropTypes.object
             },
