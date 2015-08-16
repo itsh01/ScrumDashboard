@@ -107,14 +107,15 @@ define([
                 {name: constants.actionNames.CREATE_MEMBER_INTO_TEAM, callback: createMemberIntoTeam}
             ];
 
-            this.dispatchToken = dispatcher.register(function (action) {
+            this.dispatchToken = dispatcher.register(function (payload) {
 
-                var actionName = [].shift.apply(arguments),
-                    payload = arguments,
+                var actionName = payload.actionName,
+                    data = payload.payload,
+
                     action = _.find(actions, {name: actionName});
 
                 if (action) {
-                    action.callback.apply(this, payload);
+                    action.callback.apply(this, data);
                     saveToLocalStorage();
                     this.emitChange();
                 }

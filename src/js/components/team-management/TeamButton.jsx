@@ -33,13 +33,13 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
             },
             changeCurrentTeam: function (event) {
                 var teamId = event.target.dataset.id;
-                this.flux.teamsActions(teamId);
+                this.flux.teamsActions.changeCurrentTeamId(teamId);
 
             },
             removeTeam: function (event) {
                 event.stopPropagation();
                 var teamId = event.target.id;
-                this.flux.teamsActions(teamId);
+                this.flux.teamsActions.deactivateTeam(teamId);
             },
             render: function () {
                 var team = this.props.team;

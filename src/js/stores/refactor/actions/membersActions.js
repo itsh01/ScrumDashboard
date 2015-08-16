@@ -1,7 +1,7 @@
 define([
-        '../../../constants'
+        'constants'
     ],
-    function (_, constants) {
+    function (constants) {
         'use strict';
 
         function MembersActions(dispatcher) {

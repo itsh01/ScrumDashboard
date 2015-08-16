@@ -14,7 +14,7 @@ define(['lodash', 'React'], function (_, React) {
         componentDidMount: function () {
             this.flux = this.context.newFlux;
             //this.dispatcher = this.context.flux.dispatcher;
-            this.teamsStore = this.context.newFlux.teamsStore;
+            this.teamsStore = this.flux.teamsStore;
         },
         toggleInput: function () {
             this.setState(
@@ -28,7 +28,7 @@ define(['lodash', 'React'], function (_, React) {
             var newTeamName = this.refs.teamName.getDOMNode().value;
             var newTeamObject = this.teamsStore.getBlankTeam();
             newTeamObject.name = newTeamName;
-            this.newFlux.teamsActions.addTeam(newTeamObject);
+            this.flux.teamsActions.addTeam(newTeamObject);
         },
 
         createAddTeamElement: function () {

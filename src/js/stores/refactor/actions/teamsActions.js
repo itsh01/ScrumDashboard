@@ -1,5 +1,5 @@
 define([
-        '../../../constants'
+        'constants'
     ],
     function (constants) {
         'use strict';
