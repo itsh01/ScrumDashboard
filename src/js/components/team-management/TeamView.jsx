@@ -7,9 +7,10 @@ define(['lodash', 'React',
         return React.createClass({
             displayName: 'TeamView',
             propTypes: {
+                allMembers: React.PropTypes.array,
+                existingMember: React.PropTypes.object,
                 team: React.PropTypes.object,
-                teamMembers: React.PropTypes.array,
-                allMembers: React.PropTypes.array
+                teamMembers: React.PropTypes.array
             },
             getTeamTitle: function () {
                 return this.props.team.name ?

@@ -6,7 +6,6 @@ define(['lodash', 'React'], function (_, React) {
             team: React.PropTypes.object
         },
         contextTypes: {
-            flux: React.PropTypes.any,
             newFlux: React.PropTypes.any,
             blankMemberSchema: React.PropTypes.object
         },

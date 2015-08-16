@@ -15,9 +15,9 @@ define([
         return React.createClass({
             displayName: 'New Member Profile',
             propTypes: {
+                allMembers: React.PropTypes.array,
                 currentMember: React.PropTypes.object,
-                team: React.PropTypes.object,
-                allMembers: React.PropTypes.array
+                team: React.PropTypes.object
             },
             getInitialState: function () {
                 return {
@@ -34,8 +34,11 @@ define([
             },
 
             getExistingMemberForm: function () {
-                return <AddExistingMember team={this.props.team} currentMember={this.props.currentMember}
-                                          allMembers={this.props.allMembers}/>;
+                return (
+                    <AddExistingMember team={this.props.team}
+                                       currentMember={this.props.currentMember}
+                                       allMembers={this.props.allMembers}/>
+                );
             },
             getNewMemberContent: function () {
                 return this.state.memberType === 'newMember' ?
