@@ -19,7 +19,7 @@ define([
 
             render: function () {
                 return (
-                    <div className='pop pop-basic' >
+                    <div className='pop pop-basic'>
                         <div className="pop-dialog">
                             <div className='pop-content slide-down'>
                                 {this.props.children}

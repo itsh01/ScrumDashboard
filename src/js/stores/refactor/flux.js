@@ -33,7 +33,7 @@ define(
             this.membersStore = new MembersStore(dispatcher, eventEmitter, waitForTokens, defaultMemberData);
             this.membersActions = new MembersActions(dispatcher, this.membersStore.getLastMemberAdded);
 
-            this.planningActions = new PlanningActions(dispatcher);
+            this.planningActions = new PlanningActions(dispatcher, eventEmitter);
             this.planningStore = new PlanningStore(dispatcher, waitForTokens, eventEmitter);
         }
 
