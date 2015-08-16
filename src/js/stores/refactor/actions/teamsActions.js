@@ -69,7 +69,7 @@ define([
                 addSprintToCurrentTeam: function (sprintData) {
                     dispatcher.dispatch({actionName: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, payload: [sprintData]});
                 }
-            }
+            };
         }
 
         return TeamsStoreActions;
