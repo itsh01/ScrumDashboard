@@ -21,10 +21,22 @@ define([
             },
             contextTypes: {
                 flux: React.PropTypes.any,
+                newFlux: React.PropTypes.any,
                 teamId: React.PropTypes.string,
                 sprintState: React.PropTypes.number
             },
             mixins: [DragDropMixin],
+            componentDidMount: function () {
+                this.context.newFlux.cardsStore.addChangeListener(this.onChange);
+                this.context.newFlux.teamsStore.addChangeListener(this.onChange);
+            },
+            componentWillUnmount: function () {
+                this.context.newFlux.cardsStore.removeChangeListener(this.onChange);
+                this.context.newFlux.teamsStore.removeChangeListener(this.onChange);
+            },
+            onChange: function () {
+                this.forceUpdate();
+            },
             dragDrop: function () {
 
 
@@ -47,12 +59,11 @@ define([
                             assignee: self.props.assignee,
                             team: self.context.teamId
                         };
-
-                        self.context.flux.dispatcher.dispatchAction(
-                            constants.actionNames.UPDATE_CARD,
+                        self.context.newFlux.cardsActions.updateCard(
                             card.id,
                             newCardData
                         );
+
 
 
                     }
