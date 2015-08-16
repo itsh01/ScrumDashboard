@@ -63,11 +63,11 @@ define(['../../../vendor/lodash', 'React', 'constants'],
                 var allItems = this.props.searchCollection;
                 var excludedCollection = this.props.excludedCollection;
                 return _(allItems).filter(function (item) {
-                    return !_.includes(excludedCollection, item) &&
+                    return !_.includes(excludedCollection, item.id) &&
                         _.includes(item.name.toLowerCase(), this.state.searchStr.toLowerCase());
                 }, this).value();
             },
-            getSearchResults: function () {
+            getSearchResultsContainer: function () {
                 return this.state.searchStr === '' ?
                     '' :
                     <div className='matched-member-container' ref='matchedItemContainer'>
@@ -93,10 +93,11 @@ define(['../../../vendor/lodash', 'React', 'constants'],
                 );
             },
             render: function () {
+                console.log(this.props.excludedCollection);
                 return (
                     <div>
                         {this.getSearchInput()}
-                        {this.getSearchResults()}
+                        {this.getSearchResultsContainer()}
                     </div>
                 );
             }
