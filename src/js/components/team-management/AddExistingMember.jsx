@@ -3,19 +3,16 @@ define(['lodash', 'React', '../general/Search'], function (_, React, SearchMembe
     return React.createClass({
         displayName: 'Add existing member',
         propTypes: {
+            allMembers: React.PropTypes.array,
             currentMember: React.PropTypes.object,
-            team: React.PropTypes.object,
-            allMembers: React.PropTypes.array
+            team: React.PropTypes.object
         },
         contextTypes: {
-            flux: React.PropTypes.any,
             newFlux: React.PropTypes.any
         },
 
         getInitialState: function () {
-
             this.flux = this.context.newFlux;
-
             return {
                 currentTeamMembers: this.getTeamMembers()
             };

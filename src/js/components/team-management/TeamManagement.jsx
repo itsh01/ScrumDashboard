@@ -11,32 +11,21 @@ define(['lodash', 'React',
                 params: React.PropTypes.object,
                 'params.id': React.PropTypes.string
             },
-            childContextTypes: {
-                blankMemberSchema: React.PropTypes.array
-            },
-
-
             contextTypes: {
-                flux: React.PropTypes.any,
                 newFlux: React.PropTypes.any
             },
-
-            getChildContext: function () {
-                return {
-                    blankMemberSchema: this.context.newFlux.membersStore.getBlankMember()
-                };
-            },
-
-            getStateFromStore: function () {
-                var existingMemberId = this.context.newFlux.teamsStore.getCurrentExistingMemberId();
-                var existingMember = this.context.newFlux.membersStore.getMemberById(existingMemberId);
-                return {
-                    allMembers: this.context.newFlux.membersStore.getAllMembers(),
-                    existingMember: existingMember
-                };
+            childContextTypes: {
+                blankMemberSchema: React.PropTypes.object,
+                blankTeamSchema: React.PropTypes.object
             },
             getInitialState: function () {
                 return this.getStateFromStore();
+            },
+            getChildContext: function () {
+                return {
+                    blankMemberSchema: this.context.newFlux.membersStore.getBlankMember(),
+                    blankTeamSchema: this.context.newFlux.teamsStore.getBlankTeam()
+                };
             },
             componentDidMount: function () {
                 this.context.newFlux.teamsStore.addChangeListener(this._onChange);
@@ -47,7 +36,14 @@ define(['lodash', 'React',
                 this.context.newFlux.teamsStore.removeChangeListener(this._onChange);
                 this.context.newFlux.membersStore.removeChangeListener(this._onChange);
             },
-
+            getStateFromStore: function () {
+                var existingMemberId = this.context.newFlux.teamsStore.getCurrentExistingMemberId();
+                var existingMember = this.context.newFlux.membersStore.getMemberById(existingMemberId);
+                return {
+                    allMembers: this.context.newFlux.membersStore.getAllMembers(),
+                    existingMember: existingMember
+                };
+            },
             _onChange: function () {
                 this.setState(this.getStateFromStore());
             },

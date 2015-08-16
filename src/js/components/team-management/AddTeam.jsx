@@ -3,8 +3,8 @@ define(['lodash', 'React'], function (_, React) {
     return React.createClass({
         displayName: 'Add Team',
         contextTypes: {
-            flux: React.PropTypes.any,
-            newFlux: React.PropTypes.any
+            newFlux: React.PropTypes.any,
+            blankTeamSchema: React.PropTypes.object
         },
         getInitialState: function () {
             return {
@@ -13,8 +13,6 @@ define(['lodash', 'React'], function (_, React) {
         },
         componentDidMount: function () {
             this.flux = this.context.newFlux;
-            //this.dispatcher = this.context.flux.dispatcher;
-            this.teamsStore = this.flux.teamsStore;
         },
         toggleInput: function () {
             this.setState(
@@ -26,7 +24,7 @@ define(['lodash', 'React'], function (_, React) {
         addNewTeam: function (event) {
             event.preventDefault();
             var newTeamName = this.refs.teamName.getDOMNode().value;
-            var newTeamObject = this.teamsStore.getBlankTeam();
+            var newTeamObject = this.context.blankTeamSchema;
             newTeamObject.name = newTeamName;
             this.flux.teamsActions.addTeam(newTeamObject);
         },

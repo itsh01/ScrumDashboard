@@ -12,9 +12,10 @@ define(['../../../vendor/lodash', 'React'],
             );
         }
 
-        function boldenMatch(searchStr, memberNameArr) {
+        function boldenMatch(searchStr, memberNameArr, index) {
+
             return memberNameArr.toLowerCase() === searchStr.toLowerCase() ?
-                <b>{memberNameArr}</b> :
+                <b key={index}>{memberNameArr}</b> :
                 memberNameArr;
         }
 
