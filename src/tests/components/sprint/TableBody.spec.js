@@ -41,7 +41,9 @@ define([
 
                 window.localStorage.clear();
 
+
                 TableBodyWithContext = stubContext(TableBody, {flux: new Flux(), newFlux: new NewFlux()});
+
 
                 instance = React.createElement(TableBodyWithContext, mockProps);
                 renderedInstance = React.addons.TestUtils.renderIntoDocument(instance);
