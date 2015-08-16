@@ -1,9 +1,9 @@
 define(['React', 'components/team/BoardView', 'stubContext', 'stores/refactor/flux'],
-    function (React, BoardView, stubContext, NewFlux) {
+    function (React, BoardView, stubContext, Flux) {
         'use strict';
 
         var reactTestUtils;
-        var newFlux;
+        var flux;
         var BoardViewWithContext;
         var instance;
         var comp;
@@ -14,11 +14,11 @@ define(['React', 'components/team/BoardView', 'stubContext', 'stores/refactor/fl
                 beforeEach(function () {
                     localStorage.clear();
                     reactTestUtils = React.addons.TestUtils;
-                    newFlux = new NewFlux();
-                    BoardViewWithContext = stubContext(BoardView, {newFlux: newFlux});
+                    flux = new Flux();
+                    BoardViewWithContext = stubContext(BoardView, {newFlux: flux});
                     instance = React.createElement(BoardViewWithContext, {});
                     comp = reactTestUtils.renderIntoDocument(instance);
-                    spyOn(newFlux.teamsActions, 'changeCurrentSprintId').and.returnValue({});
+                    spyOn(flux.teamsActions, 'changeCurrentSprintId').and.returnValue({});
                 });
 
                 it('should check that BoardView did render', function () {
@@ -36,7 +36,7 @@ define(['React', 'components/team/BoardView', 'stubContext', 'stores/refactor/fl
                     var arrows = reactTestUtils.scryRenderedDOMComponentsWithClass(boardViewComp, 'arrow');
                     spyOn(boardViewComp, 'handleSprintChange');
                     reactTestUtils.Simulate.click(arrows[1].getDOMNode());
-                    expect(newFlux.teamsActions.changeCurrentSprintId).toHaveBeenCalled();
+                    expect(flux.teamsActions.changeCurrentSprintId).toHaveBeenCalled();
                 });
 
 
@@ -45,9 +45,9 @@ define(['React', 'components/team/BoardView', 'stubContext', 'stores/refactor/fl
                 beforeEach(function () {
                     localStorage.clear();
                     reactTestUtils = React.addons.TestUtils;
-                    newFlux = new NewFlux();
-                    spyOn(newFlux.teamsStore, 'getCurrentTeam').and.returnValue({});
-                    BoardViewWithContext = stubContext(BoardView, {newFlux: newFlux});
+                    flux = new Flux();
+                    spyOn(flux.teamsStore, 'getCurrentTeam').and.returnValue({});
+                    BoardViewWithContext = stubContext(BoardView, {newFlux: flux});
                     instance = React.createElement(BoardViewWithContext, {});
                     comp = reactTestUtils.renderIntoDocument(instance);
                 });

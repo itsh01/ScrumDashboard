@@ -10,6 +10,7 @@ define([
         var flux;
 
         function initComponent(compParams) {
+            flux = new Flux();
             var CardEditCreateWithContext = stubContext(CardEditCreate, {newFlux: flux});
             var instance = React.createElement(CardEditCreateWithContext, compParams);
             var wrappedEl = React.addons.TestUtils.renderIntoDocument(instance).getWrappedElement();
@@ -25,7 +26,6 @@ define([
             describe('empty card tests', function () {
                 var comp;
                 beforeEach(function () {
-                    flux = new Flux();
                     comp = initComponent({card: {}, isCreating: true});
                 });
 
