@@ -24,7 +24,23 @@ define([], function () {
                         '061804a2-1f93-40e1-bf49-57b82e5b568b'
                     ],
                     "state": 2,
-                    "retroCardsStatus": null
+                    "retroCardsStatus": [
+                        {
+                            "cardId": "b97fff13-de90-4e1f-abb7-39f786d11450",
+                            "assigneeId": "0e8b324c-d49a-474d-8af4-f93bcc6a1511",
+                            "status": "In progress"
+                        },
+                        {
+                            "cardId": "e9c3f04d-8796-4249-8a4f-bba085ab0271",
+                            "assigneeId": "0e8b324c-d49a-474d-8af4-f93bcc6a1511",
+                            "status": "In progress"
+                        },
+                        {
+                            "cardId": "4796b5fd-1d11-4c2b-bdd3-d36796bb65ed",
+                            "assigneeId": "0e8b324c-d49a-474d-8af4-f93bcc6a1511",
+                            "status": "In progress"
+                        }
+                    ]
                 },
                 {
                     "id": "55b8a160-a101-c202-d3b5-88bce41ce41c",
@@ -39,7 +55,28 @@ define([], function () {
                         'aaef53cc-34bd-4d1f-bdda-9bf5e07ca2be'
                     ],
                     "state": 2,
-                    "retroCardsStatus": [{"cardId":"b97fff13-de90-4e1f-abb7-39f786d11450","assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511","status":"In progress"},{"cardId":"90eed4aa-40fe-496e-999a-54a436d66427","assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511","status":"Done"},{"cardId":"4796b5fd-1d11-4c2b-bdd3-d36796bb65ed","assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511","status":"Done"},{"cardId":"e9c3f04d-8796-4249-8a4f-bba085ab0271","assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511","status":"Done"}]
+                    "retroCardsStatus": [
+                        {
+                            "cardId":"b97fff13-de90-4e1f-abb7-39f786d11450",
+                            "assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511",
+                            "status":"In progress"
+                        },
+                        {
+                            "cardId":"90eed4aa-40fe-496e-999a-54a436d66427",
+                            "assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511",
+                            "status":"Done"
+                        },
+                        {
+                            "cardId":"4796b5fd-1d11-4c2b-bdd3-d36796bb65ed",
+                            "assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511",
+                            "status":"Done"
+                        },
+                        {
+                            "cardId":"e9c3f04d-8796-4249-8a4f-bba085ab0271",
+                            "assigneeId":"0e8b324c-d49a-474d-8af4-f93bcc6a1511",
+                            "status":"Done"
+                        }
+                    ]
                 },
                 {
                     "id": "55b8a160-69c3-c3bc-d542-5303e41ce41c",
@@ -85,7 +122,18 @@ define([], function () {
                         '061804a2-1f93-40e1-bf49-57b82e5b568b'
                     ],
                     "state": 2,
-                    "retroCardsStatus": null
+                    "retroCardsStatus": [
+                        {
+                            "cardId":"129fe31a-2d76-4d08-9c44-636e8c88b967",
+                            "assigneeId":"061804a2-1f93-40e1-bf49-57b82e5b568b",
+                            "status":"In progress"
+                        },
+                        {
+                            "cardId":"d3110e9d-fec9-4bc8-aa6d-9b549c1a8994",
+                            "assigneeId":"061804a2-1f93-40e1-bf49-57b82e5b568b",
+                            "status":"In progress"
+                        }
+                    ]
                 },
                 {
                     "id": "55b8a160-2bba-6dbc-0765-ecede41ce41c",
@@ -100,7 +148,18 @@ define([], function () {
                         '061804a2-1f93-40e1-bf49-57b82e5b568b'
                     ],
                     "state": 2,
-                    "retroCardsStatus": null
+                    "retroCardsStatus": [
+                        {
+                            "cardId":"129fe31a-2d76-4d08-9c44-636e8c88b967",
+                            "assigneeId":"061804a2-1f93-40e1-bf49-57b82e5b568b",
+                            "status":"Done"
+                        },
+                        {
+                            "cardId":"d3110e9d-fec9-4bc8-aa6d-9b549c1a8994",
+                            "assigneeId":"061804a2-1f93-40e1-bf49-57b82e5b568b",
+                            "status":"Done"
+                        }
+                    ]
                 }
             ],
             "name": "Security"
