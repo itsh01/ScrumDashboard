@@ -11,7 +11,7 @@ define([
 
         function MembersStore(dispatcher, eventEmitter, defaultMembersData) {
 
-            this.emitChange = function() {
+            this.emitChange = function () {
                 eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
             };
 

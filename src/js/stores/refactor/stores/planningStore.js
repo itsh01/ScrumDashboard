@@ -9,7 +9,7 @@ define([
             var IsAddingOrEditingCard = false;
             var currentCard = null;
 
-            this.emitChange = function() {
+            this.emitChange = function () {
                 eventEmitter.emit(constants.flux.PLANNING_STORE_CHANGE);
             };
 

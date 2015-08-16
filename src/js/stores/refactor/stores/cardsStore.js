@@ -21,7 +21,7 @@ define([
 
         function CardsStore(dispatcher, eventEmitter, defaultCardsData) {
 
-            this.emitChange = function() {
+            this.emitChange = function () {
                 eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
             };
 
@@ -179,7 +179,7 @@ define([
                 helpers.removeFromLocalStorage('cards');
             }
 
-        };
+        }
 
         return CardsStore;
 
