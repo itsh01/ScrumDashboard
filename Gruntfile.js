@@ -79,19 +79,6 @@ module.exports = function (grunt) {
                 ]
             }
         },
-        react: {
-            main: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: 'src/js/',
-                        src: ['**/*.jsx'],
-                        dest: 'src/js/',
-                        ext: '.js'
-                    }
-                ]
-            }
-        },
         eslint: {
             src: [
                 'src/js/**/*.jsx',
