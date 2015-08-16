@@ -3,13 +3,31 @@ define([
         'components/card-edit/CardEditCreate',
         'stubContext',
         'stores/flux'
+        //,'lodash'
     ],
-    function (React, CardEditCreate, stubContext, Flux) {
+    function (React, CardEditCreate, stubContext, Flux/*, _*/) {
         'use strict';
+        var comp;
+
+
         describe('CardEditCreate', function () {
-            var flux = new Flux();
-            var instance = React.createElement(stubContext(CardEditCreate, {flux: flux}), {});
-            React.addons.TestUtils.renderIntoDocument(instance);
+
+            beforeEach(function () {
+                localStorage.clear();
+                var flux = new Flux();
+                var CardEditCreateWithContext = stubContext(CardEditCreate, {flux: flux});
+                var instance = React.createElement(CardEditCreateWithContext, {});
+                var wrappedEl = React.addons.TestUtils.renderIntoDocument(instance).getWrappedElement();
+                comp = React.addons.TestUtils.renderIntoDocument(wrappedEl);
+
+            });
+
+            describe('empty card tests', function () {
+                it('should be creating card if there is no current card in planningStore', function () {
+                    expect(comp.isCreating()).toBe(true);
+                });
+            });
+
         });
     }
 );

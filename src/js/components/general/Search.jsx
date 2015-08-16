@@ -63,7 +63,7 @@ define(['../../../vendor/lodash', 'React', 'constants'],
                 var allItems = this.props.searchCollection;
                 var excludedCollection = this.props.excludedCollection;
                 return _(allItems).filter(function (item) {
-                    return !_.includes(excludedCollection, item) &&
+                    return !_.includes(excludedCollection, item.id) &&
                         _.includes(item.name.toLowerCase(), this.state.searchStr.toLowerCase());
                 }, this).value();
             },
