@@ -58,24 +58,30 @@ define([
                 return (!this.state.isHeapOpen || this.state.openCardId === null);
             },
 
+            renderCard: function (card, cardIndex) {
+                var cardStyle = (this.state.isHeapOpen) ? this.getOpenHeapCardStyle : this.getClosedHeapCardStyle;
+                return (<div style={cardStyle(cardIndex)} key={card.id} className="sprint-card-wrapper">
+                    <Card card={card} cardClickHandler={this.cardClickHandler}
+                          forceReset={this.toForceCardsReset()}/>
+                </div>);
+            },
+
+            renderContainerSizeLayout: function () {
+                return (<div className='card sprint-card-wrapper cards-container-heap-size'
+                             onClick={this.cardClickHandler}
+                             style={this.getClosedHeapCardStyle(this.props.cards.length - 1)}>
+                    <div className='container-size'>{this.props.cards.length} cards</div>
+                    <img className='open-heap-img' src="img/open-heap-container.png" alt=""/>
+                </div>);
+            },
+
             render: function () {
-                var cardStyle = (this.state.isHeapOpen) ? this.getOpenHeapCardStyle : this.getClosedHeapCardStyle,
-                    cards = _.map(this.props.cards, function (card, cardIndex) {
-                        return (<div style={cardStyle(cardIndex)} key={card.id} className="sprint-card-wrapper">
-                            <Card card={card} cardClickHandler={this.cardClickHandler}
-                                  forceReset={this.toForceCardsReset()}/>
-                        </div>);
-                    }.bind(this));
+                var cards = _.map(this.props.cards, function (card, cardIndex) {
+                    return this.renderCard(card, cardIndex);
+                }.bind(this));
 
                 if (!this.state.isHeapOpen) {
-                    cards.push(
-                        <div className='card sprint-card-wrapper cards-container-heap-size'
-                             onClick={this.cardClickHandler}
-                             style={cardStyle(this.props.cards.length - 1)}>
-                            <div className='container-size'>{this.props.cards.length} cards</div>
-                            <img className='open-heap-img' src="img/open-heap-container.png" alt=""/>
-                        </div>
-                    );
+                    cards.push(this.renderContainerSizeLayout());
                 }
 
                 return (
