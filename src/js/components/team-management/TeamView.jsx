@@ -8,7 +8,8 @@ define(['lodash', 'React',
             displayName: 'TeamView',
             propTypes: {
                 team: React.PropTypes.object,
-                teamMembers: React.PropTypes.array
+                teamMembers: React.PropTypes.array,
+                allMembers: React.PropTypes.array
             },
             contextTypes: {
                 flux: React.PropTypes.any
@@ -22,7 +23,8 @@ define(['lodash', 'React',
                 var existingMemberId = this.context.flux.teamsStore.getCurrentExistingMemberId();
                 var existingMember = this.context.flux.membersStore.getMemberById(existingMemberId);
                 return this.props.team.name ?
-                    <NewMemberProfile team={this.props.team} currentMember={existingMember}/> :
+                    <NewMemberProfile team={this.props.team} currentMember={existingMember}
+                                      allMembers={this.props.allMembers}/> :
                     <div>Hiush</div>;
             },
             render: function () {
