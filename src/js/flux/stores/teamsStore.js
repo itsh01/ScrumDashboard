@@ -108,7 +108,8 @@ define([
             }
 
             //
-            function addSprint(teamId, sprintData) {
+            function addSprint(sprintData, teamId) {
+                teamId = teamId || currentViewState.currentTeamId;
                 var team = _.find(teamsData, {id: teamId}),
                     blankSprint = this.getBlankSprint(),
                     sprintWithDefaults = _.assign(blankSprint, sprintData);
@@ -119,10 +120,6 @@ define([
                     team.sprints.push(sprintWithDefaults);
                     return sprintWithDefaults.id;
                 }
-            }
-
-            function addSprintToCurrentTeam(sprintData) {
-                addSprint.call(this, currentViewState.currentTeamId, sprintData);
             }
 
             function removeDeactivatedMemberFromTeams(memberId) {
@@ -381,8 +378,7 @@ define([
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_TEAM, callback: removeMemberFromTeam},
                 {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSprint},
-                {name: constants.actionNames.CHANGE_EXISTING_MEMBER_ID, callback: changeExistingMemberId},
-                {name: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, callback: addSprintToCurrentTeam}
+                {name: constants.actionNames.CHANGE_EXISTING_MEMBER_ID, callback: changeExistingMemberId}
             ];
 
             waitForTokens[constants.storesName.TEAMS_STORE] = dispatcher.register(function (payload) {
