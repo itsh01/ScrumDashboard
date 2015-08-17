@@ -110,15 +110,6 @@ module.exports = function (grunt) {
                 ]
             }
         },
-        csslint: {
-            options: {
-                'adjoining-classes': false,
-                'import': false,
-                'fallback-colors': false,
-                'unqualified-attributes': false
-            },
-            src: ['src/stylesheets/*.css']
-        },
         asciify: {
             build: {
                 text: 'Building...',
@@ -254,7 +245,7 @@ module.exports = function (grunt) {
 
     require('jit-grunt')(grunt);
 
-    grunt.registerTask('lint', ['eslint', 'csslint']);
+    grunt.registerTask('lint', ['eslint', 'scsslint']);
     grunt.registerTask('compile', ['sass', 'umd', 'babel']);
     grunt.registerTask('dev', ['asciify:build', 'lint', 'compile', 'test']);
     grunt.registerTask('minify', ['processhtml', 'requirejs', 'cssmin']);

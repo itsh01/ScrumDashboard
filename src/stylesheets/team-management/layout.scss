@@ -53,14 +53,14 @@ $hot-pink: #FF69B4;
     vertical-align: middle;
 }
 
-.team-management-button:hover .remove-button {
-    visibility: visible;
-    opacity: 1;
-}
-
 .team-management-button:hover {
     background: $team-manage-btn;
     text-decoration: none;
+
+    .remove-button {
+        visibility: visible;
+        opacity: 1;
+    }
 }
 
 .team-name {
@@ -87,6 +87,11 @@ $hot-pink: #FF69B4;
 
 .member-profile:hover {
     border: 2px dotted;
+
+    > .remove-button {
+        visibility: visible;
+        opacity: 1;
+    }
 }
 
 .remove-button {
@@ -102,11 +107,6 @@ $hot-pink: #FF69B4;
     transition: 0.3s linear all;
     visibility: hidden;
     opacity: 0;
-}
-
-.member-profile:hover > .remove-button {
-    visibility: visible;
-    opacity: 1;
 }
 
 .team-input {

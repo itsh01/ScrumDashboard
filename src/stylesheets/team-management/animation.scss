@@ -1,14 +1,14 @@
 
 .team-management-transition-appear {
     opacity: 0.01;
-}
 
-.team-management-transition-appear.team-management-transition-appear-active {
-    opacity: 1;
-    -webkit-transition: all 0.5s ease-in;
-    -moz-transition: all 0.5s ease-in;
-    -o-transition: all 0.5s ease-in;
-    transition: all 0.5s ease-in;
+    &.team-management-transition-appear-active {
+        opacity: 1;
+        -webkit-transition: all 0.5s ease-in;
+        -moz-transition: all 0.5s ease-in;
+        -o-transition: all 0.5s ease-in;
+        transition: all 0.5s ease-in;
+    }
 }
 
 .teams-list-enter,
