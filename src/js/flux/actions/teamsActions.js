@@ -19,8 +19,6 @@ define([
                     dispatcher.dispatch({actionName: constants.actionNames.RETROFY_SPRINT, payload: [sprintId, teamId]});
                 },
 
-                //addSprintToCurrentTeam(sprintData)
-                //removeDeactivatedMemberFromTeams(memberId)
                 addMemberToTeam: function (teamId, memberId) {
                     dispatcher.dispatch({actionName: constants.actionNames.ADD_MEMBER_TO_TEAM, payload: [teamId, memberId]});
                 },
@@ -44,10 +42,6 @@ define([
 
                 moveSprintToNextState: function (sprintId, teamId) {
                     dispatcher.dispatch({actionName: constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, payload: [sprintId, teamId]});
-                },
-
-                retrofyCurrentSprint: function () {
-                    dispatcher.dispatch({actionName: constants.actionNames.RETROFY_CURRENT_SPRINT});
                 },
 
                 deactivateTeam: function (teamId) {

@@ -36,7 +36,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             },
 
             lockSprint: function () {
-                this.context.flux.teamsActions.retrofyCurrentSprint();
+                this.context.flux.teamsActions.retrofySprint();
             },
 
             getSprintButton: function (sprint) {
