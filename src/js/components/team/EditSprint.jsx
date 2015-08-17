@@ -47,11 +47,15 @@ define([
             teamMemberOptionsBox: function () {
                 var flux = this.context.flux,
                     teamMembers = flux.teamsStore.getCurrentTeam().members,
+                    sprintMembers = this.context.flux.teamsStore.getCurrentSprint().members,
                     options = _(teamMembers)
                         .map(function (memberId) {
                             return flux.membersStore.getMemberById(memberId);
                         })
                         .map(function (member) {
+                            if (!_.includes(sprintMembers, member.id)) {
+                                return null;
+                            }
                             return (<option
                                 value={member.id}
                                 key={member.id}>
