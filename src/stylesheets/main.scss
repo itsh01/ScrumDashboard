@@ -4,18 +4,18 @@
     vendor css
 */
 
-@import "vendor/tether.css";
-@import "vendor/date-picker.css";
+@import 'vendor/tether.css';
+@import 'vendor/date-picker.css';
 
 /**
     Main app css
     Can be overwritten in specific components
 */
 
-@import "main/layout.css";
-@import "main/table.css";
-@import "main/typography.css";
-@import "main/buttons.css";
+@import 'main/layout.css';
+@import 'main/table.css';
+@import 'main/typography.css';
+@import 'main/buttons.css';
 
 /**
     Components
