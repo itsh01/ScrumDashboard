@@ -101,11 +101,9 @@ define([
 
             }).apply(this);
 
-            _.forEach(filterFunctions, function (filterVal, filterFuncName) {
-                this['get' + filterFuncName] = function () {
-                    return _.filter(teamsData, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
-                };
-            }, this);
+            this.getCurrentExistingMemberId = function () {
+                return currentViewState.currentExistingMemberId;
+            };
 
             this.changeCurrentTeamToDefault = function () {
                 var defaultTeamId = this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id;
@@ -362,6 +360,8 @@ define([
 
             function saveToLocalStorage() {
                 helpers.saveToLocalStorage('teams', teamsData);
+            }
+
             //function saveToLocalStorage() {
             //    helpers.saveToLocalStorage('teams', teamsData);
             //}

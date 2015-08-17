@@ -51,6 +51,11 @@ define([
 
             }).apply(this);
 
+            this.getAllMembers = function() {
+                return currentMembers;
+            };
+
+
             function updateCurrentMembers() {
                 MembersFirebaseRef.on("value", function (snapshot) {
                     currentMembers = snapshot.val();
