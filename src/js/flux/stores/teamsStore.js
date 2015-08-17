@@ -310,7 +310,7 @@ define([
                     saveToLocalStorage();
                     if (teamId === currentViewState.currentTeamId) {
                         var defaultTeamId = getDefaultTeamId.apply(this);
-                        changeCurrentTeamId(defaultTeamId);
+                        changeCurrentTeamId.call(this, defaultTeamId);
                     }
                     return true;
                 }
