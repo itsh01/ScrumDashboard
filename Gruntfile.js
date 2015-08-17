@@ -242,6 +242,7 @@ module.exports = function (grunt) {
             ],
             options: {
                 colorizeOutput: true,
+                config: '.scss-lint.yml',
                 exclude: 'src/stylesheets/vendor/**/*.scss'
             }
         }
