@@ -6,7 +6,7 @@ define([
     function (_, helpers, constants) {
         'use strict';
 
-        function TeamStore(dispatcher, eventEmitter, waitForTokens, defaultTeamData, getUserCards) {
+        function TeamStore(dispatcher, eventEmitter, waitForTokens, defaultTeamData, getUserCards, getLastMemberAdded) {
 
             var dataFileVersion = '1',
                 SPRINT_SCHEMA = {
@@ -363,6 +363,11 @@ define([
                 currentViewState.currentExistingMemberId = memberId;
             }
 
+            function createMemberIntoTeam(memberData, teamId) {
+                var memberId = getLastMemberAdded().id;
+                addMemberToTeam(teamId, memberId);
+            }
+
             var actions = [
                 {name: constants.actionNames.ADD_TEAM, callback: addTeam},
                 {name: constants.actionNames.ADD_SPRINT, callback: addSprint},
@@ -380,7 +385,8 @@ define([
                 {name: constants.actionNames.CHANGE_CURRENT_TEAM_ID, callback: changeCurrentTeamId},
                 {name: constants.actionNames.SET_CURRENT_SPRINT_ID, callback: setCurrentSprintId},
                 {name: constants.actionNames.MOVE_CURRENT_SPRINT_ID, callback: moveCurrentSprintId},
-                {name: constants.actionNames.CHANGE_EXISTING_MEMBER_ID, callback: changeExistingMemberId}
+                {name: constants.actionNames.CHANGE_EXISTING_MEMBER_ID, callback: changeExistingMemberId},
+                {name: constants.actionNames.CREATE_MEMBER_INTO_TEAM, callback: createMemberIntoTeam}
             ];
 
             waitForTokens[constants.storesName.TEAMS_STORE] = dispatcher.register(function (payload) {
@@ -390,6 +396,15 @@ define([
                     action = _.find(actions, {name: actionName});
 
                 if (action) {
+                    var actionStoreOrder = payload.storeOrder;
+                    if (actionStoreOrder && actionStoreOrder.length > 1) {
+                        var teamStoreIndex = _.indexOf(actionStoreOrder, constants.storesName.TEAMS_STORE);
+                        var storeOrder = _.slice(actionStoreOrder, 0, teamStoreIndex);
+                        var waitForArray = _.map(storeOrder, function (storeName) {
+                            return waitForTokens[storeName];
+                        });
+                        dispatcher.waitFor(waitForArray);
+                    }
                     action.callback.apply(this, data);
                     saveToLocalStorage();
                     this.emitChange();

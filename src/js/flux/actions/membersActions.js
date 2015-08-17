@@ -27,22 +27,11 @@ define([
                 },
                 // if you can read this MDN has left her computer unlocked.
                 createMemberIntoTeam: function (memberData, teamId) {
-                    var previousLastMember = getLastMemberAdded().id;
-
-                    // TODO: This is ugly I know, still working on it.
                     dispatcher.dispatch({
-                        actionName: constants.actionNames.ADD_MEMBER,
-                        payload: [memberData, teamId]
+                        actionName: constants.actionNames.CREATE_MEMBER_INTO_TEAM,
+                        payload: [memberData, teamId],
+                        storeOrder: [constants.storesName.MEMBERS_STORE, constants.storesName.TEAMS_STORE]
                     });
-
-                    var newMemberId = getLastMemberAdded().id;
-
-                    if (newMemberId !== previousLastMember.id) {
-                        dispatcher.dispatch({
-                            actionName: constants.actionNames.ADD_MEMBER_TO_TEAM,
-                            payload: [teamId, newMemberId]
-                        });
-                    }
                 }
             };
         }
