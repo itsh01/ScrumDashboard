@@ -18,7 +18,8 @@ define(['React', 'components/team/BoardView', 'stubContext', 'flux/flux'],
                     BoardViewWithContext = stubContext(BoardView, {flux: flux});
                     instance = React.createElement(BoardViewWithContext, {});
                     comp = reactTestUtils.renderIntoDocument(instance);
-                    spyOn(flux.teamsActions, 'changeCurrentSprintId').and.returnValue({});
+                    spyOn(flux.teamsActions, 'setCurrentSprintId').and.returnValue({});
+                    spyOn(flux.teamsActions, 'moveCurrentSprintId').and.returnValue({});
                 });
 
                 it('should check that BoardView did render', function () {
