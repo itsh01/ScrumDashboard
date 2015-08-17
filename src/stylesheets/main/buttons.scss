@@ -1,9 +1,13 @@
 
+$white: #FFF;
+$light-blue: #5B9ED5;
+$light-blue-hover: #518BBC;
+
 .button {
-    background-color: #5B9ED5;
+    background-color: $light-blue;
     outline: 0;
     text-decoration: none;
-    color: #fff;
+    color: $white;
     text-align: center;
     border: none;
     border-radius: 2px;
@@ -17,6 +21,6 @@
 }
 
 .button:hover {
-    background-color: #518bbc;
+    background-color: $light-blue-hover;
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
