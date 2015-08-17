@@ -101,6 +101,7 @@ define([
                 if (isValidTeam(teamWithDefaults)) {
                     teamWithDefaults.id = helpers.generateGuid();
                     teamWithDefaults.sprints = [this.getBlankSprint()];
+                    teamWithDefaults.sprints[0].id = helpers.generateGuid();
                     teamsData.push(teamWithDefaults);
                     return teamWithDefaults.id;
                 }
