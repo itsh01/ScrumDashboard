@@ -12,3 +12,11 @@
     background-image: -ms-linear-gradient(left, transparent, rgba($r, $g, $b, $a) 50%, transparent);
     background-image: -o-linear-gradient(left, transparent, rgba($r, $g, $b, $a) 50%, transparent);
 }
+
+@mixin fixed100 () {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
