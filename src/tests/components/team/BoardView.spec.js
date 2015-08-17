@@ -1,4 +1,4 @@
-define(['React', 'components/team/BoardView', 'stubContext', 'stores/refactor/flux'],
+define(['React', 'components/team/BoardView', 'stubContext', 'flux/flux'],
     function (React, BoardView, stubContext, Flux) {
         'use strict';
 

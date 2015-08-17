@@ -1,7 +1,7 @@
 define([
-        'lodash',
-        '../../helpers',
-        '../../../constants'
+        '../../../vendor/lodash',
+        'flux/helpers',
+        '../../constants'
     ],
     function (_, helpers, constants) {
         'use strict';

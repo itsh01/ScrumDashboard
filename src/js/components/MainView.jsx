@@ -8,7 +8,7 @@ define(['lodash',
         'components/pop-up/Basic',
         'components/card-edit/CardEditCreate',
 
-        'stores/refactor/flux'],
+        '../flux/flux'],
 
     function (_,
               React,

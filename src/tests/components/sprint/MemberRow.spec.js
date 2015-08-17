@@ -8,7 +8,7 @@ define([
         'components/sprint/Member',
         'components/sprint/TableCell',
         'stubContext',
-        'stores/refactor/flux',
+        'flux/flux',
         'mixins/HistoryMixin'
     ],
     function (_, React, memberRowDefinition, SprintMember, TableCell, stubContext, Flux, HistoryMixin) {

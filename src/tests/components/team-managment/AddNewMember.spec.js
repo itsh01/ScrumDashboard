@@ -1,4 +1,4 @@
-define(['React', 'stores/refactor/flux', 'constants', 'stubContext', 'components/team-management/AddNewMember'],
+define(['React', 'flux/flux', 'constants', 'stubContext', 'components/team-management/AddNewMember'],
     function (React, Flux, constants, stubContext, AddNewMember) {
         'use strict';
         var comp;

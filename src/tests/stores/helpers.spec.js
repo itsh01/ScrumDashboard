@@ -1,4 +1,4 @@
-define(['stores/helpers'], function (helpers) {
+define(['flux/helpers'], function (helpers) {
     'use strict';
     var mockObj = {a: 1, b: 2};
     var mockStoreName = 'checkstore';

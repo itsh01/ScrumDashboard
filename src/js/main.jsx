@@ -12,8 +12,8 @@ requirejs.config({
         components: '../js/components',
         mixins: '../js/mixins',
         general: '../js/general',
-        stores: '../js/stores',
-        baseFlux: '../js/stores/refactor/baseFlux',
+        stores: '../js/flux/stores',
+        baseFlux: '../js/flux/baseFlux',
 
 
         // DatePicker dependencies

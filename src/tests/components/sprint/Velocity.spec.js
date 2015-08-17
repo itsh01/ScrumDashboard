@@ -7,7 +7,7 @@ define([
         'React',
         'definition!components/sprint/Velocity',
         'stubContext',
-        'stores/refactor/flux',
+        'flux/flux',
         'mixins/HistoryMixin'
     ],
     function (_, React, velocityDefinition, stubContext, Flux, HistoryMixin) {

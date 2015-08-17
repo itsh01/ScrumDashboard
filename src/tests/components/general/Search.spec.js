@@ -1,4 +1,4 @@
-define(['React', 'stores/refactor/flux', 'constants', 'stubContext', 'components/general/Search'],
+define(['React', 'flux/flux', 'constants', 'stubContext', 'components/general/Search'],
     function (React, Flux, constants, stubContext, Search) {
         'use strict';
         var comp;

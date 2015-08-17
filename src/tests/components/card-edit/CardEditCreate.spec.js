@@ -2,8 +2,8 @@ define([
         'React',
         'components/card-edit/CardEditCreate',
         'stubContext',
-        'stores/refactor/flux'
-        , 'lodash'
+        'flux/flux',
+        'lodash'
     ],
     function (React, CardEditCreate, stubContext, Flux, _) {
         'use strict';

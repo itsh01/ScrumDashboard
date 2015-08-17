@@ -1,9 +1,9 @@
 define([
-        'react',
+        'React',
         'stubContext',
         'components/backlog/Backlog',
         'components/backlog/CardsList',
-        'stores/refactor/flux'
+        'flux/flux'
     ],
     function (React, stubContext, Backlog, CardsList, Flux) {
         'use strict';

@@ -1,19 +1,19 @@
 define(
     [
-        'lodash',
+        '../../vendor/lodash',
         'eventemitter2',
         'baseFlux',
-        './actions/cardsActions',
-        './actions/membersActions',
-        './actions/teamsActions',
-        './actions/planningActions',
-        './stores/cardsStore',
-        './stores/membersStore',
-        './stores/teamsStore',
-        './stores/planningStore',
-        '../../data/cards',
-        '../../data/members',
-        '../../data/teams'
+        'flux/actions/cardsActions',
+        'flux/actions/membersActions',
+        'flux/actions/teamsActions',
+        'flux/actions/planningActions',
+        'stores/cardsStore',
+        'stores/membersStore',
+        'stores/teamsStore',
+        'stores/planningStore',
+        '../data/cards',
+        '../data/members',
+        '../data/teams'
     ],
     function (_, EventEmitter, baseFlux, CardsActions, MembersActions, TeamsActions, PlanningActions,
               CardsStore, MembersStore, TeamsStore, PlanningStore, defaultCardData, defaultMemberData, defaultTeamsData) {

@@ -1,4 +1,4 @@
-define(['React', 'components/team-management/TeamManagement', 'stubContext', 'stores/refactor/flux'],
+define(['React', 'components/team-management/TeamManagement', 'stubContext', 'flux/flux'],
     function (React, TeamManagement, stubContext, Flux) {
         'use strict';
         var mockTeam = {

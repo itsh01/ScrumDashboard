@@ -6,7 +6,7 @@ define([
         'React',
         'components/sprint/TableBody',
         'stubContext',
-        'stores/refactor/flux'
+        'flux/flux'
     ],
     function (_, React, TableBody, stubContext, Flux) {
         'use strict';
