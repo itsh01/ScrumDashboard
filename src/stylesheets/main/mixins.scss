@@ -1,0 +1,14 @@
+@mixin radial-gradient($from, $to) {
+    background: -webkit-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: -moz-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: -ms-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: -o-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+}
+
+@mixin gradient($r, $g, $b, $a) {
+    background-image: -webkit-linear-gradient(left, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+    background-image: -moz-linear-gradient(left, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+    background-image: -ms-linear-gradient(left, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+    background-image: -o-linear-gradient(left, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+}

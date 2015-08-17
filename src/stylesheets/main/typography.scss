@@ -1,8 +1,16 @@
 
 @import url(http://fonts.googleapis.com/css?family=Oxygen:400,300,700);
+@import url(http://fonts.googleapis.com/css?family=Gloria+Hallelujah);
+
+@import 'global';
+
 
 body {
-    font-family: 'Oxygen', Tahoma, sans-serif;
+    @include radial-gradient($green, $dark-green);
+
+    font-family: 'Gloria Hallelujah', Tahoma, sans-serif;
+    color: $white;
+    font-size: 14px;
 }
 
 .text-center {
