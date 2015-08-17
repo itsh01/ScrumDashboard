@@ -35,7 +35,7 @@ define(['lodash'], function (_) {
             console.log(storeName, ': key (', key, ') was required but not provided');
             return false;
         }
-        if ((key === 'startDate' || key === 'endDate') && typeof value === 'string') {
+        if ((key === 'startDate' || key === 'endDate') && typeof value === 'string' && value !== schema[key].defaultValue) {
             if (!DATE_FORMAT.test(value)) {
                 console.log(storeName, ': invalid date format:', value, '( must be: YYYY-MM-DD)');
                 return false;

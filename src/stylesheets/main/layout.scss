@@ -1,4 +1,6 @@
 
+@import 'global';
+
 h1,
 h2,
 h3 {
@@ -37,14 +39,18 @@ h3 {
 }
 
 .underline:after {
+    @include gradient(255, 255, 255, 0.3);
     right: 0;
     left: 0;
     bottom: 0;
-    height: 1px;
+    height: 2px;
     content: '';
     position: absolute;
-    background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
-    background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
-    background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
-    background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
+}
+
+.chalk-bg {
+    @include fixed100();
+    background: url('../../img/chalkboard-pattern.png');
+    z-index: -1;
+    opacity: 0.5;
 }

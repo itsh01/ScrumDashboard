@@ -1,6 +1,6 @@
+@import '../main/global';
 
-$btn-grad-start: #EE9090;
-$btn-grad-end: #DDA0A0;
+
 
 .card {
     position: relative;
@@ -14,6 +14,8 @@ $btn-grad-end: #DDA0A0;
     margin: 1rem;
     cursor: pointer;
     transition: 0.5s linear all;
+    line-height: 1;
+    color: $light-black;
 }
 
 .card-points {
@@ -41,12 +43,10 @@ $btn-grad-end: #DDA0A0;
 }
 
 .card-btn-edit {
+    @include btn-xs ($none-color, $none-color-hover, $black);
     visibility: hidden;
-    background-image: linear-gradient(to bottom, $btn-grad-start, $btn-grad-end);
     position: absolute;
     bottom: 2px;
-    padding: 1px 10px;
-    border-radius: 5px;
 }
 
 .card-editable .card-btn-edit {

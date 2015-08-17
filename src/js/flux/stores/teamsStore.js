@@ -11,18 +11,17 @@ define([
             var dataFileVersion = '1',
                 SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
-                    scrumMaster: {type: 'string', defaultValue: null},
-                    startDate: {type: 'string', defaultValue: null},
-                    endDate: {type: 'string', defaultValue: null},
+                    scrumMaster: {type: 'string', defaultValue: ''},
+                    startDate: {type: 'string', defaultValue: ''},
+                    endDate: {type: 'string', defaultValue: ''},
                     cardLifecycle: {type: 'string-array', defaultValue: ['Backlog', 'In progress', 'Done']},
                     members: {type: 'string-array', defaultValue: []},
-                    retroCardsStatus: {type: 'object', defaultValue: null},
+                    retroCardsStatus: {type: 'object', defaultValue: []},
                     state: {type: 'number', defaultValue: 0}
                 },
                 TEAM_SCHEMA = {
                     name: {type: 'string'},
                     members: {type: 'string-array', defaultValue: []},
-                    filterFunc: {type: 'function', defaultValue: null},
                     active: {type: 'boolean', defaultValue: true}
                 },
                 teamsData,
@@ -96,11 +95,11 @@ define([
                     sprintEndDate = new Date(sprint.endDate);
 
                 var membersCardsInSprint = _.filter(memberCards, function (card) {
-                    if (card.startDate === null) {
+                    if (card.startDate === '') {
                         return true;
                     }
                     var cardStartDate = new Date(card.startDate);
-                    if (card.endDate === null) {
+                    if (card.endDate === '') {
                         return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate);
                     }
                     var cardEndDate = new Date(card.endDate);

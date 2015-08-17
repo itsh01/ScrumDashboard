@@ -1,8 +1,13 @@
 
-@import url(http://fonts.googleapis.com/css?family=Oxygen:400,300,700);
+@import 'global';
 
 body {
-    font-family: 'Oxygen', Tahoma, sans-serif;
+    @include radial-gradient($green, $dark-green);
+
+    font-family: 'Architects Daughter', Tahoma, sans-serif;
+    color: $white;
+    font-size: 16px;
+    letter-spacing: 0.05rem;
 }
 
 .text-center {

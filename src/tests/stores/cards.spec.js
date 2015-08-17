@@ -4,12 +4,14 @@ define([
         'baseFlux',
         'stores/cardsStore',
         'actions/cardsActions',
+        'actions/membersActions',
         'flux/helpers'
     ],
-    function (_, EventEmitter, baseFlux, CardsStore, CardsActions, helpers) {
+    function (_, EventEmitter, baseFlux, CardsStore, CardsActions, MembersAction, helpers) {
         'use strict';
         describe('CardsStore', function () {
-            var mockDispatcher, mockCardsStore, mockCardsData, mockBlankCard, mockCard, mockNewCard, mockUserId, mockTeamId, mockCardsActions;
+            var mockDispatcher, mockCardsStore, mockCardsData, mockBlankCard, mockCard,
+                mockNewCard, mockUserId, mockTeamId, mockCardsActions, mockMembersAction;
             beforeEach(function () {
                 localStorage.clear();
                 mockCardsData = [
@@ -21,8 +23,8 @@ define([
                         score: 3,
                         team: '2d2d8f82-0b6a-404a-9c08-929cfe3de079',
                         assignee: '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
-                        startDate: null,
-                        endDate: null
+                        startDate: '',
+                        endDate: ''
                     },
                     {
                         id: '90eed4aa-40fe-496e-999a-54a436d66427',
@@ -30,10 +32,10 @@ define([
                         description: 'Ill compress the digital EXE protocol, that should protocol the EXE protocol!',
                         status: 'unassigned',
                         score: 1,
-                        team: null,
-                        assignee: null,
-                        startDate: null,
-                        endDate: null
+                        team: '',
+                        assignee: '',
+                        startDate: '',
+                        endDate: ''
                     },
                     {
                         id: 'eaf1abfe-639f-4a8b-8e02-add0acc9833a',
@@ -42,30 +44,30 @@ define([
                         status: 'unassigned',
                         score: 3,
                         team: '2d2d8f82-0b6a-404a-9c08-929cfe3de079',
-                        assignee: null,
-                        startDate: null,
-                        endDate: null
+                        assignee: '',
+                        startDate: '',
+                        endDate: ''
                     }
                 ];
                 mockBlankCard = {
                     name: '',
                     description: '',
-                    score: null,
-                    team: null,
+                    score: '',
+                    team: '',
                     status: 'unassigned',
-                    assignee: null,
-                    startDate: null,
-                    endDate: null
+                    assignee: '',
+                    startDate: '',
+                    endDate: ''
                 };
                 mockNewCard = {
                     name: 'Open-source the universe',
                     description: 'The flux capacitor is whack. Fix it.!',
                     status: 'unassigned',
                     score: 12,
-                    team: null,
-                    assignee: null,
-                    startDate: null,
-                    endDate: null
+                    team: '',
+                    assignee: '',
+                    startDate: '',
+                    endDate: ''
                 };
                 mockUserId = mockCardsData[0].assignee;
                 mockTeamId = mockCardsData[0].team;
@@ -75,6 +77,7 @@ define([
                 mockDispatcher = new baseFlux.Dispatcher();
                 mockCardsStore = new CardsStore(mockDispatcher, eventEmitter, waitForTokens, mockCardsData);
                 mockCardsActions = new CardsActions(mockDispatcher);
+                mockMembersAction = new MembersAction(mockDispatcher);
                 mockCard = mockCardsData[0];
             });
 
@@ -127,7 +130,7 @@ define([
                     expect(userCards[0]).toEqual(mockCardsData[0]);
                 });
 
-                it('should return all cards with endDate of null', function () {
+                it('should return all cards with endDate of ', function () {
                     var unfinishedCards = mockCardsStore.getNotCompleted();
 
                     expect(unfinishedCards.length).toEqual(3);
@@ -232,6 +235,25 @@ define([
                     var afterCards = mockCardsStore.getAllCards();
 
                     expect(afterCards).toEqual(beforeCards);
+                });
+            });
+
+            describe('unassignMemberFromCards', function () {
+                var cardFromStore, cardId, mockMemberId;
+                beforeEach(function () {
+                    cardFromStore = mockCardsData[0];
+                    cardId = cardFromStore.id;
+                    mockMemberId = cardFromStore.assignee;
+                });
+
+                it('should unassign the requested members from all matching cards', function () {
+                    var beforeCard = mockCardsStore.getCardById(cardId);
+                    mockMembersAction.deactivateMember(mockMemberId);
+                    var afterCard = mockCardsStore.getCardById(cardId);
+
+                    expect(afterCard).not.toEqual(beforeCard);
+                    expect(afterCard.assignee).toBe('');
+
                 });
             });
         });

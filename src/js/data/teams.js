@@ -9,7 +9,6 @@ define([], function () {
                 "aaef53cc-34bd-4d1f-bdda-9bf5e07ca2be"
             ],
             "active": true,
-            "filterFunc": null,
             "id": "1f7a4375-e7db-4798-969e-17325acde499",
             "sprints": [{
                     "id": "55b8a160-3898-9631-e6ac-e41ce41ce41c",
@@ -92,7 +91,7 @@ define([], function () {
                         '061804a2-1f93-40e1-bf49-57b82e5b568b'
                     ],
                     "state": 1,
-                    "retroCardsStatus": null
+                    "retroCardsStatus": []
                 }
             ],
             "name": "Directives"
@@ -106,7 +105,6 @@ define([], function () {
                 "bb93c3cd-66d3-42ea-8467-611c23ea64c6"
             ],
             "active": true,
-            "filterFunc": null,
             "id": "c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d",
             "sprints": [
                 {
@@ -173,7 +171,6 @@ define([], function () {
                 'aaef53cc-34bd-4d1f-bdda-9bf5e07ca2be'
             ],
             "active": true,
-            "filterFunc": null,
             "id": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
             "sprints": [
                 {
@@ -188,7 +185,7 @@ define([], function () {
                         'aaef53cc-34bd-4d1f-bdda-9bf5e07ca2be'
                     ],
                     "state": 0,
-                    "retroCardsStatus": null
+                    "retroCardsStatus": []
                 }
             ],
             "name": "Mobility"

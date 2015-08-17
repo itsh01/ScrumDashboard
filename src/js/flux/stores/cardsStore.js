@@ -12,12 +12,12 @@ define([
                 CARDS_SCHEMA = {
                     name: {type: 'string'},
                     description: {type: 'string', defaultValue: ''},
-                    score: {type: 'number', defaultValue: null},
-                    team: {type: 'string', defaultValue: null},
+                    score: {type: 'number', defaultValue: ''},
+                    team: {type: 'string', defaultValue: ''},
                     status: {type: 'string', defaultValue: 'unassigned'},
-                    assignee: {type: 'string', defaultValue: null},
-                    startDate: {type: 'string', defaultValue: null},
-                    endDate: {type: 'string', defaultValue: null}
+                    assignee: {type: 'string', defaultValue: ''},
+                    startDate: {type: 'string', defaultValue: ''},
+                    endDate: {type: 'string', defaultValue: ''}
                 },
                 currentCards;
 
@@ -48,12 +48,12 @@ define([
                         return {team: id};
                     },
                     CompanyCards: function () {
-                        return {team: null};
+                        return {team: ''};
                     },
                     UserCards: function (id, teamId) {
                         return (teamId) ? {assignee: id, team: teamId} : {assignee: id};
                     },
-                    NotCompleted: {endDate: null}
+                    NotCompleted: {endDate: ''}
                 };
 
                 _.forEach(filterFunctions, function (filterVal, filterFuncName) {
@@ -112,7 +112,7 @@ define([
             function unassignMemberFromCards(memberId) {
                 var cards = this.getAllCards();
                 currentCards = _.map(cards, function (card) {
-                    card.assignee = card.assignee === memberId ? null : card.assignee;
+                    card.assignee = card.assignee === memberId ? '' : card.assignee;
                     card.status = 'unassigned';
                     return card;
                 });

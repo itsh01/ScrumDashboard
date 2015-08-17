@@ -1,7 +1,9 @@
-
-$black: #000;
+@import '../main/global';
 
 .cards-list {
-    border: $black 1px solid;
+    border: $white 1px solid;
     text-align: center;
+    max-height: 300px;
+    overflow: scroll;
+    margin-top: 0.5rem;
 }

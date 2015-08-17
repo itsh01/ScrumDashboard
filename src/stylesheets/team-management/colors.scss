@@ -1,6 +1,5 @@
 
-$white: #FFF;
-$add-team-btn: #4CAE52;
+@import '../main/global';
 
 .matched-member-container {
     background-color: $white;
@@ -11,5 +10,5 @@ $add-team-btn: #4CAE52;
 }
 
 .team-management-button.add-team-button {
-    background-color: $add-team-btn;
+    background-color: $semi-light-green;
 }
