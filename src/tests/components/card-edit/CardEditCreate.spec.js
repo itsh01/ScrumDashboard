@@ -2,7 +2,7 @@ define([
         'React',
         'components/card-edit/CardEditCreate',
         'stubContext',
-        'stores/refactor/flux'
+        'flux/flux'
         , 'lodash'
     ],
     function (React, CardEditCreate, stubContext, Flux, _) {
@@ -13,11 +13,12 @@ define([
             flux = new Flux();
             var CardEditCreateWithContext = stubContext(CardEditCreate, {newFlux: flux});
             var instance = React.createElement(CardEditCreateWithContext, compParams);
-            var wrappedEl = React.addons.TestUtils.renderIntoDocument(instance).getWrappedElement();
-            return React.addons.TestUtils.renderIntoDocument(wrappedEl);
+            var contextElement = React.addons.TestUtils.renderIntoDocument(instance);
+            var result = React.addons.TestUtils.findRenderedComponentWithType(contextElement, CardEditCreate);
+            return result;
         }
 
-        describe('CardEditCreate', function () {
+        fdescribe('CardEditCreate', function () {
 
             beforeEach(function () {
                 localStorage.clear();

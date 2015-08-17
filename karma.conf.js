@@ -11,16 +11,16 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            {pattern: 'src/vendor/**/*.js', included: false},
+            {pattern: 'build/vendor/**/*.js', included: false},
             {pattern: 'src/tests/**/*.js', included: false},
-            {pattern: 'src/js/**/*.js', included: false},
+            {pattern: 'build/js/**/*.js', included: false},
 
             'test-main.js'
         ],
 
         // list of files to exclude
         exclude: [
-            'src/vendor/require.js'
+            'build/vendor/require.js'
         ],
 
         // test results reporter to use

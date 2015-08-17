@@ -16,7 +16,7 @@ define([
             title: React.PropTypes.string
         },
         contextTypes: {
-            newFlux: React.PropTypes.any,
+            flux: React.PropTypes.any,
             teamId: React.PropTypes.string
         },
         mixins: [DragDropMixin],
@@ -47,14 +47,14 @@ define([
                             assignee: null,
                             team: isCompanyList ? null : self.context.teamId
                         };
-                    self.context.newFlux.cardsActions.updateCard(card.id, newCardData);
+                    self.context.flux.cardsActions.updateCard(card.id, newCardData);
 
                 }
             };
         },
         addNewCard: function () {
             //this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
-            this.context.newFlux.planningActions.planningAddCard();
+            this.context.flux.planningActions.planningAddCard();
 
         },
 

@@ -1,0 +1,37 @@
+$black: #000;
+$white: #FFF;
+
+.card-edit-container {
+    width: 20rem;
+    border: 1px solid $black;
+    padding: 0.5rem 1rem;
+    background-color: $white;
+}
+
+.card-edit-label {
+    width: 30%;
+    display: inline-block;
+}
+
+.card-edit-field-container {
+    margin: 2px 0;
+}
+
+.card-edit-input-text {
+    width: 70%;
+    display: inline-block;
+
+    input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+.card-edit-btn-container {
+    text-align: center;
+}
+
+.card-edit-btn {
+    width: 30%;
+    margin: 2px;
+}

@@ -20,7 +20,7 @@ define([
                 status: React.PropTypes.string
             },
             contextTypes: {
-                newFlux: React.PropTypes.any,
+                flux: React.PropTypes.any,
                 teamId: React.PropTypes.string,
                 sprintState: React.PropTypes.number
             },
@@ -53,7 +53,7 @@ define([
                             team: self.context.teamId
                         };
 
-                        self.context.newFlux.cardsActions.updateCard(card.id, newCardData);
+                        self.context.flux.cardsActions.updateCard(card.id, newCardData);
 
                     }
                 };

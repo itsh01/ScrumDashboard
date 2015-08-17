@@ -1,4 +1,4 @@
-define(['React', 'components/team-management/TeamManagement', 'stubContext', 'stores/refactor/flux'],
+define(['React', 'components/team-management/TeamManagement', 'stubContext', 'flux/flux'],
     function (React, TeamManagement, stubContext, Flux) {
         'use strict';
         var mockTeam = {
@@ -14,7 +14,7 @@ define(['React', 'components/team-management/TeamManagement', 'stubContext', 'st
                 var flux = new Flux();
                 spyOn(flux.teamsStore, 'getCurrentTeam').and.returnValue(mockTeam);
                 spyOn(flux.membersStore, 'getMemberById').and.returnValue(mockMember);
-                var TeamManagementWithContext = stubContext(TeamManagement, {newFlux: flux});
+                var TeamManagementWithContext = stubContext(TeamManagement, {flux: flux});
                 var instance = React.createElement(TeamManagementWithContext, {});
                 var wrappedEl = reactTestUtils.renderIntoDocument(instance).getWrappedElement();
                 comp = reactTestUtils.renderIntoDocument(wrappedEl);

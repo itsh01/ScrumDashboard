@@ -14,7 +14,7 @@ define([
             displayName: 'EditSprint',
 
             contextTypes: {
-                newFlux: React.PropTypes.any
+                flux: React.PropTypes.any
             },
 
             mixins: [React.addons.LinkedStateMixin],
@@ -27,21 +27,35 @@ define([
                 this.setState( this.fetchState() );
             },
 
+            computeEndDate: function (sprint) {
+                if (!sprint.endDate) {
+                    var now = new Date();
+                    now.setDate(now.getDate() + 7);
+                    sprint.endDate = moment(now);
+                } else {
+                    sprint.endDate = moment(sprint.endDate);
+                }
+            },
+
             fetchState: function () {
-                var currentSprint = this.context.newFlux.teamsStore.getCurrentSprint();
+                var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
                 currentSprint.startDate = currentSprint.startDate ? moment(currentSprint.startDate) : moment();
-                currentSprint.endDate = currentSprint.endDate ? moment(currentSprint.endDate) : moment();
+                this.computeEndDate(currentSprint);
                 return currentSprint;
             },
 
             teamMemberOptionsBox: function () {
-                var flux = this.context.newFlux,
+                var flux = this.context.flux,
                     teamMembers = flux.teamsStore.getCurrentTeam().members,
+                    sprintMembers = this.context.flux.teamsStore.getCurrentSprint().members,
                     options = _(teamMembers)
                         .map(function (memberId) {
                             return flux.membersStore.getMemberById(memberId);
                         })
                         .map(function (member) {
+                            if (!_.includes(sprintMembers, member.id)) {
+                                return null;
+                            }
                             return (<option
                                 value={member.id}
                                 key={member.id}>
@@ -69,14 +83,14 @@ define([
             
             updateSprint: function (data) {
                 var sprintData = _.cloneDeep(data || this.state),
-                    teamsStore = this.context.newFlux.teamsStore;
+                    teamsStore = this.context.flux.teamsStore;
                 delete sprintData.id;
 
                 sprintData.startDate = this.formatDate(sprintData.startDate);
                 sprintData.endDate = this.formatDate(sprintData.endDate);
 
 
-                this.context.newFlux.teamsActions.updateSprint(
+                this.context.flux.teamsActions.updateSprint(
                     this.state.id,
                     sprintData,
                     teamsStore.getCurrentTeam().id
@@ -98,8 +112,8 @@ define([
             },
 
             teamMembersCheckBoxes: function () {
-                var teamMembers = this.context.newFlux.teamsStore.getCurrentTeam().members;
-                var membersStore = this.context.newFlux.membersStore;
+                var teamMembers = this.context.flux.teamsStore.getCurrentTeam().members;
+                var membersStore = this.context.flux.membersStore;
 
                 return _(teamMembers)
                     .map(function getMemberById(memberId) {
@@ -122,7 +136,7 @@ define([
                     .value();
             },
             listenForStateChange: function () {
-                var currentSprint = this.context.newFlux.teamsStore.getCurrentSprint();
+                var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
                 if (!_.isEqual(currentSprint, this.state)) {
                     this.updateSprint();
                 }

@@ -12,9 +12,12 @@ define(['lodash', 'React',
                 team: React.PropTypes.object,
                 teamMembers: React.PropTypes.array
             },
+            contextTypes: {
+                flux: React.PropTypes.any
+            },
             getTeamTitle: function () {
                 return this.props.team.name ?
-                'Team ' + this.props.team.name :
+                this.props.team.name + ' Team' :
                     'Add a new team';
             },
             getNewMemberProfile: function () {
@@ -31,7 +34,8 @@ define(['lodash', 'React',
                         <ReactCSSTransitionGroup transitionName='member-profile-transition'>
                             {
                                 _.map(this.props.teamMembers, function (member) {
-                                    return <MemberProfile member={member} team={this.props.team} key={member.id}/>;
+                                    return (<MemberProfile member={member} key={member.id}
+                                                          team={this.props.team}/>);
                                 }, this)
                             }
                         </ReactCSSTransitionGroup>

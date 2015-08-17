@@ -14,11 +14,12 @@ define([
             propTypes: {
                 cardLifecycle: React.PropTypes.array,
                 member: React.PropTypes.object,
-                retro: React.PropTypes.array
+                retro: React.PropTypes.array,
+                sprintId: React.PropTypes.string
             },
 
             contextTypes: {
-                newFlux: React.PropTypes.any
+                flux: React.PropTypes.any
             },
 
             mixins: [HistoryMixin],
@@ -32,6 +33,7 @@ define([
             onChange: function () {
                 this.forceUpdate();
             },
+
             getMemberCards: function (retro, memberId) {
                 var cards = [];
                 if (retro) {
@@ -42,10 +44,11 @@ define([
                         .map(this.mapHistoryToCards)
                         .value();
                 } else {
-                    cards = this.context.newFlux.cardsStore.getUserCards(memberId);
+                    cards = this.context.flux.teamsStore.getMemberCardsInSprint(memberId, this.props.sprintId);
                 }
                 return cards;
             },
+
             createCellByCard: function (cards) {
                 return _.map(this.props.cardLifecycle, function mapPhasesToTableCells(phase) {
 

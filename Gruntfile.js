@@ -6,16 +6,23 @@
 
 module.exports = function (grunt) {
 
-    var VENDOR_TARGET = 'src/vendor/';
+    var VENDOR_TARGET = 'build/vendor/';
+    var VENDOR_STYLE_TARGET = 'build/css/vendor/';
 
     grunt.initConfig({
         clean: {
             main: {
                 src: [VENDOR_TARGET + '**/*']
+            },
+            build: {
+                src: 'build/**/*'
+            },
+            dist: {
+                src: 'dist/**/*'
             }
         },
         copy: {
-            main: {
+            build: {
                 files: [
                     {
                         src: 'node_modules/requirejs/require.js',
@@ -39,7 +46,7 @@ module.exports = function (grunt) {
                     },
                     {
                         src: 'node_modules/react-datepicker/dist/react-datepicker.css',
-                        dest: 'src/stylesheets/vendor/date-picker.css'
+                        dest: VENDOR_STYLE_TARGET + 'date-picker.css'
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/tether/dist/js/tether.js',
@@ -47,7 +54,7 @@ module.exports = function (grunt) {
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/tether/dist/css/tether.css',
-                        dest: 'src/stylesheets/vendor/tether.css'
+                        dest: VENDOR_STYLE_TARGET + 'tether.css'
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/moment/moment.js',
@@ -60,33 +67,40 @@ module.exports = function (grunt) {
                     {
                         src: 'node_modules/eventemitter2/lib/eventemitter2.js',
                         dest: VENDOR_TARGET + 'eventemitter2.js'
-                    }
-                ]
-            },
-            build: {
-                files: [
+                    },
                     {
-                        src: VENDOR_TARGET + 'require.js',
-                        dest: 'build/vendor/require.js'
+                        src: 'node_modules/requirejs/require.js',
+                        dest: VENDOR_TARGET + 'require.js'
                     },
                     {
                         expand: true,
                         cwd: 'src/img/',
                         src: '**/*',
                         dest: 'build/img'
-                    }
-                ]
-            }
-        },
-        react: {
-            main: {
-                files: [
+                    },
                     {
                         expand: true,
-                        cwd: 'src/js/',
-                        src: ['**/*.jsx'],
-                        dest: 'src/js/',
-                        ext: '.js'
+                        cwd: 'src/js',
+                        src: '**/*.js',
+                        dest: 'build/js'
+                    },
+                    {
+                        src: 'src/index.html',
+                        dest: 'build/index.html'
+                    }
+                ]
+            },
+            dist: {
+                files: [
+                    {
+                        src: 'build/vendor/require.js',
+                        dest: 'dist/vendor/require.js'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'build/img/',
+                        src: '**/*',
+                        dest: 'dist/img'
                     }
                 ]
             }
@@ -116,31 +130,22 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: 'src/js/',
                         src: ['**/*.jsx'],
-                        dest: 'src/js/',
+                        dest: 'build/js/',
                         ext: '.js'
                     }
                 ]
             }
         },
-        csslint: {
-            options: {
-                'adjoining-classes': false,
-                'import': false,
-                'fallback-colors': false,
-                'unqualified-attributes': false
-            },
-            src: ['src/stylesheets/*.css']
-        },
         asciify: {
-            banner: {
+            build: {
                 text: 'Building...',
                 options: {
                     font: 'doom',
                     log: true
                 }
             },
-            danger: {
-                text: 'Danger  Build !!!',
+            dist: {
+                text: 'Publishing...',
                 options: {
                     font: 'doom',
                     log: true
@@ -157,20 +162,7 @@ module.exports = function (grunt) {
                     '!src/js/*.js',
                     'Gruntfile.js'
                 ],
-                tasks: ['dev'],
-                options: {
-                    debounceDelay: 500
-                }
-            },
-            react: {
-                files: [
-                    'src/**/*.jsx'
-                ],
-                tasks: [
-                    'asciify:danger',
-                    'log:"\nDO NOT COMMIT BEFORE BUILDING!!\n"',
-                    'babel'
-                ],
+                tasks: ['default'],
                 options: {
                     debounceDelay: 500
                 }
@@ -179,9 +171,9 @@ module.exports = function (grunt) {
         requirejs: {
             compile: {
                 options: {
-                    baseUrl: 'src/js',
-                    mainConfigFile: 'src/js/main.js',
-                    out: 'build/js/main.min.js',
+                    baseUrl: 'build/js',
+                    mainConfigFile: 'build/js/main.js',
+                    out: 'dist/js/main.min.js',
                     name: 'main',
                     optimization: 'uglify',
                     preserveLicenseComments: false
@@ -191,7 +183,7 @@ module.exports = function (grunt) {
         processhtml: {
             build: {
                 files: {
-                    'build/index.html': ['src/index.html']
+                    'dist/index.html': ['build/index.html']
                 }
             }
         },
@@ -200,8 +192,8 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     src: 'main.css',
-                    dest: 'build/css',
-                    cwd: 'src/stylesheets',
+                    dest: 'dist/css',
+                    cwd: 'build/css',
                     ext: '.min.css'
                 }]
             }
@@ -229,20 +221,47 @@ module.exports = function (grunt) {
                     }
                 }
             }
+        },
+        sass: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/stylesheets',
+                    src: '**/*.scss',
+                    dest: 'build/css',
+                    ext: '.css'
+                }]
+            }
+        },
+        scsslint: {
+            allFiles: [
+                'src/stylesheets/**/*.scss'
+            ],
+            options: {
+                colorizeOutput: true,
+                config: '.scss-lint.yml',
+                exclude: 'src/stylesheets/vendor/**/*.scss'
+            }
         }
     });
-
+    grunt.loadNpmTasks('grunt-scss-lint');
     grunt.registerTask('log', function (text) {
         grunt.log.writeln(text);
     });
 
     require('jit-grunt')(grunt);
 
-    grunt.registerTask('lint', ['eslint', 'csslint']);
-    grunt.registerTask('dev', ['asciify:banner', 'lint', 'babel', 'test']);
+    grunt.registerTask('lint', ['eslint', 'scsslint']);
+    grunt.registerTask('compile', ['sass', 'umd', 'babel']);
     grunt.registerTask('minify', ['processhtml', 'requirejs', 'cssmin']);
-    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'babel', 'umd', 'copy', 'minify']);
     grunt.registerTask('test', ['karma']);
+
+    grunt.registerTask('build-process', ['lint', 'clean:build', 'compile', 'copy:build']);
+    grunt.registerTask('build', ['asciify:build', 'build-process']);
+
+    grunt.registerTask('publish-process', ['clean:dist', 'minify', 'copy:dist']);
+    grunt.registerTask('publish', ['asciify:dist', 'build-process', 'publish-process']);
+
     grunt.registerTask('default', ['build', 'test']);
 
 };

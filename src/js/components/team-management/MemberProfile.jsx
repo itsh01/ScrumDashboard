@@ -8,12 +8,12 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
                 team: React.PropTypes.object
             },
             contextTypes: {
-                newFlux: React.PropTypes.any
+                flux: React.PropTypes.any
             },
             mixins: [DragDropMixin],
 
             componentDidMount: function () {
-                this.flux = this.context.newFlux;
+                this.flux = this.context.flux;
             },
 
             dragDrop: function () {

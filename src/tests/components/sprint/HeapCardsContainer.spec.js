@@ -47,7 +47,7 @@ define([
                 heapContainerReactElement, heapReactElement, heapReactComponent, cardReactComponents;
 
             beforeEach(function () {
-                var StubbedContextClass = stubbedContextHandler(HeapCardsContainer, {flux: stubFlux, newFlux: stubFlux});
+                var StubbedContextClass = stubbedContextHandler(HeapCardsContainer, {flux: stubFlux});
 
                 heapReactElement = React.createElement(StubbedContextClass, props);
                 heapContainerReactElement = testUtils.renderIntoDocument(heapReactElement);

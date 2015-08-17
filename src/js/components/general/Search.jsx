@@ -6,7 +6,8 @@ define(['../../../vendor/lodash', 'React'],
                 <li
                     onClick={this.changeExistingMember.bind(null, member)}
                     className='matched-member'
-                    key={member.id}>
+                    key={member.id}
+                    data-id={member.id}>
                     {createMatchedMemberName(member, this.state.searchStr)}
                 </li>
             );
@@ -41,7 +42,7 @@ define(['../../../vendor/lodash', 'React'],
 
             },
             contextTypes: {
-                newFlux: React.PropTypes.any
+                flux: React.PropTypes.any
             },
 
             getInitialState: function () {
@@ -55,7 +56,7 @@ define(['../../../vendor/lodash', 'React'],
                 }
             },
             changeExistingMember: function (member) {
-                this.context.newFlux.teamsActions.changeExistingMemberId(member.id);
+                this.context.flux.teamsActions.changeExistingMemberId(member.id);
                 this.setMatchedItemContainerVisibility(0);
                 this.refs.searchInput.getDOMNode().value = member.name;
 

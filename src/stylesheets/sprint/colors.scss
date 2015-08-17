@@ -1,0 +1,29 @@
+$white: #FFF;
+$light-gray: #F0F0F0;
+$gray: #D0D0D0;
+$dark-gray: #404040;
+$black: #000;
+
+
+.board .table-cell {
+    border-color: $white;
+    background-color: $light-gray;
+    color: $dark-gray;
+}
+
+.board .table-heading {
+    border-color: $white;
+    background-color: $gray;
+    color: $black;
+}
+
+.cards-container-heap-size {
+    opacity: 0;
+}
+
+.cards-container-heap-size:hover {
+    opacity: 0.8;
+    background-color: $black;
+    color: $gray;
+}
+

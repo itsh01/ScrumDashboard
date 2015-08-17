@@ -8,11 +8,11 @@ define(['lodash', 'React', '../general/Search'], function (_, React, SearchMembe
             team: React.PropTypes.object
         },
         contextTypes: {
-            newFlux: React.PropTypes.any
+            flux: React.PropTypes.any
         },
 
         getInitialState: function () {
-            this.flux = this.context.newFlux;
+            this.flux = this.context.flux;
             return {
                 currentTeamMembers: this.getTeamMembers()
             };

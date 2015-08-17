@@ -1,4 +1,4 @@
-define(['React', 'components/team/BoardView', 'stubContext', 'stores/refactor/flux'],
+define(['React', 'components/team/BoardView', 'stubContext', 'flux/flux'],
     function (React, BoardView, stubContext, Flux) {
         'use strict';
 
@@ -15,7 +15,7 @@ define(['React', 'components/team/BoardView', 'stubContext', 'stores/refactor/fl
                     localStorage.clear();
                     reactTestUtils = React.addons.TestUtils;
                     flux = new Flux();
-                    BoardViewWithContext = stubContext(BoardView, {newFlux: flux});
+                    BoardViewWithContext = stubContext(BoardView, {flux: flux});
                     instance = React.createElement(BoardViewWithContext, {});
                     comp = reactTestUtils.renderIntoDocument(instance);
                     spyOn(flux.teamsActions, 'changeCurrentSprintId').and.returnValue({});
@@ -47,7 +47,7 @@ define(['React', 'components/team/BoardView', 'stubContext', 'stores/refactor/fl
                     reactTestUtils = React.addons.TestUtils;
                     flux = new Flux();
                     spyOn(flux.teamsStore, 'getCurrentTeam').and.returnValue({});
-                    BoardViewWithContext = stubContext(BoardView, {newFlux: flux});
+                    BoardViewWithContext = stubContext(BoardView, {flux: flux});
                     instance = React.createElement(BoardViewWithContext, {});
                     comp = reactTestUtils.renderIntoDocument(instance);
                 });

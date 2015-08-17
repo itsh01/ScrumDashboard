@@ -1,0 +1,126 @@
+
+$white: #FFF;
+$grey: #999;
+$black: #000;
+
+$light-green: #3CFC8F;
+$light-red: #F14B4B;
+$light-blue: #E2E2FF;
+
+$grey-grandient-start: #F0F0F0;
+$grey-grandient-end: #D0D0D0;
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.home-view-container {
+    clear: both;
+}
+
+.arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    margin: 20px;
+}
+
+.arrow:hover {
+    cursor: pointer;
+}
+
+.backwards {
+    border-width: 10px 20px 10px 0;
+    border-color: transparent $black transparent transparent;
+}
+
+.forward {
+    border-width: 10px 0 10px 20px;
+    border-color: transparent transparent transparent $black;
+}
+
+.home-view-buttons-container {
+    text-align: center;
+}
+
+.home-view-button {
+    background-image: linear-gradient(to bottom, $grey-grandient-start, $grey-grandient-end);
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 3px;
+}
+
+.home-view-button:hover {
+    background: $light-green;
+    text-decoration: none;
+}
+
+.edit-sprint {
+    display: block;
+    margin: 0 auto;
+    width: 40rem;
+    border: 1px solid $black;
+    padding: 2rem;
+    margin-top: 1rem;
+}
+
+.combo-box-list {
+    list-style: none;
+    padding: 0;
+    width: 8rem;
+    border: $grey 1px solid;
+    margin: 0;
+    transition: 0.3s linear all;
+}
+
+.combo-box-item {
+    background: $white;
+    padding: 0.1rem 0.5rem;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: $white 2px solid;
+}
+
+.combo-box-item:hover {
+    background-color: $light-blue;
+}
+
+.delete-phase {
+    float: right;
+    color: $white;
+    background-color: $light-red;
+    padding: 0.1rem 0.33rem;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+
+.input-section {
+    margin: 1rem;
+}
+
+.input-section-label {
+    display: inline-block;
+    min-width: 11rem;
+    vertical-align: top;
+    margin-bottom: 0.5rem;
+}
+
+.input-section-field {
+    display: inline-block;
+}
+
+.input-checkbox {
+    display: block;
+}
+
+.sprint-dates {
+    width: 8rem;
+    margin: 0 auto;
+}

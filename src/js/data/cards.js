@@ -8,7 +8,7 @@ define([], function () {
             "score": 3,
             "team": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
             "assignee": '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
-            "startDate": null,
+            "startDate": '2015-08-23',
             "endDate": null
         },
         {
@@ -74,8 +74,8 @@ define([], function () {
             "score": 3,
             "team": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
             "assignee": "cba60761-a30a-4c07-8e3c-1bef60a5d873",
-            "startDate": null,
-            "endDate": null
+            "startDate": '2015-08-23',
+            "endDate": '2015-08-30'
         },
         {
             "id": "99e99e7a-2168-4725-89d6-d79653427b51",
@@ -96,8 +96,8 @@ define([], function () {
             "score": 3,
             "team": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
             "assignee": '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
-            "startDate": null,
-            "endDate": null
+            "startDate": '2015-08-23',
+            "endDate": '2015-08-30'
         },
         {
             "id": "d6498474-f1d9-4077-8cd7-1f7596bbc218",
@@ -107,7 +107,7 @@ define([], function () {
             "score": 2,
             "team": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
             "assignee": "63388982-b3b9-479e-9b76-d7a979ad8606",
-            "startDate": null,
+            "startDate": '2015-08-23',
             "endDate": null
         },
         {
@@ -118,8 +118,8 @@ define([], function () {
             "score": 5,
             "team": "1f7a4375-e7db-4798-969e-17325acde499",
             "assignee": '061804a2-1f93-40e1-bf49-57b82e5b568b',
-            "startDate": null,
-            "endDate": null
+            "startDate": '2015-08-24',
+            "endDate": '2015-08-31'
         },
         {
             "id": "129fe31a-2d76-4d08-9c44-636e8c88b967",
@@ -129,8 +129,8 @@ define([], function () {
             "score": 2,
             "team": "1f7a4375-e7db-4798-969e-17325acde499",
             "assignee": '061804a2-1f93-40e1-bf49-57b82e5b568b',
-            "startDate": null,
-            "endDate": null
+            "startDate": '2015-08-15',
+            "endDate": '2015-08-30'
         },
         {
             "id": "1f879632-415c-473f-a4c6-6282a659b61a",
@@ -162,8 +162,8 @@ define([], function () {
             "score": 8,
             "team": "1f7a4375-e7db-4798-969e-17325acde499",
             "assignee": "0e8b324c-d49a-474d-8af4-f93bcc6a1511",
-            "startDate": null,
-            "endDate": null
+            "startDate": '2015-08-08',
+            "endDate": '2015-08-23'
         }
     ]
 });

@@ -15,15 +15,15 @@ define([
             },
 
             contextTypes: {
-                newFlux: React.PropTypes.any
+                flux: React.PropTypes.any
 
             },
 
             render: function () {
                 //var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
-                var teamCards = this.context.newFlux.cardsStore.getTeamCards(this.props.teamId);
+                var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
                 //var CompanyCards = this.context.flux.cardsStore.getCompanyCards();
-                var CompanyCards = this.context.newFlux.cardsStore.getCompanyCards();
+                var CompanyCards = this.context.flux.cardsStore.getCompanyCards();
 
                 teamCards = _.filter(teamCards, function (card) {
                     return card.status === 'unassigned';

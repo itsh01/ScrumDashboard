@@ -12,10 +12,11 @@ define([
             propTypes: {
                 cardLifecycle: React.PropTypes.array,
                 retro: React.PropTypes.array,
+                sprintId: React.PropTypes.string,
                 sprintMembers: React.PropTypes.array
             },
             contextTypes: {
-                newFlux: React.PropTypes.any
+                flux: React.PropTypes.any
             },
             mixins: [HistoryMixin],
             getDefaultProps: function () {
@@ -35,7 +36,7 @@ define([
                     cards = _.map(retro, this.mapHistoryToCards);
                 } else {
                     _.forEach(this.props.sprintMembers, function (memberId) {
-                        cards = cards.concat(this.context.newFlux.cardsStore.getUserCards(memberId));
+                        cards = cards.concat(this.context.flux.teamsStore.getMemberCardsInSprint(memberId, this.props.sprintId));
                     }, this);
                 }
                 return cards;

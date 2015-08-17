@@ -17,7 +17,7 @@ define([
             },
 
             contextTypes: {
-                newFlux: React.PropTypes.any
+                flux: React.PropTypes.any
             },
 
             childContextTypes: {
@@ -45,7 +45,8 @@ define([
                     <Velocity
                         cardLifecycle={sprint.cardLifecycle}
                         sprintMembers={sprint.members}
-                        retro={sprint.retroCardsStatus}/>
+                        retro={sprint.retroCardsStatus}
+                        sprintId={sprint.id}/>
                 </div>);
             }
         });

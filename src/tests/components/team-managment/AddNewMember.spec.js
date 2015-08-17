@@ -1,4 +1,4 @@
-define(['React', 'stores/refactor/flux', 'constants', 'stubContext', 'components/team-management/AddNewMember'],
+define(['React', 'flux/flux', 'constants', 'stubContext', 'components/team-management/AddNewMember'],
     function (React, Flux, constants, stubContext, AddNewMember) {
         'use strict';
         var comp;
@@ -93,7 +93,7 @@ define(['React', 'stores/refactor/flux', 'constants', 'stubContext', 'components
             beforeEach(function () {
                 localStorage.clear();
                 flux = new Flux();
-                var AddNewMemberWithContext = stubContext(AddNewMember, {newFlux: flux, blankMemberSchema: flux.membersStore.getBlankMember()});
+                var AddNewMemberWithContext = stubContext(AddNewMember, {flux: flux, blankMemberSchema: flux.membersStore.getBlankMember()});
                 var instance = React.createElement(AddNewMemberWithContext, mockProps);
                 var wrappedElement = reactTestUtils.renderIntoDocument(instance).getWrappedElement();
                 comp = reactTestUtils.renderIntoDocument(wrappedElement);

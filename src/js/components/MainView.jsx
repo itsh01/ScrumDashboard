@@ -8,7 +8,7 @@ define(['lodash',
         'components/pop-up/Basic',
         'components/card-edit/CardEditCreate',
 
-        'stores/refactor/flux'],
+        '../flux/flux'],
 
     function (_,
               React,
@@ -17,7 +17,7 @@ define(['lodash',
               TeamManagement,
               Popup,
               CardEditCreate,
-              NewFlux) {
+              Flux) {
 
         'use strict';
 
@@ -25,11 +25,11 @@ define(['lodash',
             displayName: 'MainView',
 
             childContextTypes: {
-                newFlux: React.PropTypes.any
+                flux: React.PropTypes.any
             },
 
             getInitialState: function () {
-                this.newFlux = new NewFlux();
+                this.flux = new Flux();
                 return {
                     view: 'BoardView'
                 };
@@ -37,22 +37,22 @@ define(['lodash',
 
             getChildContext: function () {
                 return {
-                    newFlux: this.newFlux
+                    flux: this.flux
                 };
             },
 
             componentDidMount: function () {
-                this.newFlux.cardsStore.addChangeListener(this._onChange);
-                this.newFlux.teamsStore.addChangeListener(this._onChange);
-                this.newFlux.membersStore.addChangeListener(this._onChange);
-                this.newFlux.planningStore.addChangeListener(this._onChange);
+                this.flux.cardsStore.addChangeListener(this._onChange);
+                this.flux.teamsStore.addChangeListener(this._onChange);
+                this.flux.membersStore.addChangeListener(this._onChange);
+                this.flux.planningStore.addChangeListener(this._onChange);
             },
 
             componentWillUnmount: function () {
-                this.newFlux.cardsStore.removeChangeListener(this._onChange);
-                this.newFlux.teamsStore.removeChangeListener(this._onChange);
-                this.newFlux.membersStore.removeChangeListener(this._onChange);
-                this.newFlux.planningStore.removeChangeListener(this._onChange);
+                this.flux.cardsStore.removeChangeListener(this._onChange);
+                this.flux.teamsStore.removeChangeListener(this._onChange);
+                this.flux.membersStore.removeChangeListener(this._onChange);
+                this.flux.planningStore.removeChangeListener(this._onChange);
             },
 
             views: {
@@ -69,7 +69,7 @@ define(['lodash',
             getTeams: function () {
                 //return this.context.flux.teamsStore.getAllActiveTeams();
 
-                return this.newFlux.teamsStore.getAllActiveTeams();
+                return this.flux.teamsStore.getAllActiveTeams();
             },
 
             clearStorage: function () {
@@ -77,9 +77,9 @@ define(['lodash',
             },
 
             handleChangeTeam: function (e) {
-                this.newFlux.teamsActions.changeCurrentTeamId(e.target.value);
-                var team = this.newFlux.teamsStore.getTeamById(e.target.value);
-                this.newFlux.teamsActions.changeCurrentSprintId(team.sprints[team.sprints.length - 1].id);
+                this.flux.teamsActions.changeCurrentTeamId(e.target.value);
+                var team = this.flux.teamsStore.getTeamById(e.target.value);
+                this.flux.teamsActions.changeCurrentSprintId(team.sprints[team.sprints.length - 1].id);
             },
 
             getViewComponent: function () {
@@ -108,28 +108,28 @@ define(['lodash',
 
             getOption: function (teamId, teamName) {
                 //if (this.context.flux.teamsStore.getCurrentTeam().id === teamId) {
-                if (this.newFlux.teamsStore.getCurrentTeam().id === teamId) {
+                if (this.flux.teamsStore.getCurrentTeam().id === teamId) {
                     return (<option value={teamId} key={teamId} selected>{teamName}</option>);
                 }
                 return (<option value={teamId} key={teamId}>{teamName}</option>);
             },
 
             popUpFactory: function () {
-                if (!this.newFlux.planningStore.getIsAddingOrEditingCard()) {
+                if (!this.flux.planningStore.getIsAddingOrEditingCard()) {
                     return null;
                 }
 
                 var isCreating = false;
-                var currCard = this.newFlux.planningStore.getCurrentCard();
+                var currCard = this.flux.planningStore.getCurrentCard();
                 if (!currCard) {
-                    currCard = this.newFlux.cardsStore.getBlankCard();
+                    currCard = this.flux.cardsStore.getBlankCard();
                     isCreating = true;
                 }
 
-                var currSprint = this.newFlux.teamsStore.getCurrentSprint();
+                var currSprint = this.flux.teamsStore.getCurrentSprint();
                 var currSprintMembers = currSprint.members;
-                currSprintMembers = this.newFlux.membersStore.getMembersByIdList(currSprintMembers);
-                var allTeams = this.newFlux.teamsStore.getAllActiveTeams();
+                currSprintMembers = this.flux.membersStore.getMembersByIdList(currSprintMembers);
+                var allTeams = this.flux.teamsStore.getAllActiveTeams();
                 var sprintLifeCycle = currSprint.cardLifecycle;
 
                 return (

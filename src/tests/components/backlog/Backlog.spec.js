@@ -1,9 +1,9 @@
 define([
-        'react',
+        'React',
         'stubContext',
         'components/backlog/Backlog',
         'components/backlog/CardsList',
-        'stores/refactor/flux'
+        'flux/flux'
     ],
     function (React, stubContext, Backlog, CardsList, Flux) {
         'use strict';
@@ -17,7 +17,7 @@ define([
                 beforeEach(function () {
                     window.localStorage.clear();
 
-                    BacklogWithContext = stubContext(Backlog, {newFlux: new Flux()});
+                    BacklogWithContext = stubContext(Backlog, {flux: new Flux()});
                     var instance = React.createElement(BacklogWithContext, {teamId: '2d2d8f82-0b6a-404a-9c08-929cfe3de079'});
                     var wrappedElement = React.addons.TestUtils.renderIntoDocument(instance).getWrappedElement();
                     backlogComp = React.addons.TestUtils.renderIntoDocument(wrappedElement);
@@ -46,7 +46,7 @@ define([
                 beforeEach(function () {
                     window.localStorage.clear();
 
-                    CardsListWithContext = stubContext(CardsList, {newFlux: new Flux()});
+                    CardsListWithContext = stubContext(CardsList, {flux: new Flux()});
                     var instance = React.createElement(CardsListWithContext, {cardsList: mockList});
                     var wrappedElement = React.addons.TestUtils.renderIntoDocument(instance).getWrappedElement();
                     CardsListComp = React.addons.TestUtils.renderIntoDocument(wrappedElement);
@@ -57,14 +57,14 @@ define([
                     expect(CardsListComp).toBeDefined();
                 });
 
-                //it('should call addNewCard() when click on plus (empty state) img', function () {
-                //    spyOn(CardsListComp.context.flux.dispatcher, 'dispatchAction').and.stub();
-                //
-                //    var node = React.findDOMNode(CardsListComp.refs.plusAddButton);
-                //    React.addons.TestUtils.Simulate.click(node);
-                //
-                //    expect(CardsListComp.context.flux.dispatcher.dispatchAction).toHaveBeenCalled();
-                //});
+                it('should call addNewCard() when click on plus (empty state) img', function () {
+                    spyOn(CardsListComp.context.flux.planningActions, 'planningAddCard').and.stub();
+
+                    var node = React.findDOMNode(CardsListComp.refs.plusAddButton);
+                    React.addons.TestUtils.Simulate.click(node);
+
+                    expect(CardsListComp.context.flux.planningActions.planningAddCard).toHaveBeenCalled();
+                });
 
 
             });

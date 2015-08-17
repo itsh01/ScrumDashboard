@@ -14,7 +14,7 @@ define([
             },
 
             contextTypes: {
-                newFlux: React.PropTypes.any
+                flux: React.PropTypes.any
             },
 
             saveCard: function () {
@@ -22,15 +22,15 @@ define([
                     return;
                 }
                 if (this.props.isCreating) {
-                    this.context.newFlux.cardsActions.addCard(this.props.card);
+                    this.context.flux.cardsActions.addCard(this.props.card);
                 } else {
-                    this.context.newFlux.cardsActions.updateCard(this.props.card.id, this.props.card);
+                    this.context.flux.cardsActions.updateCard(this.props.card.id, this.props.card);
                 }
                 this.requireClosePopup();
             },
 
             requireClosePopup: function () {
-                this.context.newFlux.planningActions.planningDoneAddingCard();
+                this.context.flux.planningActions.planningDoneAddingCard();
             },
 
             render: function () {
