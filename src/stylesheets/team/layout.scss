@@ -53,10 +53,11 @@
 .combo-box-list {
     list-style: none;
     padding: 0;
-    width: 8rem;
+    width: 9rem;
     border: $grey 1px solid;
     margin: 0;
     transition: 0.3s linear all;
+    color: $black;
 }
 
 .combo-box-item {
@@ -94,6 +95,10 @@
 
 .input-section-field {
     display: inline-block;
+
+    [type='text'] {
+        width: 9.4rem;
+    }
 }
 
 .input-checkbox {
