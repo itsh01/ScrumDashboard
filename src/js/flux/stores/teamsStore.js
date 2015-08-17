@@ -103,8 +103,8 @@ define([
                         return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate);
                     }
                     var cardEndDate = new Date(card.endDate);
-                    return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate)
-                        || helpers.onSegment(sprintStartDate, sprintEndDate, cardEndDate);
+                    return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate) ||
+                           helpers.onSegment(sprintStartDate, sprintEndDate, cardEndDate);
                 });
                 return membersCardsInSprint;
             };
@@ -327,10 +327,6 @@ define([
 
             function restoreFromLocalStorage() {
                 return helpers.restoreFromLocalStorage('teams');
-            }
-
-            function removeFromLocalStorage() {
-                helpers.removeFromLocalStorage('teams');
             }
 
             function resetCurrentSprintIdIfInvalid() {

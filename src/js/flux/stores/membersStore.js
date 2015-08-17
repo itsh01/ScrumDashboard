@@ -131,9 +131,6 @@ define([
                 return helpers.restoreFromLocalStorage('members');
             }
 
-            function removeFromLocalStorage() {
-                helpers.removeFromLocalStorage('members');
-            }
         }
 
         return MembersStore;

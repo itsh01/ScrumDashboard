@@ -107,16 +107,12 @@ module.exports = function (grunt) {
         },
         eslint: {
             src: [
-                'src/js/**/*.jsx',
-                'src/js/stores/**/*.js',
-                '!src/js/stores/**/baseFlux.js',
-                'src/js/mixins/*.js',
-                '!src/js/data/*',
-                '!src/js/playground.*',
-                'Gruntfile.js',
-                'src/js/main.jsx',
-                'src/js/constants.js',
-                'src/tests/**/*.js'
+                'src/js/**/*.*',
+                'src/tests/**/*.js',
+                '!src/js/**/baseFlux.js',
+                '!src/js/data/**',
+                '!src/js/plugins/**',
+                'Gruntfile.js'
             ]
         },
         babel: {

@@ -1,3 +1,4 @@
+'use strict';
 module.exports = function (config) {
     var configuration = {
 
@@ -71,7 +72,7 @@ module.exports = function (config) {
 
     };
 
-    if(process.env.TRAVIS){
+    if (process.env.TRAVIS) {
         configuration.browsers = ['Chrome_travis_ci'];
     }
 
