@@ -43,8 +43,35 @@ define([
                 });
             });
 
+            describe('add card tests', function () {
+                var comp, mockTeams, mockMembers;
+                beforeEach(function () {
+                    mockTeams = [{id: '1', name: '1'}, {id: '2', name: '2'}];
+                    mockMembers = [{id: '5', name: '1'}, {id: '6', name: '2'}];
+                    var currSprintMembers = mockMembers;
+                    var props = {
+                        card: {status: 'unassigned'},
+                        isCreating: true,
+                        currSprintMembers: currSprintMembers,
+                        allTeams: mockTeams,
+                        sprintLifeCycle: []
+                    };
+                    var t = React.createElement(CardEditCreate, props);
+                    comp = React.addons.TestUtils.renderIntoDocument(t);
+                });
+
+                it('should show assignee iff there is a team', function () {
+                    var teamSelect = React.findDOMNode(comp.refs.team);
+
+                    expect(comp.refs.assignee).toBeUndefined();
+                    React.addons.TestUtils.Simulate.change(teamSelect, {target: {value: mockTeams[0].id}});
+                    expect(comp.state.team).toEqual(mockTeams[0].id);
+                    expect(comp.refs.assignee).toBeDefined();
+                });
+            });
+
             describe('edit card tests', function () {
-                var mockCard, comp;
+                var mockCard, comp, mockTeams;
                 beforeEach(function () {
                     mockCard = {
                         id: 'b97fff13-de90-4e1f-abb7-39f786d11450',
@@ -52,14 +79,18 @@ define([
                         description: 'description',
                         score: 1
                     };
+                    /*eslint-disable*/
+                    mockTeams = [{id: '1', value: '1'}, {id: '2', value: '2'}];
+                    /*eslint-enable*/
                     flux = new Flux();
                     spyOn(flux.planningStore, 'getCurrentCard').and.returnValue(mockCard);
                     spyOn(flux.teamsStore, 'getAllActiveTeams')
-                        .and.returnValue([
-                            {id: 1, name: 'team1'},
-                            {id: 2, name: 'team2'}
-                        ]);
-                    comp = initComponent({card: mockCard, isCreating: false});
+                        .and.returnValue(mockTeams);
+                    comp = initComponent({
+                        card: mockCard,
+                        isCreating: false,
+                        allTeams: mockTeams
+                    });
 
                 });
 
@@ -82,12 +113,11 @@ define([
                 });
 
                 it('should set state "team" on selection change', function () {
-                    //comp.setState({team:'t'});
-                    //var rend = React.addons.TestUtils.scryRenderedDOMComponentsWithTag(comp, 'select');
-                    //var teamSelect = _.filter(rend, function (select) {
-                    //    return select.props.value === 'team'
-                    //});
-                    //expect(teamSelect.length).toEqual(1);
+                    var teamSelect = React.findDOMNode(comp.refs.team);
+                    expect(comp.refs.assignee).toBeUndefined();
+                    React.addons.TestUtils.Simulate.change(teamSelect, {target: {value: mockTeams[0].id}});
+                    expect(comp.state.team).toEqual(mockTeams[0].id);
+                    //expect(comp.refs.assignee).toBeDefined();
                 });
             });
 
