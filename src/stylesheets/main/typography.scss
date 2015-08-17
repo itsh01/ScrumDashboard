@@ -1,8 +1,25 @@
 
 @import url(http://fonts.googleapis.com/css?family=Oxygen:400,300,700);
+@import url(http://fonts.googleapis.com/css?family=Gloria+Hallelujah);
+
+$white: #FFF;
+$green: #627D4D;
+$dark-green: #1F3B08;
+
+@mixin radial-gradient ($from, $to) {
+    background: -webkit-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: -moz-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: -ms-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: -o-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+}
 
 body {
-    font-family: 'Oxygen', Tahoma, sans-serif;
+    @include radial-gradient($green, $dark-green);
+
+    font-family: 'Gloria Hallelujah', Tahoma, sans-serif;
+    color: $white;
+
 }
 
 .text-center {
