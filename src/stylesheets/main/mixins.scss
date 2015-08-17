@@ -47,3 +47,11 @@
     padding: 0.5rem 2rem;
     font-size: 1rem;
 }
+
+@mixin btn-xs ($bg, $hover, $text) {
+    @include btn($bg, $hover, $text);
+
+    line-height: 1;
+    padding: 0.3rem;
+    font-size: 0.6rem;
+}

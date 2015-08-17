@@ -43,12 +43,10 @@
 }
 
 .card-btn-edit {
+    @include btn-xs ($none-color, $none-color-hover, $black);
     visibility: hidden;
-    background-image: linear-gradient(to bottom, $btn-grad-start, $btn-grad-end);
     position: absolute;
     bottom: 2px;
-    padding: 1px 10px;
-    border-radius: 5px;
 }
 
 .card-editable .card-btn-edit {
