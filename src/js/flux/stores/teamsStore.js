@@ -243,7 +243,7 @@ define([
                     cards = cards.concat(this.getMemberCardsInSprint(memberId, sprint.id));
                 }.bind(this));
                 _.forEach(cards, function (card) {
-                    if (card.status === 'Done') {
+                    if (card.status === sprint.cardLifecycle[sprint.cardLifecycle.length - 1]) {
                         card.endDate = sprint.endDate;
                     }
                 });
