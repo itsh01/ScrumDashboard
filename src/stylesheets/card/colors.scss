@@ -1,53 +1,52 @@
 @import '../main/global';
 
 
-
 .card-1 {
-    background-color: $light-yellow;
+    background-color: $card1;
 }
 
 .card-1:hover {
-    background-color: $light-yellow-hover;
+    background-color: darken($card1, 10%);
 }
 
 .card-2 {
-    background-color: $dark-yellow;
+    background-color: $card2;
 }
 
 .card-2:hover {
-    background-color: $dark-yellow-hover;
+    background-color: darken($card2, 10%);
 }
 
 .card-3 {
-    background-color: $orange;
+    background-color: $card3;
 }
 
 .card-3:hover {
-    background-color: $orange-hover;
+    background-color:darken($card3, 10%);
 }
 
 .card-5 {
-    background-color: $light-blue;
+    background-color: $card5;
 }
 
 .card-5:hover {
-    background-color: $light-blue-hover;
+    background-color: darken($card5, 10%);
 }
 
 .card-8 {
-    background-color: $purple;
+    background-color: $card8;
 }
 
 .card-8:hover {
-    background-color: $purple-hover;
+    background-color: darken($card8, 10%);
 }
 
 .card-13 {
-    background-color: $red;
+    background-color: $card13;
 }
 
 .card-13:hover {
-    background-color: $red-hover;
+    background-color: darken($card13, 10%);
 }
 
 .card-none {
@@ -55,7 +54,7 @@
 }
 
 .card-none:hover {
-    background-color: $none-color-hover;
+    background-color: darken($none-color, 10%);
 }
 
 .card {
