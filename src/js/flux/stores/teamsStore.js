@@ -191,10 +191,36 @@ define([
                 return getSprintById(sprintId);
             }
 
+            this.getMemberCardsInSprint = function (memberId, sprintId) {
+                var sprint = getSprintById(sprintId),
+                    memberCards = getUserCards(memberId),
+                    sprintStartDate = new Date(sprint.startDate),
+                    sprintEndDate = new Date(sprint.endDate);
+
+                var membersCardsInSprint = _.filter(memberCards, function (card) {
+                    if (card.startDate === null) {
+                        return true;
+                    }
+                    var cardStartDate = new Date(card.startDate);
+                    if (card.endDate === null) {
+                        return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate);
+                    }
+                    var cardEndDate = new Date(card.endDate);
+                    return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate)
+                        || helpers.onSegment(sprintStartDate, sprintEndDate, cardEndDate);
+                });
+                return membersCardsInSprint;
+            };
+
             function setRetroCardsStatus(sprint) {
                 var cards = [];
                 _.forEach(sprint.members, function (memberId) {
-                    cards = cards.concat(getUserCards(memberId));
+                    cards = cards.concat(this.getMemberCardsInSprint(memberId, sprint.id));
+                }.bind(this));
+                _.forEach(cards, function (card) {
+                    if (card.status === 'Done') {
+                        card.endDate = sprint.endDate;
+                    }
                 });
                 sprint.retroCardsStatus = [];
                 _.forEach(cards, function (card) {
@@ -218,18 +244,15 @@ define([
                 return true;
             }
 
-            // teamId is an optional argument
+            // arguments are optional
             function retrofySprint(sprintId, teamId) {
+                sprintId = sprintId || currentViewState.currentSprintId;
                 var sprint = getSprint(sprintId, teamId);
                 if (!validateSprintBeforeMovingToNextState(sprint, sprintId)) {
                     return;
                 }
-                setRetroCardsStatus(sprint);
+                setRetroCardsStatus.call(this, sprint);
                 sprint.state = constants.SPRINT_STATUS.RETRO;
-            }
-
-            function retrofyCurrentSprint() {
-                retrofySprint(currentViewState.currentSprintId);
             }
 
             // teamId is an optional argument
@@ -241,7 +264,7 @@ define([
                 }
                 sprint.state++;
                 if (sprint.state === constants.SPRINT_STATUS.RETRO) {
-                    setRetroCardsStatus(sprint);
+                    setRetroCardsStatus.call(this, sprint);
                 }
             }
 
@@ -307,7 +330,7 @@ define([
 
             this.getCurrentSprint = function () {
                 var currTeam = this.getCurrentTeam();
-                if (!currTeam.id ){//|| currTeam.sprints.length < 1) {
+                if (!currTeam.id) {//|| currTeam.sprints.length < 1) {
                     return {};
                 }
                 resetCurrentSprintIdIfInvalid.call(this);
@@ -359,7 +382,7 @@ define([
                 {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSprint},
                 {name: constants.actionNames.CHANGE_EXISTING_MEMBER_ID, callback: changeExistingMemberId},
-                {name: constants.actionNames.RETROFY_CURRENT_SPRINT, callback: retrofyCurrentSprint},
+                {name: constants.actionNames.RETROFY_CURRENT_SPRINT, callback: retrofySprint},
                 {name: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, callback: addSprintToCurrentTeam}
             ];
 

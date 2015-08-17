@@ -87,6 +87,10 @@ define(['lodash'], function (_) {
         return true;
     }
 
+    function onSegment(startCoordinate, endCoordinate, coordinateToCheck) {
+        return (coordinateToCheck >= startCoordinate && coordinateToCheck <= endCoordinate);
+    }
+
     return {
         saveToLocalStorage: saveToLocalStorage,
         restoreFromLocalStorage: restoreFromLocalStorage,
@@ -94,7 +98,8 @@ define(['lodash'], function (_) {
         generateGuid: generateGuid,
         isValidValue: isValidValue,
         getBlankItem: getBlankItem,
-        updateItem: updateItem
+        updateItem: updateItem,
+        onSegment: onSegment
     };
 })
 ;
