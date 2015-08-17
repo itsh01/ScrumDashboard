@@ -157,10 +157,6 @@ define([
                 return helpers.restoreFromLocalStorage('cards');
             }
 
-            function removeFromLocalStorage() {
-                helpers.removeFromLocalStorage('cards');
-            }
-
         }
 
         return CardsStore;
