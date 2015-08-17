@@ -19,7 +19,7 @@ define([
                     endDate: {type: 'string'},
                     cardLifecycle: {type: 'string-array', defaultValue: ['Backlog', 'In progress', 'Done']},
                     members: {type: 'string-array', defaultValue: []},
-                    retroCardsStatus: {type: 'object'},
+                    retroCardsStatus: {type: 'object', defaultValue: {}},
                     state: {type: 'number', defaultValue: 0}
                 },
                 TEAM_SCHEMA = {
@@ -133,11 +133,11 @@ define([
                     sprintEndDate = new Date(sprint.endDate);
 
                 var membersCardsInSprint = _.filter(memberCards, function (card) {
-                    if (card.startDate === null) {
+                    if (card.startDate === undefined) {
                         return true;
                     }
                     var cardStartDate = new Date(card.startDate);
-                    if (card.endDate === null) {
+                    if (card.endDate === undefined) {
                         return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate);
                     }
                     var cardEndDate = new Date(card.endDate);
