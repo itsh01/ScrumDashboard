@@ -14,12 +14,15 @@ define([
             contextTypes: {
                 flux: React.PropTypes.any
             },
+
             createSprintMemberRow: function (sprint, member) {
                 return member ? (<SprintMemberRow
                     retro={sprint.retroCardsStatus}
                     cardLifecycle={sprint.cardLifecycle}
                     key={member.id}
-                    member={member}/>
+                    member={member}
+                    sprintStartDate={sprint.startDate}
+                    sprintEndDate={sprint.endDate}/>
                 ) : null;
             },
             render: function () {

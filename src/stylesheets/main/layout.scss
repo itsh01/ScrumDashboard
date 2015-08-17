@@ -1,5 +1,7 @@
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     text-align: center;
     margin: 10px 0;
 }
@@ -21,11 +23,12 @@ h1, h2, h3 {
     align-items: baseline;
     justify-content: space-around;
 }
-.inline-block{
+
+.inline-block {
     display: inline-block;
 }
 
-.hidden{
+.hidden {
     display: none;
 }
 
@@ -38,7 +41,7 @@ h1, h2, h3 {
     left: 0;
     bottom: 0;
     height: 1px;
-    content: "";
+    content: '';
     position: absolute;
     background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);
     background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, 0.3) 50%, transparent);

@@ -1,4 +1,12 @@
 linters:
+
+  BorderZero:
+    enabled: true
+    convention: none # or `zero`
+
+  Comment:
+    enabled: false
+
   Indentation:
     enabled: true
     allow_non_nested_indentation: false
@@ -18,7 +26,3 @@ linters:
   HexNotation:
     enabled: true
     style: uppercase # or 'lowercase'
-
-  BorderZero:
-    enabled: true
-    convention: none # or `zero`

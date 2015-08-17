@@ -14,7 +14,9 @@ define([
             propTypes: {
                 cardLifecycle: React.PropTypes.array,
                 member: React.PropTypes.object,
-                retro: React.PropTypes.array
+                retro: React.PropTypes.array,
+                sprintEndDate: React.PropTypes.string,
+                sprintStartDate: React.PropTypes.string
             },
 
             contextTypes: {
@@ -32,6 +34,27 @@ define([
             onChange: function () {
                 this.forceUpdate();
             },
+
+            filterCardsByDate: function (cards) {
+                function onSegment(startX, endX, x) {
+                    return (x >= startX && x <= endX);
+                }
+
+                var startDate = new Date(this.props.sprintStartDate).valueOf(),
+                    endDate = new Date(this.props.sprintEndDate).valueOf();
+                return _.filter(cards, function (card) {
+                    if (card.startDate === null) {
+                        return true;
+                    }
+                    var cardStartDate = new Date(card.startDate).valueOf();
+                    if (card.endDate === null) {
+                        return (cardStartDate >= startDate && cardStartDate <= endDate);
+                    }
+                    var cardEndDate = new Date(card.endDate).valueOf();
+                    return onSegment(startDate, endDate, cardStartDate) || onSegment(startDate, endDate, cardEndDate);
+                });
+            },
+
             getMemberCards: function (retro, memberId) {
                 var cards = [];
                 if (retro) {
@@ -44,6 +67,7 @@ define([
                 } else {
                     cards = this.context.flux.cardsStore.getUserCards(memberId);
                 }
+                cards = this.filterCardsByDate(cards);
                 return cards;
             },
             createCellByCard: function (cards) {

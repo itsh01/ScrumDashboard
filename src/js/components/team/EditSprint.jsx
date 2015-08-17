@@ -32,6 +32,8 @@ define([
                     var now = new Date();
                     now.setDate(now.getDate() + 7);
                     sprint.endDate = moment(now);
+                } else {
+                    sprint.endDate = moment(sprint.endDate);
                 }
             },
 
