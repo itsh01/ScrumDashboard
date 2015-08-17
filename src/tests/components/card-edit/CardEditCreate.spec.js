@@ -18,7 +18,7 @@ define([
             return result;
         }
 
-        fdescribe('CardEditCreate', function () {
+        describe('CardEditCreate', function () {
 
             beforeEach(function () {
                 localStorage.clear();
