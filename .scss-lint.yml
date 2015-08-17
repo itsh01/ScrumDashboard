@@ -8,3 +8,9 @@ linters:
   LeadingZero:
     enabled: true
     style: 'include_zero' # or 'exclude_zero'
+
+  PropertySortOrder:
+    enabled: false
+
+  VendorPrefix:
+    enabled: false
