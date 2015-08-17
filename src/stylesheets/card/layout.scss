@@ -1,6 +1,7 @@
 
 $btn-grad-start: #EE9090;
 $btn-grad-end: #DDA0A0;
+$light-black: #404040;
 
 .card {
     position: relative;
@@ -14,6 +15,8 @@ $btn-grad-end: #DDA0A0;
     margin: 1rem;
     cursor: pointer;
     transition: 0.5s linear all;
+    line-height: 1;
+    color: $light-black;
 }
 
 .card-points {
