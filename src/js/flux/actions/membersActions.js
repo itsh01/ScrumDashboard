@@ -4,7 +4,7 @@ define([
     function (constants) {
         'use strict';
 
-        function MembersActions(dispatcher, getLastMemberAdded) {
+        function MembersActions(dispatcher) {
 
             return {
                 addMember: function (newMemberData) {
