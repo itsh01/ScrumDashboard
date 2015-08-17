@@ -6,10 +6,6 @@ define([
     ],
     function (_, helpers, constants, Firebase) {
         'use strict';
-        var filterFunctions = {
-            //AllTeams: null,
-            AllActiveTeams: {active: true}
-        };
 
         function TeamStore(dispatcher, eventEmitter, waitForTokens, defaultTeamData, getUserCards) {
             this.getAllTeams = function () {
@@ -35,7 +31,7 @@ define([
                 teamsData = defaultTeamData,
                 teamsFirebaseRef = new Firebase("https://scrum-dashboard-1.firebaseio.com/teams"),
                 currentViewState;
-            
+
             if (dataFileVersion === localStorage.getItem('teamVersion')) {
                 teamsData = restoreFromLocalStorage();
             } else {
@@ -85,6 +81,11 @@ define([
                     saveToLocalStorage();
                     localStorage.setItem('teamVersion', dataFileVersion);
                 }
+
+                var filterFunctions = {
+                    //AllTeams: null,
+                    AllActiveTeams: {active: true}
+                };
 
                 _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                     this['get' + filterFuncName] = function () {
@@ -347,7 +348,7 @@ define([
                     team.active = false;
                     if (teamId === currentViewState.currentTeamId) {
                         var defaultTeamId = getDefaultTeamId.apply(this);
-                        changeCurrentTeamId(defaultTeamId);
+                        changeCurrentTeamId.call(this, defaultTeamId);
                     }
                     return true;
                 }
