@@ -6,10 +6,13 @@
 
 module.exports = function (grunt) {
 
+    var VENDOR_TARGET = 'src/vendor/';
+    var VENDOR_STYLE_TARGET = 'src/stylesheets/vendor/';
+
     grunt.initConfig({
         clean: {
             main: {
-                src: ['src/vendor/**/*']
+                src: [VENDOR_TARGET + '**/*']
             }
         },
         copy: {
@@ -17,54 +20,54 @@ module.exports = function (grunt) {
                 files: [
                     {
                         src: 'node_modules/requirejs/require.js',
-                        dest: 'src/vendor/require.js'
+                        dest: VENDOR_TARGET + 'require.js'
                     },
                     {
                         src: 'node_modules/lodash/index.js',
-                        dest: 'src/vendor/lodash.js'
+                        dest: VENDOR_TARGET + 'lodash.js'
                     },
                     {
                         src: 'node_modules/react/dist/react-with-addons.js',
-                        dest: 'src/vendor/react-with-addons.js'
+                        dest: VENDOR_TARGET + 'react-with-addons.js'
                     },
                     {
                         src: 'node_modules/react-dragdrop/dist/DragDropMixin.js',
-                        dest: 'src/vendor/DragDropMixin.js'
+                        dest: VENDOR_TARGET + 'DragDropMixin.js'
                     },
                     {
                         src: 'node_modules/react-datepicker/dist/react-datepicker.js',
-                        dest: 'src/vendor/DatePicker.js'
+                        dest: VENDOR_TARGET + 'DatePicker.js'
                     },
                     {
                         src: 'node_modules/react-datepicker/dist/react-datepicker.css',
-                        dest: 'src/stylesheets/vendor/date-picker.css'
+                        dest: VENDOR_STYLE_TARGET + 'date-picker.css'
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/tether/dist/js/tether.js',
-                        dest: 'src/vendor/tether.js'
+                        dest: VENDOR_TARGET + 'tether.js'
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/tether/dist/css/tether.css',
-                        dest: 'src/stylesheets/vendor/tether.css'
+                        dest: VENDOR_STYLE_TARGET + 'tether.css'
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/moment/moment.js',
-                        dest: 'src/vendor/moment.js'
+                        dest: VENDOR_TARGET + 'moment.js'
                     },
                     {
                         src: 'node_modules/react-datepicker/node_modules/react-onclickoutside/index.js',
-                        dest: 'src/vendor/react-onclickoutside.js'
+                        dest: VENDOR_TARGET + 'react-onclickoutside.js'
                     },
                     {
                         src: 'node_modules/eventemitter2/lib/eventemitter2.js',
-                        dest: 'src/vendor/eventemitter2.js'
+                        dest: VENDOR_TARGET + 'eventemitter2.js'
                     }
                 ]
             },
             build: {
                 files: [
                     {
-                        src: 'src/vendor/require.js',
+                        src: VENDOR_TARGET + 'require.js',
                         dest: 'build/vendor/require.js'
                     },
                     {
@@ -76,23 +79,11 @@ module.exports = function (grunt) {
                 ]
             }
         },
-        react: {
-            main: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: 'src/js/',
-                        src: ['**/*.jsx'],
-                        dest: 'src/js/',
-                        ext: '.js'
-                    }
-                ]
-            }
-        },
         eslint: {
             src: [
                 'src/js/**/*.jsx',
-                'src/js/stores/*.js',
+                'src/js/stores/**/*.js',
+                '!src/js/stores/**/baseFlux.js',
                 'src/js/mixins/*.js',
                 '!src/js/data/*',
                 '!src/js/playground.*',
@@ -129,8 +120,15 @@ module.exports = function (grunt) {
             src: ['src/stylesheets/*.css']
         },
         asciify: {
-            banner: {
+            build: {
                 text: 'Building...',
+                options: {
+                    font: 'doom',
+                    log: true
+                }
+            },
+            dist: {
+                text: 'Distributing...',
                 options: {
                     font: 'doom',
                     log: true
@@ -217,7 +215,7 @@ module.exports = function (grunt) {
             all: {
                 options: {
                     src: 'node_modules/react-stub-context/dist/index.js',
-                    dest: 'src/vendor/stubContext.js',
+                    dest: VENDOR_TARGET + 'stubContext.js',
                     objectToExport: 'stubContext',
                     amdModuleId: 'stubContext',
                     deps: {
@@ -225,6 +223,26 @@ module.exports = function (grunt) {
                         amd: ['react', 'require', 'exports', 'module']
                     }
                 }
+            }
+        },
+        sass: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/stylesheets',
+                    src: '**/*.scss',
+                    dest: 'src/stylesheets',
+                    ext: '.css'
+                }]
+            }
+        },
+        scsslint: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/stylesheets',
+                    src: ['*.scss']
+                }]
             }
         }
     });
@@ -236,9 +254,10 @@ module.exports = function (grunt) {
     require('jit-grunt')(grunt);
 
     grunt.registerTask('lint', ['eslint', 'csslint']);
-    grunt.registerTask('dev', ['asciify:banner', 'lint', 'babel', 'test']);
+    grunt.registerTask('compile', ['sass', 'umd', 'babel']);
+    grunt.registerTask('dev', ['asciify:build', 'lint', 'compile', 'test']);
     grunt.registerTask('minify', ['processhtml', 'requirejs', 'cssmin']);
-    grunt.registerTask('build', ['asciify:banner', 'lint', 'clean', 'babel', 'umd', 'copy', 'minify']);
+    grunt.registerTask('build', ['asciify:build', 'lint', 'clean', 'compile', 'copy', 'minify']);
     grunt.registerTask('test', ['karma']);
     grunt.registerTask('default', ['build', 'test']);
 

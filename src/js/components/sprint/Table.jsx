@@ -9,7 +9,7 @@ define([
         'use strict';
 
         return React.createClass({
-            displayName: 'Sprint Table',
+            displayName: 'SprintTable',
 
             propTypes: {
                 cardLifecycle: React.PropTypes.array,

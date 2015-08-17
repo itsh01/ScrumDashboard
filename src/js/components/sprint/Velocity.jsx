@@ -23,6 +23,10 @@ define([
                     cardLifecycle: ['Backlog', 'In progress', 'Done']
                 };
             },
+
+            onChange: function () {
+                this.forceUpdate();
+            },
             getSprintCards: function () {
                 var cards = [],
                     retro = this.props.retro;

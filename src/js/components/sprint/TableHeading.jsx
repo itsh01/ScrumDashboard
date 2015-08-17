@@ -6,7 +6,7 @@ define([
         'use strict';
 
         return React.createClass({
-            displayName: 'Sprint Table Heading',
+            displayName: 'SprintTableHeading',
             propTypes: {
                 text: React.PropTypes.string
             },

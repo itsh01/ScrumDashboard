@@ -1,8 +1,9 @@
-define(['lodash', 'React', '../general/Search', 'constants'], function (_, React, SearchMember, constants) {
+define(['lodash', 'React', '../general/Search'], function (_, React, SearchMember) {
     'use strict';
     return React.createClass({
         displayName: 'Add existing member',
         propTypes: {
+            allMembers: React.PropTypes.array,
             currentMember: React.PropTypes.object,
             team: React.PropTypes.object
         },
@@ -11,35 +12,27 @@ define(['lodash', 'React', '../general/Search', 'constants'], function (_, React
         },
 
         getInitialState: function () {
-
-            this.dispatcher = this.context.flux.dispatcher;
-            this.teamsStore = this.context.flux.teamsStore;
-            this.membersStore = this.context.flux.membersStore;
-
+            this.flux = this.context.flux;
             return {
-                allMembers: this.getAllMembersNames(),
-                currentTeamMembers: this.getCurrentTeamMembers()
+                currentTeamMembers: this.getTeamMembers()
             };
         },
 
         addExistingMember: function () {
             var memberId = this.props.currentMember.id;
-            var currentTeamId = this.teamsStore.getCurrentTeam().id;
-            this.dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER_TO_TEAM, currentTeamId, memberId);
-        },
-        getAllMembersNames: function () {
-            return this.membersStore && this.membersStore.getAllMembers();
+            var currentTeamId = this.props.team.id;
+            this.flux.teamsActions.addMemberToTeam(currentTeamId, memberId);
         },
 
-        getCurrentTeamMembers: function () {
-            return this.teamsStore && this.teamsStore.getCurrentTeam().members;
+        getTeamMembers: function () {
+            return this.props.team && this.props.team.members;
         },
 
         render: function render() {
             return (
                 <div className='add-existing-member'>
                     <div className='search-bar'>
-                        <SearchMember searchCollection={this.state.allMembers}
+                        <SearchMember searchCollection={this.props.allMembers}
                                       excludedCollection={this.state.currentTeamMembers}/>
                         <img className='member-img'
                              alt={this.props.currentMember.name}

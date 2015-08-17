@@ -3,7 +3,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
         'use strict';
 
         return React.createClass({
-            displayName: 'TeamView',
+            displayName: 'ScrumBoardView',
 
             contextTypes: {
                 flux: React.PropTypes.any
@@ -18,25 +18,25 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             },
 
             handleSprintChange: function (direction) {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT_ID, direction);
+                this.context.flux.teamsActions.changeCurrentSprintId(direction);
             },
 
             addCardClicked: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
+                this.context.flux.planningActions.planningAddCard();
             },
 
             finishPlanning: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE);
+                this.context.flux.teamsActions.moveSprintToNextState();
             },
 
             planNewSprint: function () {
                 var newSprint = this.context.flux.teamsStore.getBlankSprint();
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, newSprint);
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_SPRINT_ID, 'next');
+                this.context.flux.teamsActions.addSprintToCurrentTeam(newSprint);
+                this.context.flux.teamsActions.changeCurrentSprintId('next');
             },
 
             lockSprint: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.RETROFY_CURRENT_SPRINT);
+                this.context.flux.teamsActions.retrofyCurrentSprint();
             },
 
             getSprintButton: function (sprint) {
@@ -57,7 +57,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 if (sprint.state === constants.SPRINT_STATUS.IN_PROGRESS) {
                     return (
                         <button className='home-view-button home-view-button-lock' onClick={this.lockSprint}>Lock
-                        Sprint</button>
+                            Sprint</button>
                     );
                 }
                 return null;

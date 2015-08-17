@@ -1,4 +1,4 @@
-define(['React', 'components/team-management/TeamManagement', 'stubContext', 'stores/flux'],
+define(['React', 'components/team-management/TeamManagement', 'stubContext', 'flux/flux'],
     function (React, TeamManagement, stubContext, Flux) {
         'use strict';
         var mockTeam = {
@@ -22,7 +22,7 @@ define(['React', 'components/team-management/TeamManagement', 'stubContext', 'st
             });
 
             it('should return member', function () {
-                var actualMembers = comp.getCurrentTeamMembers();
+                var actualMembers = comp.getTeamMembers(comp.getCurrentTeam());
                 var expectedMembers = [mockMember];
                 expect(actualMembers).toEqual(expectedMembers);
 

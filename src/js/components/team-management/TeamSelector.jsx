@@ -6,13 +6,11 @@ define(['lodash', 'React', 'components/team-management/TeamButton'],
             displayName: 'Team Selector',
 
             propTypes: {
+                currentTeam: React.PropTypes.object,
                 teams: React.PropTypes.array
             },
-            contextTypes: {
-                flux: React.PropTypes.any
-            },
             getTeamButton: function (team) {
-                return <TeamButton team={team} key={team.id}/>;
+                return <TeamButton team={team} currentTeam={this.props.currentTeam} key={team.id}/>;
             },
             render: function () {
                 return (

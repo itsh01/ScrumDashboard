@@ -15,11 +15,9 @@ define([
         return React.createClass({
             displayName: 'New Member Profile',
             propTypes: {
+                allMembers: React.PropTypes.array,
                 currentMember: React.PropTypes.object,
                 team: React.PropTypes.object
-            },
-            contextTypes: {
-                flux: React.PropTypes.any
             },
             getInitialState: function () {
                 return {
@@ -31,13 +29,16 @@ define([
                 this.refs[this.state.memberType].getDOMNode().checked = 'checked';
             },
 
-
             getNewMemberForm: function () {
-                return <AddNewMember team = {this.props.team}/>;
+                return <AddNewMember team={this.props.team}/>;
             },
 
             getExistingMemberForm: function () {
-                return <AddExistingMember team = {this.props.team} currentMember = {this.props.currentMember}/>;
+                return (
+                    <AddExistingMember team={this.props.team}
+                                       currentMember={this.props.currentMember}
+                                       allMembers={this.props.allMembers}/>
+                );
             },
             getNewMemberContent: function () {
                 return this.state.memberType === 'newMember' ?

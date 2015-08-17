@@ -7,7 +7,7 @@ define([
         'React',
         'definition!components/sprint/Velocity',
         'stubContext',
-        'stores/flux',
+        'flux/flux',
         'mixins/HistoryMixin'
     ],
     function (_, React, velocityDefinition, stubContext, Flux, HistoryMixin) {
@@ -93,15 +93,11 @@ define([
 
                 Velocity = velocityDefinition(_, React, HistoryMixin);
 
-                instance = React.createElement(Velocity, {});
+                VelocityWithContext = stubContext(Velocity, {flux: new Flux()});
+                instance = React.createElement(VelocityWithContext, {});
                 React.addons.TestUtils.renderIntoDocument(instance);
 
-                VelocityWithContext = stubContext(Velocity, {flux: new Flux()});
 
-            });
-
-            it('should get default card lifecycle', function () {
-                expect(instance.props.cardLifecycle.length).toBeGreaterThan(0);
             });
 
             it('should calculate expected velocity', function () {

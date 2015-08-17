@@ -4,11 +4,9 @@ define([
 
         'components/card/Card',
 
-        'DragDropMixin',
-
-        'constants'
+        'DragDropMixin'
     ],
-    function (_, React, Card, DragDropMixin, constants) {
+    function (_, React, Card, DragDropMixin) {
     'use strict';
     return React.createClass({
 
@@ -30,6 +28,11 @@ define([
 
             };
         },
+
+        onChange: function () {
+            this.setState({});
+        },
+
         dragDrop: function () {
 
             var self = this;
@@ -44,17 +47,15 @@ define([
                             assignee: null,
                             team: isCompanyList ? null : self.context.teamId
                         };
+                    self.context.flux.cardsActions.updateCard(card.id, newCardData);
 
-                    self.context.flux.dispatcher.dispatchAction(
-                        constants.actionNames.UPDATE_CARD,
-                        card.id,
-                        newCardData
-                    );
                 }
             };
         },
         addNewCard: function () {
-            this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
+            //this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
+            this.context.flux.planningActions.planningAddCard();
+
         },
 
         emptyCard: {

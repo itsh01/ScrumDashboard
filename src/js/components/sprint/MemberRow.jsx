@@ -10,15 +10,17 @@ define([
         'use strict';
 
         return React.createClass({
-            displayName: 'Sprint Member Row',
+            displayName: 'SprintMemberRow',
             propTypes: {
                 cardLifecycle: React.PropTypes.array,
                 member: React.PropTypes.object,
                 retro: React.PropTypes.array
             },
+
             contextTypes: {
                 flux: React.PropTypes.any
             },
+
             mixins: [HistoryMixin],
 
             getDefaultProps: function () {
@@ -27,6 +29,9 @@ define([
                 };
             },
 
+            onChange: function () {
+                this.forceUpdate();
+            },
             getMemberCards: function (retro, memberId) {
                 var cards = [];
                 if (retro) {

@@ -7,6 +7,8 @@ define(['lodash', 'React',
         return React.createClass({
             displayName: 'TeamView',
             propTypes: {
+                allMembers: React.PropTypes.array,
+                existingMember: React.PropTypes.object,
                 team: React.PropTypes.object,
                 teamMembers: React.PropTypes.array
             },
@@ -19,11 +21,11 @@ define(['lodash', 'React',
                     'Add a new team';
             },
             getNewMemberProfile: function () {
-                var existingMemberId = this.context.flux.teamsStore.getCurrentExistingMemberId();
-                var existingMember = this.context.flux.membersStore.getMemberById(existingMemberId);
+                var existingMember = this.props.existingMember;
                 return this.props.team.name ?
-                    <NewMemberProfile team={this.props.team} currentMember={existingMember}/> :
-                    <div>Hiush :)</div>;
+                    <NewMemberProfile team={this.props.team} currentMember={existingMember}
+                                      allMembers={this.props.allMembers}/> :
+                    <div>Hiush</div>;
             },
             render: function () {
                 return (

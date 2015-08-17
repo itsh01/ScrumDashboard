@@ -1,6 +1,5 @@
 module.exports = function (config) {
-
-    config.set({
+    var configuration = {
 
         // base path, that will be used to resolve files and exclude
         basePath: '',
@@ -17,13 +16,12 @@ module.exports = function (config) {
             {pattern: 'src/js/**/*.js', included: false},
 
             'test-main.js'
-            ],
-
+        ],
 
         // list of files to exclude
         exclude: [
             'src/vendor/require.js'
-            ],
+        ],
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
@@ -56,6 +54,12 @@ module.exports = function (config) {
         // - IE (only Windows)
         browsers: ['Chrome'],
 
+        customLaunchers: {
+            Chrome_travis_ci: {
+                base: 'Chrome',
+                flags: ['--no-sandbox']
+            }
+        },
 
         // If browser does not capture in given timeout [ms], kill it
         captureTimeout: 60000,
@@ -65,5 +69,11 @@ module.exports = function (config) {
         // if true, it capture browsers, run tests and exit
         singleRun: false
 
-    });
+    };
+
+    if(process.env.TRAVIS){
+        configuration.browsers = ['Chrome_travis_ci'];
+    }
+
+    config.set(configuration);
 };

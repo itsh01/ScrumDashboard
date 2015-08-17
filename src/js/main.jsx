@@ -12,8 +12,8 @@ requirejs.config({
         components: '../js/components',
         mixins: '../js/mixins',
         general: '../js/general',
-        stores: '../js/stores',
-        flux: '../js/stores/refactor/Flux',
+        stores: '../js/flux/stores',
+        baseFlux: '../js/flux/baseFlux',
 
 
         // DatePicker dependencies
@@ -35,8 +35,8 @@ requirejs.config({
         React: {
             exports: 'React'
         },
-        flux: {
-            exports: 'flux'
+        baseFlux: {
+            exports: 'baseFlux'
         },
         eventemitter2: {
             exports: 'eventemitter2'
@@ -44,11 +44,11 @@ requirejs.config({
     }
 });
 
-requirejs(['lodash', 'React', 'components/MainContainer', 'flux', 'eventemitter2'],
-    function (_, React, MainContainer) {
+requirejs(['lodash', 'React', 'components/MainView'],
+    function (_, React, MainView) {
         'use strict';
         var mountPoint = document.getElementById('main-container');
 
-        window.scrum = React.render(<MainContainer currentTeam={1}/>, mountPoint);
+        window.scrum = React.render(<MainView currentTeam={1}/>, mountPoint);
     }
 );

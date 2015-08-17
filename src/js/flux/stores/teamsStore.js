@@ -1,7 +1,7 @@
 define([
-        'lodash',
-        './helpers',
-        '../constants'
+        '../../../vendor/lodash',
+        'flux/helpers',
+        '../../constants'
     ],
     function (_, helpers, constants) {
         'use strict';
@@ -10,7 +10,20 @@ define([
             AllActiveTeams: {active: true}
         };
 
-        function TeamStore(dispatcher, teamsDefaultData, getUserCards) {
+        function TeamStore(dispatcher, eventEmitter, waitForTokens, defaultTeamData, getUserCards) {
+
+            this.emitChange = function () {
+                eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
+            };
+
+            this.addChangeListener = function (callback) {
+                eventEmitter.on(constants.flux.TEAMS_STORE_CHANGE, callback);
+            };
+
+            this.removeChangeListener = function (callback) {
+                eventEmitter.removeListener(constants.flux.TEAMS_STORE_CHANGE, callback);
+            };
+
             var dataFileVersion = '1',
                 SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
@@ -32,7 +45,7 @@ define([
             if (dataFileVersion === localStorage.getItem('teamVersion')) {
                 teamsData = restoreFromLocalStorage();
             } else {
-                teamsData = teamsDefaultData;
+                teamsData = defaultTeamData;
                 saveToLocalStorage();
                 localStorage.setItem('teamVersion', dataFileVersion);
             }
@@ -42,23 +55,15 @@ define([
                 };
             }, this);
 
-            this.getInitialViewState = function () {
-                var allActiveTeams = this.getAllActiveTeams();
-                if (allActiveTeams.length > 0) {
-                    return {
-                        currentTeamId: allActiveTeams[0].id,
-                        currentSprintId: (_.last(allActiveTeams[0].sprints)).id,
-                        currentExistingMemberId: allActiveTeams[0].members[0]
-                    };
-                }
-                return {};
+            var currentViewState = {
+                currentTeamId: this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id,
+                currentSprintId: (_.last(teamsData[0].sprints)).id,
+                currentExistingMemberId: teamsData[0].members[0]
             };
 
-            var currentViewState = this.getInitialViewState();
-
             this.changeCurrentTeamToDefault = function () {
-                var defaultTeamId = this.getAllActiveTeams()[0] ? this.getAllActiveTeams()[0].id : {};
-                dispatcher.dispatchAction(constants.actionNames.CHANGE_CURRENT_TEAM_ID, defaultTeamId);
+                var defaultTeamId = this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id;
+                changeCurrentTeamId(defaultTeamId);
             };
 
             this.getTeamById = function (id) {
@@ -74,10 +79,7 @@ define([
             };
 
             this.getBlankSprint = function () {
-                var sprint = helpers.getBlankItem(SPRINT_SCHEMA);
-                sprint.members = this.getCurrentTeam().members;
-                sprint.scrumMaster = _.first(sprint.members);
-                return sprint;
+                return helpers.getBlankItem(SPRINT_SCHEMA);
             };
 
             function isValidSprint(sprint) {
@@ -100,7 +102,6 @@ define([
                     teamWithDefaults.id = helpers.generateGuid();
                     teamWithDefaults.sprints = [this.getBlankSprint()];
                     teamsData.push(teamWithDefaults);
-                    saveToLocalStorage();
                     return teamWithDefaults.id;
                 }
             }
@@ -115,7 +116,6 @@ define([
                 } else if (isValidSprint(sprintWithDefaults)) {
                     sprintWithDefaults.id = helpers.generateGuid();
                     team.sprints.push(sprintWithDefaults);
-                    saveToLocalStorage();
                     return sprintWithDefaults.id;
                 }
             }
@@ -137,7 +137,6 @@ define([
                 var team = _.find(teamsData, {id: teamId});
                 if (team.active) {
                     team.members.push(memberId);
-                    saveToLocalStorage();
                 }
             }
 
@@ -147,7 +146,6 @@ define([
                     _.remove(team.members, function (id) {
                         return id === memberId;
                     });
-                    saveToLocalStorage();
                 }
             }
 
@@ -156,7 +154,6 @@ define([
                 var sprint = _.filter(team.sprints, {id: sprintId});
                 if (!sprint.endDate) {
                     sprint.members.push(memberId);
-                    saveToLocalStorage();
                 }
             }
 
@@ -165,7 +162,6 @@ define([
                 var sprint = _.filter(team.sprints, {id: sprintId});
                 if (!sprint.endDate) {
                     sprint.members = _.remove(sprint.members, {id: memberId});
-                    saveToLocalStorage();
                 }
             }
 
@@ -229,7 +225,6 @@ define([
                 }
                 setRetroCardsStatus(sprint);
                 sprint.state = constants.SPRINT_STATUS.RETRO;
-                saveToLocalStorage();
             }
 
             function retrofyCurrentSprint() {
@@ -247,17 +242,14 @@ define([
                 if (sprint.state === constants.SPRINT_STATUS.RETRO) {
                     setRetroCardsStatus(sprint);
                 }
-                saveToLocalStorage();
             }
 
             // teamId is an optional argument
             function updateSprint(sprintId, newSprintData, teamId) {
                 delete newSprintData.id;
                 if (isValidSprint(newSprintData)) {
-                    var sprint = getSprint(sprintId, teamId),
-                        didUpdate = helpers.updateItem([sprint], sprintId, newSprintData, 'Team Store');
-                    saveToLocalStorage();
-                    return didUpdate;
+                    var sprint = getSprint(sprintId, teamId);
+                    return helpers.updateItem([sprint], sprintId, newSprintData, 'Team Store');
                 }
                 return false;
             }
@@ -296,12 +288,10 @@ define([
             };
 
             this.getSprintIndex = function (sprintId) {
-                if (currentViewState.currentTeamId) {
-                    var sprints = this.getTeamById(currentViewState.currentTeamId).sprints;
-                    for (var i = 0; i < sprints.length; i++) {
-                        if (sprints[i].id === sprintId) {
-                            return i;
-                        }
+                var sprints = this.getTeamById(currentViewState.currentTeamId).sprints;
+                for (var i = 0; i < sprints.length; i++) {
+                    if (sprints[i].id === sprintId) {
+                        return i;
                     }
                 }
                 return -1;
@@ -368,10 +358,20 @@ define([
                 {name: constants.actionNames.RETROFY_CURRENT_SPRINT, callback: retrofyCurrentSprint},
                 {name: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, callback: addSprintToCurrentTeam}
             ];
-            _.forEach(actions, function (action) {
-                dispatcher.registerAction(action.name, action.callback.bind(this));
-            }.bind(this));
 
+            waitForTokens[constants.storesName.TEAMS_STORE] = dispatcher.register(function (payload) {
+                var actionName = payload.actionName,
+                    data = payload.payload,
+
+                    action = _.find(actions, {name: actionName});
+
+                if (action) {
+                    action.callback.apply(this, data);
+                    saveToLocalStorage();
+                    this.emitChange();
+                }
+
+            }.bind(this));
         }
 
 

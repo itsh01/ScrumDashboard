@@ -76,8 +76,7 @@ define([
                 sprintData.endDate = this.formatDate(sprintData.endDate);
 
 
-                this.context.flux.dispatcher.dispatchAction(
-                    constants.actionNames.UPDATE_SPRINT,
+                this.context.flux.teamsActions.updateSprint(
                     this.state.id,
                     sprintData,
                     teamsStore.getCurrentTeam().id

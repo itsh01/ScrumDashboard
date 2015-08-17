@@ -1,10 +1,8 @@
 define([
         'lodash',
-        'React',
-        'constants'],
+        'React'],
     function (_,
-              React,
-              constants) {
+              React) {
         'use strict';
 
         return React.createClass({
@@ -23,27 +21,23 @@ define([
                 if (this.props.card.assignee && this.props.card.status === 'unassigned') {
                     return;
                 }
-                var dispatcher = this.context.flux.dispatcher;
-
                 if (this.props.isCreating) {
-                    dispatcher.dispatchAction(constants.actionNames.ADD_CARD, this.props.card);
+                    this.context.flux.cardsActions.addCard(this.props.card);
                 } else {
-                    dispatcher.dispatchAction(constants.actionNames.UPDATE_CARD,
-                        this.props.card.id,
-                        this.props.card);
+                    this.context.flux.cardsActions.updateCard(this.props.card.id, this.props.card);
                 }
                 this.requireClosePopup();
             },
 
             requireClosePopup: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_DONE_ADDING_CARD);
+                this.context.flux.planningActions.planningDoneAddingCard();
             },
 
             render: function () {
                 return (
                     <div className='card-edit-btn-container'>
-
-                        <button className='card-edit-btn card-edit-btn-cancel' onClick={this.requireClosePopup}>Cancel
+                        <button className='card-edit-btn card-edit-btn-cancel' onClick={this.requireClosePopup}>
+                            Cancel
                         </button>
                         <button className='card-edit-btn card-edit-btn-save' onClick={this.saveCard}>
                             Save

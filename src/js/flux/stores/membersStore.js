@@ -1,7 +1,7 @@
 define([
-        'lodash',
-        './helpers',
-        '../constants'
+        '../../../vendor/lodash',
+        'flux/helpers',
+        '../../constants'
     ],
     function (_, helpers, constants) {
         'use strict';
@@ -9,7 +9,20 @@ define([
             AllMembers: null
         };
 
-        function MembersStore(dispatcher, membersDefaultData) {
+        function MembersStore(dispatcher, eventEmitter, waitForTokens, defaultMembersData) {
+
+            this.emitChange = function () {
+                eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
+            };
+
+            this.addChangeListener = function (callback) {
+                eventEmitter.on(constants.flux.MEMBERS_STORE_CHANGE, callback);
+            };
+
+            this.removeChangeListener = function (callback) {
+                eventEmitter.removeListener(constants.flux.MEMBERS_STORE_CHANGE, callback);
+            };
+
             var dataFileVersion = '1',
                 MEMBERS_SCHEMA = {
                     name: {type: 'string'},
@@ -20,12 +33,11 @@ define([
 
             if (dataFileVersion === localStorage.getItem('membersVersion')) {
                 currentMembers = restoreFromLocalStorage();
-            }else {
-                currentMembers = membersDefaultData;
+            } else {
+                currentMembers = defaultMembersData;
                 saveToLocalStorage();
                 localStorage.setItem('membersVersion', dataFileVersion);
             }
-
 
             _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                 this['get' + filterFuncName] = function () {
@@ -49,7 +61,6 @@ define([
                 if (isValidMember(memberWithDefaults)) {
                     memberWithDefaults.id = helpers.generateGuid();
                     currentMembers.push(memberWithDefaults);
-                    saveToLocalStorage();
                     return memberWithDefaults.id;
                 }
             }
@@ -61,8 +72,6 @@ define([
                     return false;
                 }
                 member.active = false;
-                saveToLocalStorage();
-                dispatcher.dispatchAction(constants.actionNames.MEMBER_DEACTIVATED, memberId);
                 return true;
             }
 
@@ -70,7 +79,6 @@ define([
                 delete newMemberData.id;
                 if (isValidMember(newMemberData)) {
                     var didUpdate = helpers.updateItem(currentMembers, memberId, newMemberData, 'Member Store');
-                    saveToLocalStorage();
                     return didUpdate;
                 }
                 return false;
@@ -86,11 +94,30 @@ define([
                 }.bind(this));
             };
 
-            function createMemberIntoTeam(memberData, teamId) {
-                var newMemberId = addMember.call(this, memberData);
-                dispatcher.dispatchAction(constants.actionNames.ADD_MEMBER_TO_TEAM, teamId, newMemberId);
-                saveToLocalStorage();
-            }
+            this.getLastMemberAdded = function () {
+                return _.cloneDeep(_.last(currentMembers));
+            };
+
+            var actions = [
+                {name: constants.actionNames.ADD_MEMBER, callback: addMember},
+                {name: constants.actionNames.UPDATE_MEMBER, callback: updateMember},
+                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: deactivateMember}
+                //{name: constants.actionNames.CREATE_MEMBER_INTO_TEAM, callback: createMemberIntoTeam}
+            ];
+
+            waitForTokens[constants.storesName.MEMBERS_STORE] = dispatcher.register(function (payload) {
+                var actionName = payload.actionName,
+                    data = payload.payload,
+
+                    action = _.find(actions, {name: actionName});
+
+                if (action) {
+                    action.callback.apply(this, data);
+                    saveToLocalStorage();
+                    this.emitChange();
+                }
+            }.bind(this));
+
 
             function saveToLocalStorage() {
                 helpers.saveToLocalStorage('members', currentMembers);
@@ -106,15 +133,6 @@ define([
             }
             /*eslint-enable no-unused-vars */
 
-            var actions = [
-                {name: constants.actionNames.ADD_MEMBER, callback: addMember},
-                {name: constants.actionNames.UPDATE_MEMBER, callback: updateMember},
-                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: deactivateMember},
-                {name: constants.actionNames.CREATE_MEMBER_INTO_TEAM, callback: createMemberIntoTeam}
-            ];
-            _.forEach(actions, function (action) {
-                dispatcher.registerAction(action.name, action.callback.bind(this));
-            }.bind(this));
         }
 
         return MembersStore;

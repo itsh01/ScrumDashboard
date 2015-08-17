@@ -36,7 +36,6 @@ define([
             },
 
             dragDrop: function () {
-
                 var locked = constants.SPRINT_STATUS.RETRO === this.context.sprintState;
 
                 return {
@@ -76,12 +75,11 @@ define([
                 No: 'card-none'
             },
             removeCard: function () {
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.REMOVE_CARD, this.props.card.id);
+                this.context.flux.cardsActions.removeCard(this.props.card.id);
             },
             editCard: function (e) {
                 this.preventToggleCard = true;
-                this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_EDIT_CARD, this.props.card);
-                //this.preventToggleCard = false;
+                this.context.flux.planningActions.editCard(this.props.card);
                 e.stopPropagation();
             },
             render: function () {

@@ -4,7 +4,8 @@ define(['lodash', 'React', 'components/team-management/TeamSelector', 'component
         return React.createClass({
             displayName: 'Teams Sidebar',
             propTypes: {
-                allTeams: React.PropTypes.array
+                allTeams: React.PropTypes.array,
+                currentTeam: React.PropTypes.object
             },
             render: function () {
                 var activeTeams = _.filter(this.props.allTeams, function (team) {
@@ -12,7 +13,7 @@ define(['lodash', 'React', 'components/team-management/TeamSelector', 'component
                 });
                 return (
                     <div className="sidebar">
-                        <TeamSelector teams={activeTeams}/>
+                        <TeamSelector teams={activeTeams} currentTeam={this.props.currentTeam}/>
                         <AddTeam/>
                     </div>
                 );
