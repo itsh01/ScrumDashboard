@@ -10,3 +10,4 @@ src/js/components/**/*.js
 src/stylesheets/**/*.css
 src/js/playground.js
 src/js/main.js
+dist
