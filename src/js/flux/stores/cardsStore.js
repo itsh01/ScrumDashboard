@@ -1,25 +1,41 @@
 define([
         '../../../vendor/lodash',
         'flux/helpers',
-        '../../constants'
+        '../../constants',
+        'Firebase'
     ],
-    function (_, helpers, constants) {
+    function (_, helpers, constants, Firebase) {
         'use strict';
         var filterFunctions = {
-            AllCards: null,
+            //AllCards: null,
             TeamCards: function (id) {
                 return {team: id};
             },
-            CompanyCards: function () {
-                return {team: null};
-            },
+            //CompanyCards: function () {
+            //    return {team: undefined};
+            //},
             UserCards: function (id, teamId) {
                 return (teamId) ? {assignee: id, team: teamId} : {assignee: id};
-            },
-            NotCompleted: {endDate: null}
+            }
+            //NotCompleted: {endDate: undefined}
         };
 
+
         function CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardsData) {
+            this.getAllCards = function () {
+                return currentCards;
+            };
+            this.getCompanyCards = function () {
+                return _.filter(currentCards, function (card) {
+                    return _.isUndefined(card.team);
+                })
+            };
+
+            this.getNotCompleted = function () {
+                return _.filter(currentCards, function (card) {
+                    return _.isUndefined(card.endDate);
+                })
+            };
 
             this.emitChange = function () {
                 eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
@@ -37,23 +53,52 @@ define([
             var dataFileVersion = '1',
                 CARDS_SCHEMA = {
                     name: {type: 'string'},
-                    description: {type: 'string', defaultValue: ''},
-                    score: {type: 'number', defaultValue: null},
-                    team: {type: 'string', defaultValue: null},
+                    description: {type: 'string'},
+                    score: {type: 'number'},
+                    team: {type: 'string'},
                     status: {type: 'string', defaultValue: 'unassigned'},
-                    assignee: {type: 'string', defaultValue: null},
-                    startDate: {type: 'string', defaultValue: null},
-                    endDate: {type: 'string', defaultValue: null}
+                    assignee: {type: 'string'},
+                    startDate: {type: 'string'},
+                    endDate: {type: 'string'}
                 },
-                currentCards;
+                currentCards = defaultCardsData,
+                cardsFirebaseRef = new Firebase("https://scrum-dashboard-1.firebaseio.com/cards");
 
-            if (dataFileVersion === localStorage.getItem('cardsVersion')) {
-                currentCards = restoreFromLocalStorage();
-            } else {
-                currentCards = defaultCardsData;
-                saveToLocalStorage();
-                localStorage.setItem('cardsVersion', dataFileVersion);
+            //if (dataFileVersion === localStorage.getItem('cardsVersion')) {
+            //    currentCards = restoreFromLocalStorage();
+            //} else {
+            //    currentCards = defaultCardsData;
+            //    saveToLocalStorage();
+            //    localStorage.setItem('cardsVersion', dataFileVersion);
+            //}
+            function updateCurrentCards() {
+                cardsFirebaseRef.on("value", function (snapshot) {
+                    currentCards = snapshot.val();
+                    eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
+                });
             }
+
+            updateCurrentCards();
+
+            cardsFirebaseRef.on("child_changed", function (snapshot) {
+                updateCurrentCards();
+            });
+
+            cardsFirebaseRef.on("child_added", function (snapshot, prevChildKey) {
+                updateCurrentCards();
+            });
+
+            cardsFirebaseRef.on("child_removed", function (snapshot) {
+                updateCurrentCards();
+            });
+
+            //if (dataFileVersion === localStorage.getItem('cardsVersion')) {
+            //    currentCards = restoreFromLocalStorage();
+            //} else {
+            //    currentCards = cardsDefaultData;
+            //    saveToLocalStorage();
+            //    localStorage.setItem('cardsVersion', dataFileVersion);
+            //}
 
 
             _.forEach(filterFunctions, function (filterVal, filterFuncName) {
@@ -116,7 +161,8 @@ define([
             function updateCard(cardId, newCardData) {
                 delete newCardData.id;
                 if (isValidCard(newCardData)) {
-                    return helpers.updateItem(currentCards, cardId, newCardData, 'Card Store');
+                    var didUpdate = helpers.updateItem(currentCards, cardId, newCardData, 'Card Store');
+                    return didUpdate;
                 }
                 return false;
             }
@@ -126,7 +172,6 @@ define([
              */
             function removeCard(cardId) {
                 var card = _.remove(currentCards, {id: cardId});
-                saveToLocalStorage();
                 if (_.isEmpty(card)) {
                     console.log('Card Store: attempt to remove non existent card (id:', cardId, ')');
                     return false;
@@ -143,6 +188,10 @@ define([
                 });
             }
 
+            // Replaced with: saveToFirebase
+            //function saveToLocalStorage() {
+            //    helpers.saveToLocalStorage('cards', currentCards);
+            //}
 
 
             var actions = [
@@ -160,13 +209,13 @@ define([
 
                 if (action) {
                     action.callback.apply(this, data);
-                    saveToLocalStorage();
+                    saveToFirebase();
                     this.emitChange();
                 }
             }.bind(this));
 
-            function saveToLocalStorage() {
-                helpers.saveToLocalStorage('cards', currentCards);
+            function saveToFirebase() {
+                cardsFirebaseRef.set(currentCards);
             }
 
             function restoreFromLocalStorage() {
@@ -177,9 +226,14 @@ define([
                 helpers.removeFromLocalStorage('cards');
             }
 
+            function saveToLocalStorage() {
+                helpers.saveToLocalStorage('cards', currentCards);
+
+            }
+
+
         }
 
         return CardsStore;
 
     });
-

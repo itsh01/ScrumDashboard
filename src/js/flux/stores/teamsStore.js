@@ -1,17 +1,20 @@
 define([
         '../../../vendor/lodash',
         'flux/helpers',
-        '../../constants'
+        '../../constants',
+        'Firebase'
     ],
-    function (_, helpers, constants) {
+    function (_, helpers, constants, Firebase) {
         'use strict';
         var filterFunctions = {
-            AllTeams: null,
+            //AllTeams: null,
             AllActiveTeams: {active: true}
         };
 
         function TeamStore(dispatcher, eventEmitter, waitForTokens, defaultTeamData, getUserCards) {
-
+            this.getAllTeams = function () {
+                return teamsData;
+            };
             this.emitChange = function () {
                 eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
             };
@@ -27,28 +30,53 @@ define([
             var dataFileVersion = '1',
                 SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
-                    scrumMaster: {type: 'string', defaultValue: null},
-                    startDate: {type: 'string', defaultValue: null},
-                    endDate: {type: 'string', defaultValue: null},
+                    scrumMaster: {type: 'string'},
+                    startDate: {type: 'string'},
+                    endDate: {type: 'string'},
                     cardLifecycle: {type: 'string-array', defaultValue: ['Backlog', 'In progress', 'Done']},
                     members: {type: 'string-array', defaultValue: []},
-                    retroCardsStatus: {type: 'object', defaultValue: null},
+                    retroCardsStatus: {type: 'object'},
                     state: {type: 'number', defaultValue: 0}
                 },
                 TEAM_SCHEMA = {
                     name: {type: 'string'},
                     members: {type: 'string-array', defaultValue: []},
-                    filterFunc: {type: 'function', defaultValue: null},
+                    filterFunc: {type: 'function'},
                     active: {type: 'boolean', defaultValue: true}
                 },
-                teamsData;
-            if (dataFileVersion === localStorage.getItem('teamVersion')) {
-                teamsData = restoreFromLocalStorage();
-            } else {
-                teamsData = defaultTeamData;
-                saveToLocalStorage();
-                localStorage.setItem('teamVersion', dataFileVersion);
+                teamsData = defaultTeamData,
+                teamsFirebaseRef = new Firebase("https://scrum-dashboard-1.firebaseio.com/teams");
+
+            //if (dataFileVersion === localStorage.getItem('teamVersion')) {
+            //    teamsData = restoreFromLocalStorage();
+            //} else {
+            //    teamsData = defaultTeamData;
+            //    saveToLocalStorage();
+            //    localStorage.setItem('teamVersion', dataFileVersion);
+            //}
+
+            function updateCurrentTeams() {
+                teamsFirebaseRef.on("value", function (snapshot) {
+                    teamsData = snapshot.val();
+                });
+                eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
             }
+
+            updateCurrentTeams();
+
+            teamsFirebaseRef.on("child_changed", function (snapshot) {
+                updateCurrentTeams();
+            });
+
+            teamsFirebaseRef.on("child_added", function (snapshot, prevChildKey) {
+                updateCurrentTeams();
+            });
+
+            teamsFirebaseRef.on("child_removed", function (snapshot) {
+                updateCurrentTeams();
+            });
+
+
             _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                 this['get' + filterFuncName] = function () {
                     return _.filter(teamsData, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
@@ -131,7 +159,6 @@ define([
                         return id === memberId;
                     });
                 });
-                saveToLocalStorage();
             }
 
             function addMemberToTeam(teamId, memberId) {
@@ -259,7 +286,6 @@ define([
                 var team = _.find(teamsData, {id: teamId});
                 if (team) {
                     team.active = false;
-                    saveToLocalStorage();
                     if (teamId === currentViewState.currentTeamId) {
                         this.changeCurrentTeamToDefault();
                     }
@@ -269,8 +295,11 @@ define([
                 return false;
             }
 
-            function saveToLocalStorage() {
-                helpers.saveToLocalStorage('teams', teamsData);
+            //function saveToLocalStorage() {
+            //    helpers.saveToLocalStorage('teams', teamsData);
+            //}
+            function saveToFirebase() {
+                teamsFirebaseRef.set(teamsData);
             }
 
             function restoreFromLocalStorage() {
@@ -371,7 +400,7 @@ define([
 
                 if (action) {
                     action.callback.apply(this, data);
-                    saveToLocalStorage();
+                    saveToFirebase();
                     this.emitChange();
                 }
 

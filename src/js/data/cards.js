@@ -8,19 +8,14 @@ define([], function () {
             "score": 3,
             "team": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
             "assignee": '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
-            "startDate": '2015-08-23',
-            "endDate": null
+            "startDate": '2015-08-23'
         },
         {
             "id": "90eed4aa-40fe-496e-999a-54a436d66427",
             "name": "hack digital protocol",
             "description": "I'll compress the digital EXE protocol, that should protocol the EXE protocol!",
             "status": "unassigned",
-            "score": 1,
-            "team": null,
-            "assignee": null,
-            "startDate": null,
-            "endDate": null
+            "score": 1
         },
         {
             "id": "eaf1abfe-639f-4a8b-8e02-add0acc9833a",
@@ -28,10 +23,7 @@ define([], function () {
             "description": "The TCP driver is down, bypass the 1080p driver so we can bypass the TCP driver!",
             "status": "unassigned",
             "score": 3,
-            "team": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
-            "assignee": null,
-            "startDate": null,
-            "endDate": null
+            "team": "2d2d8f82-0b6a-404a-9c08-929cfe3de079"
         },
         {
             "id": "27d4cde9-485f-496d-8d16-061d78b03330",
@@ -39,10 +31,7 @@ define([], function () {
             "description": "If we calculate the monitor, we can get to the JSON monitor through the virtual JSON monitor!",
             "status": "unassigned",
             "score": 1,
-            "team": "1f7a4375-e7db-4798-969e-17325acde499",
-            "assignee": null,
-            "startDate": null,
-            "endDate": null
+            "team": "1f7a4375-e7db-4798-969e-17325acde499"
         },
         {
             "id": "386db683-1e6e-46ea-862d-4c1e8974e722",
@@ -50,21 +39,14 @@ define([], function () {
             "description": "The ADP matrix is down, index the bluetooth matrix so we can index the ADP matrix!",
             "status": "unassigned",
             "score": 2,
-            "team": "c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d",
-            "assignee": null,
-            "startDate": null,
-            "endDate": null
+            "team": "c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d"
         },
         {
             "id": "667f899f-d77b-4714-afe4-ac768f194000",
             "name": "quantify mobile program",
             "description": "Use the cross-platform SCSI bandwidth, then you can parse the cross-platform bandwidth!",
             "status": "unassigned",
-            "score": null,
-            "team": "1f7a4375-e7db-4798-969e-17325acde499",
-            "assignee": null,
-            "startDate": null,
-            "endDate": null
+            "team": "1f7a4375-e7db-4798-969e-17325acde499"
         },
         {
             "id": "e8bbdefa-3e25-4025-8e4a-c7a9f5ff71c8",
@@ -82,11 +64,7 @@ define([], function () {
             "name": "transmit primary matrix",
             "description": "If we compress the system, we can get to the CSS system through the neural CSS system!",
             "status": "unassigned",
-            "score": null,
-            "team": "1f7a4375-e7db-4798-969e-17325acde499",
-            "assignee": null,
-            "startDate": null,
-            "endDate": null
+            "team": "1f7a4375-e7db-4798-969e-17325acde499"
         },
         {
             "id": "4796b5fd-1d11-4c2b-bdd3-d36796bb65ed",
@@ -107,8 +85,7 @@ define([], function () {
             "score": 2,
             "team": "2d2d8f82-0b6a-404a-9c08-929cfe3de079",
             "assignee": "63388982-b3b9-479e-9b76-d7a979ad8606",
-            "startDate": '2015-08-23',
-            "endDate": null
+            "startDate": '2015-08-23'
         },
         {
             "id": "d3110e9d-fec9-4bc8-aa6d-9b549c1a8994",
@@ -138,10 +115,7 @@ define([], function () {
             "description": "hacking the sensor won't do anything, we need to override the digital AGP sensor!",
             "status": "unassigned",
             "score": 2,
-            "team": "c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d",
-            "assignee": null,
-            "startDate": null,
-            "endDate": null
+            "team": "c26e9d11-2f56-4cbb-ba2f-826f03bf3e4d"
         },
         {
             "id": "3aedc96d-ce6b-41e4-a1e1-2a43cdb577ae",
@@ -149,10 +123,7 @@ define([], function () {
             "description": "I'll navigate the neural XSS feed, that should feed the XSS feed!",
             "status": "unassigned",
             "score": 13,
-            "team": "1f7a4375-e7db-4798-969e-17325acde499",
-            "assignee": null,
-            "startDate": null,
-            "endDate": null
+            "team": "1f7a4375-e7db-4798-969e-17325acde499"
         },
         {
             "id": "e9c3f04d-8796-4249-8a4f-bba085ab0271",

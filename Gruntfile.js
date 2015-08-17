@@ -62,6 +62,10 @@ module.exports = function (grunt) {
                         src: 'node_modules/eventemitter2/lib/eventemitter2.js',
                         dest: VENDOR_TARGET + 'eventemitter2.js'
                     }
+                    //{
+                    //    src: 'node_modules/firebase/lib/firebase-web.js',
+                    //    dest: VENDOR_TARGET + 'firebase.js'
+                    //}
                 ]
             },
             build: {
@@ -209,6 +213,18 @@ module.exports = function (grunt) {
                     dest: VENDOR_TARGET + 'stubContext.js',
                     objectToExport: 'stubContext',
                     amdModuleId: 'stubContext',
+                    deps: {
+                        'default': ['react', 'require', 'exports', 'module'],
+                        amd: ['react', 'require', 'exports', 'module']
+                    }
+                }
+            },
+            Firebase: {
+                options: {
+                    src: 'node_modules/firebase/lib/firebase-web.js',
+                    dest: VENDOR_TARGET + 'firebase.js',
+                    objectToExport: 'Firebase',
+                    amdModuleId: 'Firebase',
                     deps: {
                         'default': ['react', 'require', 'exports', 'module'],
                         amd: ['react', 'require', 'exports', 'module']

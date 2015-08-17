@@ -1,16 +1,19 @@
 define([
         '../../../vendor/lodash',
         'flux/helpers',
-        '../../constants'
+        '../../constants',
+        'Firebase'
     ],
-    function (_, helpers, constants) {
+    function (_, helpers, constants, Firebase) {
         'use strict';
         var filterFunctions = {
-            AllMembers: null
+            //AllMembers: null
         };
 
         function MembersStore(dispatcher, eventEmitter, waitForTokens, defaultMembersData) {
-
+            this.getAllMembers = function () {
+                return currentMembers;
+            };
             this.emitChange = function () {
                 eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
             };
@@ -29,15 +32,39 @@ define([
                     image: {type: 'string', defaultValue: ''},
                     active: {type: 'boolean', defaultValue: true}
                 },
-                currentMembers;
+                currentMembers = defaultMembersData,
+                MembersFirebaseRef = new Firebase("https://scrum-dashboard-1.firebaseio.com/members");
 
-            if (dataFileVersion === localStorage.getItem('membersVersion')) {
-                currentMembers = restoreFromLocalStorage();
-            } else {
-                currentMembers = defaultMembersData;
-                saveToLocalStorage();
-                localStorage.setItem('membersVersion', dataFileVersion);
+
+            //if (dataFileVersion === localStorage.getItem('membersVersion')) {
+            //    currentMembers = restoreFromLocalStorage();
+            //} else {
+            //    currentMembers = defaultMembersData;
+            //    saveToLocalStorage();
+            //    localStorage.setItem('membersVersion', dataFileVersion);
+            //}
+
+            function updateCurrentMembers() {
+                MembersFirebaseRef.on("value", function (snapshot) {
+                    currentMembers = snapshot.val();
+                });
+                eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
             }
+
+            updateCurrentMembers();
+
+            MembersFirebaseRef.on("child_changed", function (snapshot) {
+                updateCurrentMembers();
+            });
+
+            MembersFirebaseRef.on("child_added", function (snapshot, prevChildKey) {
+                updateCurrentMembers();
+            });
+
+            MembersFirebaseRef.on("child_removed", function (snapshot) {
+                updateCurrentMembers();
+            });
+
 
             _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                 this['get' + filterFuncName] = function () {
@@ -131,6 +158,7 @@ define([
             function removeFromLocalStorage() {
                 helpers.removeFromLocalStorage('members');
             }
+
             /*eslint-enable no-unused-vars */
 
         }

@@ -120,7 +120,7 @@ define(['flux/helpers'], function (helpers) {
 
                 var blankItem = helpers.getBlankItem(mockSchema);
 
-                expect(blankItem.name).toEqual('');
+                expect(blankItem.name).toBeUndefined();
                 expect(blankItem.image).toEqual('');
                 expect(blankItem.active).toEqual(jasmine.any(Boolean));
             });
