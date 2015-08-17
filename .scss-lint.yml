@@ -14,3 +14,7 @@ linters:
 
   VendorPrefix:
     enabled: false
+
+  HexNotation:
+    enabled: true
+    style: uppercase # or 'lowercase'

@@ -1,12 +1,24 @@
 
+$white: #FFF;
+$grey: #999;
+$black: #000;
+
+$red: #F00;
+
+$light-green: #3CFC8F;
+$light-red: #F14B4B;
+$light-blue: #E2E2FF;
+
+$grey-grandient-start: #F0F0F0;
+$grey-grandient-end: #D0D0D0;
+
 .left {
-    float:left;
+    float: left;
 }
 
 .right {
-    float:right;
+    float: right;
 }
-
 
 .home-view-container {
     clear: both;
@@ -25,12 +37,12 @@
 
 .backwards {
     border-width: 10px 20px 10px 0;
-    border-color: transparent black transparent transparent;
+    border-color: transparent $black transparent transparent;
 }
 
 .forward {
     border-width: 10px 0 10px 20px;
-    border-color: transparent transparent transparent black;
+    border-color: transparent transparent transparent $black;
 }
 
 .home-view-buttons-container {
@@ -38,31 +50,28 @@
 }
 
 .home-view-button {
-    background-image: linear-gradient(to bottom, #F0F0F0, #D0D0D0);
+    background-image: linear-gradient(to bottom, $grey-grandient-start, $grey-grandient-end);
     border-radius: 5px;
     font-size: 15px;
-    padding: 10px 20px 10px 20px;
+    padding: 10px 20px;
     text-decoration: none;
     margin: 3px;
 }
 
 .home-view-button:hover {
-    background: #3cfc8f;
+    background: $light-green;
     text-decoration: none;
 }
 
-.home-view-button-lock {
-
-}
 .clearButton {
-    color: red;
+    color: $red;
 }
 
 .edit-sprint {
     display: block;
     margin: 0 auto;
     width: 40rem;
-    border: 1px solid #000;
+    border: 1px solid $black;
     padding: 2rem;
     margin-top: 1rem;
 }
@@ -71,27 +80,27 @@
     list-style: none;
     padding: 0;
     width: 8rem;
-    border: #999 1px solid;
+    border: $grey 1px solid;
     margin: 0;
     transition: 0.3s linear all;
 }
 
 .combo-box-item {
-    background: #fff;
+    background: $white;
     padding: 0.1rem 0.5rem;
     overflow: hidden;
     box-sizing: border-box;
-    border: #fff 2px solid;
+    border: $white 2px solid;
 }
 
 .combo-box-item:hover {
-    background-color: #E2E2FF;
+    background-color: $light-blue;
 }
 
 .delete-phase {
     float: right;
-    color: #fff;
-    background-color: #F14B4B;
+    color: $white;
+    background-color: $light-red;
     padding: 0.1rem 0.33rem;
     border-radius: 50%;
     font-size: 0.7rem;
