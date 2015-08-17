@@ -125,6 +125,14 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                             <ChangeSprint direction='forward'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, 'next')}/>
                         </div>
+                        <div className="sprint-dates">
+                            <div>
+                                Start: {sprint.startDate}
+                            </div>
+                            <div>
+                                End: {sprint.endDate}
+                            </div>
+                        </div>
 
                         <div className="flex-base  one-row">
                             <div style={{display: 'inline-block'}}>
