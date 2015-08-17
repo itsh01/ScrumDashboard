@@ -5,7 +5,7 @@ linters:
     convention: none # or `zero`
 
   Comment:
-    enabled: true
+    enabled: false
 
   Indentation:
     enabled: true
