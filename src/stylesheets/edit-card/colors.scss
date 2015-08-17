@@ -1,7 +1,4 @@
-
-$save-btn: #D0FFD0;
-$delete-btn: #FF7978;
-$cancel-btn: #FFD0D0;
+@import '../main/global';
 
 .card-edit-btn-save {
     background-color: $save-btn;

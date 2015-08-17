@@ -9,7 +9,7 @@ define([
             return {
                 addMember: function (newMemberData) {
                     dispatcher.dispatch({
-                        actionNames: constants.actionNames.ADD_MEMBER,
+                        actionName: constants.actionNames.ADD_MEMBER,
                         payload: [newMemberData]
                     });
                 },
@@ -21,7 +21,7 @@ define([
                 },
                 deactivateMember: function (memberId) {
                     dispatcher.dispatch({
-                        actionNames: constants.actionNames.DEACTIVATE_MEMBER,
+                        actionName: constants.actionNames.DEACTIVATE_MEMBER,
                         payload: [memberId]
                     });
                 },
