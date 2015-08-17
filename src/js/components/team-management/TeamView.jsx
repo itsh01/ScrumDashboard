@@ -34,8 +34,8 @@ define(['lodash', 'React',
                         <ReactCSSTransitionGroup transitionName='member-profile-transition'>
                             {
                                 _.map(this.props.teamMembers, function (member) {
-                                    return <MemberProfile member={member} key={member.id}
-                                                          team={this.props.team}/>;
+                                    return (<MemberProfile member={member} key={member.id}
+                                                          team={this.props.team}/>);
                                 }, this)
                             }
                         </ReactCSSTransitionGroup>

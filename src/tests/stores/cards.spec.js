@@ -57,15 +57,17 @@ define([
                 mockCard = mockCardsData[0];
             });
 
-            describe('getCardById', function () {
+            describe('Getters', function () {
 
                 it('should return a card object if id is matched', function () {
                     var resCard = mockCardsStore.getCardById(mockCard.id);
+
                     expect(resCard).toEqual(mockCard);
                 });
 
                 it('should return undefined if card id is unmatched', function () {
                     var res = mockCardsStore.getCardById('');
+
                     expect(res).not.toBeDefined();
                 });
 
@@ -73,53 +75,47 @@ define([
                     var resCard = mockCardsStore.getCardById(mockCardsData[0].id);
                     resCard.name = 'blah';
                     var storeCard = mockCardsStore.getCardById(mockCardsData[0].id);
+
                     expect(resCard).not.toEqual(storeCard);
                 });
-            });
 
-            describe('getAllCards', function () {
-                it('should return the array of card objects given as default', function () {
+                it('should return the array of all card objects given as default', function () {
                     var allCards = mockCardsStore.getAllCards();
-                    expect(mockCardsData).toEqual(allCards);
-                    expect(allCards.length).toEqual(3);
-                });
-            });
 
-            describe('getTeamCards', function () {
+                    expect(mockCardsData).toEqual(allCards);
+                });
+
                 it('should return all cards assigned to a specific team by id', function () {
                     var teamCards = mockCardsStore.getTeamCards(mockTeamId);
+
                     expect(teamCards.length).toEqual(2);
                     expect(teamCards[0]).toEqual(mockCardsData[0]);
                 });
-            });
 
-            describe('getCompanyCards', function () {
                 it('should return all cards not assigned to a specific team', function () {
                     var companyCards = mockCardsStore.getCompanyCards();
+
                     expect(companyCards.length).toEqual(1);
                     expect(companyCards[0]).toEqual(mockCardsData[1]);
                 });
-            });
 
-            describe('getUserCards', function () {
                 it('should return all cards assigned to a specific user id', function () {
                     var userCards = mockCardsStore.getUserCards(mockUserId);
+
                     expect(userCards.length).toEqual(1);
                     expect(userCards[0]).toEqual(mockCardsData[0]);
                 });
-            });
 
-            describe('getNotCompleted', function () {
                 it('should return all cards with endDate of null', function () {
                     var unfinishedCards = mockCardsStore.getNotCompleted();
+
                     expect(unfinishedCards.length).toEqual(3);
                     expect(unfinishedCards).toEqual(mockCardsData);
                 });
-            });
 
-            describe('getBlankCard', function () {
                 it('should return a blank card object', function () {
                     var blankCard = mockCardsStore.getBlankCard();
+
                     expect(blankCard).toEqual(mockBlankCard);
                 });
             });
@@ -131,26 +127,91 @@ define([
                     mockGuid = '295a6ee1-0e46-45be-8c8f-8be30ee78635';
                     spyOn(helpers, 'generateGuid').and.returnValue(mockGuid);
                 });
-                console.log(mockNewCard, mockCardsActions);
-                //TODO: commented out because of Firebase
-                //it('should add a new valid card to the store', function () {
-                //    spyOn(helpers, 'isValidValue').and.returnValue(true);
-                //    var initialAllCards = mockCardsStore.getAllCards();
-                //    mockCardsActions.addCard(mockNewCard);
-                //    var modifiedAllCards = mockCardsStore.getAllCards();
-                //    var expectedCardResult = mockNewCard;
-                //    expectedCardResult.id = mockGuid;
-                //    expect(initialAllCards.length + 1).toEqual(modifiedAllCards.length);
-                //    expect(expectedCardResult).toEqual(modifiedAllCards[3]);
-                //});
-                //
-                //it('should not add an invalid card to the store', function () {
-                //    spyOn(helpers, 'isValidValue').and.callThrough();
-                //    mockNewCard.name = undefined;
-                //    mockCardsActions.addCard(mockNewCard);
-                //    var allCards = mockCardsStore.getAllCards();
-                //    expect(allCards).toEqual(mockCardsData);
-                //});
+
+                it('should add a new valid card to the store', function () {
+                    spyOn(helpers, 'isValidValue').and.returnValue(true);
+                    var initialAllCards = mockCardsStore.getAllCards();
+                    mockCardsActions.addCard(mockNewCard);
+                    var modifiedAllCards = mockCardsStore.getAllCards();
+                    var expectedCardResult = mockNewCard;
+                    expectedCardResult.id = mockGuid;
+
+                    expect(initialAllCards.length + 1).toEqual(modifiedAllCards.length);
+                    expect(expectedCardResult).toEqual(modifiedAllCards[3]);
+                });
+
+                it('should not add an invalid card to the store', function () {
+                    spyOn(helpers, 'isValidValue').and.callThrough();
+                    mockNewCard.name = undefined;
+                    mockCardsActions.addCard(mockNewCard);
+                    var allCards = mockCardsStore.getAllCards();
+
+                    expect(allCards).toEqual(mockCardsData);
+                });
+            });
+
+            describe('updateCard', function () {
+                var mockGuid, cardFromStore, cardId, editedCard;
+                beforeEach(function () {
+                    mockGuid = '295a6ee1-0e46-45be-8c8f-8be30ee78635';
+                    cardFromStore = mockCardsData[0];
+                    cardId = cardFromStore.id;
+                    editedCard = _.cloneDeep(cardFromStore);
+                    editedCard.name = 'blah';
+                });
+
+                it('should update card if data is valid', function () {
+                    mockCardsActions.updateCard(cardId, editedCard);
+                    var resCard = mockCardsStore.getCardById(cardId);
+
+                    expect(resCard.name).toEqual('blah');
+                });
+
+                it('should not update id', function () {
+                    editedCard.id = mockGuid;
+                    mockCardsActions.updateCard(cardId, editedCard);
+                    var noCard = mockCardsStore.getCardById(mockGuid);
+                    var resCard = mockCardsStore.getCardById(cardId);
+
+                    expect(noCard).not.toBeDefined();
+                    expect(resCard.id).toEqual(cardId);
+                    expect(resCard.name).toEqual('blah');
+                });
+
+                it('should not update the card if at least one field is not valid', function () {
+                    editedCard.description = 42;
+                    mockCardsActions.updateCard(cardId, editedCard);
+                    var resCard = mockCardsStore.getCardById(cardId);
+
+                    expect(resCard.description).toEqual(cardFromStore.description);
+                    expect(resCard).toEqual(cardFromStore);
+                });
+            });
+
+            describe('removeCard', function () {
+                var cardFromStore, cardId, mockGuid;
+                beforeEach(function () {
+                    mockGuid = '295a6ee1-0e46-45be-8c8f-8be30ee78635';
+                    cardFromStore = mockCardsData[0];
+                    cardId = cardFromStore.id;
+                });
+
+                it('should removed card if id is matched', function () {
+                    var resCard = mockCardsStore.getCardById(cardId);
+                    mockCardsActions.removeCard(cardId);
+                    var noCard = mockCardsStore.getCardById(cardId);
+
+                    expect(resCard).toEqual(cardFromStore);
+                    expect(noCard).not.toBeDefined();
+                });
+
+                it('should do nothing in case id is not matched', function () {
+                    var beforeCards = mockCardsStore.getAllCards();
+                    mockCardsActions.removeCard(mockGuid);
+                    var afterCards = mockCardsStore.getAllCards();
+
+                    expect(afterCards).toEqual(beforeCards);
+                });
             });
         });
     }

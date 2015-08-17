@@ -2,9 +2,10 @@ define([
         'lodash',
         'React',
         'components/sprint/HeapCardsContainer',
+        'components/card/Card',
         'stubContext'
     ],
-    function (_, React, HeapCardsContainer, stubbedContextHandler) {
+    function (_, React, HeapCardsContainer, Card, stubbedContextHandler) {
         'use strict';
 
         var testUtils = React.addons.TestUtils,
@@ -48,18 +49,10 @@ define([
 
             beforeEach(function () {
                 var StubbedContextClass = stubbedContextHandler(HeapCardsContainer, {flux: stubFlux});
-
                 heapReactElement = React.createElement(StubbedContextClass, props);
                 heapContainerReactElement = testUtils.renderIntoDocument(heapReactElement);
-
-                heapReactComponent = testUtils.findAllInRenderedTree(heapContainerReactElement, function (component) {
-                    return (component.getDOMNode().classList.contains('heap-view') && component.state);
-                })[0];
-
-                cardReactComponents = testUtils.findAllInRenderedTree(heapContainerReactElement, function (component) {
-                    return (component.getDOMNode().classList.contains('card') && component.state);
-                });
-
+                heapReactComponent = testUtils.findRenderedComponentWithType(heapContainerReactElement, HeapCardsContainer);
+                cardReactComponents = testUtils.scryRenderedComponentsWithType(heapContainerReactElement, Card);
                 spyOn(heapReactComponent, 'getOpenHeapCardStyle').and.returnValue(transformStyle);
 
             });

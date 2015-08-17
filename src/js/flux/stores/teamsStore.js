@@ -15,18 +15,6 @@ define([
             this.getAllTeams = function () {
                 return teamsData;
             };
-            this.emitChange = function () {
-                eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
-            };
-
-            this.addChangeListener = function (callback) {
-                eventEmitter.on(constants.flux.TEAMS_STORE_CHANGE, callback);
-            };
-
-            this.removeChangeListener = function (callback) {
-                eventEmitter.removeListener(constants.flux.TEAMS_STORE_CHANGE, callback);
-            };
-
             var dataFileVersion = '1',
                 SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
@@ -45,21 +33,21 @@ define([
                     active: {type: 'boolean', defaultValue: true}
                 },
                 teamsData = defaultTeamData,
-                teamsFirebaseRef = new Firebase("https://scrum-dashboard-1.firebaseio.com/teams");
-
-            //if (dataFileVersion === localStorage.getItem('teamVersion')) {
-            //    teamsData = restoreFromLocalStorage();
-            //} else {
-            //    teamsData = defaultTeamData;
-            //    saveToLocalStorage();
-            //    localStorage.setItem('teamVersion', dataFileVersion);
-            //}
+                teamsFirebaseRef = new Firebase("https://scrum-dashboard-1.firebaseio.com/teams"),
+                currentViewState;
+            
+            if (dataFileVersion === localStorage.getItem('teamVersion')) {
+                teamsData = restoreFromLocalStorage();
+            } else {
+                teamsData = defaultTeamData;
+                saveToLocalStorage();
+                localStorage.setItem('teamVersion', dataFileVersion);
+            }
 
             function updateCurrentTeams() {
                 teamsFirebaseRef.on("value", function (snapshot) {
                     teamsData = snapshot.val();
                 });
-                eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
             }
 
             updateCurrentTeams();
@@ -76,18 +64,47 @@ define([
                 updateCurrentTeams();
             });
 
+            (function init() {
+
+                this.emitChange = function () {
+                    eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
+                };
+
+                this.addChangeListener = function (callback) {
+                    eventEmitter.on(constants.flux.TEAMS_STORE_CHANGE, callback);
+                };
+
+                this.removeChangeListener = function (callback) {
+                    eventEmitter.removeListener(constants.flux.TEAMS_STORE_CHANGE, callback);
+                };
+
+                if (dataFileVersion === localStorage.getItem('teamVersion')) {
+                    teamsData = restoreFromLocalStorage();
+                } else {
+                    teamsData = defaultTeamData;
+                    saveToLocalStorage();
+                    localStorage.setItem('teamVersion', dataFileVersion);
+                }
+
+                _.forEach(filterFunctions, function (filterVal, filterFuncName) {
+                    this['get' + filterFuncName] = function () {
+                        return _.filter(teamsData, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
+                    };
+                }, this);
+
+                currentViewState = {
+                    currentTeamId: getDefaultTeamId.apply(this),
+                    currentSprintId: (_.last(teamsData[0].sprints)).id,
+                    currentExistingMemberId: teamsData[0].members[0]
+                };
+
+            }).apply(this);
 
             _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                 this['get' + filterFuncName] = function () {
                     return _.filter(teamsData, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
                 };
             }, this);
-
-            var currentViewState = {
-                currentTeamId: this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id,
-                currentSprintId: (_.last(teamsData[0].sprints)).id,
-                currentExistingMemberId: teamsData[0].members[0]
-            };
 
             this.changeCurrentTeamToDefault = function () {
                 var defaultTeamId = this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id;
@@ -108,6 +125,50 @@ define([
 
             this.getBlankSprint = function () {
                 return helpers.getBlankItem(SPRINT_SCHEMA);
+            };
+
+            this.getMemberCardsInSprint = function (memberId, sprintId) {
+                var sprint = getSprintById(sprintId),
+                    memberCards = getUserCards(memberId),
+                    sprintStartDate = new Date(sprint.startDate),
+                    sprintEndDate = new Date(sprint.endDate);
+
+                var membersCardsInSprint = _.filter(memberCards, function (card) {
+                    if (card.startDate === null) {
+                        return true;
+                    }
+                    var cardStartDate = new Date(card.startDate);
+                    if (card.endDate === null) {
+                        return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate);
+                    }
+                    var cardEndDate = new Date(card.endDate);
+                    return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate)
+                        || helpers.onSegment(sprintStartDate, sprintEndDate, cardEndDate);
+                });
+                return membersCardsInSprint;
+            };
+
+            this.getCurrentTeam = function () {
+                return this.getTeamById(currentViewState.currentTeamId) || {};
+            };
+
+            this.getSprintIndex = function (sprintId) {
+                var sprints = this.getTeamById(currentViewState.currentTeamId).sprints;
+                for (var i = 0; i < sprints.length; i++) {
+                    if (sprints[i].id === sprintId) {
+                        return i;
+                    }
+                }
+                return -1;
+            };
+
+            this.getCurrentSprint = function () {
+                var currTeam = this.getCurrentTeam();
+                if (!currTeam.id) {//|| currTeam.sprints.length < 1) {
+                    return {};
+                }
+                resetCurrentSprintIdIfInvalid.call(this);
+                return this.getSprintById(currentViewState.currentSprintId);
             };
 
             function isValidSprint(sprint) {
@@ -135,8 +196,8 @@ define([
                 }
             }
 
-            //
-            function addSprint(teamId, sprintData) {
+            function addSprint(sprintData, teamId) {
+                teamId = teamId || currentViewState.currentTeamId;
                 var team = _.find(teamsData, {id: teamId}),
                     blankSprint = this.getBlankSprint(),
                     sprintWithDefaults = _.assign(blankSprint, sprintData);
@@ -147,10 +208,6 @@ define([
                     team.sprints.push(sprintWithDefaults);
                     return sprintWithDefaults.id;
                 }
-            }
-
-            function addSprintToCurrentTeam(sprintData) {
-                addSprint.call(this, currentViewState.currentTeamId, sprintData);
             }
 
             function removeDeactivatedMemberFromTeams(memberId) {
@@ -221,7 +278,12 @@ define([
             function setRetroCardsStatus(sprint) {
                 var cards = [];
                 _.forEach(sprint.members, function (memberId) {
-                    cards = cards.concat(getUserCards(memberId));
+                    cards = cards.concat(this.getMemberCardsInSprint(memberId, sprint.id));
+                }.bind(this));
+                _.forEach(cards, function (card) {
+                    if (card.status === sprint.cardLifecycle[sprint.cardLifecycle.length - 1]) {
+                        card.endDate = sprint.endDate;
+                    }
                 });
                 sprint.retroCardsStatus = [];
                 _.forEach(cards, function (card) {
@@ -245,18 +307,15 @@ define([
                 return true;
             }
 
-            // teamId is an optional argument
+            // arguments are optional
             function retrofySprint(sprintId, teamId) {
+                sprintId = sprintId || currentViewState.currentSprintId;
                 var sprint = getSprint(sprintId, teamId);
                 if (!validateSprintBeforeMovingToNextState(sprint, sprintId)) {
                     return;
                 }
-                setRetroCardsStatus(sprint);
+                setRetroCardsStatus.call(this, sprint);
                 sprint.state = constants.SPRINT_STATUS.RETRO;
-            }
-
-            function retrofyCurrentSprint() {
-                retrofySprint(currentViewState.currentSprintId);
             }
 
             // teamId is an optional argument
@@ -268,7 +327,7 @@ define([
                 }
                 sprint.state++;
                 if (sprint.state === constants.SPRINT_STATUS.RETRO) {
-                    setRetroCardsStatus(sprint);
+                    setRetroCardsStatus.call(this, sprint);
                 }
             }
 
@@ -287,7 +346,8 @@ define([
                 if (team) {
                     team.active = false;
                     if (teamId === currentViewState.currentTeamId) {
-                        this.changeCurrentTeamToDefault();
+                        var defaultTeamId = getDefaultTeamId.apply(this);
+                        changeCurrentTeamId(defaultTeamId);
                     }
                     return true;
                 }
@@ -295,6 +355,12 @@ define([
                 return false;
             }
 
+            function getDefaultTeamId() {
+                return this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id;
+            }
+
+            function saveToLocalStorage() {
+                helpers.saveToLocalStorage('teams', teamsData);
             //function saveToLocalStorage() {
             //    helpers.saveToLocalStorage('teams', teamsData);
             //}
@@ -306,26 +372,9 @@ define([
                 return helpers.restoreFromLocalStorage('teams');
             }
 
-            /*eslint-disable no-unused-vars */
             function removeFromLocalStorage() {
                 helpers.removeFromLocalStorage('teams');
             }
-
-            /*eslint-enable no-unused-vars */
-
-            this.getCurrentTeam = function () {
-                return this.getTeamById(currentViewState.currentTeamId) || {};
-            };
-
-            this.getSprintIndex = function (sprintId) {
-                var sprints = this.getTeamById(currentViewState.currentTeamId).sprints;
-                for (var i = 0; i < sprints.length; i++) {
-                    if (sprints[i].id === sprintId) {
-                        return i;
-                    }
-                }
-                return -1;
-            };
 
             function resetCurrentSprintIdIfInvalid() {
                 var isCurrSprintValid = this.getSprintIndex(currentViewState.currentSprintId) !== -1;
@@ -334,39 +383,23 @@ define([
                 }
             }
 
-            this.getCurrentSprint = function () {
-                var currTeam = this.getCurrentTeam();
-                if (!currTeam.id ){//|| currTeam.sprints.length < 1) {
-                    return {};
-                }
-                resetCurrentSprintIdIfInvalid.call(this);
-                return this.getSprintById(currentViewState.currentSprintId);
-            };
-
-            // This function gets 'next'/'prev'/sprint id as the destination string
-            // TODO: split
-            function changeCurrentSprintId(destination) {
-                var sprintsLastIndex = this.getTeamById(currentViewState.currentTeamId).sprints.length - 1;
-                var currSprintIndex = this.getSprintIndex(currentViewState.currentSprintId);
-                if (destination === 'next' && currSprintIndex < sprintsLastIndex) {
-                    currentViewState.currentSprintId = this.getTeamById(currentViewState.currentTeamId).sprints[currSprintIndex + 1].id;
-                }
-                if (destination === 'previous' && currSprintIndex > 0) {
-                    currentViewState.currentSprintId = this.getTeamById(currentViewState.currentTeamId).sprints[currSprintIndex - 1].id;
-                } else if (destination !== 'next' && destination !== 'previous') {
-                    currentViewState.currentSprintId = destination;
+            function moveCurrentSprintId(forward) {
+                var curSprintIndex = this.getSprintIndex(currentViewState.currentSprintId),
+                    sprintsNum = this.getTeamById(currentViewState.currentTeamId).sprints.length,
+                    newSprintIndex = (forward) ? curSprintIndex + 1 : curSprintIndex - 1;
+                if (newSprintIndex > 0 && newSprintIndex < sprintsNum) {
+                    currentViewState.currentSprintId = this.getTeamById(currentViewState.currentTeamId).sprints[newSprintIndex].id;
                 }
             }
 
-            this.getCurrentExistingMemberId = function () {
-                return currentViewState.currentExistingMemberId;
-            };
-
+            function setCurrentSprintId(newSprintId) {
+                currentViewState.currentSprintId = newSprintId;
+            }
 
             function changeCurrentTeamId(teamId) {
                 currentViewState.currentTeamId = teamId;
                 var currTeam = this.getCurrentTeam();
-                changeCurrentSprintId.call(this, currTeam.sprints[currTeam.sprints.length - 1]);
+                setCurrentSprintId.call(this, currTeam.sprints[currTeam.sprints.length - 1]);
             }
 
             function changeExistingMemberId(memberId) {
@@ -377,19 +410,20 @@ define([
                 {name: constants.actionNames.ADD_TEAM, callback: addTeam},
                 {name: constants.actionNames.ADD_SPRINT, callback: addSprint},
                 {name: constants.actionNames.MEMBER_DEACTIVATED, callback: removeDeactivatedMemberFromTeams},
-                {name: constants.actionNames.CHANGE_CURRENT_TEAM_ID, callback: changeCurrentTeamId},
-                {name: constants.actionNames.CHANGE_CURRENT_SPRINT_ID, callback: changeCurrentSprintId},
-                {name: constants.actionNames.RETROFY_SPRINT, callback: retrofySprint},
-                {name: constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, callback: moveSprintToNextState},
-                {name: constants.actionNames.UPDATE_SPRINT, callback: updateSprint},
                 {name: constants.actionNames.DEACTIVATE_TEAM, callback: deactivateTeam},
                 {name: constants.actionNames.ADD_MEMBER_TO_TEAM, callback: addMemberToTeam},
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_TEAM, callback: removeMemberFromTeam},
+
+                {name: constants.actionNames.RETROFY_SPRINT, callback: retrofySprint},
+                {name: constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, callback: moveSprintToNextState},
+                {name: constants.actionNames.UPDATE_SPRINT, callback: updateSprint},
                 {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSprint},
-                {name: constants.actionNames.CHANGE_EXISTING_MEMBER_ID, callback: changeExistingMemberId},
-                {name: constants.actionNames.RETROFY_CURRENT_SPRINT, callback: retrofyCurrentSprint},
-                {name: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, callback: addSprintToCurrentTeam}
+
+                {name: constants.actionNames.CHANGE_CURRENT_TEAM_ID, callback: changeCurrentTeamId},
+                {name: constants.actionNames.SET_CURRENT_SPRINT_ID, callback: setCurrentSprintId},
+                {name: constants.actionNames.MOVE_CURRENT_SPRINT_ID, callback: moveCurrentSprintId},
+                {name: constants.actionNames.CHANGE_EXISTING_MEMBER_ID, callback: changeExistingMemberId}
             ];
 
             waitForTokens[constants.storesName.TEAMS_STORE] = dispatcher.register(function (payload) {

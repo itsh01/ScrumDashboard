@@ -45,7 +45,8 @@ define([
                     <Velocity
                         cardLifecycle={sprint.cardLifecycle}
                         sprintMembers={sprint.members}
-                        retro={sprint.retroCardsStatus}/>
+                        retro={sprint.retroCardsStatus}
+                        sprintId={sprint.id}/>
                 </div>);
             }
         });

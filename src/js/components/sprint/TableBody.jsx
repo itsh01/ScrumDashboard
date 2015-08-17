@@ -21,8 +21,7 @@ define([
                     cardLifecycle={sprint.cardLifecycle}
                     key={member.id}
                     member={member}
-                    sprintStartDate={sprint.startDate}
-                    sprintEndDate={sprint.endDate}/>
+                    sprintId={sprint.id}/>
                 ) : null;
             },
             render: function () {

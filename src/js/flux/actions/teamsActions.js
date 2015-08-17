@@ -11,16 +11,14 @@ define([
                     dispatcher.dispatch({actionName: constants.actionNames.ADD_TEAM, payload: [teamData]});
                 },
 
-                addSprint: function (teamId, sprintData) {
-                    dispatcher.dispatch({actionName: constants.actionNames.ADD_SPRINT, payload: [teamId, sprintData]});
+                addSprint: function (sprintData, teamId) {
+                    dispatcher.dispatch({actionName: constants.actionNames.ADD_SPRINT, payload: [sprintData, teamId]});
                 },
 
                 retrofySprint: function (sprintId, teamId) {
                     dispatcher.dispatch({actionName: constants.actionNames.RETROFY_SPRINT, payload: [sprintId, teamId]});
                 },
 
-                //addSprintToCurrentTeam(sprintData)
-                //removeDeactivatedMemberFromTeams(memberId)
                 addMemberToTeam: function (teamId, memberId) {
                     dispatcher.dispatch({actionName: constants.actionNames.ADD_MEMBER_TO_TEAM, payload: [teamId, memberId]});
                 },
@@ -37,17 +35,16 @@ define([
                     dispatcher.dispatch({actionName: constants.actionNames.CHANGE_EXISTING_MEMBER_ID, payload: [memberId]});
                 },
 
-                // TODO: split into 3 functions
-                changeCurrentSprintId: function (destination) {
-                    dispatcher.dispatch({actionName: constants.actionNames.CHANGE_CURRENT_SPRINT_ID, payload: [destination]});
+                setCurrentSprintId: function (newCurSprintId) {
+                    dispatcher.dispatch({actionName: constants.actionNames.SET_CURRENT_SPRINT_ID, payload: [newCurSprintId]});
+                },
+
+                moveCurrentSprintId: function (forward) {
+                    dispatcher.dispatch({actionName: constants.actionNames.MOVE_CURRENT_SPRINT_ID, payload: [forward]});
                 },
 
                 moveSprintToNextState: function (sprintId, teamId) {
                     dispatcher.dispatch({actionName: constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, payload: [sprintId, teamId]});
-                },
-
-                retrofyCurrentSprint: function () {
-                    dispatcher.dispatch({actionName: constants.actionNames.RETROFY_CURRENT_SPRINT});
                 },
 
                 deactivateTeam: function (teamId) {
@@ -64,10 +61,6 @@ define([
 
                 removeMemberFromSprint: function (teamId, sprintId, memberId) {
                     dispatcher.dispatch({actionName: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, payload: [teamId, sprintId, memberId]});
-                },
-
-                addSprintToCurrentTeam: function (sprintData) {
-                    dispatcher.dispatch({actionName: constants.actionNames.ADD_SPRINT_TO_CURRENT_TEAM, payload: [sprintData]});
                 }
             };
         }

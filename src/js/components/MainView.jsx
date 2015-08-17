@@ -79,7 +79,7 @@ define(['lodash',
             handleChangeTeam: function (e) {
                 this.flux.teamsActions.changeCurrentTeamId(e.target.value);
                 var team = this.flux.teamsStore.getTeamById(e.target.value);
-                this.flux.teamsActions.changeCurrentSprintId(team.sprints[team.sprints.length - 1].id);
+                this.flux.teamsActions.setCurrentSprintId(team.sprints[team.sprints.length - 1].id);
             },
 
             getViewComponent: function () {

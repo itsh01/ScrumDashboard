@@ -8,7 +8,7 @@ for (var file in window.__karma__.files) {
 
 
 requirejs.config({
-    baseUrl: '/base/src/js',
+    baseUrl: '/base/build/js',
     paths: {
         lodash: '../vendor/lodash',
         React: '../vendor/react-with-addons',
