@@ -36,7 +36,7 @@ define([
 
             getMemberCards: function (retro, memberId) {
                 var cards = [];
-                if (retro) {
+                if (!_.isEmpty(retro)) {
                     cards = _(retro)
                         .filter(function (history) {
                             return history.assigneeId === memberId;

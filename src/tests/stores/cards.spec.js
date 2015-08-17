@@ -23,8 +23,8 @@ define([
                         score: 3,
                         team: '2d2d8f82-0b6a-404a-9c08-929cfe3de079',
                         assignee: '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
-                        startDate: null,
-                        endDate: null
+                        startDate: '',
+                        endDate: ''
                     },
                     {
                         id: '90eed4aa-40fe-496e-999a-54a436d66427',
@@ -32,10 +32,10 @@ define([
                         description: 'Ill compress the digital EXE protocol, that should protocol the EXE protocol!',
                         status: 'unassigned',
                         score: 1,
-                        team: null,
-                        assignee: null,
-                        startDate: null,
-                        endDate: null
+                        team: '',
+                        assignee: '',
+                        startDate: '',
+                        endDate: ''
                     },
                     {
                         id: 'eaf1abfe-639f-4a8b-8e02-add0acc9833a',
@@ -44,30 +44,30 @@ define([
                         status: 'unassigned',
                         score: 3,
                         team: '2d2d8f82-0b6a-404a-9c08-929cfe3de079',
-                        assignee: null,
-                        startDate: null,
-                        endDate: null
+                        assignee: '',
+                        startDate: '',
+                        endDate: ''
                     }
                 ];
                 mockBlankCard = {
                     name: '',
                     description: '',
-                    score: null,
-                    team: null,
+                    score: '',
+                    team: '',
                     status: 'unassigned',
-                    assignee: null,
-                    startDate: null,
-                    endDate: null
+                    assignee: '',
+                    startDate: '',
+                    endDate: ''
                 };
                 mockNewCard = {
                     name: 'Open-source the universe',
                     description: 'The flux capacitor is whack. Fix it.!',
                     status: 'unassigned',
                     score: 12,
-                    team: null,
-                    assignee: null,
-                    startDate: null,
-                    endDate: null
+                    team: '',
+                    assignee: '',
+                    startDate: '',
+                    endDate: ''
                 };
                 mockUserId = mockCardsData[0].assignee;
                 mockTeamId = mockCardsData[0].team;
@@ -130,7 +130,7 @@ define([
                     expect(userCards[0]).toEqual(mockCardsData[0]);
                 });
 
-                it('should return all cards with endDate of null', function () {
+                it('should return all cards with endDate of ', function () {
                     var unfinishedCards = mockCardsStore.getNotCompleted();
 
                     expect(unfinishedCards.length).toEqual(3);
@@ -252,7 +252,7 @@ define([
                     var afterCard = mockCardsStore.getCardById(cardId);
 
                     expect(afterCard).not.toEqual(beforeCard);
-                    expect(afterCard.assignee).toBeNull();
+                    expect(afterCard.assignee).toBe('');
 
                 });
             });

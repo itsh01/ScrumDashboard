@@ -95,7 +95,7 @@ define([
                 });
 
                 describe('getAllActiveTeams', function () {
-                    
+
                     it('should return all active teams', function () {
 
                     });
