@@ -180,8 +180,8 @@ define([], function () {
                     "id": "55b8a160-5e45-5984-35ff-07a7e41ce41c",
                     "name": "aliquip laboris",
                     "scrumMaster": '183323c8-d707-4471-8736-373eba8aaa8c',
-                    "startDate": null,
-                    "endDate": null,
+                    "startDate": '2015-08-23',
+                    "endDate": '2015-08-30',
                     cardLifecycle: ['Backlog', 'In progress', 'Done'],
                     members: [
                         '183323c8-d707-4471-8736-373eba8aaa8c',

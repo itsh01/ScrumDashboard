@@ -27,10 +27,18 @@ define([
                 this.setState( this.fetchState() );
             },
 
+            computeEndDate: function (sprint) {
+                if (!sprint.endDate) {
+                    var now = new Date();
+                    now.setDate(now.getDate() + 7);
+                    sprint.endDate = moment(now);
+                }
+            },
+
             fetchState: function () {
                 var currentSprint = this.context.flux.teamsStore.getCurrentSprint();
                 currentSprint.startDate = currentSprint.startDate ? moment(currentSprint.startDate) : moment();
-                currentSprint.endDate = currentSprint.endDate ? moment(currentSprint.endDate) : moment();
+                this.computeEndDate(currentSprint);
                 return currentSprint;
             },
 
