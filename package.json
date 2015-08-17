@@ -33,7 +33,6 @@
     "grunt-babel": "^5.0.1",
     "grunt-contrib-clean": "~0.6.0",
     "grunt-contrib-copy": "~0.8.0",
-    "grunt-contrib-csslint": "~0.5.0",
     "grunt-contrib-cssmin": "~0.12.3",
     "grunt-contrib-requirejs": "~0.4.4",
     "grunt-contrib-watch": "~0.6.1",
