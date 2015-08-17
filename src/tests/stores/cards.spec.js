@@ -4,12 +4,14 @@ define([
         'baseFlux',
         'stores/cardsStore',
         'actions/cardsActions',
+        'actions/membersActions',
         'flux/helpers'
     ],
-    function (_, EventEmitter, baseFlux, CardsStore, CardsActions, helpers) {
+    function (_, EventEmitter, baseFlux, CardsStore, CardsActions, MembersAction, helpers) {
         'use strict';
         describe('CardsStore', function () {
-            var mockDispatcher, mockCardsStore, mockCardsData, mockBlankCard, mockCard, mockNewCard, mockUserId, mockTeamId, mockCardsActions;
+            var mockDispatcher, mockCardsStore, mockCardsData, mockBlankCard, mockCard,
+                mockNewCard, mockUserId, mockTeamId, mockCardsActions, mockMembersAction;
             beforeEach(function () {
                 localStorage.clear();
                 mockCardsData = [
@@ -54,6 +56,7 @@ define([
                 mockDispatcher = new baseFlux.Dispatcher();
                 mockCardsStore = new CardsStore(mockDispatcher, eventEmitter, waitForTokens, mockCardsData);
                 mockCardsActions = new CardsActions(mockDispatcher);
+                mockMembersAction = new MembersAction(mockDispatcher);
                 mockCard = mockCardsData[0];
             });
 
@@ -211,6 +214,25 @@ define([
                     var afterCards = mockCardsStore.getAllCards();
 
                     expect(afterCards).toEqual(beforeCards);
+                });
+            });
+
+            describe('unassignMemberFromCards', function () {
+                var cardFromStore, cardId, mockMemberId;
+                beforeEach(function () {
+                    cardFromStore = mockCardsData[0];
+                    cardId = cardFromStore.id;
+                    mockMemberId = cardFromStore.assignee;
+                });
+
+                it('should unassign the requested members from all matching cards', function () {
+                    var beforeCard = mockCardsStore.getCardById(cardId);
+                    mockMembersAction.deactivateMember(mockMemberId);
+                    var afterCard = mockCardsStore.getCardById(cardId);
+
+                    expect(afterCard).not.toEqual(beforeCard);
+                    expect(afterCard.assignee).toBeNull();
+
                 });
             });
         });
