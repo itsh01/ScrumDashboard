@@ -1,5 +1,9 @@
+
+$white: #FFF;
+$add-team-btn: #4CAE52;
+
 .matched-member-container {
-    background-color: #ffffff;
+    background-color: $white;
 }
 
 .matched-member:hover {
@@ -7,5 +11,5 @@
 }
 
 .team-management-button.add-team-button {
-    background-color: #4cae52;
+    background-color: $add-team-btn;
 }

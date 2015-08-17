@@ -144,7 +144,6 @@ define([
             }
 
 
-            /*eslint-enable no-unused-vars */
 
             var actions = [
                 {name: constants.actionNames.UPDATE_CARD, callback: updateCard},
@@ -174,7 +173,6 @@ define([
                 return helpers.restoreFromLocalStorage('cards');
             }
 
-            /*eslint-disable no-unused-vars */
             function removeFromLocalStorage() {
                 helpers.removeFromLocalStorage('cards');
             }

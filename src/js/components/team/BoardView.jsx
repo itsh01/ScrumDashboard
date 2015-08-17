@@ -73,16 +73,42 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 return 'Locked';
             },
 
+            renderIfNoTeams: function () {
+                return (
+                    <div>
+                        <h1>No Teams Found :(</h1>
+
+                        <h2>Go ahead and add some in Manage Teams...</h2>
+                    </div>
+                );
+            },
+
+            renderIfNoSprintInCurrTeam: function (teamName, teamId) {
+                return (
+                    <div>
+                        <h1>{teamName} Team</h1>
+
+                        <h2>Scrum DashBoard</h2>
+
+                        <div className="flex-base  one-row">
+                            <div style={{display: 'inline-block'}}>
+                                <BackLog className="backlog" teamId={teamId}/>
+                            </div>
+                        </div>
+
+                        {this.getSprintButton({state: constants.SPRINT_STATUS.RETRO})}
+                    </div>
+                );
+            },
+
             render: function () {
                 var team = this.context.flux.teamsStore.getCurrentTeam();
                 var sprint = this.context.flux.teamsStore.getCurrentSprint();
                 if (!team.id) {
-                    return (
-                        <div>
-                            <h1>No Teams Found :(</h1>
-                            <h2>Go ahead and add some in Manage Teams...</h2>
-                        </div>
-                    );
+                    return this.renderIfNoTeams();
+                }
+                if (!sprint.id) {
+                    return this.renderIfNoSprintInCurrTeam(team.name, team.id);
                 }
                 return (
                     <div>

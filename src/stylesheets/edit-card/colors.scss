@@ -1,11 +1,16 @@
-.card-edit-btn-save{
-    background-color: #d0ffd0;
+
+$save-btn: #D0FFD0;
+$delete-btn: #FF7978;
+$cancel-btn: #FFD0D0;
+
+.card-edit-btn-save {
+    background-color: $save-btn;
 }
 
-.card-edit-btn-delete{
-    background-color: #ff7978;
+.card-edit-btn-delete {
+    background-color: $delete-btn;
 }
 
-.card-edit-btn-cancel{
-    background-color: #ffd0d0;
+.card-edit-btn-cancel {
+    background-color: $cancel-btn;
 }

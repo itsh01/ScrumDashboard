@@ -101,6 +101,7 @@ define([
                 if (isValidTeam(teamWithDefaults)) {
                     teamWithDefaults.id = helpers.generateGuid();
                     teamWithDefaults.sprints = [this.getBlankSprint()];
+                    teamWithDefaults.sprints[0].id = helpers.generateGuid();
                     teamsData.push(teamWithDefaults);
                     return teamWithDefaults.id;
                 }
@@ -305,7 +306,8 @@ define([
             }
 
             this.getCurrentSprint = function () {
-                if (!this.getCurrentTeam().id) {
+                var currTeam = this.getCurrentTeam();
+                if (!currTeam.id ){//|| currTeam.sprints.length < 1) {
                     return {};
                 }
                 resetCurrentSprintIdIfInvalid.call(this);
@@ -334,6 +336,8 @@ define([
 
             function changeCurrentTeamId(teamId) {
                 currentViewState.currentTeamId = teamId;
+                var currTeam = this.getCurrentTeam();
+                changeCurrentSprintId.call(this, currTeam.sprints[currTeam.sprints.length - 1]);
             }
 
             function changeExistingMemberId(memberId) {

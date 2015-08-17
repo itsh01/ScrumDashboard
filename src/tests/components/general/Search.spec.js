@@ -2,7 +2,9 @@ define(['React', 'flux/flux', 'constants', 'stubContext', 'components/general/Se
     function (React, Flux, constants, stubContext, Search) {
         'use strict';
         var comp;
+        var searchInput;
         var flux;
+        //var matchedItemContainer;
         var mockMembers = [
             {
                 id: '0e8b324c-d49a-474d-8af4-f93bcc6a1511',
@@ -41,14 +43,15 @@ define(['React', 'flux/flux', 'constants', 'stubContext', 'components/general/Se
                 var instance = React.createElement(SearchWithContext, mockProps);
                 var wrappedElement = reactTestUtils.renderIntoDocument(instance).getWrappedElement();
                 comp = reactTestUtils.renderIntoDocument(wrappedElement);
+                searchInput = comp.refs.searchInput.getDOMNode();
+                //matchedItemContainer = comp.refs.matchedItemContainer.getDOMNode();
                 spyOn(flux.teamsActions, 'changeExistingMemberId').and.callFake(function () {
                 });
             });
 
             it('should change state when input is changed', function () {
                 spyOn(comp, 'setState');
-                var input = comp.refs.searchInput.getDOMNode();
-                reactTestUtils.Simulate.change(input, {target: {value: 'a'}});
+                reactTestUtils.Simulate.change(searchInput, {target: {value: 'a'}});
                 expect(comp.setState).toHaveBeenCalledWith({searchStr: 'a'});
             });
 
@@ -57,6 +60,12 @@ define(['React', 'flux/flux', 'constants', 'stubContext', 'components/general/Se
                 expect(comp.filterSearchResults()).toEqual([mockMembers[2], mockMembers[3]]);
 
             });
+            //
+            //it('should change existing member when clicked', function () {
+            //    var desiredSearchResult = matchedItemContainer.
+            //        React.addons.TestUtils.Simulate.change(searchInput, {target: {value: 'Kacie Smitham'}});
+            //
+            //});
 
         });
     });

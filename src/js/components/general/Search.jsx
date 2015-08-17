@@ -6,7 +6,8 @@ define(['../../../vendor/lodash', 'React'],
                 <li
                     onClick={this.changeExistingMember.bind(null, member)}
                     className='matched-member'
-                    key={member.id}>
+                    key={member.id}
+                    data-id={member.id}>
                     {createMatchedMemberName(member, this.state.searchStr)}
                 </li>
             );

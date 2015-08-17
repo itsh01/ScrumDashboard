@@ -1,4 +1,12 @@
 linters:
+
+  BorderZero:
+    enabled: true
+    convention: none # or `zero`
+
+  Comment:
+    enabled: true
+
   Indentation:
     enabled: true
     allow_non_nested_indentation: false
@@ -14,3 +22,7 @@ linters:
 
   VendorPrefix:
     enabled: false
+
+  HexNotation:
+    enabled: true
+    style: uppercase # or 'lowercase'

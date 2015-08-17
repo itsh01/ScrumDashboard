@@ -1,3 +1,7 @@
+
+$btn-grad-start: #EE9090;
+$btn-grad-end: #DDA0A0;
+
 .card {
     position: relative;
     display: flex;
@@ -12,7 +16,7 @@
     transition: 0.5s linear all;
 }
 
-.card-points{
+.card-points {
     align-self: flex-end;
     font-size: 0.8rem;
 }
@@ -25,27 +29,27 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.54);
 }
 
-.card-delete{
-    position:absolute;
-    top:2px;
-    right:2px;
+.card-delete {
+    position: absolute;
+    top: 2px;
+    right: 2px;
     visibility: hidden;
 }
 
-.card-editable .card-delete{
+.card-editable .card-delete {
     visibility: visible;
 }
 
-.card-btn-edit{
+.card-btn-edit {
     visibility: hidden;
-    background-image: linear-gradient(to bottom, #ee9090, #DDa0a0);
+    background-image: linear-gradient(to bottom, $btn-grad-start, $btn-grad-end);
     position: absolute;
-    bottom:2px;
-    padding:1px 10px;
+    bottom: 2px;
+    padding: 1px 10px;
     border-radius: 5px;
 }
 
-.card-editable .card-btn-edit{
+.card-editable .card-btn-edit {
     visibility: visible;
 }
 
