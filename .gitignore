@@ -7,11 +7,6 @@ src/vendor/**
 build
 **/.DS_Store
 src/js/components/**/*.js
-src/stylesheets/**/*.css
 src/js/playground.js
 src/js/main.js
-<<<<<<< HEAD
 src/tests/components/demo
-=======
-dist
->>>>>>> 7e4f08badbd2dad08a2bed192a117d941492c2ae
