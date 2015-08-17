@@ -237,16 +237,16 @@ module.exports = function (grunt) {
             }
         },
         scsslint: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: 'src/stylesheets',
-                    src: ['*.scss']
-                }]
+            allFiles: [
+                'src/stylesheets/**/*.scss'
+            ],
+            options: {
+                colorizeOutput: true,
+                exclude: 'src/stylesheets/vendor/**/*.scss'
             }
         }
     });
-
+    grunt.loadNpmTasks('grunt-scss-lint');
     grunt.registerTask('log', function (text) {
         grunt.log.writeln(text);
     });

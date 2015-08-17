@@ -42,7 +42,7 @@
     "grunt-processhtml": "~0.3.8",
     "grunt-react": "~0.12.2",
     "grunt-sass": "^1.0.0",
-    "grunt-scsslint": "^0.1.0",
+    "grunt-scss-lint": "^0.3.8",
     "grunt-umd": "^2.3.3",
     "jasmine-core": "^2.3.4",
     "jit-grunt": "0.9.1",
