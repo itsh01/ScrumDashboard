@@ -12,18 +12,6 @@ define([
 
         function TeamStore(dispatcher, eventEmitter, waitForTokens, defaultTeamData, getUserCards) {
 
-            this.emitChange = function () {
-                eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
-            };
-
-            this.addChangeListener = function (callback) {
-                eventEmitter.on(constants.flux.TEAMS_STORE_CHANGE, callback);
-            };
-
-            this.removeChangeListener = function (callback) {
-                eventEmitter.removeListener(constants.flux.TEAMS_STORE_CHANGE, callback);
-            };
-
             var dataFileVersion = '1',
                 SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
@@ -41,29 +29,47 @@ define([
                     filterFunc: {type: 'function', defaultValue: null},
                     active: {type: 'boolean', defaultValue: true}
                 },
-                teamsData;
-            if (dataFileVersion === localStorage.getItem('teamVersion')) {
-                teamsData = restoreFromLocalStorage();
-            } else {
-                teamsData = defaultTeamData;
-                saveToLocalStorage();
-                localStorage.setItem('teamVersion', dataFileVersion);
-            }
-            _.forEach(filterFunctions, function (filterVal, filterFuncName) {
-                this['get' + filterFuncName] = function () {
-                    return _.filter(teamsData, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
+                teamsData,
+                currentViewState;
+
+            (function init() {
+
+                this.emitChange = function () {
+                    eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
                 };
-            }, this);
 
-            var currentViewState = {
-                currentTeamId: this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id,
-                currentSprintId: (_.last(teamsData[0].sprints)).id,
-                currentExistingMemberId: teamsData[0].members[0]
-            };
+                this.addChangeListener = function (callback) {
+                    eventEmitter.on(constants.flux.TEAMS_STORE_CHANGE, callback);
+                };
 
-            this.changeCurrentTeamToDefault = function () {
-                var defaultTeamId = this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id;
-                changeCurrentTeamId(defaultTeamId);
+                this.removeChangeListener = function (callback) {
+                    eventEmitter.removeListener(constants.flux.TEAMS_STORE_CHANGE, callback);
+                };
+
+                if (dataFileVersion === localStorage.getItem('teamVersion')) {
+                    teamsData = restoreFromLocalStorage();
+                } else {
+                    teamsData = defaultTeamData;
+                    saveToLocalStorage();
+                    localStorage.setItem('teamVersion', dataFileVersion);
+                }
+
+                _.forEach(filterFunctions, function (filterVal, filterFuncName) {
+                    this['get' + filterFuncName] = function () {
+                        return _.filter(teamsData, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
+                    };
+                }, this);
+
+                currentViewState = {
+                    currentTeamId: getDefaultTeamId.apply(this),
+                    currentSprintId: (_.last(teamsData[0].sprints)).id,
+                    currentExistingMemberId: teamsData[0].members[0]
+                };
+
+            }).apply(this);
+
+            this.getCurrentExistingMemberId = function () {
+                return currentViewState.currentExistingMemberId;
             };
 
             this.getTeamById = function (id) {
@@ -80,6 +86,50 @@ define([
 
             this.getBlankSprint = function () {
                 return helpers.getBlankItem(SPRINT_SCHEMA);
+            };
+
+            this.getMemberCardsInSprint = function (memberId, sprintId) {
+                var sprint = getSprintById(sprintId),
+                    memberCards = getUserCards(memberId),
+                    sprintStartDate = new Date(sprint.startDate),
+                    sprintEndDate = new Date(sprint.endDate);
+
+                var membersCardsInSprint = _.filter(memberCards, function (card) {
+                    if (card.startDate === null) {
+                        return true;
+                    }
+                    var cardStartDate = new Date(card.startDate);
+                    if (card.endDate === null) {
+                        return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate);
+                    }
+                    var cardEndDate = new Date(card.endDate);
+                    return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate)
+                        || helpers.onSegment(sprintStartDate, sprintEndDate, cardEndDate);
+                });
+                return membersCardsInSprint;
+            };
+
+            this.getCurrentTeam = function () {
+                return this.getTeamById(currentViewState.currentTeamId) || {};
+            };
+
+            this.getSprintIndex = function (sprintId) {
+                var sprints = this.getTeamById(currentViewState.currentTeamId).sprints;
+                for (var i = 0; i < sprints.length; i++) {
+                    if (sprints[i].id === sprintId) {
+                        return i;
+                    }
+                }
+                return -1;
+            };
+
+            this.getCurrentSprint = function () {
+                var currTeam = this.getCurrentTeam();
+                if (!currTeam.id) {//|| currTeam.sprints.length < 1) {
+                    return {};
+                }
+                resetCurrentSprintIdIfInvalid.call(this);
+                return this.getSprintById(currentViewState.currentSprintId);
             };
 
             function isValidSprint(sprint) {
@@ -107,7 +157,6 @@ define([
                 }
             }
 
-            //
             function addSprint(sprintData, teamId) {
                 teamId = teamId || currentViewState.currentTeamId;
                 var team = _.find(teamsData, {id: teamId}),
@@ -188,27 +237,6 @@ define([
                 return getSprintById(sprintId);
             }
 
-            this.getMemberCardsInSprint = function (memberId, sprintId) {
-                var sprint = getSprintById(sprintId),
-                    memberCards = getUserCards(memberId),
-                    sprintStartDate = new Date(sprint.startDate),
-                    sprintEndDate = new Date(sprint.endDate);
-
-                var membersCardsInSprint = _.filter(memberCards, function (card) {
-                    if (card.startDate === null) {
-                        return true;
-                    }
-                    var cardStartDate = new Date(card.startDate);
-                    if (card.endDate === null) {
-                        return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate);
-                    }
-                    var cardEndDate = new Date(card.endDate);
-                    return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate)
-                        || helpers.onSegment(sprintStartDate, sprintEndDate, cardEndDate);
-                });
-                return membersCardsInSprint;
-            };
-
             function setRetroCardsStatus(sprint) {
                 var cards = [];
                 _.forEach(sprint.members, function (memberId) {
@@ -281,12 +309,17 @@ define([
                     team.active = false;
                     saveToLocalStorage();
                     if (teamId === currentViewState.currentTeamId) {
-                        this.changeCurrentTeamToDefault();
+                        var defaultTeamId = getDefaultTeamId.apply(this);
+                        changeCurrentTeamId(defaultTeamId);
                     }
                     return true;
                 }
                 console.log('Team Store: attempt to deactivate non existent team (teamId: ', teamId, ')');
                 return false;
+            }
+
+            function getDefaultTeamId() {
+                return this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id;
             }
 
             function saveToLocalStorage() {
@@ -297,26 +330,9 @@ define([
                 return helpers.restoreFromLocalStorage('teams');
             }
 
-            /*eslint-disable no-unused-vars */
             function removeFromLocalStorage() {
                 helpers.removeFromLocalStorage('teams');
             }
-
-            /*eslint-enable no-unused-vars */
-
-            this.getCurrentTeam = function () {
-                return this.getTeamById(currentViewState.currentTeamId) || {};
-            };
-
-            this.getSprintIndex = function (sprintId) {
-                var sprints = this.getTeamById(currentViewState.currentTeamId).sprints;
-                for (var i = 0; i < sprints.length; i++) {
-                    if (sprints[i].id === sprintId) {
-                        return i;
-                    }
-                }
-                return -1;
-            };
 
             function resetCurrentSprintIdIfInvalid() {
                 var isCurrSprintValid = this.getSprintIndex(currentViewState.currentSprintId) !== -1;
@@ -324,15 +340,6 @@ define([
                     currentViewState.currentSprintId = _.last(this.getCurrentTeam().sprints).id;
                 }
             }
-
-            this.getCurrentSprint = function () {
-                var currTeam = this.getCurrentTeam();
-                if (!currTeam.id) {//|| currTeam.sprints.length < 1) {
-                    return {};
-                }
-                resetCurrentSprintIdIfInvalid.call(this);
-                return this.getSprintById(currentViewState.currentSprintId);
-            };
 
             // This function gets 'next'/'prev'/sprint id as the destination string
             // TODO: split
@@ -348,11 +355,6 @@ define([
                     currentViewState.currentSprintId = destination;
                 }
             }
-
-            this.getCurrentExistingMemberId = function () {
-                return currentViewState.currentExistingMemberId;
-            };
-
 
             function changeCurrentTeamId(teamId) {
                 currentViewState.currentTeamId = teamId;
