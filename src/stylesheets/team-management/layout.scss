@@ -1,3 +1,10 @@
+
+$grey: #808080;
+$team-manage-btn: #3CB0FD;
+$remove-btn: #498FF1;
+$white: #FFF;
+$hot-pink: #FF69B4;
+
 .team-management {
     text-align: center;
     padding: 4rem;
@@ -52,18 +59,18 @@
 }
 
 .team-management-button:hover {
-    background: #3cb0fd;
+    background: $team-manage-btn;
     text-decoration: none;
 }
 
 .team-name {
     display: inline-block;
-    color: white;
+    color: $white;
     text-decoration: none;
 }
 
 .member-name {
-    padding: 0 0.7rem 0.7rem 0.7rem;
+    padding: 0 0.7rem 0.7rem;
     vertical-align: top;
     margin: 0;
 }
@@ -89,8 +96,8 @@
     margin: 3px;
     border: 1px transparent solid;
     cursor: pointer;
-    background-color: #498ff1;
-    color: white;
+    background-color: $remove-btn;
+    color: $white;
     border-radius: 28px;
     transition: 0.3s linear all;
     visibility: hidden;
@@ -120,10 +127,9 @@
 }
 
 .new-member-profile {
-    /*width: 150px;*/
     margin: 0 auto;
     padding: 0.4rem;
-    border: 2px dotted hotpink;
+    border: 2px dotted $hot-pink;
 }
 
 .member-name-input,
@@ -167,7 +173,7 @@
     height: 6rem;
     overflow: hidden;
     width: 100%;
-    border: 1px solid grey;
+    border: 1px solid $grey;
 }
 
 .matched-member-list {

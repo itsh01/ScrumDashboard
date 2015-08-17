@@ -18,3 +18,7 @@ linters:
   HexNotation:
     enabled: true
     style: uppercase # or 'lowercase'
+
+  BorderZero:
+    enabled: true
+    convention: none # or `zero`
