@@ -7,5 +7,6 @@ src/vendor/**
 build
 **/.DS_Store
 src/js/components/**/*.js
+src/stylesheets/**/*.css
 src/js/playground.js
 src/js/main.js

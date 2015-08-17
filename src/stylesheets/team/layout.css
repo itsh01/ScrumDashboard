@@ -1,118 +1,93 @@
-
 .left {
-    float:left;
-}
+  float: left; }
 
 .right {
-    float:right;
-}
-
+  float: right; }
 
 .home-view-container {
-    clear: both;
-}
+  clear: both; }
 
 .arrow {
-    width: 0;
-    height: 0;
-    border-style: solid;
-    margin: 20px;
-}
+  width: 0;
+  height: 0;
+  border-style: solid;
+  margin: 20px; }
 
 .arrow:hover {
-    cursor: pointer;
-}
+  cursor: pointer; }
 
 .backwards {
-    border-width: 10px 20px 10px 0;
-    border-color: transparent black transparent transparent;
-}
+  border-width: 10px 20px 10px 0;
+  border-color: transparent black transparent transparent; }
 
 .forward {
-    border-width: 10px 0 10px 20px;
-    border-color: transparent transparent transparent black;
-}
+  border-width: 10px 0 10px 20px;
+  border-color: transparent transparent transparent black; }
 
 .home-view-buttons-container {
-    text-align: center;
-}
+  text-align: center; }
 
 .home-view-button {
-    background-image: linear-gradient(to bottom, #F0F0F0, #D0D0D0);
-    border-radius: 5px;
-    font-size: 15px;
-    padding: 10px 20px 10px 20px;
-    text-decoration: none;
-    margin: 3px;
-}
+  background-image: linear-gradient(to bottom, #F0F0F0, #D0D0D0);
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  margin: 3px; }
 
 .home-view-button:hover {
-    background: #3cfc8f;
-    text-decoration: none;
-}
+  background: #3cfc8f;
+  text-decoration: none; }
 
-.home-view-button-lock {
-
-}
 .clearButton {
-    color: red;
-}
+  color: red; }
 
 .edit-sprint {
-    display: block;
-    margin: 0 auto;
-    width: 40rem;
-    border: 1px solid #000;
-    padding: 2rem;
-    margin-top: 1rem;
-}
+  display: block;
+  margin: 0 auto;
+  width: 40rem;
+  border: 1px solid #000;
+  padding: 2rem;
+  margin-top: 1rem; }
 
 .combo-box-list {
-    list-style: none;
-    padding: 0;
-    width: 8rem;
-    border: #999 1px solid;
-    margin: 0;
-    transition: 0.3s linear all;
-}
+  list-style: none;
+  padding: 0;
+  width: 8rem;
+  border: #999 1px solid;
+  margin: 0;
+  transition: 0.3s linear all; }
 
 .combo-box-item {
-    background: #fff;
-    padding: 0.1rem 0.5rem;
-    overflow: hidden;
-    box-sizing: border-box;
-    border: #fff 2px solid;
-}
+  background: #fff;
+  padding: 0.1rem 0.5rem;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: #fff 2px solid; }
 
 .combo-box-item:hover {
-    background-color: #E2E2FF;
-}
+  background-color: #E2E2FF; }
 
 .delete-phase {
-    float: right;
-    color: #fff;
-    background-color: #F14B4B;
-    padding: 0.1rem 0.33rem;
-    border-radius: 50%;
-    font-size: 0.7rem;
-    cursor: pointer;
-}
+  float: right;
+  color: #fff;
+  background-color: #F14B4B;
+  padding: 0.1rem 0.33rem;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  cursor: pointer; }
 
 .input-section {
-    margin: 1rem;
-}
+  margin: 1rem; }
 
 .input-section-label {
-    display: inline-block;
-    min-width: 11rem;
-    vertical-align: top;
-    margin-bottom: 0.5rem;
-}
+  display: inline-block;
+  min-width: 11rem;
+  vertical-align: top;
+  margin-bottom: 0.5rem; }
 
 .input-section-field {
-    display: inline-block;
-}
+  display: inline-block; }
 
 .input-checkbox {
-    display: block;
-}
+  display: block; }

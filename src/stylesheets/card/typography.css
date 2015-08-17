@@ -1,11 +1,9 @@
 .card-title {
-    font-size: 0.8rem;
-    text-align: left;
-    font-weight: normal;
-    margin: 0;
-    padding: 0.1rem;
-}
+  font-size: 0.8rem;
+  text-align: left;
+  font-weight: normal;
+  margin: 0;
+  padding: 0.1rem; }
 
 .card-description {
-    font-size: 0.6rem;
-}
+  font-size: 0.6rem; }

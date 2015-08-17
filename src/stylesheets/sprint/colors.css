@@ -1,22 +1,17 @@
 .board .table-cell {
-    border-color: #ffffff;
-    background-color: #f0f0f0;
-    color: #404040;
-}
+  border-color: #ffffff;
+  background-color: #f0f0f0;
+  color: #404040; }
 
 .board .table-heading {
-    border-color: #ffffff;
-    background-color: #d0d0d0;
-    color: #000000;
-}
+  border-color: #ffffff;
+  background-color: #d0d0d0;
+  color: #000000; }
 
 .cards-container-heap-size {
-    opacity: 0;
-}
+  opacity: 0; }
 
 .cards-container-heap-size:hover {
-    opacity: 0.8;
-    background-color: #223;
-    color: #d0d0d0;
-}
-
+  opacity: 0.8;
+  background-color: #223;
+  color: #d0d0d0; }

@@ -1,49 +1,41 @@
-
 .team-management-transition-appear {
-    opacity: 0.01;
-}
+  opacity: 0.01; }
 
 .team-management-transition-appear.team-management-transition-appear-active {
-    opacity: 1;
-    -webkit-transition: all 0.5s ease-in;
-    -moz-transition: all 0.5s ease-in;
-    -o-transition: all 0.5s ease-in;
-    transition: all 0.5s ease-in;
-}
+  opacity: 1;
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in; }
 
 .teams-list-enter,
 .member-profile-transition-enter {
-    opacity: 0.01;
-}
+  opacity: 0.01; }
 
 .teams-list-enter.teams-list-enter-active,
 .member-profile-transition-enter.member-profile-transition-enter-active {
-    opacity: 1;
-    -webkit-transition: all 0.5s ease-in;
-    -moz-transition: all 0.5s ease-in;
-    -o-transition: all 0.5s ease-in;
-    transition: all 0.5s ease-in;
-}
+  opacity: 1;
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in; }
 
 .teams-list-leave,
 .member-profile-transition-leave {
-    opacity: 1;
-}
+  opacity: 1; }
 
 .teams-list-leave.teams-list-leave-active {
-    opacity: 0.01;
-    -webkit-transform: translate(-250px);
-    -moz-transform: translate(-250px);
-    -ms-transform: translate(-250px);
-    -o-transform: translate(-250px);
-    transform: translate(-250px);
-    transition: all 0.5s ease-in;
-}
+  opacity: 0.01;
+  -webkit-transform: translate(-250px);
+  -moz-transform: translate(-250px);
+  -ms-transform: translate(-250px);
+  -o-transform: translate(-250px);
+  transform: translate(-250px);
+  transition: all 0.5s ease-in; }
 
 .member-profile-transition-leave-active {
-    opacity: 0.01;
-    -webkit-transition: all 0.5s ease-in;
-    -moz-transition: all 0.5s ease-in;
-    -o-transition: all 0.5s ease-in;
-    transition: all 0.5s ease-in;
-}
+  opacity: 0.01;
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in; }

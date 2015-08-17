@@ -1,0 +1,61 @@
+.card-1 {
+    background-color: #fff5c7;
+}
+
+.card-1:hover {
+    background-color: #e2d8b0;
+}
+
+.card-2 {
+    background-color: #dfd15f;
+}
+
+.card-2:hover {
+    background-color: #c9bc56;
+}
+
+.card-3 {
+    background-color: #df9e4e;
+}
+
+.card-3:hover {
+    background-color: #c88d46;
+}
+
+.card-5 {
+    background-color: #d0d0ff;
+}
+
+.card-5:hover {
+    background-color: #bebee9;
+}
+
+.card-8 {
+    background-color: #a9aeff;
+}
+
+.card-8:hover {
+    background-color: #9a9fe9;
+}
+
+.card-13 {
+    background-color: #ff5555;
+}
+
+.card-13:hover {
+    background-color: #e14b4b;
+}
+
+.card-none {
+    background-color: #cdd2cb;
+}
+
+.card-none:hover {
+    background-color: #b9beb8;
+}
+
+.card {
+    box-shadow: -0.2rem -0.2rem 0.2rem #000,
+    0.1rem 0.1rem 1rem 0.01rem rgba(0,0,0,0.1) inset,
+    -0.1rem -0.1rem 0.6rem 0.01rem rgba(0,0,0,0.1) inset;
+}

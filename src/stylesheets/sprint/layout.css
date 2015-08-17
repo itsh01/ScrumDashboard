@@ -1,94 +1,76 @@
 .sprint-member-cell {
-    vertical-align: middle;
-}
+  vertical-align: middle; }
 
 .sprint-member .sprint-member-image {
-    width: 4rem;
-    cursor: default;
-}
+  width: 4rem;
+  cursor: default; }
 
 .sprint-member figure {
-    position: relative;
-    text-align: center;
-    margin: 1.3rem;
-}
+  position: relative;
+  text-align: center;
+  margin: 1.3rem; }
+
 .sprint-member figcaption {
-    padding: 0.3rem;
-}
+  padding: 0.3rem; }
 
 .scrum-master {
-    width: 3rem;
-    position: absolute;
-    right: -1rem;
-    top: -2rem;
-}
+  width: 3rem;
+  position: absolute;
+  right: -1rem;
+  top: -2rem; }
 
 .sprint-table-wrapper .table-cell {
-    max-width: 7rem;
-    /*overflow: hidden;*/
-}
+  max-width: 7rem;
+  /*overflow: hidden;*/ }
 
 .sprint-table-wrapper {
-    display: inline-block;
-    width: 80%;
-}
+  display: inline-block;
+  width: 80%; }
 
 .board {
-    width: 90%;
-    margin: 0 auto;
-}
+  width: 90%;
+  margin: 0 auto; }
 
 .board .table-heading:first-child,
 .board .table-cell:first-child {
-    width: 8rem;
-}
+  width: 8rem; }
 
 .sprint-cards-container {
-    display: flex;
-    line-height: 1rem;
-    position: relative;
-    margin: 0.25rem;
-}
+  display: flex;
+  line-height: 1rem;
+  position: relative;
+  margin: 0.25rem; }
 
 .sprint-card-wrapper {
-    position: absolute;
-    margin: 0;
-    pdding: 0;
-    top: 0;
-    left: 0;
-    transition: all 0.9s ease-in-out;
-}
+  position: absolute;
+  margin: 0;
+  pdding: 0;
+  top: 0;
+  left: 0;
+  transition: all 0.9s ease-in-out; }
 
 .sprint-cards-container-close-heap-btn {
-    top: 2rem;
-    left: 1rem;
-    padding: 0.5rem;
-    cursor: pointer;
-}
+  top: 2rem;
+  left: 1rem;
+  padding: 0.5rem;
+  cursor: pointer; }
 
 .sprint-card-wrapper .card {
-    border: 1px #000;
-    margin: 0;
-}
+  border: 1px #000;
+  margin: 0; }
 
 .sprint-velocity {
-    width: 16rem;
-    margin: 0 auto;
-}
+  width: 16rem;
+  margin: 0 auto; }
 
 .sprint-velocity-title {
-    padding-bottom: 0.7rem;
-}
+  padding-bottom: 0.7rem; }
 
 .open-heap-img {
-    width: 100%;
-    max-height: 100%;
-}
+  width: 100%;
+  max-height: 100%; }
 
 .container-size {
-    position: absolute;
-    top: 2rem;
-    left: 2.2rem;
-}
-
-
+  position: absolute;
+  top: 2rem;
+  left: 2.2rem; }

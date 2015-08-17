@@ -230,9 +230,18 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src/stylesheets',
-                    src: ['*.scss'],
+                    src: '**/*.scss',
                     dest: 'src/stylesheets',
                     ext: '.css'
+                }]
+            }
+        },
+        scsslint: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'src/stylesheets',
+                    src: ['*.scss']
                 }]
             }
         }
@@ -245,9 +254,10 @@ module.exports = function (grunt) {
     require('jit-grunt')(grunt);
 
     grunt.registerTask('lint', ['eslint', 'csslint']);
-    grunt.registerTask('dev', ['asciify:build', 'lint', 'sass', 'babel', 'test']);
+    grunt.registerTask('compile', ['sass', 'umd', 'babel']);
+    grunt.registerTask('dev', ['asciify:build', 'lint', 'compile', 'test']);
     grunt.registerTask('minify', ['processhtml', 'requirejs', 'cssmin']);
-    grunt.registerTask('build', ['asciify:build', 'lint', 'clean', 'babel', 'umd', 'copy', 'minify']);
+    grunt.registerTask('build', ['asciify:build', 'lint', 'clean', 'compile', 'copy', 'minify']);
     grunt.registerTask('test', ['karma']);
     grunt.registerTask('default', ['build', 'test']);
 
