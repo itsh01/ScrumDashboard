@@ -36,7 +36,7 @@ define(['React', 'components/team/BoardView', 'stubContext', 'flux/flux'],
                     var arrows = reactTestUtils.scryRenderedDOMComponentsWithClass(boardViewComp, 'arrow');
                     spyOn(boardViewComp, 'handleSprintChange');
                     reactTestUtils.Simulate.click(arrows[1].getDOMNode());
-                    expect(flux.teamsActions.changeCurrentSprintId).toHaveBeenCalled();
+                    expect(flux.teamsActions.moveCurrentSprintId).toHaveBeenCalled();
                 });
 
 

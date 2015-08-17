@@ -18,7 +18,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             },
 
             handleSprintChange: function (direction) {
-                this.context.flux.teamsActions.changeCurrentSprintId(direction);
+                this.context.flux.teamsActions.moveCurrentSprintId(direction);
             },
 
             addCardClicked: function () {
@@ -32,7 +32,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
             planNewSprint: function () {
                 var newSprint = this.context.flux.teamsStore.getBlankSprint();
                 this.context.flux.teamsActions.addSprint(newSprint);
-                this.context.flux.teamsActions.changeCurrentSprintId('next');
+                this.context.flux.teamsActions.moveCurrentSprintId(true);
             },
 
             lockSprint: function () {
@@ -118,12 +118,12 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
                         <div className="flex-centered one-row">
                             <ChangeSprint direction='backwards'
-                                          handleSprintChangeFunc={this.handleSprintChange.bind(this, 'previous')}/>
+                                          handleSprintChangeFunc={this.handleSprintChange.bind(this, false)}/>
 
                             <h3>Sprint {this.context.flux.teamsStore.getSprintIndex(sprint.id)} : {sprint.name}
                                 - {this.getSprintState(sprint)}</h3>
                             <ChangeSprint direction='forward'
-                                          handleSprintChangeFunc={this.handleSprintChange.bind(this, 'next')}/>
+                                          handleSprintChangeFunc={this.handleSprintChange.bind(this, true)}/>
                         </div>
                         <div className="sprint-dates">
                             <div>

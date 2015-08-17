@@ -35,9 +35,12 @@ define([
                     dispatcher.dispatch({actionName: constants.actionNames.CHANGE_EXISTING_MEMBER_ID, payload: [memberId]});
                 },
 
-                // TODO: split into 3 functions
-                changeCurrentSprintId: function (destination) {
-                    dispatcher.dispatch({actionName: constants.actionNames.CHANGE_CURRENT_SPRINT_ID, payload: [destination]});
+                setCurrentSprintId: function (newCurSprintId) {
+                    dispatcher.dispatch({actionName: constants.actionNames.SET_CURRENT_SPRINT_ID, payload: [newCurSprintId]});
+                },
+
+                moveCurrentSprintId: function (forward) {
+                    dispatcher.dispatch({actionName: constants.actionNames.MOVE_CURRENT_SPRINT_ID, payload: [forward]});
                 },
 
                 moveSprintToNextState: function (sprintId, teamId) {

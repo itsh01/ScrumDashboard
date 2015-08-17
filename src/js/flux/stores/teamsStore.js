@@ -341,25 +341,23 @@ define([
                 }
             }
 
-            // This function gets 'next'/'prev'/sprint id as the destination string
-            // TODO: split
-            function changeCurrentSprintId(destination) {
-                var sprintsLastIndex = this.getTeamById(currentViewState.currentTeamId).sprints.length - 1;
-                var currSprintIndex = this.getSprintIndex(currentViewState.currentSprintId);
-                if (destination === 'next' && currSprintIndex < sprintsLastIndex) {
-                    currentViewState.currentSprintId = this.getTeamById(currentViewState.currentTeamId).sprints[currSprintIndex + 1].id;
+            function moveCurrentSprintId(forward) {
+                var curSprintIndex = this.getSprintIndex(currentViewState.currentSprintId),
+                    sprintsNum = this.getTeamById(currentViewState.currentTeamId).sprints.length,
+                    newSprintIndex = (forward) ? curSprintIndex + 1 : curSprintIndex - 1;
+                if (newSprintIndex > 0 && newSprintIndex < sprintsNum) {
+                    currentViewState.currentSprintId = this.getTeamById(currentViewState.currentTeamId).sprints[newSprintIndex].id;
                 }
-                if (destination === 'previous' && currSprintIndex > 0) {
-                    currentViewState.currentSprintId = this.getTeamById(currentViewState.currentTeamId).sprints[currSprintIndex - 1].id;
-                } else if (destination !== 'next' && destination !== 'previous') {
-                    currentViewState.currentSprintId = destination;
-                }
+            }
+
+            function setCurrentSprintId(newSprintId) {
+                currentViewState.currentSprintId = newSprintId;
             }
 
             function changeCurrentTeamId(teamId) {
                 currentViewState.currentTeamId = teamId;
                 var currTeam = this.getCurrentTeam();
-                changeCurrentSprintId.call(this, currTeam.sprints[currTeam.sprints.length - 1]);
+                setCurrentSprintId.call(this, currTeam.sprints[currTeam.sprints.length - 1]);
             }
 
             function changeExistingMemberId(memberId) {
@@ -370,16 +368,19 @@ define([
                 {name: constants.actionNames.ADD_TEAM, callback: addTeam},
                 {name: constants.actionNames.ADD_SPRINT, callback: addSprint},
                 {name: constants.actionNames.MEMBER_DEACTIVATED, callback: removeDeactivatedMemberFromTeams},
-                {name: constants.actionNames.CHANGE_CURRENT_TEAM_ID, callback: changeCurrentTeamId},
-                {name: constants.actionNames.CHANGE_CURRENT_SPRINT_ID, callback: changeCurrentSprintId},
-                {name: constants.actionNames.RETROFY_SPRINT, callback: retrofySprint},
-                {name: constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, callback: moveSprintToNextState},
-                {name: constants.actionNames.UPDATE_SPRINT, callback: updateSprint},
                 {name: constants.actionNames.DEACTIVATE_TEAM, callback: deactivateTeam},
                 {name: constants.actionNames.ADD_MEMBER_TO_TEAM, callback: addMemberToTeam},
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_TEAM, callback: removeMemberFromTeam},
+
+                {name: constants.actionNames.RETROFY_SPRINT, callback: retrofySprint},
+                {name: constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, callback: moveSprintToNextState},
+                {name: constants.actionNames.UPDATE_SPRINT, callback: updateSprint},
                 {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
                 {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSprint},
+
+                {name: constants.actionNames.CHANGE_CURRENT_TEAM_ID, callback: changeCurrentTeamId},
+                {name: constants.actionNames.SET_CURRENT_SPRINT_ID, callback: setCurrentSprintId},
+                {name: constants.actionNames.MOVE_CURRENT_SPRINT_ID, callback: moveCurrentSprintId},
                 {name: constants.actionNames.CHANGE_EXISTING_MEMBER_ID, callback: changeExistingMemberId}
             ];
 
