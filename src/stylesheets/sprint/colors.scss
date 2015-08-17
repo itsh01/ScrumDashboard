@@ -9,7 +9,7 @@
 
 .board .table-heading {
     border-color: $white;
-    background-color: $gray;
+    background-color: $semi-dark-gray;
     color: $black;
 }
 
@@ -20,6 +20,6 @@
 .cards-container-heap-size:hover {
     opacity: 0.8;
     background-color: $black;
-    color: $gray;
+    color: $semi-dark-gray;
 }
 
