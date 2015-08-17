@@ -4,9 +4,10 @@
 body {
     @include radial-gradient($green, $dark-green);
 
-    font-family: 'Gloria Hallelujah', Tahoma, sans-serif;
+    font-family: 'Architects Daughter', Tahoma, sans-serif;
     color: $white;
-    font-size: 14px;
+    font-size: 16px;
+    letter-spacing: 0.05rem;
 }
 
 .text-center {
