@@ -19,6 +19,7 @@ requirejs.config({
         mixins: '../js/mixins',
         general: '../js/general',
         stores: '../js/flux/stores',
+        actions: '../js/flux/actions',
         baseFlux: '../js/flux/baseFlux',
         definition: '../js/plugins/definition/src/main/definition',
 
