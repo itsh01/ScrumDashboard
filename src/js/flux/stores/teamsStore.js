@@ -5,10 +5,6 @@ define([
     ],
     function (_, helpers, constants) {
         'use strict';
-        var filterFunctions = {
-            AllTeams: null,
-            AllActiveTeams: {active: true}
-        };
 
         function TeamStore(dispatcher, eventEmitter, waitForTokens, defaultTeamData, getUserCards) {
 
@@ -53,6 +49,11 @@ define([
                     saveToLocalStorage();
                     localStorage.setItem('teamVersion', dataFileVersion);
                 }
+
+                var filterFunctions = {
+                    AllTeams: null,
+                    AllActiveTeams: {active: true}
+                };
 
                 _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                     this['get' + filterFuncName] = function () {
@@ -177,7 +178,6 @@ define([
                         return id === memberId;
                     });
                 });
-                saveToLocalStorage();
             }
 
             function addMemberToTeam(teamId, memberId) {

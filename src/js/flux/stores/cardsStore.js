@@ -5,34 +5,8 @@ define([
     ],
     function (_, helpers, constants) {
         'use strict';
-        var filterFunctions = {
-            AllCards: null,
-            TeamCards: function (id) {
-                return {team: id};
-            },
-            CompanyCards: function () {
-                return {team: null};
-            },
-            UserCards: function (id, teamId) {
-                return (teamId) ? {assignee: id, team: teamId} : {assignee: id};
-            },
-            NotCompleted: {endDate: null}
-        };
 
         function CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardsData) {
-
-            this.emitChange = function () {
-                eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
-            };
-
-            this.addChangeListener = function (callback) {
-                eventEmitter.on(constants.flux.CARDS_STORE_CHANGE, callback);
-            };
-
-            this.removeChangeListener = function (callback) {
-                eventEmitter.removeListener(constants.flux.CARDS_STORE_CHANGE, callback);
-            };
-
 
             var dataFileVersion = '1',
                 CARDS_SCHEMA = {
@@ -47,20 +21,49 @@ define([
                 },
                 currentCards;
 
-            if (dataFileVersion === localStorage.getItem('cardsVersion')) {
-                currentCards = restoreFromLocalStorage();
-            } else {
-                currentCards = defaultCardsData;
-                saveToLocalStorage();
-                localStorage.setItem('cardsVersion', dataFileVersion);
-            }
-
-
-            _.forEach(filterFunctions, function (filterVal, filterFuncName) {
-                this['get' + filterFuncName] = function () {
-                    return _.filter(currentCards, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
+            (function init() {
+                this.emitChange = function () {
+                    eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
                 };
-            }, this);
+
+                this.addChangeListener = function (callback) {
+                    eventEmitter.on(constants.flux.CARDS_STORE_CHANGE, callback);
+                };
+
+                this.removeChangeListener = function (callback) {
+                    eventEmitter.removeListener(constants.flux.CARDS_STORE_CHANGE, callback);
+                };
+
+                if (dataFileVersion === localStorage.getItem('cardsVersion')) {
+                    currentCards = restoreFromLocalStorage();
+                } else {
+                    currentCards = defaultCardsData;
+                    saveToLocalStorage();
+                    localStorage.setItem('cardsVersion', dataFileVersion);
+                }
+
+                var filterFunctions = {
+                    AllCards: null,
+                    TeamCards: function (id) {
+                        return {team: id};
+                    },
+                    CompanyCards: function () {
+                        return {team: null};
+                    },
+                    UserCards: function (id, teamId) {
+                        return (teamId) ? {assignee: id, team: teamId} : {assignee: id};
+                    },
+                    NotCompleted: {endDate: null}
+                };
+
+                _.forEach(filterFunctions, function (filterVal, filterFuncName) {
+                    this['get' + filterFuncName] = function () {
+                        return _.filter(currentCards, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
+                    };
+                }, this);
+
+            }).apply(this);
+
 
             this.getCardById = function (id) {
                 return _.cloneDeep(_.find(currentCards, {id: id}));
@@ -77,19 +80,6 @@ define([
                 });
             }
 
-            /**
-             *
-             * @param {Object} newCardData
-             *  {
-             *      name: [String],
-             *      description: [String] (optional, default: ''),
-             *      score: [Number] (optional, default: null),
-             *      team: [String] (optional, default: null),
-             *      status: [String] (optional, default: 'unassigned'),
-             *      assignee: [String] (optional, default: null),
-             *      startDate: [String] (optional, format: YYYY-MM-DD, default: null)
-             *  }
-             */
             function addCard(newCardData) {
                 var blankCard = this.getBlankCard(),
                     cardWithDefaults = _.assign(blankCard, newCardData);
@@ -101,18 +91,6 @@ define([
                 }
             }
 
-            /**
-             * @param {String} cardId
-             * @param {Object} newCardData
-             *  {
-             *      score: [Number],
-             *      team: [String],
-             *      status: [String],
-             *      assignee: [String],
-             *      startDate: [String] (format: YYYY-MM-DD),
-             *      endDate: [String] (format: YYYY-MM-DD)
-             *  }
-             */
             function updateCard(cardId, newCardData) {
                 delete newCardData.id;
                 if (isValidCard(newCardData)) {
@@ -121,9 +99,6 @@ define([
                 return false;
             }
 
-            /**
-             * @param {String} cardId
-             */
             function removeCard(cardId) {
                 var card = _.remove(currentCards, {id: cardId});
                 saveToLocalStorage();
