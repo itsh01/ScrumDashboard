@@ -1,4 +1,3 @@
-
 @import '../main/global';
 
 .left {
@@ -39,17 +38,7 @@
 }
 
 .home-view-button {
-    background-image: linear-gradient(to bottom, $grey-grandient-start, $grey-grandient-end);
-    border-radius: 5px;
-    font-size: 15px;
-    padding: 10px 20px;
-    text-decoration: none;
-    margin: 3px;
-}
-
-.home-view-button:hover {
-    background: $light-green;
-    text-decoration: none;
+    @include btn-md($semi-light-green, $light-green, $black);
 }
 
 .edit-sprint {

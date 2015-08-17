@@ -44,8 +44,8 @@ define([
                     var isCompanyList = self.props.title === 'Company',
                     newCardData = {
                             status: 'unassigned',
-                            assignee: null,
-                            team: isCompanyList ? null : self.context.teamId
+                            assignee: '',
+                            team: isCompanyList ? '' : self.context.teamId
                         };
                     self.context.flux.cardsActions.updateCard(card.id, newCardData);
 

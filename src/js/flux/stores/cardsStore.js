@@ -7,19 +7,18 @@ define([
     function (_, helpers, constants, Firebase) {
         'use strict';
 
-
         function CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardsData) {
 
             var dataFileVersion = '1',
                 CARDS_SCHEMA = {
                     name: {type: 'string'},
-                    description: {type: 'string'},
-                    score: {type: 'number'},
-                    team: {type: 'string'},
+                    description: {type: 'string', defaultValue: ''},
+                    score: {type: 'number', defaultValue: ''},
+                    team: {type: 'string', defaultValue: ''},
                     status: {type: 'string', defaultValue: 'unassigned'},
-                    assignee: {type: 'string'},
-                    startDate: {type: 'string'},
-                    endDate: {type: 'string'}
+                    assignee: {type: 'string', defaultValue: ''},
+                    startDate: {type: 'string', defaultValue: ''},
+                    endDate: {type: 'string', defaultValue: ''}
                 },
                 currentCards = defaultCardsData,
                 cardsFirebaseRef = new Firebase("https://scrum-dashboard-1.firebaseio.com/cards");
@@ -46,17 +45,17 @@ define([
                 }
 
                 var filterFunctions = {
-                    //AllCards: null,
+                    AllCards: null,
                     TeamCards: function (id) {
                         return {team: id};
                     },
-                    //CompanyCards: function () {
-                    //    return {team: null};
-                    //},
+                    CompanyCards: function () {
+                        return {team: ''};
+                    },
                     UserCards: function (id, teamId) {
                         return (teamId) ? {assignee: id, team: teamId} : {assignee: id};
-                    }
-                    //NotCompleted: {endDate: null}
+                    },
+                    NotCompleted: {endDate: ''}
                 };
 
                 _.forEach(filterFunctions, function (filterVal, filterFuncName) {
@@ -86,22 +85,6 @@ define([
             cardsFirebaseRef.on("child_removed", function (snapshot) {
                 updateCurrentCards();
             });
-
-            this.getAllCards = function () {
-                return currentCards;
-            };
-            this.getCompanyCards = function () {
-                return _.filter(currentCards, function (card) {
-                    return _.isUndefined(card.team);
-                })
-            };
-
-            this.getNotCompleted = function () {
-                return _.filter(currentCards, function (card) {
-                    return _.isUndefined(card.endDate);
-                })
-            };
-
 
             this.getCardById = function (id) {
                 return _.cloneDeep(_.find(currentCards, {id: id}));
@@ -149,7 +132,7 @@ define([
             function unassignMemberFromCards(memberId) {
                 var cards = this.getAllCards();
                 currentCards = _.map(cards, function (card) {
-                    card.assignee = card.assignee === memberId ? null : card.assignee;
+                    card.assignee = card.assignee === memberId ? '' : card.assignee;
                     card.status = 'unassigned';
                     return card;
                 });
@@ -187,8 +170,8 @@ define([
 
             function saveToLocalStorage() {
                 helpers.saveToLocalStorage('cards', currentCards);
-
             }
+
             function restoreFromLocalStorage() {
                 return helpers.restoreFromLocalStorage('cards');
             }
@@ -196,11 +179,10 @@ define([
             function removeFromLocalStorage() {
                 helpers.removeFromLocalStorage('cards');
             }
-            
-
 
         }
 
         return CardsStore;
 
     });
+
