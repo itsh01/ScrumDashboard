@@ -31,7 +31,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
 
             planNewSprint: function () {
                 var newSprint = this.context.flux.teamsStore.getBlankSprint();
-                this.context.flux.teamsActions.addSprintToCurrentTeam(newSprint);
+                this.context.flux.teamsActions.addSprint(newSprint);
                 this.context.flux.teamsActions.changeCurrentSprintId('next');
             },
 
