@@ -9,3 +9,4 @@ build
 src/js/components/**/*.js
 src/js/playground.js
 src/js/main.js
+src/tests/components/demo
