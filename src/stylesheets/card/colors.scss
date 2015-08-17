@@ -1,61 +1,78 @@
+
+$black: #000;
+$light-yellow: #FFF5C7;
+$light-yellow-hover: #E2D8B0;
+$dark-yellow: #DFD15F;
+$dark-yellow-hover: #C9BC56;
+$orange: #DF9E4E;
+$orange-hover: #C88D46;
+$light-blue: #D0D0FF;
+$light-blue-hover: #BEBEE9;
+$purple: #A9AEFF;
+$purple-hover: #9A9FE9;
+$red: #F55;
+$red-hover: #E14B4B;
+$none-color: #CDD2CB;
+$none-color-hover: #B9BEB8;
+
 .card-1 {
-    background-color: #fff5c7;
+    background-color: $light-yellow;
 }
 
 .card-1:hover {
-    background-color: #e2d8b0;
+    background-color: $light-yellow-hover;
 }
 
 .card-2 {
-    background-color: #dfd15f;
+    background-color: $dark-yellow;
 }
 
 .card-2:hover {
-    background-color: #c9bc56;
+    background-color: $dark-yellow-hover;
 }
 
 .card-3 {
-    background-color: #df9e4e;
+    background-color: $orange;
 }
 
 .card-3:hover {
-    background-color: #c88d46;
+    background-color: $orange-hover;
 }
 
 .card-5 {
-    background-color: #d0d0ff;
+    background-color: $light-blue;
 }
 
 .card-5:hover {
-    background-color: #bebee9;
+    background-color: $light-blue-hover;
 }
 
 .card-8 {
-    background-color: #a9aeff;
+    background-color: $purple;
 }
 
 .card-8:hover {
-    background-color: #9a9fe9;
+    background-color: $purple-hover;
 }
 
 .card-13 {
-    background-color: #ff5555;
+    background-color: $red;
 }
 
 .card-13:hover {
-    background-color: #e14b4b;
+    background-color: $red-hover;
 }
 
 .card-none {
-    background-color: #cdd2cb;
+    background-color: $none-color;
 }
 
 .card-none:hover {
-    background-color: #b9beb8;
+    background-color: $none-color-hover;
 }
 
 .card {
-    box-shadow: -0.2rem -0.2rem 0.2rem #000,
-    0.1rem 0.1rem 1rem 0.01rem rgba(0,0,0,0.1) inset,
-    -0.1rem -0.1rem 0.6rem 0.01rem rgba(0,0,0,0.1) inset;
+    box-shadow: -0.2rem -0.2rem 0.2rem $black,
+    0.1rem 0.1rem 1rem 0.01rem rgba(0, 0, 0, 0.1) inset,
+    -0.1rem -0.1rem 0.6rem 0.01rem rgba(0, 0, 0, 0.1) inset;
 }
