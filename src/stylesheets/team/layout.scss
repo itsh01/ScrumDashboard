@@ -1,14 +1,5 @@
 
-$white: #FFF;
-$grey: #999;
-$black: #000;
-
-$light-green: #3CFC8F;
-$light-red: #F14B4B;
-$light-blue: #E2E2FF;
-
-$grey-grandient-start: #F0F0F0;
-$grey-grandient-end: #D0D0D0;
+@import '../main/global';
 
 .left {
     float: left;
@@ -35,12 +26,12 @@ $grey-grandient-end: #D0D0D0;
 
 .backwards {
     border-width: 10px 20px 10px 0;
-    border-color: transparent $black transparent transparent;
+    border-color: transparent $white transparent transparent;
 }
 
 .forward {
     border-width: 10px 0 10px 20px;
-    border-color: transparent transparent transparent $black;
+    border-color: transparent transparent transparent $white;
 }
 
 .home-view-buttons-container {
@@ -121,6 +112,6 @@ $grey-grandient-end: #D0D0D0;
 }
 
 .sprint-dates {
-    width: 8rem;
+    width: 10rem;
     margin: 0 auto;
 }
