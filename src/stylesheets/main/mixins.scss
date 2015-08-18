@@ -51,7 +51,7 @@
     @include btn($bg, $hover, $text);
 
     height: 3rem;
-    line-height: 2rem;
+    line-height: 1rem;
     padding: 0.5rem 2rem;
     font-size: 1rem;
 }
@@ -88,7 +88,9 @@
     &:hover {
         //background-image: url('http://dc509.4shared.com/img/i4X4fuJg/s7/141755adc98/Chalk_circle_1');
         background-image: url('../../img/chalkCircle_scaled.png');
-        background-position: top;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
 
     }
 
