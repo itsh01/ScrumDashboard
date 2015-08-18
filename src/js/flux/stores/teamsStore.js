@@ -351,7 +351,7 @@ define([
             function saveToFirebase() {
                 teamsFirebaseRef.set(teamsData);
             }
-
+            //TODO: for all stores, decide what to keep in local storage
             //function saveToLocalStorage() {
             //    helpers.saveToLocalStorage('teams', teamsData);
             //}
