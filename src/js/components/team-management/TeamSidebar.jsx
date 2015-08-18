@@ -13,8 +13,8 @@ define(['lodash', 'React', 'components/team-management/TeamSelector', 'component
                 });
                 return (
                     <div className="sidebar">
-                        <TeamSelector teams={activeTeams} currentTeam={this.props.currentTeam}/>
                         <AddTeam/>
+                        <TeamSelector teams={activeTeams} currentTeam={this.props.currentTeam}/>
                     </div>
                 );
             }
