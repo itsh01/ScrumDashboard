@@ -1,3 +1,5 @@
+@import 'colors';
+
 @mixin radial-gradient($from, $to) {
     background: -webkit-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
     background: -moz-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
@@ -13,7 +15,7 @@
     background-image: -o-linear-gradient(left, transparent, rgba($r, $g, $b, $a) 50%, transparent);
 }
 
-@mixin fixed100 () {
+@mixin fixed100() {
     position: fixed;
     top: 0;
     left: 0;
@@ -21,15 +23,21 @@
     height: 100%;
 }
 
-@mixin btn ($bg, $hover, $text) {
+@mixin base-btn() {
+    cursor: pointer;
+    font-family: inherit;
+    outline: 0;
+}
+
+@mixin btn($bg, $hover, $text) {
+    @include base-btn();
+
     background-color: $bg;
     color: $text;
-    outline: 0;
     text-decoration: none;
     text-align: center;
     border: none;
     border-radius: 2px;
-    cursor: pointer;
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.10), 0 4px 15px 0 rgba(0, 0, 0, 0.07);
     transition: 0.3s linear all;
 
@@ -39,19 +47,59 @@
     }
 }
 
-@mixin btn-md ($bg, $hover, $text) {
+@mixin btn-md($bg, $hover, $text) {
     @include btn($bg, $hover, $text);
 
     height: 3rem;
-    line-height: 2rem;
+    line-height: 1rem;
     padding: 0.5rem 2rem;
     font-size: 1rem;
 }
 
-@mixin btn-xs ($bg, $hover, $text) {
+@mixin btn-sm($bg, $hover, $text) {
+    @include btn($bg, $hover, $text);
+
+    line-height: 1;
+    padding: 0.8rem;
+    font-size: 0.8rem;
+}
+
+@mixin btn-xs($bg, $hover, $text) {
     @include btn($bg, $hover, $text);
 
     line-height: 1;
     padding: 0.3rem;
     font-size: 0.6rem;
+}
+
+@mixin btn-header() {
+    @include base-btn();
+
+    background: transparent;
+    margin: -1px;
+    color: $white;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-left: $white 2px solid;
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+
+    &:hover {
+        //background-image: url('http://dc509.4shared.com/img/i4X4fuJg/s7/141755adc98/Chalk_circle_1');
+        background-image: url('../../img/chalkCircle_scaled.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+
+    }
+
+}
+
+@mixin select-transparent () {
+    background-color: transparent;
+    outline: none;
+    font-size: 1rem;
+    font-family: inherit;
+    color: $white;
 }

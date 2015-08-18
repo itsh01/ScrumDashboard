@@ -181,7 +181,7 @@ define([
 
             function addMemberToTeam(teamId, memberId) {
                 var team = _.find(teamsData, {id: teamId});
-                if (team.active) {
+                if (team.active && team.members.indexOf(memberId) < 0) {
                     team.members.push(memberId);
                 }
             }
@@ -345,7 +345,7 @@ define([
                 var curSprintIndex = this.getSprintIndex(currentViewState.currentSprintId),
                     sprintsNum = this.getTeamById(currentViewState.currentTeamId).sprints.length,
                     newSprintIndex = (forward) ? curSprintIndex + 1 : curSprintIndex - 1;
-                if (newSprintIndex > 0 && newSprintIndex < sprintsNum) {
+                if (newSprintIndex >= 0 && newSprintIndex < sprintsNum) {
                     currentViewState.currentSprintId = this.getTeamById(currentViewState.currentTeamId).sprints[newSprintIndex].id;
                     saveToLocalStorage();
                 }

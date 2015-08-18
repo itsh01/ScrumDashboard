@@ -1,4 +1,13 @@
-define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Table', 'components/backlog/Backlog', 'components/team/EditSprint', 'constants'],
+define([
+        'lodash',
+        'React',
+
+        'components/team/ChangeSprint',
+        'components/sprint/Table',
+        'components/backlog/Backlog',
+        'components/team/EditSprint',
+
+        'constants'],
     function (_, React, ChangeSprint, SprintTable, BackLog, EditSprint, constants) {
         'use strict';
 
@@ -45,12 +54,12 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                 }
                 if (sprint.state === constants.SPRINT_STATUS.PLANNING) {
                     return (<div>
+                        <div>
+                            <EditSprint/>
+                        </div>
                         <div className='home-view-buttons-container'>
                             <button className='home-view-button' onClick={this.addCardClicked}>Add Card</button>
                             <button className='home-view-button' onClick={this.finishPlanning}>Finish Planning</button>
-                        </div>
-                        <div>
-                            <EditSprint/>
                         </div>
                     </div>);
                 }
@@ -114,7 +123,7 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                     <div>
                         <h1>{team.name} Team</h1>
 
-                        <h2>Scrum DashBoard</h2>
+                        <h2>Scrum Dashboard</h2>
 
                         <div className="flex-centered one-row">
                             <ChangeSprint direction='backwards'
@@ -139,9 +148,9 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                                 <BackLog className="backlog" teamId={team.id}/>
                             </div>
                             <SprintTable sprint={sprint}/>
+                            {this.getSprintButton(sprint)}
                         </div>
 
-                        {this.getSprintButton(sprint)}
 
                     </div>
                 );

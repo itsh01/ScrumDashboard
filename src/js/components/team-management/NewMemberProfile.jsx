@@ -55,12 +55,16 @@ define([
             getMemberTypeForm: function () {
                 return (
                     <form onChange={this.changeMemberType} className='member-type'>
-                        <input ref='newMember' type='radio' id='newMember' name='memberType'
-                               value='newMember'/>
-                        <label htmlFor='newMember'>New member</label>
-                        <input ref='existingMember' type='radio' id='existingMember' name='memberType'
-                               value='existingMember'/>
-                        <label htmlFor='existingMember'>Existing member</label>
+                        <div>
+                            <input ref='newMember' type='radio' id='newMember' name='memberType'
+                                   value='newMember'/>
+                            <label htmlFor='newMember'>New member</label>
+                        </div>
+                        <div>
+                            <input ref='existingMember' type='radio' id='existingMember' name='memberType'
+                                   value='existingMember'/>
+                            <label htmlFor='existingMember'>Existing member</label>
+                        </div>
                     </form>
                 );
             },
@@ -73,7 +77,7 @@ define([
                             <h3> add member to team </h3>
                             {this.getMemberTypeForm()}
                         </div>
-                        <div className={classSet('member-profile', 'new-member-profile')}>
+                        <div className={classSet('new-member-profile')}>
                             {this.getNewMemberContent()}
                         </div>
                     </div>
