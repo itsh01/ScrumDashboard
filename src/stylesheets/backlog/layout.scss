@@ -1,7 +1,7 @@
 @import '../main/global';
 
 .cards-list {
-    border: $white 1px solid;
+    opacity: 0.5;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,4 +9,17 @@
     overflow: scroll;
     margin-top: 0.5rem;
     width: 15rem;
+}
+
+.cards-list:hover {
+    opacity: 1;
+}
+
+.empty-state .caption {
+    color: $light-red;
+    cursor: pointer;
+    font-weight: bold;
+}
+p.empty-state .caption:hover {
+    color: $light-green;
 }

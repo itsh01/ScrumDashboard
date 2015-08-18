@@ -21,3 +21,9 @@
     color: $semi-dark-gray;
 }
 
+.blur {
+    opacity: 0.5;
+}
+.blur:hover {
+    opacity: 1;
+}

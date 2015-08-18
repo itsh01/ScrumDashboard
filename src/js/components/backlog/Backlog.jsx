@@ -30,7 +30,7 @@ define([
                 });
 
                 return (
-                    <div>
+                    <div className="blur simple-transition">
                         <h2>Backlog</h2>
                         <CardsList ref="teamCardList" title="Team" cardsList={teamCards}/>
                         <CardsList ref="companyCardList" title="Company" cardsList={CompanyCards}/>
