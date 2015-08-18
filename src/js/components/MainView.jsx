@@ -128,6 +128,7 @@ define(['lodash',
                 if (!currCard) {
                     currCard = this.flux.cardsStore.getBlankCard();
                     isCreating = true;
+                    currCard.team = this.flux.teamsStore.getCurrentTeam().id;
                 }
 
                 var currSprint = this.flux.teamsStore.getCurrentSprint();
