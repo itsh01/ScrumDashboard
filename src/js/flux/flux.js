@@ -32,7 +32,18 @@ define(
             this.membersActions = new MembersActions(dispatcher);
 
             this.teamsActions = new TeamsActions(dispatcher);
-            this.teamsStore = new TeamsStore(dispatcher, eventEmitter, waitForTokens, defaultTeamsData, this.cardsStore.getUserCards, this.membersStore.getLastMemberAdded);
+
+            var teamPars = {
+                dispatcher: dispatcher,
+                eventEmitter: eventEmitter,
+                waitForTokens: waitForTokens,
+                defaultTeamData: defaultTeamsData,
+                getUserCards: this.cardsStore.getUserCards,
+                getLastMemberAdded: this.membersStore.getLastMemberAdded,
+                fireBaseURL: 'https://scrum-dashboard-1.firebaseio.com/teams'
+            };
+
+            this.teamsStore = new TeamsStore(teamPars);
 
             this.planningActions = new PlanningActions(dispatcher);
             this.planningStore = new PlanningStore(dispatcher, eventEmitter, waitForTokens);

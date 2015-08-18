@@ -7,7 +7,7 @@ define([
     function (_, helpers, constants, Firebase) {
         'use strict';
 
-        function TeamStore(dispatcher, eventEmitter, waitForTokens, defaultTeamData, getUserCards, getLastMemberAdded) {
+        function TeamStore(teamPars) {
 
             //var dataFileVersion = '1';
             var SPRINT_SCHEMA = {
@@ -25,22 +25,22 @@ define([
                     members: {type: 'string-array', defaultValue: []},
                     active: {type: 'boolean', defaultValue: true}
                 },
-                teamsData = defaultTeamData,
-                teamsFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com/teams'),
+                teamsData = teamPars.defaultTeamData,
+                teamsFirebaseRef = new Firebase(teamPars.fireBaseURL),
                 currentViewState;
 
             (function init() {
 
                 this.emitChange = function () {
-                    eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
+                    teamPars.eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
                 };
 
                 this.addChangeListener = function (callback) {
-                    eventEmitter.on(constants.flux.TEAMS_STORE_CHANGE, callback);
+                    teamPars.eventEmitter.on(constants.flux.TEAMS_STORE_CHANGE, callback);
                 };
 
                 this.removeChangeListener = function (callback) {
-                    eventEmitter.removeListener(constants.flux.TEAMS_STORE_CHANGE, callback);
+                    teamPars.eventEmitter.removeListener(constants.flux.TEAMS_STORE_CHANGE, callback);
                 };
 
                 var filterFunctions = {
@@ -57,7 +57,7 @@ define([
                 // Listen to Firebase changes
                 teamsFirebaseRef.on('value', function (snapshot) {
                     teamsData = snapshot.val();
-                    eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
+                    teamPars.eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
                 });
 
                 currentViewState = restoreFromLocalStorage() || {
@@ -90,7 +90,7 @@ define([
 
             this.getMemberCardsInSprint = function (memberId, sprintId) {
                 var sprint = getSprintById(sprintId),
-                    memberCards = getUserCards(memberId),
+                    memberCards = teamPars.getUserCards(memberId),
                     sprintStartDate = new Date(sprint.startDate),
                     sprintEndDate = new Date(sprint.endDate);
 
@@ -374,7 +374,7 @@ define([
             }
 
             function createMemberIntoTeam(memberData, teamId) {
-                var memberId = getLastMemberAdded().id;
+                var memberId = teamPars.getLastMemberAdded().id;
                 addMemberToTeam(teamId, memberId);
             }
 
@@ -403,11 +403,11 @@ define([
                 var storeIndex = _.indexOf(actionStoreOrder, constants.storesName.TEAMS_STORE);
                 var storeOrder = _.slice(actionStoreOrder, 0, storeIndex);
                 return _.map(storeOrder, function (storeName) {
-                    return waitForTokens[storeName];
+                    return teamPars.waitForTokens[storeName];
                 });
             }
 
-            waitForTokens[constants.storesName.TEAMS_STORE] = dispatcher.register(function (payload) {
+            teamPars.waitForTokens[constants.storesName.TEAMS_STORE] = teamPars.dispatcher.register(function (payload) {
                 var actionName = payload.actionName,
                     data = payload.payload,
 
@@ -416,7 +416,7 @@ define([
                 if (action) {
                     var actionStoreOrder = payload.storeOrder;
                     if (actionStoreOrder && actionStoreOrder.length > 1) {
-                        dispatcher.waitFor(getStoresQueue(actionStoreOrder));
+                        teamPars.dispatcher.waitFor(getStoresQueue(actionStoreOrder));
                     }
                     action.callback.apply(this, data);
                     saveToFirebase();
