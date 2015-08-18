@@ -11,8 +11,12 @@ define([
 
         describe('TeamsStore', function () {
 
-            var teamsActions, activeTeam, inactiveTeam,
+            var teamsActions, activeTeam, inactiveTeam, memberId,
                 sprint, teamsArr, teamsStore, eventEmitter, waitForTokens, dispatcher;
+
+            function getUserCards(userId) {
+                return (userId === memberId) ? [{}] : null;
+            }
 
             beforeEach(function () {
                 localStorage.clear();
@@ -20,7 +24,7 @@ define([
 
             describe('basic getters', function () {
 
-                var memberId, teamId, sprintId, teamName;
+                var teamId, sprintId, teamName;
 
                 beforeEach(function () {
                     memberId = helpers.generateGuid();
@@ -57,7 +61,7 @@ define([
                     waitForTokens = {};
                     dispatcher = new baseFlux.Dispatcher();
                     teamsActions = new TeamsActions(dispatcher);
-                    teamsStore = new TeamsStore(dispatcher, eventEmitter, waitForTokens, teamsArr);
+                    teamsStore = new TeamsStore(dispatcher, eventEmitter, waitForTokens, teamsArr, getUserCards);
                 });
 
                 describe('getTeamById', function () {
@@ -202,26 +206,26 @@ define([
 
                 describe('addMemberToTeam', function () {
 
+                    var newMemberId;
 
                     beforeEach(function () {
-
-
+                        newMemberId = helpers.generateGuid();
                     });
 
-                    it('should add member with specified id to team with specified id if they exist', function () {
-
+                    it('should add member id to members of team with specified id if the team is active', function () {
+                        teamsActions.addMemberToTeam(activeTeam.id, newMemberId);
+                        expect(teamsStore.getTeamById(activeTeam.id).members).toContain(newMemberId);
                     });
 
-                    it('should add member with specified id to current team if team id is not provided', function () {
-
+                    it('should not add member id to members of team with specified id if the team is inactive', function () {
+                        teamsActions.addMemberToTeam(inactiveTeam.id, newMemberId);
+                        expect(teamsStore.getTeamById(inactiveTeam.id).members).not.toContain(newMemberId);
                     });
 
-                    it('should not add member to team with specified id if member with supplied member id does not exist', function () {
-
-                    });
-
-                    it('should not add member to current team if member with supplied member id does not exist and team id is not provided', function () {
-
+                    it('should not add member id to members of team with specified id if the member is already in team', function () {
+                        var membersNum = teamsStore.getTeamById(activeTeam.id).members.length;
+                        teamsActions.addMemberToTeam(activeTeam.id, memberId);
+                        expect(teamsStore.getTeamById(activeTeam.id).members.length).toBe(membersNum);
                     });
 
                 });

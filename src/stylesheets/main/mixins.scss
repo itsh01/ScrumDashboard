@@ -75,7 +75,7 @@
 
 @mixin btn-header () {
     @include base-btn();
-    
+
     background: transparent;
     margin: -1px;
     color: $white;
