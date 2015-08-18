@@ -6,10 +6,33 @@
     flex-direction: column;
     align-items: center;
     max-height: 300px;
-    overflow: scroll;
+    overflow-y: auto;
     margin-top: 0.5rem;
     width: 15rem;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+        width: 9px;
+
+    }
+
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+
+    }
+
+    &::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        background: $dark-green;
+
+    }
+
 }
+
+
 
 .cards-list:hover {
     opacity: 1;
