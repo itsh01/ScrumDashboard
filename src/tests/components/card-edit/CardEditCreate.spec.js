@@ -1,21 +1,18 @@
 define([
         'React',
         'components/card-edit/CardEditCreate',
-        'stubContext',
-        'flux/flux'
-        , 'lodash'
+        'lodash'
     ],
-    function (React, CardEditCreate, stubContext, Flux, _) {
+    function (React, CardEditCreate,  _) {
         'use strict';
-        var flux;
 
-        function initComponent(compParams) {
-            flux = new Flux();
-            var CardEditCreateWithContext = stubContext(CardEditCreate, {newFlux: flux});
-            var instance = React.createElement(CardEditCreateWithContext, compParams);
-            var contextElement = React.addons.TestUtils.renderIntoDocument(instance);
-            var result = React.addons.TestUtils.findRenderedComponentWithType(contextElement, CardEditCreate);
-            return result;
+        function initComponent(props){
+            return  React.addons.TestUtils.renderIntoDocument(
+                React.createElement(
+                    CardEditCreate,
+                    props
+                )
+            );
         }
 
         describe('CardEditCreate', function () {
@@ -56,8 +53,7 @@ define([
                         allTeams: mockTeams,
                         sprintLifeCycle: []
                     };
-                    var t = React.createElement(CardEditCreate, props);
-                    comp = React.addons.TestUtils.renderIntoDocument(t);
+                    comp = initComponent(props);
                 });
 
                 it('should show assignee iff there is a team', function () {
@@ -79,13 +75,7 @@ define([
                         description: 'description',
                         score: 1
                     };
-                    /*eslint-disable*/
                     mockTeams = [{id: '1', value: '1'}, {id: '2', value: '2'}];
-                    /*eslint-enable*/
-                    flux = new Flux();
-                    spyOn(flux.planningStore, 'getCurrentCard').and.returnValue(mockCard);
-                    spyOn(flux.teamsStore, 'getAllActiveTeams')
-                        .and.returnValue(mockTeams);
                     comp = initComponent({
                         card: mockCard,
                         isCreating: false,
@@ -112,13 +102,7 @@ define([
                     expect(rend[1].props.valueLink.value).toEqual(mockCard.description);
                 });
 
-                it('should set state "team" on selection change', function () {
-                    var teamSelect = React.findDOMNode(comp.refs.team);
-                    expect(comp.refs.assignee).toBeUndefined();
-                    React.addons.TestUtils.Simulate.change(teamSelect, {target: {value: mockTeams[0].id}});
-                    expect(comp.state.team).toEqual(mockTeams[0].id);
-                    //expect(comp.refs.assignee).toBeDefined();
-                });
+
             });
 
         });
