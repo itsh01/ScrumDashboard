@@ -103,7 +103,13 @@ define([
                 });
 
                 it('should throw if card has assignee but no team', function () {
-                    //var mockCard = {}
+                    mockCard = {assignee: '1'};
+
+                    function initC() {
+                        initComponent({card: mockCard});
+                    }
+
+                    expect(initC).toThrow();
                 });
 
 
