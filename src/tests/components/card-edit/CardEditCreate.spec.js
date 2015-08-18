@@ -40,16 +40,15 @@ define([
                 });
             });
 
-            describe('add card tests', function () {
+            describe('edit card behaviour tests', function () {
                 var comp, mockTeams, mockMembers;
                 beforeEach(function () {
                     mockTeams = [{id: '1', name: '1'}, {id: '2', name: '2'}];
                     mockMembers = [{id: '5', name: '1'}, {id: '6', name: '2'}];
-                    var currSprintMembers = mockMembers;
                     var props = {
                         card: {status: 'unassigned'},
                         isCreating: true,
-                        currSprintMembers: currSprintMembers,
+                        currSprintMembers: mockMembers,
                         allTeams: mockTeams,
                         sprintLifeCycle: []
                     };
@@ -66,7 +65,7 @@ define([
                 });
             });
 
-            describe('edit card tests', function () {
+            describe('edit card sanity tests', function () {
                 var mockCard, comp, mockTeams;
                 beforeEach(function () {
                     mockCard = {
