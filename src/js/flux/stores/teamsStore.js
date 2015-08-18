@@ -26,7 +26,7 @@ define([
                     active: {type: 'boolean', defaultValue: true}
                 },
                 teamsData = defaultTeamData,
-                teamsFirebaseRef = new Firebase("https://scrum-dashboard-1.firebaseio.com/teams"),
+                teamsFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com/teams'),
                 currentViewState;
 
             (function init() {
@@ -71,22 +71,22 @@ define([
             }).apply(this);
 
             function updateCurrentTeams() {
-                teamsFirebaseRef.on("value", function (snapshot) {
+                teamsFirebaseRef.on('value', function (snapshot) {
                     teamsData = snapshot.val();
                 });
             }
 
             updateCurrentTeams();
 
-            teamsFirebaseRef.on("child_changed", function (snapshot) {
+            teamsFirebaseRef.on('child_changed', function () {
                 updateCurrentTeams();
             });
 
-            teamsFirebaseRef.on("child_added", function (snapshot, prevChildKey) {
+            teamsFirebaseRef.on('child_added', function () {
                 updateCurrentTeams();
             });
 
-            teamsFirebaseRef.on("child_removed", function (snapshot) {
+            teamsFirebaseRef.on('child_removed', function () {
                 updateCurrentTeams();
             });
 

@@ -21,7 +21,7 @@ define([
                     endDate: {type: 'string', defaultValue: ''}
                 },
                 currentCards = defaultCardsData,
-                cardsFirebaseRef = new Firebase("https://scrum-dashboard-1.firebaseio.com/cards");
+                cardsFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com/cards');
 
             (function init() {
                 this.emitChange = function () {
@@ -67,22 +67,22 @@ define([
             }).apply(this);
 
             function updateCurrentCards() {
-                cardsFirebaseRef.on("value", function (snapshot) {
+                cardsFirebaseRef.on('value', function (snapshot) {
                     currentCards = snapshot.val();
                 });
             }
 
             updateCurrentCards();
 
-            cardsFirebaseRef.on("child_changed", function (snapshot) {
+            cardsFirebaseRef.on('child_changed', function () {
                 updateCurrentCards();
             });
 
-            cardsFirebaseRef.on("child_added", function (snapshot, prevChildKey) {
+            cardsFirebaseRef.on('child_added', function () {
                 updateCurrentCards();
             });
 
-            cardsFirebaseRef.on("child_removed", function (snapshot) {
+            cardsFirebaseRef.on('child_removed', function () {
                 updateCurrentCards();
             });
 

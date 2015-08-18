@@ -6,7 +6,7 @@ define([
     ],
     function (_, helpers, constants, Firebase) {
         'use strict';
-        
+
         function MembersStore(dispatcher, eventEmitter, waitForTokens, defaultMembersData) {
 
             var dataFileVersion = '1',
@@ -16,7 +16,7 @@ define([
                     active: {type: 'boolean', defaultValue: true}
                 },
                 currentMembers = defaultMembersData,
-                MembersFirebaseRef = new Firebase("https://scrum-dashboard-1.firebaseio.com/members");
+                MembersFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com/members');
 
             (function init() {
                 this.emitChange = function () {
@@ -51,13 +51,13 @@ define([
 
             }).apply(this);
 
-            this.getAllMembers = function() {
+            this.getAllMembers = function () {
                 return currentMembers;
             };
 
 
             function updateCurrentMembers() {
-                MembersFirebaseRef.on("value", function (snapshot) {
+                MembersFirebaseRef.on('value', function (snapshot) {
                     currentMembers = snapshot.val();
                 });
                 eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
@@ -65,15 +65,15 @@ define([
 
             updateCurrentMembers();
 
-            MembersFirebaseRef.on("child_changed", function (snapshot) {
+            MembersFirebaseRef.on('child_changed', function () {
                 updateCurrentMembers();
             });
 
-            MembersFirebaseRef.on("child_added", function (snapshot, prevChildKey) {
+            MembersFirebaseRef.on('child_added', function () {
                 updateCurrentMembers();
             });
 
-            MembersFirebaseRef.on("child_removed", function (snapshot) {
+            MembersFirebaseRef.on('child_removed', function () {
                 updateCurrentMembers();
             });
 
@@ -155,11 +155,15 @@ define([
                         dispatcher.waitFor(waitForArray);
                     }
                     action.callback.apply(this, data);
-                    saveToLocalStorage();
+                    saveToFirebase();
                     this.emitChange();
                 }
             }.bind(this));
 
+
+            function saveToFirebase() {
+                MembersFirebaseRef.set(currentMembers);
+            }
 
             function saveToLocalStorage() {
                 helpers.saveToLocalStorage('members', currentMembers);
