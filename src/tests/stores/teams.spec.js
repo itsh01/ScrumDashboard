@@ -138,10 +138,95 @@ define([
                         });
                         expect(notAdded).toBe(true);
                     });
+
                 });
+
+                describe('addSprint', function () {
+
+                    var allSprints;
+
+                    beforeEach(function () {
+                        allSprints = teamsStore.getTeamById(activeTeam.id).sprints;
+                    });
+
+                    describe('valid sprint data supplied', function () {
+
+                        var validSprint;
+
+                        function checkAddition() {
+                            expect(allSprints.length + 1).toBe(teamsStore.getTeamById(activeTeam.id).sprints.length);
+                            allSprints = teamsStore.getTeamById(activeTeam.id).sprints;
+                            var addedSprint = allSprints[allSprints.length - 1];
+                            delete addedSprint.id;
+                            expect(addedSprint).toEqual(validSprint);
+                        }
+
+                        beforeEach(function () {
+                            validSprint = _.cloneDeep(sprint);
+                            delete validSprint.id;
+                        });
+
+                        it('should add a new sprint with supplied data to team with specified id', function () {
+                            teamsActions.addSprint(validSprint, activeTeam.id);
+                            checkAddition();
+                        });
+
+                        it('should add a new sprint to current team if team id is not provided', function () {
+                            teamsActions.addSprint(validSprint);
+                            checkAddition();
+                        });
+
+                    });
+
+                    describe('invalid sprint data supplied', function () {
+
+                        var invalidSprint;
+
+                        beforeEach(function () {
+                            invalidSprint = _.cloneDeep(sprint);
+                            invalidSprint.illegalKey = 'illegal';
+                        });
+
+                        it('should not add sprint to team with specified id', function () {
+                            teamsActions.addSprint(invalidSprint, activeTeam.id);
+                            expect(allSprints.length).toBe(teamsStore.getTeamById(activeTeam.id).sprints.length);
+                        });
+
+                        it('should not add sprint to current team if team id is not provided', function () {
+                            teamsActions.addSprint(invalidSprint);
+                            expect(allSprints.length).toBe(teamsStore.getTeamById(activeTeam.id).sprints.length);
+                        });
+
+                    });
+                });
+
+                describe('addMemberToTeam', function () {
+
+
+                    beforeEach(function () {
+
+
+                    });
+
+                    it('should add member with specified id to team with specified id if they exist', function () {
+
+                    });
+
+                    it('should add member with specified id to current team if team id is not provided', function () {
+
+                    });
+
+                    it('should not add member to team with specified id if member with supplied member id does not exist', function () {
+
+                    });
+
+                    it('should not add member to current team if member with supplied member id does not exist and team id is not provided', function () {
+
+                    });
+
+                });
+
                 /*
-                 addSprint(sprintData, teamId)
-                 addMemberToTeam(teamId, memberId)
                  removeMemberFromTeam(teamId, memberId)
                  deactivateTeam(teamId)
                  updateSprint(sprintId, newSprintData, teamId)
@@ -169,4 +254,5 @@ define([
         });
 
 
-    });
+    })
+;
