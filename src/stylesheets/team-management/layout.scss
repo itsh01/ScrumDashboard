@@ -47,6 +47,11 @@
     width: 6rem;
     height: 1rem;
     vertical-align: middle;
+    color: $black;
+
+    &.wide {
+        width: 8rem;
+    }
 }
 
 .team-management-button:hover {
@@ -61,7 +66,6 @@
 
 .team-name {
     display: inline-block;
-    color: $black;
     text-decoration: none;
 }
 
@@ -125,7 +129,10 @@
 .new-member-profile {
     margin: 0 auto;
     padding: 0.4rem;
-    border: 2px dotted $hot-pink;
+    //border: 2px dotted $hot-pink;
+    width: 220px;
+    height: 200px;
+    position: relative;
 }
 
 .member-name-input,

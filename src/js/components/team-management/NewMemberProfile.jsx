@@ -77,7 +77,7 @@ define([
                             <h3> add member to team </h3>
                             {this.getMemberTypeForm()}
                         </div>
-                        <div className={classSet('member-profile', 'new-member-profile')}>
+                        <div className={classSet('new-member-profile')}>
                             {this.getNewMemberContent()}
                         </div>
                     </div>
