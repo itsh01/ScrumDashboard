@@ -9,8 +9,8 @@ define([
 
         function CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardsData) {
 
-            var dataFileVersion = '1',
-                CARDS_SCHEMA = {
+            //var dataFileVersion = '1';
+            var CARDS_SCHEMA = {
                     name: {type: 'string'},
                     description: {type: 'string', defaultValue: ''},
                     score: {type: 'number', defaultValue: ''},
@@ -177,13 +177,13 @@ define([
                 cardsFirebaseRef.set(currentCards);
             }
 
-            function saveToLocalStorage() {
-                helpers.saveToLocalStorage('cards', currentCards);
-            }
-
-            function restoreFromLocalStorage() {
-                return helpers.restoreFromLocalStorage('cards');
-            }
+            //function saveToLocalStorage() {
+            //    helpers.saveToLocalStorage('cards', currentCards);
+            //}
+            //
+            //function restoreFromLocalStorage() {
+            //    return helpers.restoreFromLocalStorage('cards');
+            //}
 
         }
 

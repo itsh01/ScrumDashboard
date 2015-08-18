@@ -9,8 +9,8 @@ define([
 
         function TeamStore(dispatcher, eventEmitter, waitForTokens, defaultTeamData, getUserCards, getLastMemberAdded) {
 
-            var dataFileVersion = '1',
-                SPRINT_SCHEMA = {
+            //var dataFileVersion = '1';
+            var SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
                     scrumMaster: {type: 'string', defaultValue: ''},
                     startDate: {type: 'string', defaultValue: ''},
@@ -131,7 +131,7 @@ define([
                     }
                     var cardEndDate = new Date(card.endDate);
                     return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate) ||
-                           helpers.onSegment(sprintStartDate, sprintEndDate, cardEndDate);
+                        helpers.onSegment(sprintStartDate, sprintEndDate, cardEndDate);
                 });
                 return membersCardsInSprint;
             };
@@ -347,20 +347,18 @@ define([
                 return this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id;
             }
 
-            function saveToLocalStorage() {
-                helpers.saveToLocalStorage('teams', teamsData);
+
+            function saveToFirebase() {
+                teamsFirebaseRef.set(teamsData);
             }
 
             //function saveToLocalStorage() {
             //    helpers.saveToLocalStorage('teams', teamsData);
             //}
-            function saveToFirebase() {
-                teamsFirebaseRef.set(teamsData);
-            }
-
-            function restoreFromLocalStorage() {
-                return helpers.restoreFromLocalStorage('teams');
-            }
+            //
+            //function restoreFromLocalStorage() {
+            //    return helpers.restoreFromLocalStorage('teams');
+            //}
 
             function resetCurrentSprintIdIfInvalid() {
                 var isCurrSprintValid = this.getSprintIndex(currentViewState.currentSprintId) !== -1;

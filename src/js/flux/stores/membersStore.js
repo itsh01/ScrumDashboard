@@ -9,8 +9,8 @@ define([
 
         function MembersStore(dispatcher, eventEmitter, waitForTokens, defaultMembersData) {
 
-            var dataFileVersion = '1',
-                MEMBERS_SCHEMA = {
+            //var dataFileVersion = '1';
+            var MEMBERS_SCHEMA = {
                     name: {type: 'string'},
                     image: {type: 'string', defaultValue: ''},
                     active: {type: 'boolean', defaultValue: true}
@@ -165,13 +165,13 @@ define([
                 MembersFirebaseRef.set(currentMembers);
             }
 
-            function saveToLocalStorage() {
-                helpers.saveToLocalStorage('members', currentMembers);
-            }
-
-            function restoreFromLocalStorage() {
-                return helpers.restoreFromLocalStorage('members');
-            }
+            //function saveToLocalStorage() {
+            //    helpers.saveToLocalStorage('members', currentMembers);
+            //}
+            //
+            //function restoreFromLocalStorage() {
+            //    return helpers.restoreFromLocalStorage('members');
+            //}
 
         }
 
