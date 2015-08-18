@@ -60,7 +60,7 @@ define([
                     eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
                 });
 
-                currentViewState = {
+                currentViewState = restoreFromLocalStorage() || {
                     currentTeamId: getDefaultTeamId.apply(this),
                     currentSprintId: (_.last(teamsData[0].sprints)).id,
                     currentExistingMemberId: teamsData[0].members[0]
@@ -325,19 +325,19 @@ define([
                 teamsFirebaseRef.set(teamsData);
             }
 
-            //TODO: for all stores, decide what to keep in local storage
-            //function saveToLocalStorage() {
-            //    helpers.saveToLocalStorage('teams', teamsData);
-            //}
-            //
-            //function restoreFromLocalStorage() {
-            //    return helpers.restoreFromLocalStorage('teams');
-            //}
+            function saveToLocalStorage() {
+                helpers.saveToLocalStorage('teamsState', currentViewState);
+            }
+
+            function restoreFromLocalStorage() {
+                return helpers.restoreFromLocalStorage('teamsState');
+            }
 
             function resetCurrentSprintIdIfInvalid() {
                 var isCurrSprintValid = this.getSprintIndex(currentViewState.currentSprintId) !== -1;
                 if (!isCurrSprintValid) {
                     currentViewState.currentSprintId = _.last(this.getCurrentTeam().sprints).id;
+                    saveToLocalStorage();
                 }
             }
 
@@ -347,21 +347,25 @@ define([
                     newSprintIndex = (forward) ? curSprintIndex + 1 : curSprintIndex - 1;
                 if (newSprintIndex > 0 && newSprintIndex < sprintsNum) {
                     currentViewState.currentSprintId = this.getTeamById(currentViewState.currentTeamId).sprints[newSprintIndex].id;
+                    saveToLocalStorage();
                 }
             }
 
             function setCurrentSprintId(newSprintId) {
                 currentViewState.currentSprintId = newSprintId;
+                saveToLocalStorage();
             }
 
             function changeCurrentTeamId(teamId) {
                 currentViewState.currentTeamId = teamId;
+                saveToLocalStorage();
                 var currTeam = this.getCurrentTeam();
                 setCurrentSprintId.call(this, currTeam.sprints[currTeam.sprints.length - 1]);
             }
 
             function changeExistingMemberId(memberId) {
                 currentViewState.currentExistingMemberId = memberId;
+                saveToLocalStorage();
             }
 
             function createMemberIntoTeam(memberData, teamId) {
