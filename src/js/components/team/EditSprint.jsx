@@ -24,7 +24,7 @@ define([
             },
 
             componentWillReceiveProps: function () {
-                this.setState( this.fetchState() );
+                this.setState(this.fetchState());
             },
 
             computeEndDate: function (sprint) {
@@ -56,11 +56,13 @@ define([
                             if (!_.includes(sprintMembers, member.id)) {
                                 return null;
                             }
-                            return (<option
-                                value={member.id}
-                                key={member.id}>
-                                {member.name}
-                            </option>);
+                            return (
+                                <option
+                                    value={member.id}
+                                    key={member.id}>
+                                    {member.name}
+                                </option>
+                            );
                         })
                         .value();
 
@@ -80,7 +82,7 @@ define([
                 formattedDate.locale('en');
                 return formattedDate.format(constants.DATE_FORMAT);
             },
-            
+
             updateSprint: function (data) {
                 var sprintData = _.cloneDeep(data || this.state),
                     teamsStore = this.context.flux.teamsStore;
@@ -98,6 +100,7 @@ define([
 
             },
             toggleTeamMember: function (memberId) {
+                this.state.members = this.state.members || [];
                 var members = this.state.members;
 
                 if (_.includes(members, memberId)) {
@@ -152,20 +155,20 @@ define([
                 sprintData.startDate = newStartDate.format(constants.DATE_FORMAT);
                 this.updateSprint(sprintData);
             },
-            
+
             changeEndDate: function (newEndDate) {
                 var sprintData = _.cloneDeep(this.state);
 
                 sprintData.endDate = newEndDate.format(constants.DATE_FORMAT);
                 this.updateSprint(sprintData);
             },
-            
+
             render: function () {
                 return (
                     <div className="edit-sprint" onKeyUp={this.listenForStateChange}>
                         <InputWrapper
-                        text='Sprint Name:'
-                        fields={<input
+                            text='Sprint Name:'
+                            fields={<input
                                 type='text'
                                 valueLink={this.linkState('name')}/>}/>
 

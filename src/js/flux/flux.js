@@ -25,7 +25,8 @@ define(
 
         function Flux() {
             this.cardsActions = new CardsActions(dispatcher);
-            this.cardsStore = new CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardData);
+            //this.cardsStore = new CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardData);
+            this.cardsStore = new CardsStore(dispatcher, eventEmitter, waitForTokens);
 
             this.membersStore = new MembersStore(dispatcher, eventEmitter, waitForTokens, defaultMemberData);
             this.membersActions = new MembersActions(dispatcher);

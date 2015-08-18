@@ -8,7 +8,9 @@ define(['lodash',
         'components/pop-up/Basic',
         'components/card-edit/CardEditCreate',
 
-        '../flux/flux'],
+        '../flux/flux',
+        'Firebase',
+        '../data/defaultData'],
 
     function (_,
               React,
@@ -17,10 +19,12 @@ define(['lodash',
               TeamManagement,
               Popup,
               CardEditCreate,
-              Flux) {
+              Flux,
+              Firebase,
+              defaultData) {
 
         'use strict';
-
+        var mainFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com');
         return React.createClass({
             displayName: 'MainView',
 
@@ -72,8 +76,8 @@ define(['lodash',
                 return this.flux.teamsStore.getAllActiveTeams();
             },
 
-            clearStorage: function () {
-                localStorage.clear();
+            resetFirebaseToDefault: function () {
+                mainFirebaseRef.set(defaultData);
             },
 
             handleChangeTeam: function (e) {
@@ -160,8 +164,7 @@ define(['lodash',
                                 </div>
 
                                 <div className="right">
-                                    <button className='clearButton' type='button' onClick={this.clearStorage}>Clear
-                                        LocalStorage
+                                    <button className='clearButton' type='button' onClick={this.resetFirebaseToDefault}>Reset Firebase to default
                                     </button>
                                     <button data-view={this.views.TeamManagement} onClick={this.changeView}>Manage Teams
                                     </button>
