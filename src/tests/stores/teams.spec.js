@@ -222,9 +222,29 @@ define([
                         expect(teamsStore.getTeamById(inactiveTeam.id).members).not.toContain(newMemberId);
                     });
 
-                    it('should not add member id to members of team with specified id if the member is already in team', function () {
+                    it('should not change team members if the member is already in team', function () {
                         var membersNum = teamsStore.getTeamById(activeTeam.id).members.length;
                         teamsActions.addMemberToTeam(activeTeam.id, memberId);
+                        expect(teamsStore.getTeamById(activeTeam.id).members.length).toBe(membersNum);
+                    });
+
+                });
+
+                describe('removeMemberFromTeam', function () {
+
+                    it('should remove member id from members of team with specified id if the team is active', function () {
+                        teamsActions.removeMemberFromTeam(activeTeam.id, memberId);
+                        expect(teamsStore.getTeamById(activeTeam.id).members).not.toContain(memberId);
+                    });
+
+                    it('should not remove member id from members of team with specified id if the team is inactive', function () {
+                        teamsActions.removeMemberFromTeam(inactiveTeam.id, memberId);
+                        expect(teamsStore.getTeamById(inactiveTeam.id).members).toContain(memberId);
+                    });
+
+                    it('should do nothing if the member does not exist', function () {
+                        var membersNum = teamsStore.getTeamById(activeTeam.id).members.length;
+                        teamsActions.removeMemberFromTeam(activeTeam.id, 'not-existent-id');
                         expect(teamsStore.getTeamById(activeTeam.id).members.length).toBe(membersNum);
                     });
 
