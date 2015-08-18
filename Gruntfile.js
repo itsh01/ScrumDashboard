@@ -228,8 +228,8 @@ module.exports = function (grunt) {
                     objectToExport: 'Firebase',
                     amdModuleId: 'Firebase',
                     deps: {
-                        'default': ['react', 'require', 'exports', 'module'],
-                        amd: ['react', 'require', 'exports', 'module']
+                        'default': ['require', 'exports', 'module'],
+                        amd: ['require', 'exports', 'module']
                     }
                 }
             }
