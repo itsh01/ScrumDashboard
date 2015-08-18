@@ -63,17 +63,9 @@ define(['lodash'], function (_) {
     }
 
     function getBlankItem(schema) {
-        //return _.assign({}, schema, function (objectValue, sourceValue) {
-        //    return sourceValue.defaultValue === undefined ? '' : sourceValue.defaultValue;
-        //    //return sourceValue.defaultValue;
-        //});
-        var blankItem = {};
-        _.forOwn(schema, function (data, dataField) {
-            if (data.defaultValue !== undefined) {
-                blankItem[dataField] = data.defaultValue;
-            }
+        return _.assign({}, schema, function (objectValue, sourceValue) {
+            return sourceValue.defaultValue === undefined ? '' : sourceValue.defaultValue;
         });
-        return blankItem;
     }
 
     function isStringArray(arr) {
