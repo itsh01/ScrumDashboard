@@ -123,7 +123,7 @@ define([
                     <div>
                         <h1>{team.name} Team</h1>
 
-                        <h2>Scrum DashBoard</h2>
+                        <h2>Scrum Dashboard</h2>
 
                         <div className="flex-centered one-row">
                             <ChangeSprint direction='backwards'
