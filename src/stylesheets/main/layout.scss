@@ -54,3 +54,18 @@ h3 {
     z-index: -1;
     opacity: 0.5;
 }
+
+.header {
+    height: 3rem;
+    border-bottom: $white 2px solid;
+    font-size: 1.5rem;
+
+    .left,
+    .right {
+        margin: 0.3rem;
+    }
+
+    button {
+        @include btn-header();
+    }
+}
