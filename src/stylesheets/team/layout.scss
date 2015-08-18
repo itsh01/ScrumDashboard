@@ -49,6 +49,39 @@
     border: 1px solid $black;
     padding: 2rem;
     margin-top: 1rem;
+
+    .input-section-field {
+        display: inline-block;
+
+        [type='text'] {
+            width: 9rem;
+            background-color: transparent;
+            border: none;
+            color: $white;
+            border-bottom: solid 2px $white;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+        }
+
+        select {
+            background-color: transparent;
+            outline: none;
+            font-size: 1rem;
+            font-family: inherit;
+            color: $white;
+        }
+
+        .combo-box-list {
+            margin-top: 5px;
+        }
+
+        .combo-box-item {
+            background: transparent;
+            color: $white;
+            border: none;
+        }
+    }
 }
 
 .combo-box-list {
@@ -92,39 +125,6 @@
     min-width: 11rem;
     vertical-align: top;
     margin-bottom: 0.5rem;
-}
-
-.edit-sprint .input-section-field {
-    display: inline-block;
-
-    [type='text'] {
-        width: 9rem;
-        background-color: transparent;
-        border: none;
-        color: $white;
-        border-bottom: solid 2px $white;
-        font-size: 1rem;
-        font-family: inherit;
-        outline: none;
-    }
-
-    select {
-        background-color: transparent;
-        outline: none;
-        font-size: 1rem;
-        font-family: inherit;
-        color: $white;
-    }
-
-    .combo-box-list {
-        margin-top: 5px;
-    }
-    
-    .combo-box-item {
-        background: transparent;
-        color: $white;
-        border: none;
-    }
 }
 
 .input-checkbox {

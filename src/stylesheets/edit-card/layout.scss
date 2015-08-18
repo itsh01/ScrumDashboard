@@ -1,11 +1,13 @@
 @import '../main/global';
 
 .card-edit-container {
-    width: 20rem;
+    width: 30rem;
     border: 1px solid $black;
-    padding: 0.5rem 1rem;
+    padding: 2rem;
     background-color: $white;
     color: $black;
+    font-size: 1.5rem;
+
 }
 
 .card-edit-label {
@@ -24,6 +26,9 @@
     input {
         width: 100%;
         box-sizing: border-box;
+        font-size: 1rem;
+        padding: 0.3rem;
+        font-family: inherit;
     }
 }
 
@@ -32,6 +37,17 @@
 }
 
 .card-edit-btn {
-    width: 30%;
-    margin: 2px;
+    margin: 0.2rem;
+}
+
+.card-edit-btn-save {
+    @include btn-md($semi-light-green, $light-green, $black);
+}
+
+.card-edit-btn-delete {
+    @include btn-md($red, $red-hover, $white);
+}
+
+.card-edit-btn-cancel {
+    @include btn-md($none-color, $none-color-hover, $black);
 }
