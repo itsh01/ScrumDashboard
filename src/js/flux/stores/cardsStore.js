@@ -1,15 +1,16 @@
 define([
         '../../../vendor/lodash',
         'flux/helpers',
-        '../../constants'
+        '../../constants',
+        'Firebase'
     ],
-    function (_, helpers, constants) {
+    function (_, helpers, constants, Firebase) {
         'use strict';
 
         function CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardsData) {
 
-            var dataFileVersion = '1',
-                CARDS_SCHEMA = {
+            //var dataFileVersion = '1';
+            var CARDS_SCHEMA = {
                     name: {type: 'string'},
                     description: {type: 'string', defaultValue: ''},
                     score: {type: 'number', defaultValue: ''},
@@ -19,7 +20,8 @@ define([
                     startDate: {type: 'string', defaultValue: ''},
                     endDate: {type: 'string', defaultValue: ''}
                 },
-                currentCards;
+                currentCards = defaultCardsData,
+                cardsFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com/cards');
 
             (function init() {
                 this.emitChange = function () {
@@ -34,13 +36,13 @@ define([
                     eventEmitter.removeListener(constants.flux.CARDS_STORE_CHANGE, callback);
                 };
 
-                if (dataFileVersion === localStorage.getItem('cardsVersion')) {
-                    currentCards = restoreFromLocalStorage();
-                } else {
-                    currentCards = defaultCardsData;
-                    saveToLocalStorage();
-                    localStorage.setItem('cardsVersion', dataFileVersion);
-                }
+                //if (dataFileVersion === localStorage.getItem('cardsVersion')) {
+                //    currentCards = restoreFromLocalStorage();
+                //} else {
+                //    currentCards = defaultCardsData;
+                //    saveToLocalStorage();
+                //    localStorage.setItem('cardsVersion', dataFileVersion);
+                //}
 
                 var filterFunctions = {
                     AllCards: null,
@@ -62,8 +64,12 @@ define([
                     };
                 }, this);
 
-            }).apply(this);
+                cardsFirebaseRef.on('value', function (snapshot) {
+                    currentCards = snapshot.val();
+                    eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
+                });
 
+            }).apply(this);
 
             this.getCardById = function (id) {
                 return _.cloneDeep(_.find(currentCards, {id: id}));
@@ -101,7 +107,6 @@ define([
 
             function removeCard(cardId) {
                 var card = _.remove(currentCards, {id: cardId});
-                saveToLocalStorage();
                 if (_.isEmpty(card)) {
                     console.log('Card Store: attempt to remove non existent card (id:', cardId, ')');
                     return false;
@@ -118,6 +123,10 @@ define([
                 });
             }
 
+            // Replaced with: saveToFirebase
+            //function saveToLocalStorage() {
+            //    helpers.saveToLocalStorage('cards', currentCards);
+            //}
 
 
             var actions = [
@@ -147,18 +156,22 @@ define([
                         dispatcher.waitFor(getStoresQueue(actionStoreOrder));
                     }
                     action.callback.apply(this, data);
-                    saveToLocalStorage();
+                    saveToFirebase();
                     this.emitChange();
                 }
             }.bind(this));
 
-            function saveToLocalStorage() {
-                helpers.saveToLocalStorage('cards', currentCards);
+            function saveToFirebase() {
+                cardsFirebaseRef.set(currentCards);
             }
 
-            function restoreFromLocalStorage() {
-                return helpers.restoreFromLocalStorage('cards');
-            }
+            //function saveToLocalStorage() {
+            //    helpers.saveToLocalStorage('cards', currentCards);
+            //}
+            //
+            //function restoreFromLocalStorage() {
+            //    return helpers.restoreFromLocalStorage('cards');
+            //}
 
         }
 

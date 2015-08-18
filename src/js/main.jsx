@@ -14,6 +14,7 @@ requirejs.config({
         general: '../js/general',
         stores: '../js/flux/stores',
         baseFlux: '../js/flux/baseFlux',
+        Firebase: '../vendor/firebase',
 
 
         // DatePicker dependencies
@@ -40,6 +41,9 @@ requirejs.config({
         },
         eventemitter2: {
             exports: 'eventemitter2'
+        },
+        Firebase: {
+            exports: 'Firebase'
         }
     }
 });
