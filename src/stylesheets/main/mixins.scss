@@ -24,16 +24,21 @@
     height: 100%;
 }
 
+@mixin base-btn () {
+    cursor: pointer;
+    font-family: inherit;
+    outline: 0;
+}
+
 @mixin btn ($bg, $hover, $text) {
+    @include base-btn();
+
     background-color: $bg;
     color: $text;
-    outline: 0;
     text-decoration: none;
     text-align: center;
     border: none;
     border-radius: 2px;
-    cursor: pointer;
-    font-family: inherit;
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.10), 0 4px 15px 0 rgba(0, 0, 0, 0.07);
     transition: 0.3s linear all;
 
@@ -69,15 +74,15 @@
 }
 
 @mixin btn-header () {
+    @include base-btn();
+    
     background: transparent;
     margin: -1px;
     color: $white;
     padding: 0.5rem 1rem;
-    font-family: inherit;
     font-size: 1rem;
     border-left: $white 2px solid;
     border-top: none;
     border-bottom: none;
     border-right: none;
-    cursor: pointer;
 }
