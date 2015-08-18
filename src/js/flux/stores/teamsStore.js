@@ -1,15 +1,16 @@
 define([
         '../../../vendor/lodash',
         'flux/helpers',
-        '../../constants'
+        '../../constants',
+        'Firebase'
     ],
-    function (_, helpers, constants) {
+    function (_, helpers, constants, Firebase) {
         'use strict';
 
         function TeamStore(dispatcher, eventEmitter, waitForTokens, defaultTeamData, getUserCards, getLastMemberAdded) {
 
-            var dataFileVersion = '1',
-                SPRINT_SCHEMA = {
+            //var dataFileVersion = '1';
+            var SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
                     scrumMaster: {type: 'string', defaultValue: ''},
                     startDate: {type: 'string', defaultValue: ''},
@@ -24,7 +25,8 @@ define([
                     members: {type: 'string-array', defaultValue: []},
                     active: {type: 'boolean', defaultValue: true}
                 },
-                teamsData,
+                teamsData = defaultTeamData,
+                teamsFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com/teams'),
                 currentViewState;
 
             (function init() {
@@ -41,14 +43,6 @@ define([
                     eventEmitter.removeListener(constants.flux.TEAMS_STORE_CHANGE, callback);
                 };
 
-                if (dataFileVersion === localStorage.getItem('teamVersion')) {
-                    teamsData = restoreFromLocalStorage();
-                } else {
-                    teamsData = defaultTeamData;
-                    saveToLocalStorage();
-                    localStorage.setItem('teamVersion', dataFileVersion);
-                }
-
                 var filterFunctions = {
                     AllTeams: null,
                     AllActiveTeams: {active: true}
@@ -60,7 +54,13 @@ define([
                     };
                 }, this);
 
-                currentViewState = {
+                // Listen to Firebase changes
+                teamsFirebaseRef.on('value', function (snapshot) {
+                    teamsData = snapshot.val();
+                    eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
+                });
+
+                currentViewState = restoreFromLocalStorage() || {
                     currentTeamId: getDefaultTeamId.apply(this),
                     currentSprintId: (_.last(teamsData[0].sprints)).id,
                     currentExistingMemberId: teamsData[0].members[0]
@@ -104,7 +104,7 @@ define([
                     }
                     var cardEndDate = new Date(card.endDate);
                     return helpers.onSegment(sprintStartDate, sprintEndDate, cardStartDate) ||
-                           helpers.onSegment(sprintStartDate, sprintEndDate, cardEndDate);
+                        helpers.onSegment(sprintStartDate, sprintEndDate, cardEndDate);
                 });
                 return membersCardsInSprint;
             };
@@ -310,7 +310,6 @@ define([
                 var team = _.find(teamsData, {id: teamId});
                 if (team) {
                     team.active = false;
-                    saveToLocalStorage();
                     if (teamId === currentViewState.currentTeamId) {
                         var defaultTeamId = getDefaultTeamId.apply(this);
                         changeCurrentTeamId.call(this, defaultTeamId);
@@ -325,18 +324,24 @@ define([
                 return this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id;
             }
 
+
+            function saveToFirebase() {
+                teamsFirebaseRef.set(teamsData);
+            }
+
             function saveToLocalStorage() {
-                helpers.saveToLocalStorage('teams', teamsData);
+                helpers.saveToLocalStorage('teamsState', currentViewState);
             }
 
             function restoreFromLocalStorage() {
-                return helpers.restoreFromLocalStorage('teams');
+                return helpers.restoreFromLocalStorage('teamsState');
             }
 
             function resetCurrentSprintIdIfInvalid() {
                 var isCurrSprintValid = this.getSprintIndex(currentViewState.currentSprintId) !== -1;
                 if (!isCurrSprintValid) {
                     currentViewState.currentSprintId = _.last(this.getCurrentTeam().sprints).id;
+                    saveToLocalStorage();
                 }
             }
 
@@ -346,21 +351,25 @@ define([
                     newSprintIndex = (forward) ? curSprintIndex + 1 : curSprintIndex - 1;
                 if (newSprintIndex >= 0 && newSprintIndex < sprintsNum) {
                     currentViewState.currentSprintId = this.getTeamById(currentViewState.currentTeamId).sprints[newSprintIndex].id;
+                    saveToLocalStorage();
                 }
             }
 
             function setCurrentSprintId(newSprintId) {
                 currentViewState.currentSprintId = newSprintId;
+                saveToLocalStorage();
             }
 
             function changeCurrentTeamId(teamId) {
                 currentViewState.currentTeamId = teamId;
+                saveToLocalStorage();
                 var currTeam = this.getCurrentTeam();
                 setCurrentSprintId.call(this, currTeam.sprints[currTeam.sprints.length - 1]);
             }
 
             function changeExistingMemberId(memberId) {
                 currentViewState.currentExistingMemberId = memberId;
+                saveToLocalStorage();
             }
 
             function createMemberIntoTeam(memberData, teamId) {
@@ -406,7 +415,7 @@ define([
                         dispatcher.waitFor(waitForArray);
                     }
                     action.callback.apply(this, data);
-                    saveToLocalStorage();
+                    saveToFirebase();
                     this.emitChange();
                 }
 

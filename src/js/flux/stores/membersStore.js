@@ -1,21 +1,22 @@
 define([
         '../../../vendor/lodash',
         'flux/helpers',
-        '../../constants'
+        '../../constants',
+        'Firebase'
     ],
-    function (_, helpers, constants) {
+    function (_, helpers, constants, Firebase) {
         'use strict';
-
 
         function MembersStore(dispatcher, eventEmitter, waitForTokens, defaultMembersData) {
 
-            var dataFileVersion = '1',
-                MEMBERS_SCHEMA = {
+            //var dataFileVersion = '1';
+            var MEMBERS_SCHEMA = {
                     name: {type: 'string'},
                     image: {type: 'string', defaultValue: ''},
                     active: {type: 'boolean', defaultValue: true}
                 },
-                currentMembers;
+                currentMembers = defaultMembersData,
+                MembersFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com/members');
 
             (function init() {
                 this.emitChange = function () {
@@ -31,24 +32,34 @@ define([
                 };
 
                 var filterFunctions = {
-                    AllMembers: null
+                    //AllMembers: null
                 };
 
-                if (dataFileVersion === localStorage.getItem('membersVersion')) {
-                    currentMembers = restoreFromLocalStorage();
-                } else {
-                    currentMembers = defaultMembersData;
-                    saveToLocalStorage();
-                    localStorage.setItem('membersVersion', dataFileVersion);
-                }
+                //if (dataFileVersion === localStorage.getItem('membersVersion')) {
+                //    currentMembers = restoreFromLocalStorage();
+                //} else {
+                //    currentMembers = defaultMembersData;
+                //    saveToLocalStorage();
+                //    localStorage.setItem('membersVersion', dataFileVersion);
+                //}
 
                 _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                     this['get' + filterFuncName] = function () {
                         return _.filter(currentMembers, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
                     };
                 }, this);
+                // Listen to Firebase changes
+                MembersFirebaseRef.on('value', function (snapshot) {
+                    currentMembers = snapshot.val();
+                    eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
+                });
 
             }).apply(this);
+
+            this.getAllMembers = function () {
+                return currentMembers;
+            };
+
 
             this.getBlankMember = function () {
                 return helpers.getBlankItem(MEMBERS_SCHEMA);
@@ -128,19 +139,23 @@ define([
                         dispatcher.waitFor(waitForArray);
                     }
                     action.callback.apply(this, data);
-                    saveToLocalStorage();
+                    saveToFirebase();
                     this.emitChange();
                 }
             }.bind(this));
 
 
-            function saveToLocalStorage() {
-                helpers.saveToLocalStorage('members', currentMembers);
+            function saveToFirebase() {
+                MembersFirebaseRef.set(currentMembers);
             }
 
-            function restoreFromLocalStorage() {
-                return helpers.restoreFromLocalStorage('members');
-            }
+            //function saveToLocalStorage() {
+            //    helpers.saveToLocalStorage('members', currentMembers);
+            //}
+            //
+            //function restoreFromLocalStorage() {
+            //    return helpers.restoreFromLocalStorage('members');
+            //}
 
         }
 
