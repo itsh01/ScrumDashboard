@@ -11,8 +11,12 @@ define([
 
         describe('TeamsStore', function () {
 
-            var teamsActions, activeTeam, inactiveTeam,
+            var teamsActions, activeTeam, inactiveTeam, memberId,
                 sprint, teamsArr, teamsStore, eventEmitter, waitForTokens, dispatcher;
+
+            function getUserCards(userId) {
+                return (userId === memberId) ? [{}] : null;
+            }
 
             beforeEach(function () {
                 localStorage.clear();
@@ -20,7 +24,7 @@ define([
 
             describe('basic getters', function () {
 
-                var memberId, teamId, sprintId, teamName;
+                var teamId, sprintId, teamName;
 
                 beforeEach(function () {
                     memberId = helpers.generateGuid();
@@ -57,7 +61,7 @@ define([
                     waitForTokens = {};
                     dispatcher = new baseFlux.Dispatcher();
                     teamsActions = new TeamsActions(dispatcher);
-                    teamsStore = new TeamsStore(dispatcher, eventEmitter, waitForTokens, teamsArr);
+                    teamsStore = new TeamsStore(dispatcher, eventEmitter, waitForTokens, teamsArr, getUserCards);
                 });
 
                 describe('getTeamById', function () {
@@ -138,10 +142,95 @@ define([
                         });
                         expect(notAdded).toBe(true);
                     });
+
                 });
+
+                describe('addSprint', function () {
+
+                    var allSprints;
+
+                    beforeEach(function () {
+                        allSprints = teamsStore.getTeamById(activeTeam.id).sprints;
+                    });
+
+                    describe('valid sprint data supplied', function () {
+
+                        var validSprint;
+
+                        function checkAddition() {
+                            expect(allSprints.length + 1).toBe(teamsStore.getTeamById(activeTeam.id).sprints.length);
+                            allSprints = teamsStore.getTeamById(activeTeam.id).sprints;
+                            var addedSprint = allSprints[allSprints.length - 1];
+                            delete addedSprint.id;
+                            expect(addedSprint).toEqual(validSprint);
+                        }
+
+                        beforeEach(function () {
+                            validSprint = _.cloneDeep(sprint);
+                            delete validSprint.id;
+                        });
+
+                        it('should add a new sprint with supplied data to team with specified id', function () {
+                            teamsActions.addSprint(validSprint, activeTeam.id);
+                            checkAddition();
+                        });
+
+                        it('should add a new sprint to current team if team id is not provided', function () {
+                            teamsActions.addSprint(validSprint);
+                            checkAddition();
+                        });
+
+                    });
+
+                    describe('invalid sprint data supplied', function () {
+
+                        var invalidSprint;
+
+                        beforeEach(function () {
+                            invalidSprint = _.cloneDeep(sprint);
+                            invalidSprint.illegalKey = 'illegal';
+                        });
+
+                        it('should not add sprint to team with specified id', function () {
+                            teamsActions.addSprint(invalidSprint, activeTeam.id);
+                            expect(allSprints.length).toBe(teamsStore.getTeamById(activeTeam.id).sprints.length);
+                        });
+
+                        it('should not add sprint to current team if team id is not provided', function () {
+                            teamsActions.addSprint(invalidSprint);
+                            expect(allSprints.length).toBe(teamsStore.getTeamById(activeTeam.id).sprints.length);
+                        });
+
+                    });
+                });
+
+                describe('addMemberToTeam', function () {
+
+                    var newMemberId;
+
+                    beforeEach(function () {
+                        newMemberId = helpers.generateGuid();
+                    });
+
+                    it('should add member id to members of team with specified id if the team is active', function () {
+                        teamsActions.addMemberToTeam(activeTeam.id, newMemberId);
+                        expect(teamsStore.getTeamById(activeTeam.id).members).toContain(newMemberId);
+                    });
+
+                    it('should not add member id to members of team with specified id if the team is inactive', function () {
+                        teamsActions.addMemberToTeam(inactiveTeam.id, newMemberId);
+                        expect(teamsStore.getTeamById(inactiveTeam.id).members).not.toContain(newMemberId);
+                    });
+
+                    it('should not add member id to members of team with specified id if the member is already in team', function () {
+                        var membersNum = teamsStore.getTeamById(activeTeam.id).members.length;
+                        teamsActions.addMemberToTeam(activeTeam.id, memberId);
+                        expect(teamsStore.getTeamById(activeTeam.id).members.length).toBe(membersNum);
+                    });
+
+                });
+
                 /*
-                 addSprint(sprintData, teamId)
-                 addMemberToTeam(teamId, memberId)
                  removeMemberFromTeam(teamId, memberId)
                  deactivateTeam(teamId)
                  updateSprint(sprintId, newSprintData, teamId)
@@ -169,4 +258,5 @@ define([
         });
 
 
-    });
+    })
+;

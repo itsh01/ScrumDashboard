@@ -1,21 +1,18 @@
 define([
         'React',
         'components/card-edit/CardEditCreate',
-        'stubContext',
-        'flux/flux'
-        , 'lodash'
+        'lodash'
     ],
-    function (React, CardEditCreate, stubContext, Flux, _) {
+    function (React, CardEditCreate, _) {
         'use strict';
-        var flux;
 
-        function initComponent(compParams) {
-            flux = new Flux();
-            var CardEditCreateWithContext = stubContext(CardEditCreate, {newFlux: flux});
-            var instance = React.createElement(CardEditCreateWithContext, compParams);
-            var contextElement = React.addons.TestUtils.renderIntoDocument(instance);
-            var result = React.addons.TestUtils.findRenderedComponentWithType(contextElement, CardEditCreate);
-            return result;
+        function initComponent(props) {
+            return React.addons.TestUtils.renderIntoDocument(
+                React.createElement(
+                    CardEditCreate,
+                    props
+                )
+            );
         }
 
         describe('CardEditCreate', function () {
@@ -43,21 +40,19 @@ define([
                 });
             });
 
-            describe('add card tests', function () {
+            describe('edit card behaviour tests', function () {
                 var comp, mockTeams, mockMembers;
                 beforeEach(function () {
                     mockTeams = [{id: '1', name: '1'}, {id: '2', name: '2'}];
                     mockMembers = [{id: '5', name: '1'}, {id: '6', name: '2'}];
-                    var currSprintMembers = mockMembers;
                     var props = {
                         card: {status: 'unassigned'},
                         isCreating: true,
-                        currSprintMembers: currSprintMembers,
+                        currSprintMembers: mockMembers,
                         allTeams: mockTeams,
                         sprintLifeCycle: []
                     };
-                    var t = React.createElement(CardEditCreate, props);
-                    comp = React.addons.TestUtils.renderIntoDocument(t);
+                    comp = initComponent(props);
                 });
 
                 it('should show assignee iff there is a team', function () {
@@ -70,7 +65,7 @@ define([
                 });
             });
 
-            describe('edit card tests', function () {
+            describe('edit card sanity tests', function () {
                 var mockCard, comp, mockTeams;
                 beforeEach(function () {
                     mockCard = {
@@ -79,13 +74,7 @@ define([
                         description: 'description',
                         score: 1
                     };
-                    /*eslint-disable*/
                     mockTeams = [{id: '1', value: '1'}, {id: '2', value: '2'}];
-                    /*eslint-enable*/
-                    flux = new Flux();
-                    spyOn(flux.planningStore, 'getCurrentCard').and.returnValue(mockCard);
-                    spyOn(flux.teamsStore, 'getAllActiveTeams')
-                        .and.returnValue(mockTeams);
                     comp = initComponent({
                         card: mockCard,
                         isCreating: false,
@@ -112,13 +101,17 @@ define([
                     expect(rend[1].props.valueLink.value).toEqual(mockCard.description);
                 });
 
-                it('should set state "team" on selection change', function () {
-                    var teamSelect = React.findDOMNode(comp.refs.team);
-                    expect(comp.refs.assignee).toBeUndefined();
-                    React.addons.TestUtils.Simulate.change(teamSelect, {target: {value: mockTeams[0].id}});
-                    expect(comp.state.team).toEqual(mockTeams[0].id);
-                    //expect(comp.refs.assignee).toBeDefined();
+                it('should throw if card has assignee but no team', function () {
+                    mockCard = {assignee: '1'};
+
+                    function initC() {
+                        initComponent({card: mockCard});
+                    }
+
+                    expect(initC).toThrow();
                 });
+
+
             });
 
         });

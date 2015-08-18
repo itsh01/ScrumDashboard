@@ -5,12 +5,17 @@
 define([
         'lodash',
         'React',
+
         'definition!components/sprint/Velocity',
+
         'stubContext',
         'flux/flux',
-        'mixins/HistoryMixin'
+
+        'mixins/HistoryMixin',
+
+        'constants'
     ],
-    function (_, React, velocityDefinition, stubContext, Flux, HistoryMixin) {
+    function (_, React, velocityDefinition, stubContext, Flux, HistoryMixin, constants) {
         'use strict';
 
         var mockProps = {
@@ -20,6 +25,7 @@ define([
                 '15fc4096-b641-436a-bf2d-8fbdeedec7b2',
                 '061804a2-1f93-40e1-bf49-57b82e5b568b'
             ],
+            sprintStatus: constants.SPRINT_STATUS.RETRO,
             retro: [
                 {
                     cardId: 'b97fff13-de90-4e1f-abb7-39f786d11450',
@@ -91,7 +97,7 @@ define([
 
                 spyOn(HistoryMixin, 'mapHistoryToCards').and.returnValue(mockCards);
 
-                Velocity = velocityDefinition(_, React, HistoryMixin);
+                Velocity = velocityDefinition(_, React, HistoryMixin, constants);
 
                 VelocityWithContext = stubContext(Velocity, {flux: new Flux()});
                 instance = React.createElement(VelocityWithContext, {});
@@ -109,7 +115,7 @@ define([
                 expect(Velocity.prototype.calcActualVelocity(mockCards, lastPhase)).toEqual(4);
             });
 
-            it('should use retro cards when provided', function () {
+            it('should use retro cards when locked state provided', function () {
 
                 instance = React.createElement(VelocityWithContext, mockProps);
                 React.addons.TestUtils.renderIntoDocument(instance);

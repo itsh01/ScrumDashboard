@@ -45,6 +45,7 @@ define([
                     <Velocity
                         cardLifecycle={sprint.cardLifecycle}
                         sprintMembers={sprint.members}
+                        sprintStatus={sprint.status}
                         retro={sprint.retroCardsStatus}
                         sprintId={sprint.id}/>
                 </div>);
