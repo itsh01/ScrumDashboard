@@ -61,10 +61,10 @@ define([
                 });
 
                 currentViewState = restoreFromLocalStorage() || {
-                    currentTeamId: getDefaultTeamId.apply(this),
-                    currentSprintId: (_.last(teamsData[0].sprints)).id,
-                    currentExistingMemberId: teamsData[0].members[0]
-                };
+                        currentTeamId: getDefaultTeamId.apply(this),
+                        currentSprintId: (_.last(teamsData[0].sprints)).id,
+                        currentExistingMemberId: teamsData[0].members[0]
+                    };
 
             }).apply(this);
 
@@ -185,6 +185,7 @@ define([
 
             function addMemberToTeam(teamId, memberId) {
                 var team = _.find(teamsData, {id: teamId});
+                team.members = team.members || [];
                 if (team.active && team.members.indexOf(memberId) < 0) {
                     team.members.push(memberId);
                 }
