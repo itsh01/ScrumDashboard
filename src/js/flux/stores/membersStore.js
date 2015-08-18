@@ -106,7 +106,9 @@ define([
             var actions = [
                 {name: constants.actionNames.ADD_MEMBER, callback: addMember},
                 {name: constants.actionNames.UPDATE_MEMBER, callback: updateMember},
-                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: deactivateMember}
+                {name: constants.actionNames.DEACTIVATE_MEMBER, callback: deactivateMember},
+                {name: constants.actionNames.CREATE_MEMBER_INTO_TEAM, callback: addMember}
+
             ];
 
             waitForTokens[constants.storesName.MEMBERS_STORE] = dispatcher.register(function (payload) {
@@ -116,6 +118,15 @@ define([
                     action = _.find(actions, {name: actionName});
 
                 if (action) {
+                    var actionStoreOrder = payload.storeOrder;
+                    if (actionStoreOrder && actionStoreOrder.length > 1) {
+                        var teamStoreIndex = _.indexOf(actionStoreOrder, constants.storesName.MEMBERS_STORE);
+                        var storeOrder = _.slice(actionStoreOrder, 0, teamStoreIndex);
+                        var waitForArray = _.map(storeOrder, function (storeName) {
+                            return waitForTokens[storeName];
+                        });
+                        dispatcher.waitFor(waitForArray);
+                    }
                     action.callback.apply(this, data);
                     saveToLocalStorage();
                     this.emitChange();
@@ -131,9 +142,6 @@ define([
                 return helpers.restoreFromLocalStorage('members');
             }
 
-            function removeFromLocalStorage() {
-                helpers.removeFromLocalStorage('members');
-            }
         }
 
         return MembersStore;
