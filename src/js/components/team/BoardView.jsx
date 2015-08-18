@@ -1,4 +1,13 @@
-define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Table', 'components/backlog/Backlog', 'components/team/EditSprint', 'constants'],
+define([
+        'lodash',
+        'React',
+
+        'components/team/ChangeSprint',
+        'components/sprint/Table',
+        'components/backlog/Backlog',
+        'components/team/EditSprint',
+
+        'constants'],
     function (_, React, ChangeSprint, SprintTable, BackLog, EditSprint, constants) {
         'use strict';
 
@@ -139,9 +148,9 @@ define(['lodash', 'React', 'components/team/ChangeSprint', 'components/sprint/Ta
                                 <BackLog className="backlog" teamId={team.id}/>
                             </div>
                             <SprintTable sprint={sprint}/>
+                            {this.getSprintButton(sprint)}
                         </div>
 
-                        {this.getSprintButton(sprint)}
 
                     </div>
                 );
