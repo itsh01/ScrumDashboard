@@ -62,8 +62,8 @@ define(['lodash', 'React', 'constants', 'DragDropMixin'],
                 var member = this.props.member;
                 return (
                     <div className={classSet('member-profile', 'inline-block')}>
-                        {this.getMemberHeading(member)}
                         {this.getMemberImage(member)}
+                        {this.getMemberHeading(member)}
                         {this.createRemoveMemberButton(member)}
                     </div>
                 );
