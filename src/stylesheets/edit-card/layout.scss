@@ -44,10 +44,6 @@
     @include btn-md($semi-light-green, $light-green, $black);
 }
 
-.card-edit-btn-delete {
-    @include btn-md($red, $red-hover, $white);
-}
-
 .card-edit-btn-cancel {
     @include btn-md($none-color, $none-color-hover, $black);
 }

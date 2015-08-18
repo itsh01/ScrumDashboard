@@ -181,7 +181,7 @@ define([
 
             function addMemberToTeam(teamId, memberId) {
                 var team = _.find(teamsData, {id: teamId});
-                if (team.active) {
+                if (team.active && team.members.indexOf(memberId) < 0) {
                     team.members.push(memberId);
                 }
             }

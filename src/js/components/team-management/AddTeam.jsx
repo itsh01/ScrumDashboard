@@ -24,7 +24,7 @@ define(['lodash', 'React'], function (_, React) {
         addNewTeam: function (event) {
             event.preventDefault();
             var newTeamName = this.refs.teamName.getDOMNode().value;
-            var newTeamObject = this.context.blankTeamSchema;
+            var newTeamObject = _.cloneDeep(this.context.blankTeamSchema);
             newTeamObject.name = newTeamName;
             this.flux.teamsActions.addTeam(newTeamObject);
         },
