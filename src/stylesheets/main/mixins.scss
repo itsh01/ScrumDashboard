@@ -86,3 +86,11 @@
     border-bottom: none;
     border-right: none;
 }
+
+@mixin select-transparent () {
+    background-color: transparent;
+    outline: none;
+    font-size: 1rem;
+    font-family: inherit;
+    color: $white;
+}
