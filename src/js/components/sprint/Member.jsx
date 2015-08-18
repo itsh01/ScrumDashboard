@@ -25,17 +25,18 @@ define([
             render: function () {
                 var isScrumMaster = this.props.member.id === this.context.scrumMaster,
                     imagePath = 'img/crown.png',
-                    scrumMasterComp = <img className='scrum-master' src={imagePath} />;
-
-
+                    scrumMasterComp = <img className='scrum-master' src={imagePath}/>,
+                    style = {
+                        background: 'url(' + this.props.member.image + ') no-repeat',
+                        'background-size': '100%'
+                    };
                 return (<div className="sprint-member">
                     <figure>
                         { isScrumMaster ? scrumMasterComp : null}
-                        <img
-                            alt={this.props.member.name}
+                        <div
                             className="sprint-member-image"
                             draggable="false"
-                            src={this.props.member.image}/>
+                            style={style}/>
                         <figcaption className="text-center">{this.props.member.name}</figcaption>
                     </figure>
                 </div>);
