@@ -5,19 +5,24 @@
     vertical-align: middle;
 }
 
-.sprint-member .sprint-member-image {
-    width: 4rem;
-    cursor: default;
-}
+.sprint-member {
+    width: 8.5rem;
+    height: 8.5rem;
 
-.sprint-member figure {
-    position: relative;
-    text-align: center;
-    margin: 1.3rem;
-}
+    .sprint-member-image {
+        width: 4rem;
+        cursor: default;
+    }
 
-.sprint-member figcaption {
-    padding: 0.3rem;
+    figure {
+        position: relative;
+        text-align: center;
+        margin: 1.3rem;
+    }
+
+    figcaption {
+        padding: 0.3rem;
+    }
 }
 
 .scrum-master {
@@ -32,8 +37,14 @@
     width: 80%;
 
     .table-cell {
+        //@include chalk-cell();
         max-width: 7rem;
         //overflow: hidden;
+    }
+
+    .table-heading {
+        //@include chalk-underline();
+        //border: none;
     }
 }
 

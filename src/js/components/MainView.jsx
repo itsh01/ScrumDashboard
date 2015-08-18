@@ -164,7 +164,7 @@ define(['lodash',
                                 </div>
 
                                 <div className="right">
-                                    <button className='clearButton' type='button' onClick={this.resetFirebaseToDefault}>Reset Firebase to default
+                                    <button className='clearButton' type='button' onClick={this.resetFirebaseToDefault}>Reset Firebase
                                     </button>
                                     <button data-view={this.views.TeamManagement} onClick={this.changeView}>Manage Teams
                                     </button>
