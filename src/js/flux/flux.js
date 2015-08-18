@@ -28,11 +28,11 @@ define(
             //this.cardsStore = new CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardData);
             this.cardsStore = new CardsStore(dispatcher, eventEmitter, waitForTokens);
 
-            this.teamsActions = new TeamsActions(dispatcher);
-            this.teamsStore = new TeamsStore(dispatcher, eventEmitter, waitForTokens, defaultTeamsData, this.cardsStore.getUserCards);
-
             this.membersStore = new MembersStore(dispatcher, eventEmitter, waitForTokens, defaultMemberData);
-            this.membersActions = new MembersActions(dispatcher, this.membersStore.getLastMemberAdded);
+            this.membersActions = new MembersActions(dispatcher);
+
+            this.teamsActions = new TeamsActions(dispatcher);
+            this.teamsStore = new TeamsStore(dispatcher, eventEmitter, waitForTokens, defaultTeamsData, this.cardsStore.getUserCards, this.membersStore.getLastMemberAdded);
 
             this.planningActions = new PlanningActions(dispatcher);
             this.planningStore = new PlanningStore(dispatcher, eventEmitter, waitForTokens);

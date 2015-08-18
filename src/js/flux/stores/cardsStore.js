@@ -158,6 +158,15 @@ define([
                     action = _.find(actions, {name: actionName});
 
                 if (action) {
+                    var actionStoreOrder = payload.storeOrder;
+                    if (actionStoreOrder && actionStoreOrder.length > 1) {
+                        var teamStoreIndex = _.indexOf(actionStoreOrder, constants.storesName.CARDS_STORE);
+                        var storeOrder = _.slice(actionStoreOrder, 0, teamStoreIndex);
+                        var waitForArray = _.map(storeOrder, function (storeName) {
+                            return waitForTokens[storeName];
+                        });
+                        dispatcher.waitFor(waitForArray);
+                    }
                     action.callback.apply(this, data);
                     saveToFirebase();
                     this.emitChange();
@@ -174,10 +183,6 @@ define([
 
             function restoreFromLocalStorage() {
                 return helpers.restoreFromLocalStorage('cards');
-            }
-
-            function removeFromLocalStorage() {
-                helpers.removeFromLocalStorage('cards');
             }
 
         }

@@ -1,4 +1,5 @@
 var playData = {};
+/*eslint-disable*/
 playData.cards = [
     {
         "id": "7d6f4051-64cb-4a49-aa58-168c4e8358c3",
@@ -87,7 +88,7 @@ requirejs(
                     <div>
                         {
                             _.map(playData.cards, function (card) {
-                                return <Card card={card}/>
+                                return <Card card={card}/>;
                             })
                         }
                     </div>);
@@ -98,7 +99,7 @@ requirejs(
                 flux: React.PropTypes.any
             },
 
-            getInitialState(){
+            getInitialState: function () {
                 this.flux = new Flux();
                 this.flux.dispatcher.registerEventsHandled(this.forceUpdate.bind(this));
                 return {};
@@ -119,7 +120,7 @@ requirejs(
                 return <div>
                     <TeamManagement allTeams={allTeams} currentTeam={currentTeamId}/>
 
-                </div>
+                </div>;
 
             }
         });

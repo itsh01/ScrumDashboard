@@ -3,4 +3,7 @@
 .cards-list {
     border: $white 1px solid;
     text-align: center;
+    max-height: 300px;
+    overflow: scroll;
+    margin-top: 0.5rem;
 }
