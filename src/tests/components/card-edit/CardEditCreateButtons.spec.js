@@ -89,5 +89,34 @@ define(
                 });
             });
 
+            describe('done when done', function () {
+                var btn;
+
+                function innerInitComp(props, btnClass) {
+                    comp = initComp(
+                        {
+                            cardsActions: MOCK_CARDS_ACTIONS,
+                            planningActions: MOCK_PLANNING_ACTIONS
+                        }, props);
+                    btn = React.addons.TestUtils.findRenderedDOMComponentWithClass(comp, btnClass);
+                    React.addons.TestUtils.Simulate.click(btn);
+                }
+
+                it('should be done after saving when adding', function () {
+                    innerInitComp(MOCK_PROPS_ADDING, 'card-edit-btn-save');
+                    expect(MOCK_PLANNING_ACTIONS.planningDoneAddingCard).toHaveBeenCalled();
+                });
+
+                it('should be done after saving when edditing', function () {
+                    innerInitComp(MOCK_PROPS_EDITING, 'card-edit-btn-save');
+                    expect(MOCK_PLANNING_ACTIONS.planningDoneAddingCard).toHaveBeenCalled();
+                });
+
+                it('should be done when canceled', function () {
+                    innerInitComp(MOCK_PROPS_EDITING, 'card-edit-btn-cancel');
+                    expect(MOCK_PLANNING_ACTIONS.planningDoneAddingCard).toHaveBeenCalled();
+                });
+            });
+
         });
     });
