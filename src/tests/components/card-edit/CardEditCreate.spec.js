@@ -3,11 +3,11 @@ define([
         'components/card-edit/CardEditCreate',
         'lodash'
     ],
-    function (React, CardEditCreate,  _) {
+    function (React, CardEditCreate, _) {
         'use strict';
 
-        function initComponent(props){
-            return  React.addons.TestUtils.renderIntoDocument(
+        function initComponent(props) {
+            return React.addons.TestUtils.renderIntoDocument(
                 React.createElement(
                     CardEditCreate,
                     props
@@ -100,6 +100,10 @@ define([
                     var rend = React.addons.TestUtils.scryRenderedDOMComponentsWithTag(comp, 'input');
                     expect(rend[0].props.valueLink.value).toEqual(mockCard.name);
                     expect(rend[1].props.valueLink.value).toEqual(mockCard.description);
+                });
+
+                it('should throw if card has assignee but no team', function () {
+                    //var mockCard = {}
                 });
 
 
