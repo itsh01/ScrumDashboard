@@ -385,6 +385,14 @@ define([
                 {name: constants.actionNames.CREATE_MEMBER_INTO_TEAM, callback: createMemberIntoTeam}
             ];
 
+            function getStoresQueue(actionStoreOrder) {
+                var storeIndex = _.indexOf(actionStoreOrder, constants.storesName.TEAMS_STORE);
+                var storeOrder = _.slice(actionStoreOrder, 0, storeIndex);
+                return _.map(storeOrder, function (storeName) {
+                    return waitForTokens[storeName];
+                });
+            }
+
             waitForTokens[constants.storesName.TEAMS_STORE] = dispatcher.register(function (payload) {
                 var actionName = payload.actionName,
                     data = payload.payload,
@@ -394,22 +402,14 @@ define([
                 if (action) {
                     var actionStoreOrder = payload.storeOrder;
                     if (actionStoreOrder && actionStoreOrder.length > 1) {
-                        var teamStoreIndex = _.indexOf(actionStoreOrder, constants.storesName.TEAMS_STORE);
-                        var storeOrder = _.slice(actionStoreOrder, 0, teamStoreIndex);
-                        var waitForArray = _.map(storeOrder, function (storeName) {
-                            return waitForTokens[storeName];
-                        });
-                        dispatcher.waitFor(waitForArray);
+                        dispatcher.waitFor(getStoresQueue(actionStoreOrder));
                     }
                     action.callback.apply(this, data);
                     saveToLocalStorage();
                     this.emitChange();
                 }
-
             }.bind(this));
         }
 
-
         return TeamStore;
-
     });
