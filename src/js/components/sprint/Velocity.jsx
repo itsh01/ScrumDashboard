@@ -2,9 +2,11 @@ define([
         'lodash',
         'React',
 
-        'mixins/HistoryMixin'
+        'mixins/HistoryMixin',
+
+        'constants'
     ],
-    function (_, React, HistoryMixin) {
+    function (_, React, HistoryMixin, constants) {
         'use strict';
 
         return React.createClass({
@@ -13,7 +15,8 @@ define([
                 cardLifecycle: React.PropTypes.array,
                 retro: React.PropTypes.array,
                 sprintId: React.PropTypes.string,
-                sprintMembers: React.PropTypes.array
+                sprintMembers: React.PropTypes.array,
+                sprintStatus: React.PropTypes.number
             },
             contextTypes: {
                 flux: React.PropTypes.any
@@ -30,13 +33,15 @@ define([
             },
             getSprintCards: function () {
                 var cards = [],
-                    retro = this.props.retro;
+                    retro = this.props.retro,
+                    teamsStore = this.context.flux.teamsStore,
+                    sprintIsLocked = this.props.sprintStatus === constants.SPRINT_STATUS.RETRO;
 
-                if (retro) {
+                if (sprintIsLocked) {
                     cards = _.map(retro, this.mapHistoryToCards);
                 } else {
                     _.forEach(this.props.sprintMembers, function (memberId) {
-                        cards = cards.concat(this.context.flux.teamsStore.getMemberCardsInSprint(memberId, this.props.sprintId));
+                        cards = cards.concat(teamsStore.getMemberCardsInSprint(memberId, this.props.sprintId));
                     }, this);
                 }
                 return cards;

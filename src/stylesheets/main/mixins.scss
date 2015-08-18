@@ -1,4 +1,3 @@
-
 @import 'colors';
 
 @mixin radial-gradient($from, $to) {
@@ -16,7 +15,7 @@
     background-image: -o-linear-gradient(left, transparent, rgba($r, $g, $b, $a) 50%, transparent);
 }
 
-@mixin fixed100 () {
+@mixin fixed100() {
     position: fixed;
     top: 0;
     left: 0;
@@ -24,13 +23,13 @@
     height: 100%;
 }
 
-@mixin base-btn () {
+@mixin base-btn() {
     cursor: pointer;
     font-family: inherit;
     outline: 0;
 }
 
-@mixin btn ($bg, $hover, $text) {
+@mixin btn($bg, $hover, $text) {
     @include base-btn();
 
     background-color: $bg;
@@ -48,7 +47,7 @@
     }
 }
 
-@mixin btn-md ($bg, $hover, $text) {
+@mixin btn-md($bg, $hover, $text) {
     @include btn($bg, $hover, $text);
 
     height: 3rem;
@@ -57,7 +56,7 @@
     font-size: 1rem;
 }
 
-@mixin btn-sm ($bg, $hover, $text) {
+@mixin btn-sm($bg, $hover, $text) {
     @include btn($bg, $hover, $text);
 
     line-height: 1;
@@ -65,7 +64,7 @@
     font-size: 0.8rem;
 }
 
-@mixin btn-xs ($bg, $hover, $text) {
+@mixin btn-xs($bg, $hover, $text) {
     @include btn($bg, $hover, $text);
 
     line-height: 1;
@@ -73,7 +72,7 @@
     font-size: 0.6rem;
 }
 
-@mixin btn-header () {
+@mixin btn-header() {
     @include base-btn();
 
     background: transparent;
@@ -85,6 +84,14 @@
     border-top: none;
     border-bottom: none;
     border-right: none;
+
+    &:hover {
+        //background-image: url('http://dc509.4shared.com/img/i4X4fuJg/s7/141755adc98/Chalk_circle_1');
+        background-image: url('../../img/chalkCircle.png');
+        background-position: top;
+
+    }
+
 }
 
 @mixin select-transparent () {
