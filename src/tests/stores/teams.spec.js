@@ -55,6 +55,7 @@ define([
                     inactiveTeam = _.cloneDeep(activeTeam);
                     inactiveTeam.id = helpers.generateGuid();
                     inactiveTeam.active = false;
+                    inactiveTeam.sprints[0].id = helpers.generateGuid();
                     teamsArr = [activeTeam, inactiveTeam];
 
                     eventEmitter = new EventEmitter();
@@ -157,7 +158,7 @@ define([
 
                         var validSprint;
 
-                        function checkAddition() {
+                        function checkSuccess() {
                             expect(allSprints.length + 1).toBe(teamsStore.getTeamById(activeTeam.id).sprints.length);
                             allSprints = teamsStore.getTeamById(activeTeam.id).sprints;
                             var addedSprint = allSprints[allSprints.length - 1];
@@ -172,12 +173,12 @@ define([
 
                         it('should add a new sprint with supplied data to team with specified id', function () {
                             teamsActions.addSprint(validSprint, activeTeam.id);
-                            checkAddition();
+                            checkSuccess();
                         });
 
                         it('should add a new sprint to current team if team id is not provided', function () {
                             teamsActions.addSprint(validSprint);
-                            checkAddition();
+                            checkSuccess();
                         });
 
                     });
@@ -250,9 +251,72 @@ define([
 
                 });
 
+                describe('deactivateTeam', function () {
+
+                    it('should mark active team as inactive', function () {
+                        teamsActions.deactivateTeam(activeTeam.id);
+                        expect(teamsStore.getTeamById(activeTeam.id).active).toBe(false);
+                    });
+
+                    it('should do nothing if team is already inactive', function () {
+                        teamsActions.deactivateTeam(inactiveTeam.id);
+                        expect(teamsStore.getTeamById(inactiveTeam.id).active).toBe(false);
+                    });
+
+                });
+
+                describe('updateSprint', function () {
+
+                    var allSprints;
+
+                    beforeEach(function () {
+                        allSprints = teamsStore.getTeamById(activeTeam.id).sprints;
+                    });
+
+                    describe('valid sprint data supplied', function () {
+
+                        var validSprintData;
+
+                        beforeEach(function () {
+                            validSprintData = {
+                                name: 'new name',
+                                startDate: '2015-08-23',
+                                endDate: '',
+                                retroCardsStatus: [],
+                                state: 1,
+                                scrumMaster: helpers.generateGuid(),
+                                cardLifecycle: ['Start', 'End'],
+                                members: [helpers.generateGuid()]
+                            };
+                        });
+
+                        it('should update sprint', function () {
+                            teamsActions.updateSprint(sprint.id, validSprintData);
+                            var updatedTeam = teamsStore.getTeamById(activeTeam.id);
+                            var updatedSprint = updatedTeam.sprints[0];
+                            var res = _.every(validSprintData, function (value, key) {
+                                return _.isEqual(updatedSprint[key], value);
+                            });
+                            expect(res).toBe(true);
+                            expect(allSprints.length).toBe(updatedTeam.sprints.length);
+                        });
+
+                    });
+
+                    describe('invalid sprint data supplied', function () {
+
+                        it('should not update sprint', function () {
+                            teamsActions.updateSprint(sprint.id, {invalid: 'invalid'});
+                            var updatedTeam = teamsStore.getTeamById(activeTeam.id);
+                            var updatedSprint = updatedTeam.sprints[0];
+                            expect(updatedSprint.invalid).not.toBeDefined();
+                            expect(allSprints.length).toBe(updatedTeam.sprints.length);
+                        });
+                    });
+
+                });
+
                 /*
-                 removeMemberFromTeam(teamId, memberId)
-                 deactivateTeam(teamId)
                  updateSprint(sprintId, newSprintData, teamId)
                  addMemberToSprint(teamId, sprintId, memberId)
                  removeMemberFromSprint(teamId, sprintId, memberId)
