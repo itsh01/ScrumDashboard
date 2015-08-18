@@ -162,6 +162,10 @@ define([
                 var team = _.find(teamsData, {id: teamId}),
                     blankSprint = this.getBlankSprint(),
                     sprintWithDefaults = _.assign(blankSprint, sprintData);
+
+                sprintWithDefaults.members = (sprintData.members.length) ? sprintData.members : team.members;
+                sprintWithDefaults.scrumMaster = (sprintData.scrumMaster) ? sprintData.scrumMaster : _.first(sprintWithDefaults.members);
+
                 if (_.isEmpty(team)) {
                     console.log('Team Store: attempt to add sprint to non existent team (id:', teamId, ')');
                 } else if (isValidSprint(sprintWithDefaults)) {
