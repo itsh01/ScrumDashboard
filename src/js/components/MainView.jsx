@@ -134,13 +134,15 @@ define(['lodash',
                 var currSprint = this.flux.teamsStore.getCurrentSprint();
                 var currSprintMembers = currSprint.members;
                 currSprintMembers = this.flux.membersStore.getMembersByIdList(currSprintMembers);
-                var allTeams = this.flux.teamsStore.getAllActiveTeams();
+                //var allTeams = this.flux.teamsStore.getAllActiveTeams();
                 var sprintLifeCycle = currSprint.cardLifecycle;
+                //var allMembers = this.flux.membersStore.getAllMembers();
+                var currTeam = this.flux.teamsStore.getCurrentTeam();
 
                 return (
                     <Popup>
                         <CardEditCreate card={currCard} isCreating={isCreating} sprintLifeCycle={sprintLifeCycle}
-                                        currSprintMembers={currSprintMembers} allTeams={allTeams}/>
+                                        currSprintMembers={currSprintMembers} currTeam={currTeam}/>
                     </Popup>
                 );
 

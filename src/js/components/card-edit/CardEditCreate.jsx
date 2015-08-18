@@ -11,11 +11,11 @@ define([
             displayName: 'CardEditCreate',
 
             propTypes: {
-                allTeams: React.PropTypes.any,
                 card: React.PropTypes.object,
                 currSprintMembers: React.PropTypes.any,
                 isCreating: React.PropTypes.bool,
-                sprintLifeCycle: React.PropTypes.any
+                sprintLifeCycle: React.PropTypes.any,
+                currTeam: React.PropTypes.any
             },
 
             contextTypes: {
@@ -56,6 +56,9 @@ define([
                 if (stateKey === 'score') {
                     obj[stateKey] = parseInt(e.target.value, 10);
                 }
+                if (stateKey === 'team' && e.target.value === 'CompanyBacklog') {
+                    obj[stateKey] = '';
+                }
                 this.setState(obj);
             },
 
@@ -70,7 +73,6 @@ define([
                     value={this.state[stateKey]}
                     onChange={this.handleSelectChange.bind(this, stateKey)}
                     ref={stateKey}>
-                    <option selected disabled>Choose {stateKey}</option>
                     {options}
                 </select>);
             },
@@ -79,8 +81,10 @@ define([
                 if (!this.state.team) {
                     return null;
                 }
+                return _.filter(this.props.allMembers, function () {
 
-                return this.props.currSprintMembers;
+                });
+
             },
 
             formatToIdAndName: function (arr) { //TODO change this name?
@@ -108,10 +112,8 @@ define([
                 return (<div>
                     {this.getSelectOptions(this.formatToIdAndName(this.getValidScores()), 'score')}
                     <div>
-                        {this.getSelectOptions(this.props.allTeams, 'team')}
-                        {this.getSelectOptions(this.getTeamMembersIdList(), 'assignee')}
+                        {this.getSelectOptions([{id: 'CompanyBacklog', name: 'Company'}, {id: this.props.currTeam.id, name: this.props.currTeam.name}], 'team')}
                     </div>
-                    {this.getSelectOptions(this.formatToIdAndName(this.getLifecycleOptions()), 'status')}
                 </div>);
             },
 
