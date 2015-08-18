@@ -110,9 +110,9 @@ define([
 
             getSelectBoxes: function () {
                 return (<div>
-                    {this.getSelectOptions(this.formatToIdAndName(this.getValidScores()), 'score')}
+                    Score: {this.getSelectOptions(this.formatToIdAndName(this.getValidScores()), 'score')}
                     <div>
-                        {this.getSelectOptions([{id: 'CompanyBacklog', name: 'Company'}, {id: this.props.currTeam.id, name: this.props.currTeam.name}], 'team')}
+                        Add Card To {this.getSelectOptions([{id: 'CompanyBacklog', name: 'Company'}, {id: this.props.currTeam.id, name: this.props.currTeam.name}], 'team')} Backlog
                     </div>
                 </div>);
             },

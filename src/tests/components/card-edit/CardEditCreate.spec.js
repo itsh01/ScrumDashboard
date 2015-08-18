@@ -1,9 +1,8 @@
 //define([
 //        'React',
-//        'components/card-edit/CardEditCreate',
-//        'lodash'
+//        'components/card-edit/CardEditCreate'
 //    ],
-//    function (React, CardEditCreate, _) {
+//    function (React, CardEditCreate) {
 //        'use strict';
 //
 //        function initComponent(props) {
@@ -23,46 +22,18 @@
 //
 //            describe('empty card tests', function () {
 //                var comp;
+//                var mockCard = {
+//                        name: 'New Card',
+//                        description: 'Write A Short Description',
+//                        score: 1};
 //                beforeEach(function () {
-//                    comp = initComponent({card: {}, isCreating: true});
+//                    comp = initComponent({card: mockCard, isCreating: true});
 //                });
 //
 //                it('should be creating card if there is no current card in planningStore', function () {
 //                    expect(comp.isCreating()).toBe(true);
 //                });
 //
-//                it('should have empty inputs when creating card', function () {
-//                    var renderedDOM = React.findDOMNode(comp);
-//                    var inputs = renderedDOM.querySelectorAll('input');
-//                    _.forEach(inputs, function (input) {
-//                        expect(input.textContent).toEqual('');
-//                    });
-//                });
-//            });
-//
-//            describe('edit card behaviour tests', function () {
-//                var comp, mockTeams, mockMembers;
-//                beforeEach(function () {
-//                    mockTeams = [{id: '1', name: '1'}, {id: '2', name: '2'}];
-//                    mockMembers = [{id: '5', name: '1'}, {id: '6', name: '2'}];
-//                    var props = {
-//                        card: {status: 'unassigned'},
-//                        isCreating: true,
-//                        currSprintMembers: mockMembers,
-//                        allTeams: mockTeams,
-//                        sprintLifeCycle: []
-//                    };
-//                    comp = initComponent(props);
-//                });
-//
-//                it('should show assignee iff there is a team', function () {
-//                    var teamSelect = React.findDOMNode(comp.refs.team);
-//
-//                    expect(comp.refs.assignee).toBeUndefined();
-//                    React.addons.TestUtils.Simulate.change(teamSelect, {target: {value: mockTeams[0].id}});
-//                    expect(comp.state.team).toEqual(mockTeams[0].id);
-//                    expect(comp.refs.assignee).toBeDefined();
-//                });
 //            });
 //
 //            describe('edit card sanity tests', function () {
@@ -99,16 +70,6 @@
 //                    var rend = React.addons.TestUtils.scryRenderedDOMComponentsWithTag(comp, 'input');
 //                    expect(rend[0].props.valueLink.value).toEqual(mockCard.name);
 //                    expect(rend[1].props.valueLink.value).toEqual(mockCard.description);
-//                });
-//
-//                it('should throw if card has assignee but no team', function () {
-//                    mockCard = {assignee: '1'};
-//
-//                    function initC() {
-//                        initComponent({card: mockCard});
-//                    }
-//
-//                    expect(initC).toThrow();
 //                });
 //
 //
