@@ -70,7 +70,9 @@ define([
             }, this);
 
             if (this.props.cardsList.length === 0) {
-                cardsListToDisplay = (<p className="empty-state">No cards.&nbsp;<span className="caption"><span onClick={this.addNewCard}>Add one</span></span> &rarr;</p>);
+                cardsListToDisplay = (<p className="empty-state">No cards.&nbsp;<span className="caption">
+                    <span ref="addNewCardButton" onClick={this.addNewCard}>Add one</span>
+                </span> &rarr;</p>);
             }
 
             return (
