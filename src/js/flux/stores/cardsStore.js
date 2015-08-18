@@ -11,9 +11,9 @@ define([
 
             //var dataFileVersion = '1';
             var CARDS_SCHEMA = {
-                    name: {type: 'string'},
-                    description: {type: 'string', defaultValue: ''},
-                    score: {type: 'number', defaultValue: ''},
+                    name: {type: 'string', defaultValue: 'New Card'},
+                    description: {type: 'string', defaultValue: 'Write A Short Description'},
+                    score: {type: 'number', defaultValue: '1'},
                     team: {type: 'string', defaultValue: ''},
                     status: {type: 'string', defaultValue: 'unassigned'},
                     assignee: {type: 'string', defaultValue: ''},
