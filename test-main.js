@@ -22,6 +22,7 @@ requirejs.config({
         actions: '../js/flux/actions',
         baseFlux: '../js/flux/baseFlux',
         definition: '../js/plugins/definition/src/main/definition',
+        Firebase: '../vendor/firebase',
 
         stubContext: '../vendor/stubContext',
 
@@ -58,6 +59,9 @@ requirejs.config({
         stubContext: {
             deps: ['react'],
             exports: 'stubContext'
+        },
+        Firebase: {
+            exports: 'Firebase'
         }
 
     }
