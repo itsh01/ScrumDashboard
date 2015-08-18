@@ -42,7 +42,7 @@ define(['lodash', 'React'],
             },
 
             borderBottomOff: function (target) {
-                target.style.setProperty('border-bottom', '#FFF 2px solid');
+                target.style.setProperty('border', 'none');
             },
 
             handleDragOver: function (e) {
