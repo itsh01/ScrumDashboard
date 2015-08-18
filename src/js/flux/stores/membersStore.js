@@ -35,13 +35,13 @@ define([
                     //AllMembers: null
                 };
 
-                if (dataFileVersion === localStorage.getItem('membersVersion')) {
-                    currentMembers = restoreFromLocalStorage();
-                } else {
-                    currentMembers = defaultMembersData;
-                    saveToLocalStorage();
-                    localStorage.setItem('membersVersion', dataFileVersion);
-                }
+                //if (dataFileVersion === localStorage.getItem('membersVersion')) {
+                //    currentMembers = restoreFromLocalStorage();
+                //} else {
+                //    currentMembers = defaultMembersData;
+                //    saveToLocalStorage();
+                //    localStorage.setItem('membersVersion', dataFileVersion);
+                //}
 
                 _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                     this['get' + filterFuncName] = function () {

@@ -43,13 +43,13 @@ define([
                     eventEmitter.removeListener(constants.flux.TEAMS_STORE_CHANGE, callback);
                 };
 
-                if (dataFileVersion === localStorage.getItem('teamVersion')) {
-                    teamsData = restoreFromLocalStorage();
-                } else {
-                    teamsData = defaultTeamData;
-                    saveToLocalStorage();
-                    localStorage.setItem('teamVersion', dataFileVersion);
-                }
+                //if (dataFileVersion === localStorage.getItem('teamVersion')) {
+                //    teamsData = restoreFromLocalStorage();
+                //} else {
+                //    teamsData = defaultTeamData;
+                //    saveToLocalStorage();
+                //    localStorage.setItem('teamVersion', dataFileVersion);
+                //}
 
                 var filterFunctions = {
                     AllTeams: null,

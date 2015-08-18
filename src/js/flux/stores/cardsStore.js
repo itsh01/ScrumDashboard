@@ -36,13 +36,13 @@ define([
                     eventEmitter.removeListener(constants.flux.CARDS_STORE_CHANGE, callback);
                 };
 
-                if (dataFileVersion === localStorage.getItem('cardsVersion')) {
-                    currentCards = restoreFromLocalStorage();
-                } else {
-                    currentCards = defaultCardsData;
-                    saveToLocalStorage();
-                    localStorage.setItem('cardsVersion', dataFileVersion);
-                }
+                //if (dataFileVersion === localStorage.getItem('cardsVersion')) {
+                //    currentCards = restoreFromLocalStorage();
+                //} else {
+                //    currentCards = defaultCardsData;
+                //    saveToLocalStorage();
+                //    localStorage.setItem('cardsVersion', dataFileVersion);
+                //}
 
                 var filterFunctions = {
                     AllCards: null,

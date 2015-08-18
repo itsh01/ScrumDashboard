@@ -100,6 +100,7 @@ define([
 
             },
             toggleTeamMember: function (memberId) {
+                this.state.members = this.state.members || [];
                 var members = this.state.members;
 
                 if (_.includes(members, memberId)) {
