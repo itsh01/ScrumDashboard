@@ -203,7 +203,8 @@ define([
             function addMemberToSprint(teamId, sprintId, memberId) {
                 var team = _.find(teamsData, {id: teamId});
                 var sprint = _.filter(team.sprints, {id: sprintId});
-                if (!sprint.endDate) {
+                sprint.members = sprint.members || [];
+                if (!sprint.endDate && team.active && sprint.members.indexOf(memberId) < 0) {
                     sprint.members.push(memberId);
                 }
             }
@@ -365,7 +366,9 @@ define([
                 currentViewState.currentTeamId = teamId;
                 saveToLocalStorage();
                 var currTeam = this.getCurrentTeam();
-                setCurrentSprintId.call(this, currTeam.sprints[currTeam.sprints.length - 1]);
+                currTeam.sprints = currTeam.sprints || [];
+                var newCurrSprintId = (currTeam.sprints.length > 0) ? currTeam.sprints[currTeam.sprints.length - 1] : undefined;
+                setCurrentSprintId.call(this, newCurrSprintId);
             }
 
             function changeExistingMemberId(memberId) {

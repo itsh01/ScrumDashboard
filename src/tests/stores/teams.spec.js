@@ -12,76 +12,83 @@ define([
 
         describe('TeamsStore', function () {
 
-            var teamsActions, activeTeam, inactiveTeam, memberId,
-                sprint, teamsArr, teamsStore, eventEmitter, waitForTokens, dispatcher;
+            var firebaseURL = 'https://scrum-dashboard-test.firebaseio.com',
+                mainFirebaseRef = new Firebase(firebaseURL),
+                teamsActions, teamsStore, teamsArr,
+                activeTeam, inactiveTeam, memberId, sprint;
 
             function getUserCards(userId) {
-                return (userId === memberId) ? [{}] : null;
+                return (userId === sprint.members[0].id) ? [{}] : null;
+            }
+
+            // TODO: TRY TO AVOID THESE FIREBASE FIXES
+            function removeEmptyObjects(item) {
+                _.forEach(item, function (value, key) {
+                    if (_.isArray(value) || _.isPlainObject(value)) {
+                        if (_.isEmpty(value)) {
+                            delete item[key];
+                        } else if (_.isPlainObject(value)) {
+                            removeEmptyObjects(item[key]);
+                        }
+                    }
+                });
             }
 
             beforeEach(function () {
-                localStorage.clear();
+
+                var eventEmitter, waitForTokens, dispatcher;
+
+                memberId = helpers.generateGuid();
+
+                sprint = {
+                    id: helpers.generateGuid(),
+                    name: 'R2D2',
+                    scrumMaster: memberId,
+                    startDate: '2015-08-24',
+                    endDate: '2015-08-31',
+                    cardLifecycle: ['Backlog', 'In progress', 'Done'],
+                    members: [helpers.generateGuid()],
+                    state: 1
+                };
+
+                activeTeam = {
+                    members: [memberId],
+                    active: true,
+                    id: helpers.generateGuid(),
+                    sprints: [sprint],
+                    name: 'Directives'
+                };
+
+                inactiveTeam = _.cloneDeep(activeTeam);
+                inactiveTeam.id = helpers.generateGuid();
+                inactiveTeam.active = false;
+                inactiveTeam.sprints[0].id = helpers.generateGuid();
+                teamsArr = [activeTeam, inactiveTeam];
+
+                eventEmitter = new EventEmitter();
+                waitForTokens = {};
+                dispatcher = new baseFlux.Dispatcher();
+                teamsActions = new TeamsActions(dispatcher);
+
+                var teamPars = {
+                    dispatcher: dispatcher,
+                    eventEmitter: eventEmitter,
+                    waitForTokens: waitForTokens,
+                    defaultTeamData: teamsArr,
+                    getUserCards: getUserCards,
+                    fireBaseURL: firebaseURL + '/teams'
+                };
+
+                mainFirebaseRef.set({teams: teamsArr});
+                teamsStore = new TeamsStore(teamPars);
             });
 
             describe('basic getters', function () {
 
-                var teamId, sprintId, teamName;
-
-                beforeEach(function () {
-                    memberId = helpers.generateGuid();
-                    teamId = helpers.generateGuid();
-                    sprintId = helpers.generateGuid();
-                    teamName = 'Directives';
-
-                    sprint = {
-                        id: sprintId,
-                        name: 'R2D2',
-                        scrumMaster: memberId,
-                        startDate: '2015-08-24',
-                        endDate: '2015-08-31',
-                        cardLifecycle: ['Backlog', 'In progress', 'Done'],
-                        members: [memberId],
-                        state: 1
-                    };
-
-                    activeTeam = {
-                        members: [memberId],
-                        active: true,
-                        id: teamId,
-                        sprints: [sprint],
-                        name: teamName
-                    };
-
-                    inactiveTeam = _.cloneDeep(activeTeam);
-                    inactiveTeam.id = helpers.generateGuid();
-                    inactiveTeam.active = false;
-                    inactiveTeam.sprints[0].id = helpers.generateGuid();
-                    teamsArr = [activeTeam, inactiveTeam];
-
-                    eventEmitter = new EventEmitter();
-                    waitForTokens = {};
-                    dispatcher = new baseFlux.Dispatcher();
-                    teamsActions = new TeamsActions(dispatcher);
-
-                    var firebaseURL = 'https://scrum-dashboard-test.firebaseio.com';
-                    var teamPars = {
-                        dispatcher: dispatcher,
-                        eventEmitter: eventEmitter,
-                        waitForTokens: waitForTokens,
-                        defaultTeamData: teamsArr,
-                        getUserCards: getUserCards,
-                        fireBaseURL: firebaseURL + '/teams'
-                    };
-
-                    var mainFirebaseRef = new Firebase(firebaseURL);
-                    mainFirebaseRef.set({teams: teamsArr});
-                    teamsStore = new TeamsStore(teamPars);
-                });
-
                 describe('getTeamById', function () {
 
                     it('should return a team clone by team id', function () {
-                        var actualTeam = teamsStore.getTeamById(teamId);
+                        var actualTeam = teamsStore.getTeamById(activeTeam.id);
                         _.forEach(activeTeam, function (value, key) {
                             expect(actualTeam[key]).toEqual(value);
                         });
@@ -97,7 +104,7 @@ define([
                 describe('getSprintById', function () {
 
                     it('should return a sprint clone by sprint id', function () {
-                        var actualSprint = teamsStore.getSprintById(sprintId);
+                        var actualSprint = teamsStore.getSprintById(sprint.id);
                         expect(actualSprint).toEqual(sprint);
                         actualSprint.name = 'a new name';
                         expect(actualSprint.name).not.toEqual(sprint.name);
@@ -133,12 +140,12 @@ define([
 
                     beforeEach(function () {
                         var validTeamData = _.cloneDeep(activeTeam);
+                        validTeamData.name = helpers.generateGuid();
                         delete validTeamData.sprints;
                         delete validTeamData.id;
                         teamsActions.addTeam(validTeamData);
-                        var allTeams = teamsStore.getAllTeams();
-                        validTeam = _.filter(allTeams, function (team) {
-                            return team.id !== inactiveTeam.id && team.id !== activeTeam.id;
+                        validTeam = _.filter(teamsStore.getAllTeams(), function (team) {
+                            return team.name === validTeamData.name;
                         })[0];
                     });
 
@@ -149,9 +156,7 @@ define([
                     it('should append a blank sprint to newly created team', function () {
                         delete validTeam.sprints[0].id;
                         var blankSprint = teamsStore.getBlankSprint();
-                        // TODO: TRY TO AVOID IT
-                        delete blankSprint.retroCardsStatus;
-                        delete blankSprint.members;
+                        removeEmptyObjects(blankSprint);
                         expect(validTeam.sprints).toEqual([blankSprint]);
                     });
 
@@ -302,7 +307,7 @@ define([
                                 name: 'new name',
                                 startDate: '2015-08-23',
                                 endDate: '',
-                                retroCardsStatus: ['Backlog', 'Done'],
+                                retroCardsStatus: [],
                                 state: 1,
                                 scrumMaster: helpers.generateGuid(),
                                 cardLifecycle: ['Start', 'End'],
@@ -310,34 +315,74 @@ define([
                             };
                         });
 
-                        it('should update sprint', function () {
-                            teamsActions.updateSprint(sprint.id, validSprintData);
+                        function test(teamId) {
+                            teamsActions.updateSprint(sprint.id, validSprintData, teamId);
                             var updatedTeam = teamsStore.getTeamById(activeTeam.id);
                             var updatedSprint = updatedTeam.sprints[0];
+                            removeEmptyObjects(validSprintData);
                             var res = _.every(validSprintData, function (value, key) {
                                 return _.isEqual(updatedSprint[key], value);
                             });
                             expect(res).toBe(true);
                             expect(allSprints.length).toBe(updatedTeam.sprints.length);
+                        }
+
+                        it('should update sprint if team id is not specified', function () {
+                            test();
+                        });
+
+                        it('should update sprint if team id is specified', function () {
+                            test(activeTeam.id);
                         });
 
                     });
 
                     describe('invalid sprint data supplied', function () {
 
-                        it('should not update sprint', function () {
-                            teamsActions.updateSprint(sprint.id, {invalid: 'invalid'});
+                        function test(teamId) {
+                            teamsActions.updateSprint(sprint.id, {invalid: 'invalid'}, teamId);
                             var updatedTeam = teamsStore.getTeamById(activeTeam.id);
                             var updatedSprint = updatedTeam.sprints[0];
                             expect(updatedSprint.invalid).not.toBeDefined();
                             expect(allSprints.length).toBe(updatedTeam.sprints.length);
+                        }
+
+                        it('should not update sprint if team id is not specified', function () {
+                            test();
+                        });
+
+                        it('should not update sprint if team id is specified', function () {
+                            test(activeTeam.id);
                         });
                     });
 
                 });
 
+                describe('addMemberToSprint', function () {
 
-                //updateSprint(sprintId, newSprintData, teamId)
+                    var newMemberId;
+
+                    beforeEach(function () {
+                        newMemberId = helpers.generateGuid();
+                    });
+
+
+                    //it('should add a new member to sprint if team is active', function () {
+                    //    teamsActions.addMemberToSprint(activeTeam.id, sprint.id, newMemberId);
+                    //    var updatedSprint = teamsStore.getTeamById(activeTeam.id).sprints[0];
+                    //    expect(updatedSprint.members).toContain(newMemberId);
+                    //    expect(activeTeam.members.length + 1).toBe(updatedSprint.members.length);
+                    //});
+
+                    it('should add a new member to sprint if team is inactive', function () {
+                        teamsActions.addMemberToSprint(inactiveTeam.id, sprint.id, newMemberId);
+                        var updatedSprint = teamsStore.getTeamById(activeTeam.id).sprints[0];
+                        expect(updatedSprint.members).not.toContain(newMemberId);
+                        expect(inactiveTeam.members.length).toBe(updatedSprint.members.length);
+                    });
+                });
+
+
                 //addMemberToSprint(teamId, sprintId, memberId)
                 //removeMemberFromSprint(teamId, sprintId, memberId)
 
@@ -358,6 +403,8 @@ define([
                 //moveSprintToNextState(sprintId, teamId)
 
             });
+
+            mainFirebaseRef.set({teams: {key: 'value'}});
 
         });
 
