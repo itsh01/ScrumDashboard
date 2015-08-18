@@ -88,6 +88,10 @@ module.exports = function (grunt) {
                         src: 'src/index.html',
                         dest: 'build/index.html'
                     }
+                    //{
+                    //    src: 'node_modules/firebase/lib/firebase-web.js',
+                    //    dest: VENDOR_TARGET + 'firebase.js'
+                    //}
                 ]
             },
             dist: {
@@ -211,6 +215,18 @@ module.exports = function (grunt) {
                     dest: VENDOR_TARGET + 'stubContext.js',
                     objectToExport: 'stubContext',
                     amdModuleId: 'stubContext',
+                    deps: {
+                        'default': ['react', 'require', 'exports', 'module'],
+                        amd: ['react', 'require', 'exports', 'module']
+                    }
+                }
+            },
+            Firebase: {
+                options: {
+                    src: 'node_modules/firebase/lib/firebase-web.js',
+                    dest: VENDOR_TARGET + 'firebase.js',
+                    objectToExport: 'Firebase',
+                    amdModuleId: 'Firebase',
                     deps: {
                         'default': ['react', 'require', 'exports', 'module'],
                         amd: ['react', 'require', 'exports', 'module']
