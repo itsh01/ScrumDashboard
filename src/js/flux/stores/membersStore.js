@@ -48,6 +48,11 @@ define([
                         return _.filter(currentMembers, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
                     };
                 }, this);
+                // Listen to Firebase changes
+                MembersFirebaseRef.on('value', function (snapshot) {
+                    currentMembers = snapshot.val();
+                    eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
+                });
 
             }).apply(this);
 
@@ -55,27 +60,6 @@ define([
                 return currentMembers;
             };
 
-
-            function updateCurrentMembers() {
-                MembersFirebaseRef.on('value', function (snapshot) {
-                    currentMembers = snapshot.val();
-                });
-                eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
-            }
-
-            updateCurrentMembers();
-
-            MembersFirebaseRef.on('child_changed', function () {
-                updateCurrentMembers();
-            });
-
-            MembersFirebaseRef.on('child_added', function () {
-                updateCurrentMembers();
-            });
-
-            MembersFirebaseRef.on('child_removed', function () {
-                updateCurrentMembers();
-            });
 
             this.getBlankMember = function () {
                 return helpers.getBlankItem(MEMBERS_SCHEMA);

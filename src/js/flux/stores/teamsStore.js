@@ -43,14 +43,6 @@ define([
                     eventEmitter.removeListener(constants.flux.TEAMS_STORE_CHANGE, callback);
                 };
 
-                //if (dataFileVersion === localStorage.getItem('teamVersion')) {
-                //    teamsData = restoreFromLocalStorage();
-                //} else {
-                //    teamsData = defaultTeamData;
-                //    saveToLocalStorage();
-                //    localStorage.setItem('teamVersion', dataFileVersion);
-                //}
-
                 var filterFunctions = {
                     AllTeams: null,
                     AllActiveTeams: {active: true}
@@ -62,6 +54,12 @@ define([
                     };
                 }, this);
 
+                // Listen to Firebase changes
+                teamsFirebaseRef.on('value', function (snapshot) {
+                    teamsData = snapshot.val();
+                    eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
+                });
+
                 currentViewState = {
                     currentTeamId: getDefaultTeamId.apply(this),
                     currentSprintId: (_.last(teamsData[0].sprints)).id,
@@ -70,34 +68,9 @@ define([
 
             }).apply(this);
 
-            function updateCurrentTeams() {
-                teamsFirebaseRef.on('value', function (snapshot) {
-                    teamsData = snapshot.val();
-                });
-            }
-
-            updateCurrentTeams();
-
-            teamsFirebaseRef.on('child_changed', function () {
-                updateCurrentTeams();
-            });
-
-            teamsFirebaseRef.on('child_added', function () {
-                updateCurrentTeams();
-            });
-
-            teamsFirebaseRef.on('child_removed', function () {
-                updateCurrentTeams();
-            });
-
             this.getCurrentExistingMemberId = function () {
                 return currentViewState.currentExistingMemberId;
             };
-
-            //this.changeCurrentTeamToDefault = function () {
-            //    var defaultTeamId = this.getAllActiveTeams()[0] && this.getAllActiveTeams()[0].id;
-            //    changeCurrentTeamId(defaultTeamId);
-            //};
 
             this.getTeamById = function (id) {
                 return _.cloneDeep(_.find(teamsData, {id: id}));
@@ -351,6 +324,7 @@ define([
             function saveToFirebase() {
                 teamsFirebaseRef.set(teamsData);
             }
+
             //TODO: for all stores, decide what to keep in local storage
             //function saveToLocalStorage() {
             //    helpers.saveToLocalStorage('teams', teamsData);

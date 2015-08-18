@@ -64,27 +64,12 @@ define([
                     };
                 }, this);
 
-            }).apply(this);
-
-            function updateCurrentCards() {
                 cardsFirebaseRef.on('value', function (snapshot) {
                     currentCards = snapshot.val();
+                    eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
                 });
-            }
 
-            updateCurrentCards();
-
-            cardsFirebaseRef.on('child_changed', function () {
-                updateCurrentCards();
-            });
-
-            cardsFirebaseRef.on('child_added', function () {
-                updateCurrentCards();
-            });
-
-            cardsFirebaseRef.on('child_removed', function () {
-                updateCurrentCards();
-            });
+            }).apply(this);
 
             this.getCardById = function (id) {
                 return _.cloneDeep(_.find(currentCards, {id: id}));
