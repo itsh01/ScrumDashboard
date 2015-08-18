@@ -64,11 +64,7 @@
         }
 
         select {
-            background-color: transparent;
-            outline: none;
-            font-size: 1rem;
-            font-family: inherit;
-            color: $white;
+            @include select-transparent();
         }
 
         .combo-box-list {

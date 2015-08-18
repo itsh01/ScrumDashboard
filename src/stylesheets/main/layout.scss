@@ -68,6 +68,11 @@ h3 {
     button {
         @include btn-header();
     }
+
+    select {
+        @include select-transparent();
+        vertical-align: middle;
+    }
 }
 
 .combo-box-list {
