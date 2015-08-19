@@ -24,9 +24,21 @@ define(
             waitForTokens = {};
 
         function Flux() {
+
+            var appLink = 'https://scrum-dashboard-1.firebaseio.com/';
+
             this.cardsActions = new CardsActions(dispatcher);
+
+            var cardPars = {
+                dispatcher: dispatcher,
+                eventEmitter: eventEmitter,
+                waitForTokens: waitForTokens,
+                defaultCardsData: defaultCardData,
+                fireBaseURL: appLink + 'cards'
+            };
+
             //this.cardsStore = new CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardData);
-            this.cardsStore = new CardsStore(dispatcher, eventEmitter, waitForTokens);
+            this.cardsStore = new CardsStore(cardPars);
 
             this.membersStore = new MembersStore(dispatcher, eventEmitter, waitForTokens, defaultMemberData);
             this.membersActions = new MembersActions(dispatcher);
@@ -40,7 +52,7 @@ define(
                 defaultTeamData: defaultTeamsData,
                 getUserCards: this.cardsStore.getUserCards,
                 getLastMemberAdded: this.membersStore.getLastMemberAdded,
-                fireBaseURL: 'https://scrum-dashboard-1.firebaseio.com/teams'
+                fireBaseURL: appLink + 'teams'
             };
 
             this.teamsStore = new TeamsStore(teamPars);

@@ -7,7 +7,7 @@ define([
     function (_, helpers, constants, Firebase) {
         'use strict';
 
-        function CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardsData) {
+        function CardsStore(cardPars) {
 
             //var dataFileVersion = '1';
             var CARDS_SCHEMA = {
@@ -20,29 +20,21 @@ define([
                     startDate: {type: 'string', defaultValue: ''},
                     endDate: {type: 'string', defaultValue: ''}
                 },
-                currentCards = defaultCardsData,
+                currentCards = cardPars.defaultCardsData,
                 cardsFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com/cards');
 
             (function init() {
                 this.emitChange = function () {
-                    eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
+                    cardPars.eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
                 };
 
                 this.addChangeListener = function (callback) {
-                    eventEmitter.on(constants.flux.CARDS_STORE_CHANGE, callback);
+                    cardPars.eventEmitter.on(constants.flux.CARDS_STORE_CHANGE, callback);
                 };
 
                 this.removeChangeListener = function (callback) {
-                    eventEmitter.removeListener(constants.flux.CARDS_STORE_CHANGE, callback);
+                    cardPars.eventEmitter.removeListener(constants.flux.CARDS_STORE_CHANGE, callback);
                 };
-
-                //if (dataFileVersion === localStorage.getItem('cardsVersion')) {
-                //    currentCards = restoreFromLocalStorage();
-                //} else {
-                //    currentCards = defaultCardsData;
-                //    saveToLocalStorage();
-                //    localStorage.setItem('cardsVersion', dataFileVersion);
-                //}
 
                 var filterFunctions = {
                     AllCards: null,
@@ -66,7 +58,7 @@ define([
 
                 cardsFirebaseRef.on('value', function (snapshot) {
                     currentCards = snapshot.val();
-                    eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
+                    cardPars.eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
                 });
 
             }).apply(this);
@@ -123,12 +115,6 @@ define([
                 });
             }
 
-            // Replaced with: saveToFirebase
-            //function saveToLocalStorage() {
-            //    helpers.saveToLocalStorage('cards', currentCards);
-            //}
-
-
             var actions = [
                 {name: constants.actionNames.UPDATE_CARD, callback: updateCard},
                 {name: constants.actionNames.ADD_CARD, callback: addCard},
@@ -140,11 +126,11 @@ define([
                 var storeIndex = _.indexOf(actionStoreOrder, constants.storesName.CARDS_STORE);
                 var storeOrder = _.slice(actionStoreOrder, 0, storeIndex);
                 return _.map(storeOrder, function (storeName) {
-                    return waitForTokens[storeName];
+                    return cardPars.waitForTokens[storeName];
                 });
             }
 
-            waitForTokens[constants.storesName.CARDS_STORE] = dispatcher.register(function (payload) {
+            cardPars.waitForTokens[constants.storesName.CARDS_STORE] = cardPars.dispatcher.register(function (payload) {
                 var actionName = payload.actionName,
                     data = payload.payload,
 
@@ -153,7 +139,7 @@ define([
                 if (action) {
                     var actionStoreOrder = payload.storeOrder;
                     if (actionStoreOrder && actionStoreOrder.length > 1) {
-                        dispatcher.waitFor(getStoresQueue(actionStoreOrder));
+                        cardPars.dispatcher.waitFor(getStoresQueue(actionStoreOrder));
                     }
                     action.callback.apply(this, data);
                     saveToFirebase();
@@ -164,15 +150,6 @@ define([
             function saveToFirebase() {
                 cardsFirebaseRef.set(currentCards);
             }
-
-            //function saveToLocalStorage() {
-            //    helpers.saveToLocalStorage('cards', currentCards);
-            //}
-            //
-            //function restoreFromLocalStorage() {
-            //    return helpers.restoreFromLocalStorage('cards');
-            //}
-
         }
 
         return CardsStore;
