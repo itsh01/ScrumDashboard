@@ -67,11 +67,13 @@ define([
             },
 
             renderContainerSizeLayout: function () {
-                return (<div className='card sprint-card-wrapper cards-container-heap-size'
+                return (<div className='sprint-card-wrapper cards-container-heap-size'
                              onClick={this.cardClickHandler}
                              style={this.getClosedHeapCardStyle(this.props.cards.length - 1)}>
-                    <div className='container-size'>{this.props.cards.length} cards</div>
-                    <img className='open-heap-img' src="img/open-heap-container.png" alt=""/>
+                    <div className='card'>
+                        <div className='container-size'>{this.props.cards.length} cards</div>
+                        <img className='open-heap-img' src="img/open-heap-container.png" alt=""/>
+                    </div>
                 </div>);
             },
 
