@@ -3,6 +3,7 @@
 .cards-list {
     opacity: 0.5;
     display: flex;
+    display: -webkit-box;
     flex-direction: column;
     align-items: center;
     max-height: 300px;
@@ -62,4 +63,8 @@
 
 .empty-state-action:hover {
     opacity: 1;
+}
+
+.backlog h3 {
+    margin: 0 3rem;
 }
