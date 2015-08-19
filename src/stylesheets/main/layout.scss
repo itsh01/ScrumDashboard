@@ -105,6 +105,11 @@ h3 {
         font-size: 30px;
         margin: 0 10px 0 0;
 
+        span,
+        i {
+            transition: 0.2s linear all;
+        }
+
         &:hover {
 
             span {
@@ -208,7 +213,7 @@ h3 {
         height: 8px;
         width: 40px;
     }
-    
+
     100% {
         left: 235px;
         height: 30px;
