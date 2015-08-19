@@ -10,6 +10,10 @@ define([
         function TeamStore(teamPars) {
 
             //var dataFileVersion = '1';
+            var loading = true;
+            this.getIsLoading = function () {
+                return loading;
+            };
             var SPRINT_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Sprint'},
                     scrumMaster: {type: 'string', defaultValue: ''},
@@ -34,6 +38,7 @@ define([
                 // Listen to Firebase changes
                 teamsFirebaseRef.on('value', function (snapshot) {
                     teamsData = snapshot.val();
+                    loading = false;
                     teamPars.eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
                 });
 

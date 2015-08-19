@@ -113,7 +113,8 @@ define(['lodash',
             getOption: function (teamId, teamName) {
                 //if (this.context.flux.teamsStore.getCurrentTeam().id === teamId) {
                 if (this.flux.teamsStore.getCurrentTeam().id === teamId) {
-                    return (<option value={teamId} key={teamId} selected className="option-base-text-color">{teamName}</option>);
+                    return (<option value={teamId} key={teamId} selected
+                                    className="option-base-text-color">{teamName}</option>);
                 }
                 return (<option value={teamId} key={teamId}>{teamName}</option>);
             },
@@ -148,34 +149,52 @@ define(['lodash',
 
             },
 
-            render: function () {
+            getLoadingOrContent: function () {
+                var someStillLoading = _.some([this.flux.teamsStore.getIsLoading(), this.flux.membersStore.getIsLoading(), this.flux.cardsStore.getIsLoading()]);
+                if (someStillLoading) {
+                    return (<div className="loader">Loading...</div>);
+                }
+
                 var teamsOptions = _.map(this.getTeams(), function (team) {
                     return this.getOption(team.id, team.name);
                 }.bind(this));
+
+                return (
+                    <div>
+                        <div className="header underline">
+                            <div className="left">
+                                <h1 data-view={this.views.BoardView} onClick={this.changeView}
+                                    className="left site-name">ScrumBoard</h1>
+
+                                <div className="left team-selector">
+                                    <span className="leftline">Team:</span>
+                                    <select onChange={this.handleChangeTeam} value={null}>
+                                        <option value={null} disabled>-</option>
+                                        {teamsOptions}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="right">
+                                <button className='leftline' data-view={this.views.TeamManagement}
+                                        onClick={this.changeView}>Manage Teams
+                                </button>
+                                <button className='leftline' type='button'
+                                        onClick={this.resetFirebaseToDefault}>Reset Firebase
+                                </button>
+                            </div>
+                        </div>
+                        {this.getViewComponent()}
+                    </div>
+                );
+            },
+
+            render: function () {
                 return (
                     <div>
                         {this.popUpFactory()}
 
-                        <div>
-                            <div className="header underline">
-                                <div className="left">
-                                    <h1 data-view={this.views.BoardView} onClick={this.changeView} className="left site-name">ScrumBoard</h1>
-                                    <div className="left team-selector">
-                                        <span className="leftline">Team:</span>
-                                        <select onChange={this.handleChangeTeam} value={null}>
-                                            <option value={null} disabled>-</option>
-                                            {teamsOptions}
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className="right">
-                                    <button className='leftline' data-view={this.views.TeamManagement} onClick={this.changeView}>Manage Teams</button>
-                                    <button className='leftline' type='button' onClick={this.resetFirebaseToDefault}>Reset Firebase</button>
-                                </div>
-                            </div>
-                            {this.getViewComponent()}
-                        </div>
+                        {this.getLoadingOrContent()}
                     </div>
                 );
             }
