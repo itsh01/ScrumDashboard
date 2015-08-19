@@ -13,7 +13,7 @@ define([
         describe('CardsStore', function () {
             var firebaseURL = 'https://scrum-dashboard-test.firebaseio.com',
                 mainFirebaseRef = new Firebase(firebaseURL),
-                mockDispatcher, mockCardsStore, mockCardsData, mockBlankCard, mockCard, //mockMembersAction,
+                mockDispatcher, mockCardsStore, mockCardsData, mockBlankCard, mockCard, mockMembersAction,
                 mockNewCard, mockUserId, mockTeamId, mockCardsActions;
             beforeEach(function () {
                 localStorage.clear();
@@ -53,9 +53,9 @@ define([
                     }
                 ];
                 mockBlankCard = {
-                    name: '',
-                    description: '',
-                    score: '',
+                    name: 'New Card',
+                    description: 'Write A Short Description',
+                    score: '1',
                     team: '',
                     status: 'unassigned',
                     assignee: '',
@@ -91,7 +91,7 @@ define([
 
                 mockCardsStore = new CardsStore(cardsPars);
                 mockCardsActions = new CardsActions(mockDispatcher);
-                //mockMembersAction = new MembersAction(mockDispatcher);
+                mockMembersAction = new MembersAction(mockDispatcher);
                 mockCard = mockCardsData[0];
 
             });
@@ -152,11 +152,11 @@ define([
                     expect(unfinishedCards).toEqual(mockCardsData);
                 });
 
-                //it('should return a blank card object', function () {
-                //    var blankCard = mockCardsStore.getBlankCard();
-                //
-                //    expect(blankCard).toEqual(mockBlankCard);
-                //});
+                it('should return a blank card object', function () {
+                    var blankCard = mockCardsStore.getBlankCard();
+
+                    expect(blankCard).toEqual(mockBlankCard);
+                });
             });
 
             describe('addCard', function () {
@@ -179,21 +179,21 @@ define([
                     expect(expectedCardResult).toEqual(modifiedAllCards[3]);
                 });
 
-                //it('should not add an invalid card to the store', function () {
-                //    spyOn(helpers, 'isValidValue').and.callThrough();
-                //    mockNewCard.name = undefined;
-                //    mockCardsActions.addCard(mockNewCard);
-                //    var allCards = mockCardsStore.getAllCards();
-                //
-                //    expect(allCards).toEqual(mockCardsData);
-                //});
+                it('should not add an invalid card to the store', function () {
+                    spyOn(helpers, 'isValidValue').and.callThrough();
+                    mockNewCard.name = undefined;
+                    mockCardsActions.addCard(mockNewCard);
+                    var allCards = mockCardsStore.getAllCards();
+
+                    expect(allCards).toEqual(mockCardsData);
+                });
             });
 
             describe('updateCard', function () {
-                var //mockGuid,
+                var mockGuid,
                     cardFromStore, cardId, editedCard;
                 beforeEach(function () {
-                    //mockGuid = '295a6ee1-0e46-45be-8c8f-8be30ee78635';
+                    mockGuid = '295a6ee1-0e46-45be-8c8f-8be30ee78635';
                     cardFromStore = mockCardsData[0];
                     cardId = cardFromStore.id;
                     editedCard = _.cloneDeep(cardFromStore);
@@ -207,71 +207,71 @@ define([
                     expect(resCard.name).toEqual('blah');
                 });
 
-                //it('should not update id', function () {
-                //    editedCard.id = mockGuid;
-                //    mockCardsActions.updateCard(cardId, editedCard);
-                //    var noCard = mockCardsStore.getCardById(mockGuid);
-                //    var resCard = mockCardsStore.getCardById(cardId);
-                //
-                //    expect(noCard).not.toBeDefined();
-                //    expect(resCard.id).toEqual(cardId);
-                //    expect(resCard.name).toEqual('blah');
-                //});
+                it('should not update id', function () {
+                    editedCard.id = mockGuid;
+                    mockCardsActions.updateCard(cardId, editedCard);
+                    var noCard = mockCardsStore.getCardById(mockGuid);
+                    var resCard = mockCardsStore.getCardById(cardId);
 
-                //it('should not update the card if at least one field is not valid', function () {
-                //    editedCard.description = 42;
-                //    mockCardsActions.updateCard(cardId, editedCard);
-                //    var resCard = mockCardsStore.getCardById(cardId);
-                //
-                //    expect(resCard.description).toEqual(cardFromStore.description);
-                //    expect(resCard).toEqual(cardFromStore);
-                //});
+                    expect(noCard).not.toBeDefined();
+                    expect(resCard.id).toEqual(cardId);
+                    expect(resCard.name).toEqual('blah');
+                });
+
+                it('should not update the card if at least one field is not valid', function () {
+                    editedCard.description = 42;
+                    mockCardsActions.updateCard(cardId, editedCard);
+                    var resCard = mockCardsStore.getCardById(cardId);
+
+                    expect(resCard.description).toEqual(cardFromStore.description);
+                    expect(resCard).toEqual(cardFromStore);
+                });
             });
 
-            //describe('removeCard', function () {
-            //    var cardFromStore, cardId, mockGuid;
-            //    beforeEach(function () {
-            //        mockGuid = '295a6ee1-0e46-45be-8c8f-8be30ee78635';
-            //        cardFromStore = mockCardsData[0];
-            //        cardId = cardFromStore.id;
-            //    });
-            //
-            //    //it('should removed card if id is matched', function () {
-            //    //    var resCard = mockCardsStore.getCardById(cardId);
-            //    //    mockCardsActions.removeCard(cardId);
-            //    //    var noCard = mockCardsStore.getCardById(cardId);
-            //    //
-            //    //    expect(resCard).toEqual(cardFromStore);
-            //    //    expect(noCard).not.toBeDefined();
-            //    //});
-            //
-            //    //it('should do nothing in case id is not matched', function () {
-            //    //    var beforeCards = mockCardsStore.getAllCards();
-            //    //    mockCardsActions.removeCard(mockGuid);
-            //    //    var afterCards = mockCardsStore.getAllCards();
-            //    //
-            //    //    expect(afterCards).toEqual(beforeCards);
-            //    //});
-            //});
+            describe('removeCard', function () {
+                var cardFromStore, cardId, mockGuid;
+                beforeEach(function () {
+                    mockGuid = '295a6ee1-0e46-45be-8c8f-8be30ee78635';
+                    cardFromStore = mockCardsData[0];
+                    cardId = cardFromStore.id;
+                });
 
-            //describe('unassignMemberFromCards', function () {
-            //    var cardFromStore, cardId, mockMemberId;
-            //    beforeEach(function () {
-            //        cardFromStore = mockCardsData[0];
-            //        cardId = cardFromStore.id;
-            //        mockMemberId = cardFromStore.assignee;
-            //    });
-            //
-            //    //it('should unassign the requested members from all matching cards', function () {
-            //    //    var beforeCard = mockCardsStore.getCardById(cardId);
-            //    //    mockMembersAction.deactivateMember(mockMemberId);
-            //    //    var afterCard = mockCardsStore.getCardById(cardId);
-            //    //
-            //    //    expect(afterCard).not.toEqual(beforeCard);
-            //    //    expect(afterCard.assignee).toBe('');
-            //    //
-            //    //});
-            //});
+                it('should removed card if id is matched', function () {
+                    var resCard = mockCardsStore.getCardById(cardId);
+                    mockCardsActions.removeCard(cardId);
+                    var noCard = mockCardsStore.getCardById(cardId);
+
+                    expect(resCard).toEqual(cardFromStore);
+                    expect(noCard).not.toBeDefined();
+                });
+
+                it('should do nothing in case id is not matched', function () {
+                    var beforeCards = mockCardsStore.getAllCards();
+                    mockCardsActions.removeCard(mockGuid);
+                    var afterCards = mockCardsStore.getAllCards();
+
+                    expect(afterCards).toEqual(beforeCards);
+                });
+            });
+
+            describe('unassignMemberFromCards', function () {
+                var cardFromStore, cardId, mockMemberId;
+                beforeEach(function () {
+                    cardFromStore = mockCardsData[0];
+                    cardId = cardFromStore.id;
+                    mockMemberId = cardFromStore.assignee;
+                });
+
+                it('should unassign the requested members from all matching cards', function () {
+                    var beforeCard = mockCardsStore.getCardById(cardId);
+                    mockMembersAction.deactivateMember(mockMemberId);
+                    var afterCard = mockCardsStore.getCardById(cardId);
+
+                    expect(afterCard).not.toEqual(beforeCard);
+                    expect(afterCard.assignee).toBe('');
+
+                });
+            });
         });
     }
 );
