@@ -65,8 +65,12 @@ define([
                 }
                 if (sprint.state === constants.SPRINT_STATUS.IN_PROGRESS) {
                     return (
-                        <button className='home-view-button home-view-button-lock' onClick={this.lockSprint}>Lock
-                            Sprint</button>
+                        <button
+                            className='home-view-button home-view-button-lock'
+                            onClick={this.lockSprint}>
+                            <i className="fa fa-lock"></i>
+                            Lock Sprint
+                        </button>
                     );
                 }
                 return null;
