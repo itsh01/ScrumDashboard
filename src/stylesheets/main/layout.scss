@@ -100,8 +100,13 @@ h3 {
     }
 
     .site-name {
+        cursor: pointer;
         font-size: 30px;
         margin: 0 10px 0 0;
+
+        &:hover {
+            color: $light-green;
+        }
     }
 
     .team-selector {
