@@ -159,7 +159,7 @@ define(['lodash',
                         <div>
                             <div className="header underline">
                                 <div className="left">
-                                    <h1 className="left site-name">ScrumBoard</h1>
+                                    <h1 data-view={this.views.BoardView} onClick={this.changeView} className="left site-name">ScrumBoard</h1>
                                     <div className="left team-selector">
                                         <span className="rightline">Team:</span>
                                         <select onChange={this.handleChangeTeam} value={null}>
@@ -170,9 +170,8 @@ define(['lodash',
                                 </div>
 
                                 <div className="right">
-                                    <button className='clearButton rightline' type='button' onClick={this.resetFirebaseToDefault}>Reset Firebase</button>
                                     <button className='rightline' data-view={this.views.TeamManagement} onClick={this.changeView}>Manage Teams</button>
-                                    <button data-view={this.views.BoardView} onClick={this.changeView}>Home</button>
+                                    <button className='clearButton rightline' type='button' onClick={this.resetFirebaseToDefault}>Reset Firebase</button>
                                 </div>
                             </div>
                             {this.getViewComponent()}
