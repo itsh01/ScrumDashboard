@@ -31,6 +31,12 @@ define([
 
             (function init() {
 
+                // Listen to Firebase changes
+                teamsFirebaseRef.on('value', function (snapshot) {
+                    teamsData = snapshot.val();
+                    eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
+                });
+
                 this.emitChange = function () {
                     eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
                 };
@@ -54,11 +60,6 @@ define([
                     };
                 }, this);
 
-                // Listen to Firebase changes
-                teamsFirebaseRef.on('value', function (snapshot) {
-                    teamsData = snapshot.val();
-                    eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
-                });
 
                 currentViewState = restoreFromLocalStorage() || {
                         currentTeamId: getDefaultTeamId.apply(this),

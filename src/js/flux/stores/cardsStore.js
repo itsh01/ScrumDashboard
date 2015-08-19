@@ -24,6 +24,11 @@ define([
                 cardsFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com/cards');
 
             (function init() {
+                cardsFirebaseRef.on('value', function (snapshot) {
+                    currentCards = snapshot.val();
+                    eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
+                });
+
                 this.emitChange = function () {
                     eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
                 };
@@ -35,14 +40,6 @@ define([
                 this.removeChangeListener = function (callback) {
                     eventEmitter.removeListener(constants.flux.CARDS_STORE_CHANGE, callback);
                 };
-
-                //if (dataFileVersion === localStorage.getItem('cardsVersion')) {
-                //    currentCards = restoreFromLocalStorage();
-                //} else {
-                //    currentCards = defaultCardsData;
-                //    saveToLocalStorage();
-                //    localStorage.setItem('cardsVersion', dataFileVersion);
-                //}
 
                 var filterFunctions = {
                     AllCards: null,
@@ -64,10 +61,6 @@ define([
                     };
                 }, this);
 
-                cardsFirebaseRef.on('value', function (snapshot) {
-                    currentCards = snapshot.val();
-                    eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
-                });
 
             }).apply(this);
 
