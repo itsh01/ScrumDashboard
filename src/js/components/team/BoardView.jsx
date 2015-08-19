@@ -58,7 +58,6 @@ define([
                             <EditSprint/>
                         </div>
                         <div className='home-view-buttons-container'>
-                            <button className='home-view-button' onClick={this.addCardClicked}>Add Card</button>
                             <button className='home-view-button' onClick={this.finishPlanning}>Finish Planning</button>
                         </div>
                     </div>);

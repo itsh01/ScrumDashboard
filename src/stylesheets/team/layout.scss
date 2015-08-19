@@ -34,12 +34,12 @@
 }
 
 .home-view-buttons-container {
-    text-align: center;
+    text-align: right;
 }
 
 .home-view-button {
     @include btn-md($semi-light-green, $light-green, $black);
-    margin: 0.5rem;
+    margin: 0.5rem 3.7rem;
 }
 
 .edit-sprint {
