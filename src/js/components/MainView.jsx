@@ -104,7 +104,7 @@ define(['lodash',
             },
 
             changeView: function (event) {
-                var view = event.target.dataset.view;
+                var view = event.target.dataset.view || 'BoardView';
                 this.setState({
                     view: this.views[view]
                 });
@@ -164,7 +164,7 @@ define(['lodash',
                         <div className="header underline">
                             <div className="left">
                                 <h1 data-view={this.views.BoardView} onClick={this.changeView}
-                                    className="left site-name"><i className="fa fa-graduation-cap"></i>ScrumBoard</h1>
+                                    className="left site-name"><i data-view={this.views.BoardView} className="fa fa-graduation-cap left"></i>ScrumBoard</h1>
 
                                 <div className="left team-selector">
                                     <span className="leftline">Team:</span>
