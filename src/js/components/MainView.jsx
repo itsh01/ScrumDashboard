@@ -163,7 +163,7 @@ define(['lodash',
                     <div>
                         <div className="header underline">
                             <div className="left">
-                                <i class="fa fa-graduation-cap left"></i>
+                                <i className="fa fa-graduation-cap left"></i>
                                 <h1 data-view={this.views.BoardView} onClick={this.changeView}
                                     className="left site-name">ScrumBoard</h1>
 
