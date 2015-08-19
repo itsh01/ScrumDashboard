@@ -2,8 +2,6 @@
 @import 'global';
 
 body {
-    @include radial-gradient($green, $dark-green);
-
     font-family: 'Architects Daughter', Tahoma, sans-serif;
     color: $white;
     font-size: 16px;

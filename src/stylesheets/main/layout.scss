@@ -50,10 +50,18 @@ h3 {
 
 .chalk-bg {
     @include fixed100();
-    background: url('../../img/chalkboard-pattern.png');
+    @include radial-gradient($green, $dark-green);
     z-index: -1;
     opacity: 0.5;
 }
+
+
+.chalk-pattern {
+    @include fixed100();
+    background: url('../../img/chalkboard-pattern.png');
+    z-index: -2;
+}
+
 
 .header {
     height: 3rem;
