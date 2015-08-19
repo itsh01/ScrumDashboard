@@ -9,7 +9,10 @@ define([
 
         function CardsStore(cardPars) {
 
-            //var dataFileVersion = '1';
+            var loading = true;
+            this.getIsLoading = function () {
+                return loading;
+            };            //var dataFileVersion = '1';
             var CARDS_SCHEMA = {
                     name: {type: 'string', defaultValue: 'New Card'},
                     description: {type: 'string', defaultValue: 'Write A Short Description'},
@@ -26,6 +29,7 @@ define([
             (function init() {
                 cardsFirebaseRef.on('value', function (snapshot) {
                     currentCards = snapshot.val();
+                    loading = false;
                     cardPars.eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
                 });
 

@@ -42,14 +42,14 @@ figcaption {
     width: 80%;
 
     .table-cell {
-        //@include chalk-cell();
+        @include chalk-cell();
         max-width: 7rem;
         //overflow: hidden;
     }
 
     .table-heading {
-        //@include chalk-underline();
-        //border: none;
+        @include chalk-underline();
+        border: none;
     }
 }
 
