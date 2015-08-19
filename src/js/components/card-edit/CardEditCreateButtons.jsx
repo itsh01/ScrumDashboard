@@ -17,6 +17,25 @@ define([
                 flux: React.PropTypes.any
             },
 
+            componentDidMount: function () {
+                window.addEventListener('keydown', this.handleKeyDown);
+            },
+
+
+            componentWillUnmount: function () {
+                window.removeEventListener('keydown', this.handleKeyDown);
+            },
+
+            handleKeyDown: function (event) {
+                if (event.keyCode === 13) {  // enter key
+                    this.saveCard();
+                }
+                if (event.keyCode === 27) {   //esc key
+                    // Close my modal window
+                    this.context.flux.planningActions.planningDoneAddingCard();
+                }
+            },
+
             saveCard: function () {
                 if (this.props.card.assignee && this.props.card.status === 'unassigned') {
                     return;
