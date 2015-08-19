@@ -10,6 +10,10 @@ define([
         function MembersStore(membersPars) {
 
             //var dataFileVersion = '1';
+            var loading = true;
+            this.getIsLoading = function () {
+                return loading;
+            };
             var MEMBERS_SCHEMA = {
                     name: {type: 'string'},
                     image: {type: 'string', defaultValue: ''},
@@ -22,6 +26,7 @@ define([
                 // Listen to Firebase changes
                 MembersFirebaseRef.on('value', function (snapshot) {
                     currentMembers = snapshot.val();
+                    loading = false;
                     membersPars.eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
                 });
 
