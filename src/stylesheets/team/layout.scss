@@ -64,10 +64,6 @@
 
         select {
             @include select-transparent();
-
-            option {
-                color: $black;
-            }
         }
 
         .combo-box-list {
@@ -84,6 +80,10 @@
             }
         }
     }
+}
+
+.option-base-text-color {
+    color: $black;
 }
 
 .delete-phase {

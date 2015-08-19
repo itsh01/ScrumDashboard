@@ -58,6 +58,7 @@ define([
                             }
                             return (
                                 <option
+                                    className="option-base-text-color"
                                     value={member.id}
                                     key={member.id}>
                                     {member.name}
