@@ -24,6 +24,11 @@ define([
                 cardsFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com/cards');
 
             (function init() {
+                cardsFirebaseRef.on('value', function (snapshot) {
+                    currentCards = snapshot.val();
+                    cardPars.eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
+                });
+
                 this.emitChange = function () {
                     cardPars.eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
                 };
@@ -55,11 +60,6 @@ define([
                         return _.filter(currentCards, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
                     };
                 }, this);
-
-                cardsFirebaseRef.on('value', function (snapshot) {
-                    currentCards = snapshot.val();
-                    cardPars.eventEmitter.emit(constants.flux.CARDS_STORE_CHANGE);
-                });
 
             }).apply(this);
 

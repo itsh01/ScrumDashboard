@@ -48,6 +48,21 @@ h3 {
     position: absolute;
 }
 
+.rightline {
+    position: relative;
+}
+
+.rightline:before {
+    @include gradient-vertical(255, 255, 255, 0.3);
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 2px;
+    height: 100%;
+    content: '';
+    position: absolute;
+}
+
 .chalk-bg {
     @include fixed100();
     @include radial-gradient($green, $dark-green);

@@ -19,6 +19,12 @@ define([
                 MembersFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com/members');
 
             (function init() {
+                // Listen to Firebase changes
+                MembersFirebaseRef.on('value', function (snapshot) {
+                    currentMembers = snapshot.val();
+                    eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
+                });
+
                 this.emitChange = function () {
                     eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
                 };
@@ -31,28 +37,13 @@ define([
                     eventEmitter.removeListener(constants.flux.MEMBERS_STORE_CHANGE, callback);
                 };
 
-                var filterFunctions = {
-                    //AllMembers: null
-                };
-
-                //if (dataFileVersion === localStorage.getItem('membersVersion')) {
-                //    currentMembers = restoreFromLocalStorage();
-                //} else {
-                //    currentMembers = defaultMembersData;
-                //    saveToLocalStorage();
-                //    localStorage.setItem('membersVersion', dataFileVersion);
-                //}
+                var filterFunctions = {};
 
                 _.forEach(filterFunctions, function (filterVal, filterFuncName) {
                     this['get' + filterFuncName] = function () {
                         return _.filter(currentMembers, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
                     };
                 }, this);
-                // Listen to Firebase changes
-                MembersFirebaseRef.on('value', function (snapshot) {
-                    currentMembers = snapshot.val();
-                    eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
-                });
 
             }).apply(this);
 

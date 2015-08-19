@@ -31,6 +31,12 @@ define([
 
             (function init() {
 
+                // Listen to Firebase changes
+                teamsFirebaseRef.on('value', function (snapshot) {
+                    teamsData = snapshot.val();
+                    teamPars.eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
+                });
+
                 this.emitChange = function () {
                     teamPars.eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
                 };
@@ -53,12 +59,6 @@ define([
                         return _.filter(teamsData, _.isFunction(filterVal) ? filterVal.apply(this, arguments) : filterVal);
                     };
                 }, this);
-
-                // Listen to Firebase changes
-                teamsFirebaseRef.on('value', function (snapshot) {
-                    teamsData = snapshot.val();
-                    teamPars.eventEmitter.emit(constants.flux.TEAMS_STORE_CHANGE);
-                });
 
                 currentViewState = restoreFromLocalStorage() || {
                         currentTeamId: getDefaultTeamId.apply(this),
