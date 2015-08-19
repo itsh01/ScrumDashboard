@@ -64,6 +64,10 @@
 
         select {
             @include select-transparent();
+
+            option {
+                color: $black;
+            }
         }
 
         .combo-box-list {
