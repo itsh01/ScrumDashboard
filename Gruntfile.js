@@ -254,6 +254,20 @@ module.exports = function (grunt) {
                 config: '.scss-lint.yml',
                 exclude: 'src/stylesheets/vendor/**/*.scss'
             }
+        },
+        postcss: {
+            options: {
+                safe: true,
+                processors: [
+                    require('pixrem')(),
+                    require('autoprefixer-core')({
+                        browsers: ['last 2 version', '> 5%', 'ie >= 8']
+                    })
+                ]
+            },
+            dist: {
+                src: 'build/**/*.css'
+            }
         }
     });
     grunt.loadNpmTasks('grunt-scss-lint');
@@ -264,7 +278,7 @@ module.exports = function (grunt) {
     require('jit-grunt')(grunt);
 
     grunt.registerTask('lint', ['eslint', 'scsslint']);
-    grunt.registerTask('compile', ['sass', 'umd', 'babel']);
+    grunt.registerTask('compile', ['sass', 'postcss', 'umd', 'babel']);
     grunt.registerTask('minify', ['processhtml', 'requirejs', 'cssmin']);
     grunt.registerTask('test', ['karma']);
 

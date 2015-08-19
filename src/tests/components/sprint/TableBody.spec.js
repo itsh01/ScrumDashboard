@@ -11,7 +11,8 @@
 //    function (_, React, TableBody, stubContext, Flux) {
 //        'use strict';
 //
-//        var mockProps = {
+//        var firebaseURL = 'https://scrum-dashboard-test.firebaseio.com',
+//            mockProps = {
 //            sprint: {
 //                id: '55b8a160-69c3-c3bc-d542-5303e41ce41c',
 //                name: 'R2D2',
@@ -41,7 +42,7 @@
 //                window.localStorage.clear();
 //
 //
-//                TableBodyWithContext = stubContext(TableBody, {flux: new Flux()});
+//                TableBodyWithContext = stubContext(TableBody, {flux: new Flux(firebaseURL)});
 //
 //
 //                instance = React.createElement(TableBodyWithContext, mockProps);
