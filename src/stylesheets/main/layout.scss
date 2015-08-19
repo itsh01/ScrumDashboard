@@ -95,6 +95,10 @@ h3 {
     select {
         @include select-transparent();
         vertical-align: middle;
+
+        option {
+            color: $black;
+        }
     }
 }
 
