@@ -6,9 +6,10 @@ define([
         'components/sprint/Table',
         'components/backlog/Backlog',
         'components/team/EditSprint',
+        'components/team/SprintData',
 
         'constants'],
-    function (_, React, ChangeSprint, SprintTable, BackLog, EditSprint, constants) {
+    function (_, React, ChangeSprint, SprintTable, BackLog, EditSprint, SprintData, constants) {
         'use strict';
 
         return React.createClass({
@@ -133,14 +134,7 @@ define([
                             <ChangeSprint direction='forward'
                                           handleSprintChangeFunc={this.handleSprintChange.bind(this, true)}/>
                         </div>
-                        <div className="sprint-dates">
-                            <div>
-                                Start: {sprint.startDate}
-                            </div>
-                            <div>
-                                End: {sprint.endDate}
-                            </div>
-                        </div>
+                        <SprintData sprint={sprint} />
 
                         <div className="flex-base  one-row">
                             <div style={{display: 'inline-block'}}>
