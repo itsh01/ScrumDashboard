@@ -121,9 +121,7 @@ define([
                 }
                 return (
                     <div>
-                        <h1>{team.name} Team</h1>
-
-                        <h2>Scrum Dashboard</h2>
+                        <h2>{team.name} Team</h2>
 
                         <div className="flex-centered one-row">
                             <ChangeSprint direction='backwards'

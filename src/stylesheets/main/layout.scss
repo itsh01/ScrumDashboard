@@ -77,11 +77,9 @@ h3 {
     z-index: -2;
 }
 
-
 .header {
-    height: 3rem;
-    border-bottom: $white 2px solid;
     font-size: 1.5rem;
+    overflow: hidden;
 
     .left,
     .right {
@@ -95,6 +93,19 @@ h3 {
     select {
         @include select-transparent();
         vertical-align: middle;
+    }
+
+    .site-name {
+        font-size: 30px;
+        margin: 0 10px 0 0;
+    }
+
+    .team-selector {
+        line-height: 30px;
+        
+        select {
+            margin: 0 5px;
+        }
     }
 }
 
