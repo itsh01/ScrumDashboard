@@ -5,7 +5,7 @@
     background: -moz-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
     background: -ms-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
     background: -o-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
-    background: radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: radial-gradient(ellipse at center, $from 31%, $to 100%);
 }
 
 @mixin gradient($r, $g, $b, $a) {
