@@ -15,6 +15,13 @@
     background-image: -o-linear-gradient(left, transparent, rgba($r, $g, $b, $a) 50%, transparent);
 }
 
+@mixin gradient-vertical($r, $g, $b, $a) {
+    background-image: -webkit-linear-gradient(top, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+    background-image: -moz-linear-gradient(top, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+    background-image: -ms-linear-gradient(top, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+    background-image: -o-linear-gradient(top, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+}
+
 @mixin fixed100() {
     position: fixed;
     top: 0;
