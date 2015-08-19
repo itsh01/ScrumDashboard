@@ -167,7 +167,7 @@ define(['lodash',
                                     className="left site-name">ScrumBoard</h1>
 
                                 <div className="left team-selector">
-                                    <span className="rightline">Team:</span>
+                                    <span className="leftline">Team:</span>
                                     <select onChange={this.handleChangeTeam} value={null}>
                                         <option value={null} disabled>-</option>
                                         {teamsOptions}
@@ -176,10 +176,10 @@ define(['lodash',
                             </div>
 
                             <div className="right">
-                                <button className='rightline' data-view={this.views.TeamManagement}
+                                <button className='leftline' data-view={this.views.TeamManagement}
                                         onClick={this.changeView}>Manage Teams
                                 </button>
-                                <button className='clearButton rightline' type='button'
+                                <button className='leftline' type='button'
                                         onClick={this.resetFirebaseToDefault}>Reset Firebase
                                 </button>
                             </div>

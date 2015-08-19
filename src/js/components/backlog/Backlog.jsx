@@ -35,7 +35,7 @@ define([
                 });
 
                 return (
-                    <div className="blur simple-transition">
+                    <div className="blur simple-transition rightline">
                         <h2>
                             <span className="empty-state">
                                 <span className="empty-state-action" ref="addNewCardButton" onClick={this.addNewCard}>+</span>

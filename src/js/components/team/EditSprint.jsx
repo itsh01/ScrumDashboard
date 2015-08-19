@@ -166,7 +166,7 @@ define([
 
             render: function () {
                 return (
-                    <div className="edit-sprint rightline" onKeyUp={this.listenForStateChange}>
+                    <div className="edit-sprint leftline" onKeyUp={this.listenForStateChange}>
                         <InputWrapper
                             text='Sprint Name:'
                             fields={<input
