@@ -52,7 +52,8 @@ define([
                 }
             };
         },
-        addNewCard: function () {
+        addNewCard: function (event) {
+            event.preventDefault();
             //this.context.flux.dispatcher.dispatchAction(constants.actionNames.PLANNING_ADD_CARD);
             this.context.flux.planningActions.planningAddCard();
 
@@ -69,18 +70,12 @@ define([
             }, this);
 
             if (this.props.cardsList.length === 0) {
-                cardsListToDisplay = (<img
-                    ref= 'plusAddButton'
-                    src='img/plus-640.png'
-                    style={{width: '5rem'}}
-  //                  className='card-delete'
-                    onClick={this.addNewCard}/>);
-                //cardsListToDisplay = <Card onClick={this.addNewCard} card={this.emptyCard} key='empty'/>;
+                cardsListToDisplay = (<p className="empty-state">No cards.</p>);
             }
 
             return (
                 <div className="cards-list">
-                    <h3>{this.props.title} </h3>
+                    <h3 className="underline">{this.props.title}</h3>
                     {cardsListToDisplay}
                 </div>
             );

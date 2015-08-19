@@ -49,3 +49,10 @@
     -o-transition: all 0.5s ease-in;
     transition: all 0.5s ease-in;
 }
+
+.simple-transition {
+    -webkit-transition: all 0.25s ease-in;
+    -moz-transition: all 0.25s ease-in;
+    -o-transition: all 0.25s ease-in;
+    transition: all 0.25s ease-in;
+}

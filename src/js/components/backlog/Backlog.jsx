@@ -19,6 +19,11 @@ define([
 
             },
 
+            addNewCard: function (event) {
+                event.preventDefault();
+                this.context.flux.planningActions.planningAddCard();
+            },
+
             render: function () {
                 //var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
                 var teamCards = this.context.flux.cardsStore.getTeamCards(this.props.teamId);
@@ -30,8 +35,13 @@ define([
                 });
 
                 return (
-                    <div>
-                        <h2>Backlog</h2>
+                    <div className="blur simple-transition">
+                        <h2>
+                            <span className="empty-state">
+                                <span className="empty-state-action" ref="addNewCardButton" onClick={this.addNewCard}>+</span>
+                            </span>
+                            Backlog
+                        </h2>
                         <CardsList ref="teamCardList" title="Team" cardsList={teamCards}/>
                         <CardsList ref="companyCardList" title="Company" cardsList={CompanyCards}/>
                     </div>

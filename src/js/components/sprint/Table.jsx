@@ -2,10 +2,9 @@ define([
         'lodash',
         'React',
         'components/sprint/TableHeader',
-        'components/sprint/TableBody',
-        'components/sprint/Velocity'
+        'components/sprint/TableBody'
     ],
-    function (_, React, TableHeader, TableBody, Velocity) {
+    function (_, React, TableHeader, TableBody) {
         'use strict';
 
         return React.createClass({
@@ -42,12 +41,6 @@ define([
                         <TableHeader cardLifecycle={sprint.cardLifecycle} />
                         <TableBody sprint={sprint} />
                     </div>
-                    <Velocity
-                        cardLifecycle={sprint.cardLifecycle}
-                        sprintMembers={sprint.members}
-                        sprintStatus={sprint.status}
-                        retro={sprint.retroCardsStatus}
-                        sprintId={sprint.id}/>
                 </div>);
             }
         });
