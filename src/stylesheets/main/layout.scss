@@ -1,4 +1,3 @@
-
 @import 'global';
 
 h1,
@@ -48,7 +47,6 @@ h3 {
     position: absolute;
 }
 
-
 .leftline {
     position: relative;
 
@@ -69,11 +67,10 @@ h3 {
 
 .chalk-bg {
     @include fixed100();
-    @include radial-gradient($green, $dark-green);
+    @include radial-gradient($board-green, $dark-green);
     z-index: -1;
     opacity: 0.5;
 }
-
 
 .chalk-pattern {
     @include fixed100();
@@ -109,7 +106,14 @@ h3 {
         margin: 0 10px 0 0;
 
         &:hover {
-            color: $light-green;
+
+            span {
+                color: $semi-light-green;
+            }
+
+            i {
+                color: $light-green;
+            }
         }
     }
 
@@ -182,10 +186,32 @@ h3 {
     &::after {
         bottom: 0;
     }
+
+}
+
+.loader-logo {
+    position: absolute;
+    top: 40%;
+    left: 60%;
+    margin: 0 auto;
+    height: 150px;
 }
 
 @keyframes load {
-    0% { left: 0; height: 30px; width: 15px; }
-    50% { height: 8px; width: 40px; }
-    100% { left: 235px; height: 30px; width: 15px; }
+    0% {
+        left: 0;
+        height: 30px;
+        width: 15px;
+    }
+
+    50% {
+        height: 8px;
+        width: 40px;
+    }
+    
+    100% {
+        left: 235px;
+        height: 30px;
+        width: 15px;
+    }
 }
