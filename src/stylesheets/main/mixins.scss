@@ -109,10 +109,8 @@
 }
 
 @mixin chalk-underline () {
-    $chalk-uri: '//assets3.folyo.me/assets/to-do-separator-73532f1f3188d322833a1dc85c8c19e5.png';
-    background: url($chalk-uri) no-repeat bottom center,
-                url($chalk-uri) no-repeat bottom center,
-                url($chalk-uri) no-repeat bottom center;
+    $chalk-uri: '../../img/chalk-line-10.png';
+    background: url($chalk-uri) repeat-x bottom left;
 }
 
 @mixin rotate ($deg) {
@@ -124,15 +122,15 @@
 }
 
 @mixin chalk-left-line() {
-    &::before {
-        @include chalk-underline();
-        @include rotate(90deg);
-
-        z-index: -1;
+    position: relative;
+    &:not(:first-child)::before {
+        $chalk-uri: '../../img/chalk-line-vertical-10.png';
+        background: url($chalk-uri) repeat-y top left;
         content: '';
+        height: 100%;
+        width: 10px;
+        display: inline-block;
         position: absolute;
-        width: 9%;
-        height: 27%;
     }
 }
 
