@@ -56,5 +56,10 @@
     border-radius: 50%;
     color: $white;
     background: $hot-pink;
+    opacity: 0.5;
     cursor: pointer;
+}
+
+.empty-state-action:hover {
+    opacity: 1;
 }
