@@ -51,7 +51,12 @@ define([
 
             getSprintButton: function (sprint) {
                 if (sprint.state === constants.SPRINT_STATUS.RETRO) {
-                    return (<button className='home-view-button' onClick={this.planNewSprint}>Plan New Sprint</button>);
+                    return (<button
+                        className='home-view-button'
+                        onClick={this.planNewSprint}>
+                        <i className="fa fa-pencil"></i>
+                        Plan New Sprint
+                    </button>);
                 }
                 if (sprint.state === constants.SPRINT_STATUS.PLANNING) {
                     return (<div>
@@ -59,7 +64,12 @@ define([
                             <EditSprint/>
                         </div>
                         <div className='home-view-buttons-container'>
-                            <button className='home-view-button' onClick={this.finishPlanning}>Finish Planning</button>
+                            <button
+                                className='home-view-button'
+                                onClick={this.finishPlanning}>
+                                <i className="fa fa-check"></i>
+                                Finish Planning
+                            </button>
                         </div>
                     </div>);
                 }
