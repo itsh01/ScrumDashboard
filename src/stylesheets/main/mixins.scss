@@ -90,7 +90,6 @@
     border: none;
 
     &:hover {
-        //background-image: url('http://dc509.4shared.com/img/i4X4fuJg/s7/141755adc98/Chalk_circle_1');
         background-image: url('../../img/chalkCircle_scaled.png');
         background-repeat: no-repeat;
         background-size: contain;
@@ -108,11 +107,6 @@
     color: $white;
 }
 
-@mixin chalk-underline () {
-    $chalk-uri: '../../img/chalk-line-10.png';
-    background: url($chalk-uri) repeat-x bottom left;
-}
-
 @mixin rotate ($deg) {
     -webkit-transform: rotate($deg);
     -moz-transform: rotate($deg);
@@ -121,8 +115,14 @@
     transform: rotate($deg);
 }
 
+@mixin chalk-underline () {
+    $chalk-uri: '../../img/chalk-line-10.png';
+    background: url($chalk-uri) repeat-x bottom left;
+}
+
 @mixin chalk-left-line() {
     position: relative;
+
     &:not(:first-child)::before {
         $chalk-uri: '../../img/chalk-line-vertical-10.png';
         background: url($chalk-uri) repeat-y top left;
@@ -131,7 +131,26 @@
         width: 10px;
         display: inline-block;
         position: absolute;
+        top: 0;
     }
+}
+
+@mixin vertical-line () {
+    bottom: 0;
+    width: 2px;
+    height: 100%;
+    content: '';
+    position: absolute;
+}
+
+@mixin left-line () {
+    @include vertical-line();
+    left: 0;
+}
+
+@mixin right-line () {
+    @include vertical-line();
+    right: 0;
 }
 
 @mixin chalk-cell () {
@@ -139,4 +158,3 @@
     @include chalk-left-line();
     border: none;
 }
-

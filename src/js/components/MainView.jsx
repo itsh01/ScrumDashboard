@@ -104,7 +104,7 @@ define(['lodash',
             },
 
             changeView: function (event) {
-                var view = event.target.dataset.view;
+                var view = event.target.dataset.view || 'BoardView';
                 this.setState({
                     view: this.views[view]
                 });
@@ -171,10 +171,10 @@ define(['lodash',
                         <div className="header underline">
                             <div className="left">
                                 <h1 data-view={this.views.BoardView} onClick={this.changeView}
-                                    className="left site-name">ScrumBoard</h1>
+                                    className="left site-name"><i data-view={this.views.BoardView} className="fa fa-graduation-cap left"></i>ScrumBoard</h1>
 
                                 <div className="left team-selector">
-                                    <span className="rightline">Team:</span>
+                                    <span className="leftline">Team:</span>
                                     <select onChange={this.handleChangeTeam} value={null}>
                                         <option value={null} disabled>-</option>
                                         {teamsOptions}
@@ -183,10 +183,10 @@ define(['lodash',
                             </div>
 
                             <div className="right">
-                                <button className='rightline' data-view={this.views.TeamManagement}
+                                <button className='leftline' data-view={this.views.TeamManagement}
                                         onClick={this.changeView}>Manage Teams
                                 </button>
-                                <button className='clearButton rightline' type='button'
+                                <button className='leftline' type='button'
                                         onClick={this.resetFirebaseToDefault}>Reset Firebase
                                 </button>
                             </div>

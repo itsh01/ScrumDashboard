@@ -67,9 +67,9 @@ define([
 
                 return (<div className="sprint-metadata text-center">
                     <span className="beforeline">Start: {this.props.sprint.startDate}</span>
-                    <span className="rightline">End: {this.props.sprint.endDate}</span>
-                    <span className="rightline">Actual Velocity: {actualVelocity}</span>
-                    <span className="rightline">Expected Velocity: {expectedVelocity}</span>
+                    <span className="leftline">End: {this.props.sprint.endDate}</span>
+                    <span className="leftline">Actual Velocity: {actualVelocity}</span>
+                    <span className="leftline">Expected Velocity: {expectedVelocity}</span>
                 </div>);
             }
         });
