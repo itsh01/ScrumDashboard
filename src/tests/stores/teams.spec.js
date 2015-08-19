@@ -21,7 +21,6 @@ define([
                 return (userId === sprint.members[0].id) ? [{}] : null;
             }
 
-            // TODO: TRY TO AVOID THESE FIREBASE FIXES
             function removeEmptyObjects(item) {
                 _.forEach(item, function (value, key) {
                     if (_.isArray(value) || _.isPlainObject(value)) {
@@ -34,6 +33,23 @@ define([
                 });
             }
 
+            function copyItem(item) {
+                var newItem = _.cloneDeep(item);
+                if (newItem.id) {
+                    newItem.id = helpers.generateGuid();
+                }
+                if (newItem.name) {
+                    newItem.name = helpers.generateGuid();
+                }
+                if (newItem.sprints) {
+                    var newSprints = _.map(newItem.sprints, function (o) {
+                        return copyItem(o);
+                    });
+                    newItem.sprints = newSprints;
+                }
+                return newItem;
+            }
+
             beforeEach(function () {
 
                 var eventEmitter, waitForTokens, dispatcher;
@@ -42,7 +58,7 @@ define([
 
                 sprint = {
                     id: helpers.generateGuid(),
-                    name: 'R2D2',
+                    name: helpers.generateGuid(),
                     scrumMaster: memberId,
                     startDate: '2015-08-24',
                     endDate: '2015-08-31',
@@ -56,13 +72,13 @@ define([
                     active: true,
                     id: helpers.generateGuid(),
                     sprints: [sprint],
-                    name: 'Directives'
+                    name: helpers.generateGuid()
                 };
 
-                inactiveTeam = _.cloneDeep(activeTeam);
-                inactiveTeam.id = helpers.generateGuid();
+                inactiveTeam = copyItem(activeTeam);
+
                 inactiveTeam.active = false;
-                inactiveTeam.sprints[0].id = helpers.generateGuid();
+
                 teamsArr = [activeTeam, inactiveTeam];
 
                 eventEmitter = new EventEmitter();
@@ -80,6 +96,7 @@ define([
                 };
 
                 mainFirebaseRef.set({teams: teamsArr});
+
                 teamsStore = new TeamsStore(teamPars);
             });
 
@@ -89,10 +106,8 @@ define([
 
                     it('should return a team clone by team id', function () {
                         var actualTeam = teamsStore.getTeamById(activeTeam.id);
-                        _.forEach(activeTeam, function (value, key) {
-                            expect(actualTeam[key]).toEqual(value);
-                        });
-                        actualTeam.name = 'a new name';
+                        expect(actualTeam).toEqual(activeTeam);
+                        delete actualTeam.name;
                         expect(actualTeam.name).not.toEqual(activeTeam.name);
                     });
 
@@ -106,7 +121,7 @@ define([
                     it('should return a sprint clone by sprint id', function () {
                         var actualSprint = teamsStore.getSprintById(sprint.id);
                         expect(actualSprint).toEqual(sprint);
-                        actualSprint.name = 'a new name';
+                        delete actualSprint.name;
                         expect(actualSprint.name).not.toEqual(sprint.name);
                     });
 
@@ -139,14 +154,11 @@ define([
                     var validTeam;
 
                     beforeEach(function () {
-                        var validTeamData = _.cloneDeep(activeTeam);
-                        validTeamData.name = helpers.generateGuid();
+                        var validTeamData = copyItem(activeTeam);
                         delete validTeamData.sprints;
                         delete validTeamData.id;
                         teamsActions.addTeam(validTeamData);
-                        validTeam = _.filter(teamsStore.getAllTeams(), function (team) {
-                            return team.name === validTeamData.name;
-                        })[0];
+                        validTeam = _.filter(teamsStore.getAllTeams(), {name: validTeamData.name})[0];
                     });
 
                     it('should add a new team if team data is valid', function () {
@@ -162,11 +174,8 @@ define([
 
                     it('should not add a new team if team data is invalid', function () {
                         teamsActions.addTeam({invalid: true});
-                        var allTeams = teamsStore.getAllTeams();
-                        var notAdded = _.every(allTeams, function (team) {
-                            return !team.invalid;
-                        });
-                        expect(notAdded).toBe(true);
+                        var updatedTeam = _.filter(teamsStore.getAllTeams(), {invalid: true});
+                        expect(updatedTeam).toEqual([]);
                     });
 
                 });
@@ -185,14 +194,13 @@ define([
 
                         function checkSuccess() {
                             expect(allSprints.length + 1).toBe(teamsStore.getTeamById(activeTeam.id).sprints.length);
-                            allSprints = teamsStore.getTeamById(activeTeam.id).sprints;
-                            var addedSprint = allSprints[allSprints.length - 1];
+                            var addedSprint = _.find(teamsStore.getTeamById(activeTeam.id).sprints, {name: validSprint.name});
                             delete addedSprint.id;
                             expect(addedSprint).toEqual(validSprint);
                         }
 
                         beforeEach(function () {
-                            validSprint = _.cloneDeep(sprint);
+                            validSprint = copyItem(sprint);
                             delete validSprint.id;
                         });
 
@@ -213,18 +221,18 @@ define([
                         var invalidSprint;
 
                         beforeEach(function () {
-                            invalidSprint = _.cloneDeep(sprint);
+                            invalidSprint = copyItem(sprint);
                             invalidSprint.illegalKey = 'illegal';
                         });
 
                         it('should not add sprint to team with specified id', function () {
                             teamsActions.addSprint(invalidSprint, activeTeam.id);
-                            expect(allSprints.length).toBe(teamsStore.getTeamById(activeTeam.id).sprints.length);
+                            expect(allSprints).toEqual(teamsStore.getTeamById(activeTeam.id).sprints);
                         });
 
                         it('should not add sprint to current team if team id is not provided', function () {
                             teamsActions.addSprint(invalidSprint);
-                            expect(allSprints.length).toBe(teamsStore.getTeamById(activeTeam.id).sprints.length);
+                            expect(allSprints).toEqual(teamsStore.getTeamById(activeTeam.id).sprints);
                         });
 
                     });
@@ -249,9 +257,9 @@ define([
                     });
 
                     it('should not change team members if the member is already in team', function () {
-                        var membersNum = teamsStore.getTeamById(activeTeam.id).members.length;
+                        var membersArr = teamsStore.getTeamById(activeTeam.id).members;
                         teamsActions.addMemberToTeam(activeTeam.id, memberId);
-                        expect(teamsStore.getTeamById(activeTeam.id).members.length).toBe(membersNum);
+                        expect(teamsStore.getTeamById(activeTeam.id).members).toEqual(membersArr);
                     });
 
                 });
@@ -269,9 +277,9 @@ define([
                     });
 
                     it('should do nothing if the member does not exist', function () {
-                        var membersNum = teamsStore.getTeamById(activeTeam.id).members.length;
+                        var membersArr = teamsStore.getTeamById(activeTeam.id).members;
                         teamsActions.removeMemberFromTeam(activeTeam.id, 'not-existent-id');
-                        expect(teamsStore.getTeamById(activeTeam.id).members.length).toBe(membersNum);
+                        expect(teamsStore.getTeamById(activeTeam.id).members).toEqual(membersArr);
                     });
 
                 });
@@ -292,10 +300,10 @@ define([
 
                 describe('updateSprint', function () {
 
-                    var allSprints;
+                    var allSprintsOfActiveTeam;
 
                     beforeEach(function () {
-                        allSprints = teamsStore.getTeamById(activeTeam.id).sprints;
+                        allSprintsOfActiveTeam = teamsStore.getTeamById(activeTeam.id).sprints;
                     });
 
                     describe('valid sprint data supplied', function () {
@@ -304,7 +312,7 @@ define([
 
                         beforeEach(function () {
                             validSprintData = {
-                                name: 'new name',
+                                name: helpers.generateGuid(),
                                 startDate: '2015-08-23',
                                 endDate: '',
                                 retroCardsStatus: [],
@@ -318,13 +326,9 @@ define([
                         function test(teamId) {
                             teamsActions.updateSprint(sprint.id, validSprintData, teamId);
                             var updatedTeam = teamsStore.getTeamById(activeTeam.id);
-                            var updatedSprint = updatedTeam.sprints[0];
-                            removeEmptyObjects(validSprintData);
-                            var res = _.every(validSprintData, function (value, key) {
-                                return _.isEqual(updatedSprint[key], value);
-                            });
-                            expect(res).toBe(true);
-                            expect(allSprints.length).toBe(updatedTeam.sprints.length);
+                            var updatedSprint = _.find(updatedTeam.sprints, {id: sprint.id});
+                            expect(validSprintData.name).toEqual(updatedSprint.name);
+                            expect(allSprintsOfActiveTeam.length).toBe(updatedTeam.sprints.length);
                         }
 
                         it('should update sprint if team id is not specified', function () {
@@ -342,9 +346,9 @@ define([
                         function test(teamId) {
                             teamsActions.updateSprint(sprint.id, {invalid: 'invalid'}, teamId);
                             var updatedTeam = teamsStore.getTeamById(activeTeam.id);
-                            var updatedSprint = updatedTeam.sprints[0];
+                            var updatedSprint = _.find(updatedTeam.sprints, {id: sprint.id});
                             expect(updatedSprint.invalid).not.toBeDefined();
-                            expect(allSprints.length).toBe(updatedTeam.sprints.length);
+                            expect(allSprintsOfActiveTeam.length).toBe(updatedTeam.sprints.length);
                         }
 
                         it('should not update sprint if team id is not specified', function () {
@@ -376,7 +380,7 @@ define([
 
                     it('should add a new member to sprint if team is inactive', function () {
                         teamsActions.addMemberToSprint(inactiveTeam.id, sprint.id, newMemberId);
-                        var updatedSprint = teamsStore.getTeamById(activeTeam.id).sprints[0];
+                        var updatedSprint = teamsStore.getSprintById(sprint.id);
                         expect(updatedSprint.members).not.toContain(newMemberId);
                         expect(inactiveTeam.members.length).toBe(updatedSprint.members.length);
                     });
