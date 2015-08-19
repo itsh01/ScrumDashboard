@@ -48,19 +48,23 @@ h3 {
     position: absolute;
 }
 
-.rightline {
+
+.leftline {
     position: relative;
+
+    &::before {
+        @include gradient-vertical(255, 255, 255, 0.3);
+        @include left-line();
+    }
 }
 
-.rightline:before {
-    @include gradient-vertical(255, 255, 255, 0.3);
-    right: 0;
-    left: 0;
-    bottom: 0;
-    width: 2px;
-    height: 100%;
-    content: '';
-    position: absolute;
+.rightline {
+    position: relative;
+
+    &::after {
+        @include gradient-vertical(255, 255, 255, 0.3);
+        @include right-line();
+    }
 }
 
 .chalk-bg {
@@ -138,4 +142,8 @@ h3 {
 
 .combo-box-item:hover {
     background-color: $light-blue;
+}
+
+.team-selector .leftline {
+    padding: 0 1rem;
 }
