@@ -152,7 +152,14 @@ define(['lodash',
             getLoadingOrContent: function () {
                 var someStillLoading = _.some([this.flux.teamsStore.getIsLoading(), this.flux.membersStore.getIsLoading(), this.flux.cardsStore.getIsLoading()]);
                 if (someStillLoading) {
-                    return (<div className="loader">Loading...</div>);
+                    return (
+                        <div className="loader-container">
+                            <img src="img/prof-musa.png" alt="professor-musa-logo" className="loader-logo"/>
+                            <div className="loader">
+                                Loading...
+                            </div>
+                        </div>
+                    );
                 }
 
                 var teamsOptions = _.map(this.getTeams(), function (team) {
