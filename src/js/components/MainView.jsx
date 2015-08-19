@@ -163,9 +163,8 @@ define(['lodash',
                     <div>
                         <div className="header underline">
                             <div className="left">
-                                <i className="fa fa-graduation-cap left"></i>
                                 <h1 data-view={this.views.BoardView} onClick={this.changeView}
-                                    className="left site-name">ScrumBoard</h1>
+                                    className="left site-name"><i className="fa fa-graduation-cap"></i>ScrumBoard</h1>
 
                                 <div className="left team-selector">
                                     <span className="leftline">Team:</span>
