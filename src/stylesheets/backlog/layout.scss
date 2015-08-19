@@ -55,6 +55,11 @@
     -moz-border-radius: 50%;
     border-radius: 50%;
     color: $white;
-    background: $hot-pink;
+    background: $light-green;
+    opacity: 0.5;
     cursor: pointer;
+}
+
+.empty-state-action:hover {
+    opacity: 1;
 }

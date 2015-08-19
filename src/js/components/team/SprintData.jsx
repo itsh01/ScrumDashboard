@@ -66,15 +66,10 @@ define([
                     expectedVelocity = this.calcExpectedVelocity(cards);
 
                 return (<div className="sprint-metadata text-center">
-                    <span>Start: {this.props.sprint.startDate}</span>
-                    <span> &#124; </span>
-                    <span>End: {this.props.sprint.endDate}</span>
-                    <span> &#124; </span>
-                    <span>Actual Velocity: </span>
-                    <span className="sprint-velocity-number">{actualVelocity}</span>
-                    <span> &#124; </span>
-                    <span>Expected Velocity: </span>
-                    <span className="sprint-velocity-number">{expectedVelocity}</span>
+                    <span className="beforeline">Start: {this.props.sprint.startDate}</span>
+                    <span className="leftline">End: {this.props.sprint.endDate}</span>
+                    <span className="leftline">Actual Velocity: {actualVelocity}</span>
+                    <span className="leftline">Expected Velocity: {expectedVelocity}</span>
                 </div>);
             }
         });

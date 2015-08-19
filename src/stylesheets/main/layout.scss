@@ -48,19 +48,23 @@ h3 {
     position: absolute;
 }
 
-.rightline {
+
+.leftline {
     position: relative;
+
+    &::before {
+        @include gradient-vertical(255, 255, 255, 0.3);
+        @include left-line();
+    }
 }
 
-.rightline:before {
-    @include gradient-vertical(255, 255, 255, 0.3);
-    right: 0;
-    left: 0;
-    bottom: 0;
-    width: 2px;
-    height: 100%;
-    content: '';
-    position: absolute;
+.rightline {
+    position: relative;
+
+    &::after {
+        @include gradient-vertical(255, 255, 255, 0.3);
+        @include right-line();
+    }
 }
 
 .chalk-bg {
@@ -77,11 +81,9 @@ h3 {
     z-index: -2;
 }
 
-
 .header {
-    height: 3rem;
-    border-bottom: $white 2px solid;
     font-size: 1.5rem;
+    overflow: hidden;
 
     .left,
     .right {
@@ -95,6 +97,28 @@ h3 {
     select {
         @include select-transparent();
         vertical-align: middle;
+
+        option {
+            color: $black;
+        }
+    }
+
+    .site-name {
+        cursor: pointer;
+        font-size: 30px;
+        margin: 0 10px 0 0;
+
+        &:hover {
+            color: $light-green;
+        }
+    }
+
+    .team-selector {
+        line-height: 30px;
+
+        select {
+            margin: 0 5px;
+        }
     }
 }
 
@@ -118,4 +142,50 @@ h3 {
 
 .combo-box-item:hover {
     background-color: $light-blue;
+}
+
+.team-selector .leftline {
+    padding: 0 1rem;
+}
+
+// Loader credit goes to Maroš Horniak, URL: http://codepen.io/majci23/pen/NqdXvy
+.loader {
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: helvetica, arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: $semi-light-green;
+    letter-spacing: 0.2em;
+
+    &::before,
+    &::after {
+        content: '';
+        display: block;
+        width: 15px;
+        height: 15px;
+        background: $semi-light-green;
+        position: absolute;
+        animation: load 0.7s infinite alternate ease-in-out;
+    }
+
+    &::before {
+        top: 0;
+    }
+
+    &::after {
+        bottom: 0;
+    }
+}
+
+@keyframes load {
+    0% { left: 0; height: 30px; width: 15px; }
+    50% { height: 8px; width: 40px; }
+    100% { left: 235px; height: 30px; width: 15px; }
 }

@@ -58,6 +58,7 @@ define([
                             }
                             return (
                                 <option
+                                    className="option-base-text-color"
                                     value={member.id}
                                     key={member.id}>
                                     {member.name}
@@ -165,7 +166,7 @@ define([
 
             render: function () {
                 return (
-                    <div className="edit-sprint rightline" onKeyUp={this.listenForStateChange}>
+                    <div className="edit-sprint leftline" onKeyUp={this.listenForStateChange}>
                         <InputWrapper
                             text='Sprint Name:'
                             fields={<input

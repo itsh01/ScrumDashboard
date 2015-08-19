@@ -5,7 +5,7 @@
     background: -moz-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
     background: -ms-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
     background: -o-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
-    background: radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: radial-gradient(ellipse at center, $from 31%, $to 100%);
 }
 
 @mixin gradient($r, $g, $b, $a) {
@@ -87,13 +87,9 @@
     color: $white;
     padding: 0.5rem 1rem;
     font-size: 1rem;
-    border-left: $white 2px solid;
-    border-top: none;
-    border-bottom: none;
-    border-right: none;
+    border: none;
 
     &:hover {
-        //background-image: url('http://dc509.4shared.com/img/i4X4fuJg/s7/141755adc98/Chalk_circle_1');
         background-image: url('../../img/chalkCircle_scaled.png');
         background-repeat: no-repeat;
         background-size: contain;
@@ -111,13 +107,6 @@
     color: $white;
 }
 
-@mixin chalk-underline () {
-    $chalk-uri: '//assets3.folyo.me/assets/to-do-separator-73532f1f3188d322833a1dc85c8c19e5.png';
-    background: url($chalk-uri) no-repeat bottom center,
-                url($chalk-uri) no-repeat bottom center,
-                url($chalk-uri) no-repeat bottom center;
-}
-
 @mixin rotate ($deg) {
     -webkit-transform: rotate($deg);
     -moz-transform: rotate($deg);
@@ -126,17 +115,41 @@
     transform: rotate($deg);
 }
 
-@mixin chalk-left-line() {
-    &::before {
-        @include chalk-underline();
-        @include rotate(90deg);
+@mixin chalk-underline () {
+    $chalk-uri: '../../img/chalk-line-10.png';
+    background: url($chalk-uri) repeat-x bottom left;
+}
 
-        z-index: -1;
+@mixin chalk-left-line() {
+    position: relative;
+
+    &:not(:first-child)::before {
+        $chalk-uri: '../../img/chalk-line-vertical-10.png';
+        background: url($chalk-uri) repeat-y top left;
         content: '';
+        height: 100%;
+        width: 10px;
+        display: inline-block;
         position: absolute;
-        width: 9%;
-        height: 27%;
     }
+}
+
+@mixin vertical-line () {
+    bottom: 0;
+    width: 2px;
+    height: 100%;
+    content: '';
+    position: absolute;
+}
+
+@mixin left-line () {
+    @include vertical-line();
+    left: 0;
+}
+
+@mixin right-line () {
+    @include vertical-line();
+    right: 0;
 }
 
 @mixin chalk-cell () {
@@ -144,4 +157,3 @@
     @include chalk-left-line();
     border: none;
 }
-

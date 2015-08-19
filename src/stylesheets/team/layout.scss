@@ -82,6 +82,10 @@
     }
 }
 
+.option-base-text-color {
+    color: $black;
+}
+
 .delete-phase {
     float: right;
     color: $white;
@@ -112,3 +116,10 @@
     margin: 0 auto;
 }
 
+.sprint-metadata .leftline {
+    padding: 0 1rem;
+}
+
+.beforeline {
+    padding: 0 1rem 0 0;
+}
