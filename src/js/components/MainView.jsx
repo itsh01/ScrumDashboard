@@ -113,7 +113,7 @@ define(['lodash',
             getOption: function (teamId, teamName) {
                 //if (this.context.flux.teamsStore.getCurrentTeam().id === teamId) {
                 if (this.flux.teamsStore.getCurrentTeam().id === teamId) {
-                    return (<option value={teamId} key={teamId} selected>{teamName}</option>);
+                    return (<option value={teamId} key={teamId} selected className="option-base-text-color">{teamName}</option>);
                 }
                 return (<option value={teamId} key={teamId}>{teamName}</option>);
             },
