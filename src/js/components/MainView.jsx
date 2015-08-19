@@ -33,7 +33,7 @@ define(['lodash',
             },
 
             getInitialState: function () {
-                this.flux = new Flux();
+                this.flux = new Flux('https://scrum-dashboard-1.firebaseio.com');
                 return {
                     view: 'BoardView'
                 };

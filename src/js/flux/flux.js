@@ -23,9 +23,7 @@ define(
             eventEmitter = new EventEmitter(),
             waitForTokens = {};
 
-        function Flux() {
-
-            var appLink = 'https://scrum-dashboard-1.firebaseio.com/';
+        function Flux(appLink) {
 
             this.cardsActions = new CardsActions(dispatcher);
 
@@ -34,13 +32,21 @@ define(
                 eventEmitter: eventEmitter,
                 waitForTokens: waitForTokens,
                 defaultCardsData: defaultCardData,
-                fireBaseURL: appLink + 'cards'
+                fireBaseURL: appLink + '/cards'
             };
 
             //this.cardsStore = new CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardData);
             this.cardsStore = new CardsStore(cardPars);
 
-            this.membersStore = new MembersStore(dispatcher, eventEmitter, waitForTokens, defaultMemberData);
+            var membersPars = {
+                dispatcher: dispatcher,
+                eventEmitter: eventEmitter,
+                waitForTokens: waitForTokens,
+                defaultMembersData: defaultMemberData,
+                fireBaseURL: appLink + '/members'
+            };
+
+            this.membersStore = new MembersStore(membersPars);
             this.membersActions = new MembersActions(dispatcher);
 
             this.teamsActions = new TeamsActions(dispatcher);
@@ -52,7 +58,7 @@ define(
                 defaultTeamData: defaultTeamsData,
                 getUserCards: this.cardsStore.getUserCards,
                 getLastMemberAdded: this.membersStore.getLastMemberAdded,
-                fireBaseURL: appLink + 'teams'
+                fireBaseURL: appLink + '/teams'
             };
 
             this.teamsStore = new TeamsStore(teamPars);

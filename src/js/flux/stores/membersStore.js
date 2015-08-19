@@ -7,7 +7,7 @@ define([
     function (_, helpers, constants, Firebase) {
         'use strict';
 
-        function MembersStore(dispatcher, eventEmitter, waitForTokens, defaultMembersData) {
+        function MembersStore(membersPars) {
 
             //var dataFileVersion = '1';
             var MEMBERS_SCHEMA = {
@@ -15,26 +15,26 @@ define([
                     image: {type: 'string', defaultValue: ''},
                     active: {type: 'boolean', defaultValue: true}
                 },
-                currentMembers = defaultMembersData,
-                MembersFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com/members');
+                currentMembers = membersPars.defaultMembersData,
+                MembersFirebaseRef = new Firebase(membersPars.fireBaseURL);
 
             (function init() {
                 // Listen to Firebase changes
                 MembersFirebaseRef.on('value', function (snapshot) {
                     currentMembers = snapshot.val();
-                    eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
+                    membersPars.eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
                 });
 
                 this.emitChange = function () {
-                    eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
+                    membersPars.eventEmitter.emit(constants.flux.MEMBERS_STORE_CHANGE);
                 };
 
                 this.addChangeListener = function (callback) {
-                    eventEmitter.on(constants.flux.MEMBERS_STORE_CHANGE, callback);
+                    membersPars.eventEmitter.on(constants.flux.MEMBERS_STORE_CHANGE, callback);
                 };
 
                 this.removeChangeListener = function (callback) {
-                    eventEmitter.removeListener(constants.flux.MEMBERS_STORE_CHANGE, callback);
+                    membersPars.eventEmitter.removeListener(constants.flux.MEMBERS_STORE_CHANGE, callback);
                 };
 
                 var filterFunctions = {};
@@ -117,11 +117,11 @@ define([
                 var storeIndex = _.indexOf(actionStoreOrder, constants.storesName.MEMBERS_STORE);
                 var storeOrder = _.slice(actionStoreOrder, 0, storeIndex);
                 return _.map(storeOrder, function (storeName) {
-                    return waitForTokens[storeName];
+                    return membersPars.waitForTokens[storeName];
                 });
             }
 
-            waitForTokens[constants.storesName.MEMBERS_STORE] = dispatcher.register(function (payload) {
+            membersPars.waitForTokens[constants.storesName.MEMBERS_STORE] = membersPars.dispatcher.register(function (payload) {
                 var actionName = payload.actionName,
                     data = payload.payload,
 
@@ -130,7 +130,7 @@ define([
                 if (action) {
                     var actionStoreOrder = payload.storeOrder;
                     if (actionStoreOrder && actionStoreOrder.length > 1) {
-                        dispatcher.waitFor(getStoresQueue(actionStoreOrder));
+                        membersPars.dispatcher.waitFor(getStoresQueue(actionStoreOrder));
                     }
                     action.callback.apply(this, data);
                     saveToFirebase();

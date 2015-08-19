@@ -21,7 +21,7 @@ define([
                     endDate: {type: 'string', defaultValue: ''}
                 },
                 currentCards = cardPars.defaultCardsData,
-                cardsFirebaseRef = new Firebase('https://scrum-dashboard-1.firebaseio.com/cards');
+                cardsFirebaseRef = new Firebase(cardPars.fireBaseURL);
 
             (function init() {
                 cardsFirebaseRef.on('value', function (snapshot) {
