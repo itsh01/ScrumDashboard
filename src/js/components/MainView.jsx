@@ -157,20 +157,21 @@ define(['lodash',
                         {this.popUpFactory()}
 
                         <div>
-                            <div className="header">
+                            <div className="header underline">
                                 <div className="left">
-                                    <span>Choose Team: </span>
-                                    <select onChange={this.handleChangeTeam} value={null}>
-                                        <option value={null} disabled>-</option>
-                                        {teamsOptions}
-                                    </select>
+                                    <h1 className="left site-name">ScrumBoard</h1>
+                                    <div className="left team-selector">
+                                        <span className="rightline">Team:</span>
+                                        <select onChange={this.handleChangeTeam} value={null}>
+                                            <option value={null} disabled>-</option>
+                                            {teamsOptions}
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div className="right">
-                                    <button className='clearButton' type='button' onClick={this.resetFirebaseToDefault}>Reset Firebase
-                                    </button>
-                                    <button data-view={this.views.TeamManagement} onClick={this.changeView}>Manage Teams
-                                    </button>
+                                    <button className='clearButton rightline' type='button' onClick={this.resetFirebaseToDefault}>Reset Firebase</button>
+                                    <button className='rightline' data-view={this.views.TeamManagement} onClick={this.changeView}>Manage Teams</button>
                                     <button data-view={this.views.BoardView} onClick={this.changeView}>Home</button>
                                 </div>
                             </div>
