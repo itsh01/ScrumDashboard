@@ -30,11 +30,17 @@
 .backwards {
     border-width: 10px 20px 10px 0;
     border-color: transparent $white transparent transparent;
+     &:hover {
+         border-color: transparent $light-green transparent transparent;
+     }
 }
 
 .forward {
     border-width: 10px 0 10px 20px;
     border-color: transparent transparent transparent $white;
+    &:hover {
+        border-color: transparent transparent transparent $light-green;
+    }
 }
 
 .home-view-buttons-container {
