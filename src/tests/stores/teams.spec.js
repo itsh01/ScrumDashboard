@@ -368,42 +368,38 @@ define([
                     });
 
 
-                    //it('should add a new member to sprint if team is active', function () {
-                    //    var id = sprint.id;
-                    //    expect(activeTeam.active).toBe(true);
-                    //    teamsActions.addMemberToSprint(activeTeam.id, id, newMemberId);
-                    //    var updatedSprint = teamsStore.getSprintById(id);
-                    //    expect(updatedSprint.members).toContain(newMemberId);
-                    //    //expect(activeTeam.members.length + 1).toBe(updatedSprint.members.length);
-                    //});
-
-                    it('should add a new member to sprint if team is inactive', function () {
-                        teamsActions.addMemberToSprint(inactiveTeam.id, sprint.id, newMemberId);
-                        var updatedSprint = teamsStore.getSprintById(sprint.id);
+                    it('should add a new member to sprint if team is active', function () {
+                        teamsActions.addMemberToSprint(activeTeam.id, activeTeam.sprints[0].id, newMemberId);
+                        var updatedSprint = teamsStore.getSprintById(activeTeam.sprints[0].id);
                         expect(updatedSprint.members).not.toContain(newMemberId);
-                        expect(inactiveTeam.members.length).toBe(updatedSprint.members.length);
+                        expect(activeTeam.sprints[0].members.length).toBe(updatedSprint.members.length);
+                    });
+
+                    it('should not add a new member to sprint if team is inactive', function () {
+                        teamsActions.addMemberToSprint(inactiveTeam.id, inactiveTeam.sprints[0].id, newMemberId);
+                        var updatedSprint = teamsStore.getSprintById(inactiveTeam.sprints[0].id);
+                        expect(updatedSprint.members).not.toContain(newMemberId);
+                        expect(inactiveTeam.sprints[0].members.length).toBe(updatedSprint.members.length);
                     });
                 });
 
+                describe('removeMemberFromSprint', function () {
 
-                //addMemberToSprint(teamId, sprintId, memberId)
-                //removeMemberFromSprint(teamId, sprintId, memberId)
+                    it('should remove member from sprint if team is active', function () {
+                        var id = activeTeam.sprints[0].members[0].id;
+                        teamsActions.removeMemberFromSprint(activeTeam.id, activeTeam.sprints[0].id, id);
+                        var updatedSprint = teamsStore.getSprintById(activeTeam.sprints[0].id);
+                        expect(updatedSprint.members).not.toContain(id);
+                    });
 
-            });
+                    it('should not remove member from sprint if team is inactive', function () {
+                        var id = inactiveTeam.sprints[0].members[0].id;
+                        teamsActions.removeMemberFromSprint(inactiveTeam.id, inactiveTeam.sprints[0].id, id);
+                        var updatedSprint = teamsStore.getSprintById(inactiveTeam.sprints[0].id);
+                        expect(updatedSprint.members).not.toContain(id);
+                    });
 
-            describe('currentViewState manipulations', function () {
-
-                //changeCurrentTeamId(teamId)
-                //changeExistingMemberId(memberId)
-                //setCurrentSprintId(newCurSprintId)
-                //moveCurrentSprintId(forward)
-
-            });
-
-            describe('sprint status update', function () {
-
-                //retrofySprint(sprintId, teamId)
-                //moveSprintToNextState(sprintId, teamId)
+                });
 
             });
 
