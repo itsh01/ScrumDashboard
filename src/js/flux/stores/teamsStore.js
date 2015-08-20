@@ -217,7 +217,7 @@ define([
             function removeMemberFromSprint(teamId, sprintId, memberId) {
                 var team = _.find(teamsData, {id: teamId});
                 var sprint = _.filter(team.sprints, {id: sprintId});
-                if (!sprint.endDate) {
+                if (!sprint.endDate && team.active) {
                     sprint.members = _.remove(sprint.members, {id: memberId});
                 }
             }
