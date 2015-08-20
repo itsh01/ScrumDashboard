@@ -13,13 +13,16 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             {pattern: 'build/vendor/**/*.js', included: false},
-        //    'build/img/**/*.*',
-            {pattern: 'build/img/**/*.*', included: false},
+            {pattern: 'build/img/**/*', included: false},
             {pattern: 'src/tests/**/*.js', included: false},
             {pattern: 'build/js/**/*.js', included: false},
 
             'test-main.js'
         ],
+
+        proxies: {
+            '/img/': '/base/build/img/'
+        },
 
         // list of files to exclude
         exclude: [
