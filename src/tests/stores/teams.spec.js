@@ -38,17 +38,23 @@ define([
 
             function copyItem(item) {
                 var newItem = _.cloneDeep(item);
-                if (newItem.id) {
+                if (item.id) {
                     newItem.id = helpers.generateGuid();
                 }
-                if (newItem.name) {
+                if (item.name) {
                     newItem.name = helpers.generateGuid();
                 }
-                if (newItem.sprints) {
-                    var newSprints = _.map(newItem.sprints, function (o) {
-                        return copyItem(o);
+                if (item.members) {
+                    newItem.members = [];
+                    _.forEach(item.members, function () {
+                        newItem.members.push(helpers.generateGuid());
                     });
-                    newItem.sprints = newSprints;
+                }
+                if (item.sprints) {
+                    newItem.sprints = [];
+                    _.forEach(item.sprints, function (s) {
+                        newItem.sprints.push(copyItem(s));
+                    });
                 }
                 return newItem;
             }
@@ -269,8 +275,9 @@ define([
                     });
 
                     it('should not remove member id from members of team with specified id if the team is inactive', function () {
-                        teamsActions.removeMemberFromTeam(inactiveTeam.id, memberId);
-                        expect(teamsStore.getTeamById(inactiveTeam.id).members).toContain(memberId);
+                        var mid = inactiveTeam.members[0];
+                        teamsActions.removeMemberFromTeam(inactiveTeam.id, mid);
+                        expect(teamsStore.getTeamById(inactiveTeam.id).members).toContain(mid);
                     });
 
                     it('should do nothing if the member does not exist', function () {
@@ -383,27 +390,7 @@ define([
                     });
                 });
 
-                describe('removeMemberFromSprint', function () {
-
-                    it('should remove member from sprint if team is active', function () {
-                        var id = activeTeam.sprints[0].members[0].id;
-                        teamsActions.removeMemberFromSprint(activeTeam.id, activeTeam.sprints[0].id, id);
-                        var updatedSprint = teamsStore.getSprintById(activeTeam.sprints[0].id);
-                        expect(updatedSprint.members).not.toContain(id);
-                    });
-
-                    it('should not remove member from sprint if team is inactive', function () {
-                        var id = inactiveTeam.sprints[0].members[0].id;
-                        teamsActions.removeMemberFromSprint(inactiveTeam.id, inactiveTeam.sprints[0].id, id);
-                        var updatedSprint = teamsStore.getSprintById(inactiveTeam.sprints[0].id);
-                        expect(updatedSprint.members).not.toContain(id);
-                    });
-
-                });
-
             });
-
-            mainFirebaseRef.set({teams: {key: 'value'}});
 
         });
 
