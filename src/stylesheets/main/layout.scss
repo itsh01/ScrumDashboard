@@ -147,10 +147,11 @@ h3 {
     overflow: hidden;
     box-sizing: border-box;
     border: $white 2px solid;
-}
+    position: relative;
 
-.combo-box-item:hover {
-    background-color: $light-blue;
+    &:hover {
+        background-color: $light-blue;
+    }
 }
 
 .team-selector .leftline {
