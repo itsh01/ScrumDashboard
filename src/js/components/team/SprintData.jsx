@@ -4,9 +4,10 @@ define([
 
         'mixins/HistoryMixin',
 
-        'constants'
+        'constants',
+        'moment'
     ],
-    function (_, React, HistoryMixin, constants) {
+    function (_, React, HistoryMixin, constants, moment) {
         'use strict';
 
         return React.createClass({
@@ -58,6 +59,17 @@ define([
                     .pluck('score')
                     .sum();
             },
+
+            getSprintStartDate: function () {
+                return moment(this.props.sprint.startDate).format('D MMM YYYY');
+
+            },
+
+            getSprintEndtDate: function () {
+                return moment(this.props.sprint.endDate).format('D MMM YYYY');
+
+            },
+
             render: function () {
 
                 var cards = this.getSprintCards(),
@@ -66,8 +78,9 @@ define([
                     expectedVelocity = this.calcExpectedVelocity(cards);
 
                 return (<div className="sprint-metadata text-center">
-                    <span className="beforeline">Start: {this.props.sprint.startDate}</span>
-                    <span className="leftline">End: {this.props.sprint.endDate}</span>
+                    <span> {this.getSprintStartDate()}</span>
+                    <span> - </span>
+                    <span className= 'margin-right-small'> {this.getSprintEndtDate()}</span>
                     <span className="leftline">Actual Velocity: {actualVelocity}</span>
                     <span className="leftline">Expected Velocity: {expectedVelocity}</span>
                 </div>);

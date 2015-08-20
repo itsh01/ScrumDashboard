@@ -232,11 +232,11 @@ define([
 
             function getSprintById(sprintId) {
                 var sprint;
-                _.every(teamsData, function (team) {
+                var notFound = _.every(teamsData, function (team) {
                     sprint = _.find(team.sprints, {id: sprintId});
                     return sprint === undefined;
                 });
-                return sprint;
+                return (notFound) ? undefined : sprint;
             }
 
             // teamId is an optional argument

@@ -104,7 +104,7 @@ define(['lodash',
             },
 
             changeView: function (event) {
-                var view = event.target.dataset.view;
+                var view = event.target.dataset.view || 'BoardView';
                 this.setState({
                     view: this.views[view]
                 });
@@ -152,7 +152,14 @@ define(['lodash',
             getLoadingOrContent: function () {
                 var someStillLoading = _.some([this.flux.teamsStore.getIsLoading(), this.flux.membersStore.getIsLoading(), this.flux.cardsStore.getIsLoading()]);
                 if (someStillLoading) {
-                    return (<div className="loader">Loading...</div>);
+                    return (
+                        <div className="loader-container">
+                            <img src="img/prof-musa.png" alt="professor-musa-logo" className="loader-logo"/>
+                            <div className="loader">
+                                Loading...
+                            </div>
+                        </div>
+                    );
                 }
 
                 var teamsOptions = _.map(this.getTeams(), function (team) {
@@ -163,9 +170,8 @@ define(['lodash',
                     <div>
                         <div className="header underline">
                             <div className="left">
-                                <i class="fa fa-graduation-cap left"></i>
                                 <h1 data-view={this.views.BoardView} onClick={this.changeView}
-                                    className="left site-name">ScrumBoard</h1>
+                                    className="left site-name"><i data-view={this.views.BoardView} className="fa fa-graduation-cap left"></i>ScrumBoard</h1>
 
                                 <div className="left team-selector">
                                     <span className="leftline">Team:</span>

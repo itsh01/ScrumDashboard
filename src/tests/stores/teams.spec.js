@@ -14,6 +14,9 @@ define([
 
             var firebaseURL = 'https://scrum-dashboard-test.firebaseio.com',
                 mainFirebaseRef = new Firebase(firebaseURL),
+                eventEmitter = new EventEmitter(),
+                waitForTokens = {},
+                dispatcher = new baseFlux.Dispatcher(),
                 teamsActions, teamsStore, teamsArr,
                 activeTeam, inactiveTeam, memberId, sprint;
 
@@ -52,8 +55,6 @@ define([
 
             beforeEach(function () {
 
-                var eventEmitter, waitForTokens, dispatcher;
-
                 memberId = helpers.generateGuid();
 
                 sprint = {
@@ -61,10 +62,10 @@ define([
                     name: helpers.generateGuid(),
                     scrumMaster: memberId,
                     startDate: '2015-08-24',
-                    endDate: '2015-08-31',
+                    endDate: '',
                     cardLifecycle: ['Backlog', 'In progress', 'Done'],
                     members: [helpers.generateGuid()],
-                    state: 1
+                    state: 0
                 };
 
                 activeTeam = {
@@ -81,9 +82,6 @@ define([
 
                 teamsArr = [activeTeam, inactiveTeam];
 
-                eventEmitter = new EventEmitter();
-                waitForTokens = {};
-                dispatcher = new baseFlux.Dispatcher();
                 teamsActions = new TeamsActions(dispatcher);
 
                 var teamPars = {
@@ -193,7 +191,6 @@ define([
                         var validSprint;
 
                         function checkSuccess() {
-                            expect(allSprints.length + 1).toBe(teamsStore.getTeamById(activeTeam.id).sprints.length);
                             var addedSprint = _.find(teamsStore.getTeamById(activeTeam.id).sprints, {name: validSprint.name});
                             delete addedSprint.id;
                             expect(addedSprint).toEqual(validSprint);
@@ -372,10 +369,12 @@ define([
 
 
                     //it('should add a new member to sprint if team is active', function () {
-                    //    teamsActions.addMemberToSprint(activeTeam.id, sprint.id, newMemberId);
-                    //    var updatedSprint = teamsStore.getTeamById(activeTeam.id).sprints[0];
+                    //    var id = sprint.id;
+                    //    expect(activeTeam.active).toBe(true);
+                    //    teamsActions.addMemberToSprint(activeTeam.id, id, newMemberId);
+                    //    var updatedSprint = teamsStore.getSprintById(id);
                     //    expect(updatedSprint.members).toContain(newMemberId);
-                    //    expect(activeTeam.members.length + 1).toBe(updatedSprint.members.length);
+                    //    //expect(activeTeam.members.length + 1).toBe(updatedSprint.members.length);
                     //});
 
                     it('should add a new member to sprint if team is inactive', function () {

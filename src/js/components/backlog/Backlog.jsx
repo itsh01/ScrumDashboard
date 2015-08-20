@@ -35,14 +35,16 @@ define([
                 });
 
                 return (
-                    <div className="blur simple-transition rightline">
+                    <div className="blur simple-transition rightline backlog">
                         <h2>
                             <span className="empty-state">
                                 <span className="empty-state-action" ref="addNewCardButton" onClick={this.addNewCard}>+</span>
                             </span>
                             Backlog
                         </h2>
+                        <h3 className="underline">Team</h3>
                         <CardsList ref="teamCardList" title="Team" cardsList={teamCards}/>
+                        <h3 className="underline">Company</h3>
                         <CardsList ref="companyCardList" title="Company" cardsList={CompanyCards}/>
                     </div>
                 );

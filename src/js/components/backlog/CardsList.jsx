@@ -75,7 +75,6 @@ define([
 
             return (
                 <div className="cards-list">
-                    <h3 className="underline">{this.props.title}</h3>
                     {cardsListToDisplay}
                 </div>
             );

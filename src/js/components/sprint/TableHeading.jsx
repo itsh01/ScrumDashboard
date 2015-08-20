@@ -11,7 +11,13 @@ define([
                 text: React.PropTypes.string
             },
             render: function () {
-                return (<div className="table-heading">{this.props.text}</div>);
+
+                var isMemberHeading = this.props.text === 'Member';
+
+                return (<div className="table-heading">
+                    {isMemberHeading ? <i className="fa fa-user"></i> : null}
+                    {this.props.text}
+                </div>);
             }
         });
     }

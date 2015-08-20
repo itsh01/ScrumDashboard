@@ -25,7 +25,6 @@ define([
 
             mixins: [React.addons.LinkedStateMixin],
 
-
             getInitialState: function () {
                 return _.cloneDeep(this.props.card);
             },
@@ -113,7 +112,10 @@ define([
                 return (<div>
                     Score: {this.getSelectOptions(this.formatToIdAndName(this.getValidScores()), 'score')}
                     <div>
-                        Add Card To {this.getSelectOptions([{id: 'CompanyBacklog', name: 'Company'}, {id: this.props.currTeam.id, name: this.props.currTeam.name}], 'team')} Backlog
+                        Add Card To {this.getSelectOptions([{
+                        id: 'CompanyBacklog',
+                        name: 'Company'
+                    }, {id: this.props.currTeam.id, name: this.props.currTeam.name}], 'team')} Backlog
                     </div>
                 </div>);
             },
