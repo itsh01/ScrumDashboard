@@ -8,35 +8,15 @@
 
 ```
 npm install
-grunt build
+gem install scss-lint
+grunt
 ```
 
-At development time use watch
-```
-grunt watch:dev
-```
+## Scrum
 
-## Conventions
+> Scrum is an iterative and incremental agile software development methodology for managing product development.
+> - Wikipedia
 
-### Stylesheets
+## About
 
-Components stylesheets should be place in a specific folder,
-and be loaded after the main style sheets:
-
-```
-* stylesheets
-|-- main.css
-|-- my-component
-  |-- layout.css
-```
-
-### Paths
-
-* Folder names should be kebab-cased
-* Component names should be PascalCased
-
-```
-src/js/components/my-component/SubComponent.jsx
-```
-
-* CSS classes should be kebab-cased
+This project build at Wix Kickstart
