@@ -44,6 +44,7 @@
 .home-view-button {
     @include btn-md($semi-light-green, $light-green, $black);
     margin: 0.5rem 2rem;
+    width: 10rem;
 }
 
 .edit-sprint {
