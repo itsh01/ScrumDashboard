@@ -105,12 +105,13 @@
     float: right;
     color: $white;
     background-color: $light-red;
-    padding: 0.1rem 0.33rem;
+    padding: 0.1rem 0.4rem;
     border-radius: 50%;
     position: absolute;
     cursor: pointer;
     right: 0.3rem;
     top: 0.1rem;
+    font-size: 0.8rem;
 }
 
 .input-section {
