@@ -34,7 +34,7 @@ define(['lodash', 'React'], function (_, React) {
                     <input ref='memberImgUrl' type='url' placeholder='image url'
                            className='img-url-input'/>
                     <button type="submit" className="hidden"></button>
-                    <div className="team-management-button wide" onClick={this.addNewMember}>Add Member</div>
+                    <div className="team-management-button wide add-member-button" onClick={this.addNewMember}>Add Member</div>
                 </form>
 
             );

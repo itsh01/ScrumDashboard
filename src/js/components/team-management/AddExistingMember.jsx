@@ -38,7 +38,7 @@ define(['lodash', 'React', '../general/Search'], function (_, React, SearchMembe
                              alt={this.props.currentMember.name}
                              src={this.props.currentMember.image}/>
                     </div>
-                    <div className="team-management-button wide" onClick={this.addExistingMember}>Add Member</div>
+                    <div className="team-management-button wide add-member-button" onClick={this.addExistingMember}>Add Member</div>
                 </div>
             );
         }
