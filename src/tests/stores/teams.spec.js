@@ -274,6 +274,11 @@ define([
                         expect(teamsStore.getTeamById(activeTeam.id).members).not.toContain(memberId);
                     });
 
+                    it('should remove member id from members of sprint if the team is active and sprint is in planning', function () {
+                        teamsActions.removeMemberFromTeam(activeTeam.id, memberId);
+                        expect(teamsStore.getTeamById(activeTeam.id).sprints[0].members).not.toContain(memberId);
+                    });
+
                     it('should not remove member id from members of team with specified id if the team is inactive', function () {
                         var mid = inactiveTeam.members[0];
                         teamsActions.removeMemberFromTeam(inactiveTeam.id, mid);
