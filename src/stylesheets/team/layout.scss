@@ -99,8 +99,10 @@
     background-color: $light-red;
     padding: 0.1rem 0.33rem;
     border-radius: 50%;
-    font-size: 0.7rem;
+    position: absolute;
     cursor: pointer;
+    right: 0.3rem;
+    top: 0.1rem;
 }
 
 .input-section {

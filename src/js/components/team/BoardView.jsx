@@ -11,6 +11,7 @@ define([
         'constants'],
     function (_, React, ChangeSprint, SprintTable, BackLog, EditSprint, SprintData, constants) {
         'use strict';
+        var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
         return React.createClass({
             displayName: 'ScrumBoardView',
@@ -135,25 +136,28 @@ define([
                 }
                 return (
                     <div>
-                        <h2>{team.name} Team</h2>
+                        <ReactCSSTransitionGroup transitionName='team-management-transition' transitionAppear={true}>
+                            <h2>{team.name} Team</h2>
 
-                        <div className="flex-centered one-row">
-                            <ChangeSprint direction='backwards'
-                                          handleSprintChangeFunc={this.handleSprintChange.bind(this, false)}/>
+                            <div className="flex-centered one-row">
+                                <ChangeSprint direction='backwards'
+                                              handleSprintChangeFunc={this.handleSprintChange.bind(this, false)}/>
 
-                            <h3>Sprint {this.context.flux.teamsStore.getSprintIndex(sprint.id)} : {sprint.name} - {this.getSprintState(sprint)}</h3>
-                            <ChangeSprint direction='forward'
-                                          handleSprintChangeFunc={this.handleSprintChange.bind(this, true)}/>
-                        </div>
-                        <SprintData sprint={sprint} />
-
-                        <div className="flex-base  one-row">
-                            <div style={{display: 'inline-block'}}>
-                                <BackLog className="backlog" teamId={team.id}/>
+                                <h3>Sprint {this.context.flux.teamsStore.getSprintIndex(sprint.id)} : {sprint.name}
+                                    - {this.getSprintState(sprint)}</h3>
+                                <ChangeSprint direction='forward'
+                                              handleSprintChangeFunc={this.handleSprintChange.bind(this, true)}/>
                             </div>
-                            <SprintTable sprint={sprint}/>
-                            {this.getSprintButton(sprint)}
-                        </div>
+                            <SprintData sprint={sprint}/>
+
+                            <div className="flex-base  one-row">
+                                <div style={{display: 'inline-block'}}>
+                                    <BackLog className="backlog" teamId={team.id}/>
+                                </div>
+                                <SprintTable sprint={sprint}/>
+                                {this.getSprintButton(sprint)}
+                            </div>
+                        </ReactCSSTransitionGroup>
 
 
                     </div>
@@ -162,5 +166,3 @@ define([
         });
     }
 );
-
-//
