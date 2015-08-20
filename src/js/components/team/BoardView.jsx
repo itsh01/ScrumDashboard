@@ -151,7 +151,7 @@ define([
                             <SprintData sprint={sprint}/>
 
                             <div className="flex-base  one-row">
-                                <div style={{display: 'inline-block'}}>
+                                <div className="backlog-container">
                                     <BackLog className="backlog" teamId={team.id}/>
                                 </div>
                                 <SprintTable sprint={sprint}/>
