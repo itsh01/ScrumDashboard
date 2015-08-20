@@ -186,9 +186,6 @@ define(['lodash',
                                 <button className='leftline' data-view={this.views.TeamManagement}
                                         onClick={this.changeView}>Manage Teams
                                 </button>
-                                <button className='leftline' type='button'
-                                        onClick={this.resetFirebaseToDefault}>Reset Firebase
-                                </button>
                             </div>
                         </div>
                         {this.getViewComponent()}
