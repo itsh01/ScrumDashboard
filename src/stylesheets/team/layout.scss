@@ -39,7 +39,7 @@
 .forward {
     border-width: 10px 0 10px 20px;
     border-color: transparent transparent transparent $white;
-    
+
     &:hover {
         border-color: transparent transparent transparent $light-green;
     }
@@ -66,15 +66,18 @@
         display: inline-block;
 
         [type='text'] {
-            @include chalk-underline();
-
             width: 9rem;
             background-color: transparent;
-            border: none;
             color: $white;
             font-size: 1rem;
             font-family: inherit;
             outline: none;
+
+            &:not(.datepicker__input) {
+                @include chalk-underline();
+
+                border: none;
+            }
         }
 
         select {
