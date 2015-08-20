@@ -1,7 +1,12 @@
 @import 'global';
 
 main {
-    div, select, input, button, p, span {
+    div,
+    select,
+    input,
+    button,
+    p,
+    span {
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
