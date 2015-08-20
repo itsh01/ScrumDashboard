@@ -53,7 +53,7 @@ define([
                             return flux.membersStore.getMemberById(memberId);
                         })
                         .map(function (member) {
-                            if (!_.includes(sprintMembers, member.id)) {
+                            if (!member || !_.includes(sprintMembers, member.id)) {
                                 return null;
                             }
                             return (
@@ -124,6 +124,7 @@ define([
                         return membersStore.getMemberById(memberId);
                     })
                     .map(function mapMemberToInput(member) {
+                        member = member || {};
                         return (<label
                             key={member.id}
                             className="input-checkbox">

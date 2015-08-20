@@ -30,11 +30,19 @@
 .backwards {
     border-width: 10px 20px 10px 0;
     border-color: transparent $white transparent transparent;
+
+    &:hover {
+        border-color: transparent $light-green transparent transparent;
+    }
 }
 
 .forward {
     border-width: 10px 0 10px 20px;
     border-color: transparent transparent transparent $white;
+
+    &:hover {
+        border-color: transparent transparent transparent $light-green;
+    }
 }
 
 .home-view-buttons-container {
@@ -58,15 +66,18 @@
         display: inline-block;
 
         [type='text'] {
-            @include chalk-underline();
-
             width: 9rem;
             background-color: transparent;
-            border: none;
             color: $white;
             font-size: 1rem;
             font-family: inherit;
             outline: none;
+
+            &:not(.datepicker__input) {
+                @include chalk-underline();
+
+                border: none;
+            }
         }
 
         select {
@@ -97,12 +108,13 @@
     float: right;
     color: $white;
     background-color: $light-red;
-    padding: 0.1rem 0.33rem;
+    padding: 0.1rem 0.4rem;
     border-radius: 50%;
     position: absolute;
     cursor: pointer;
     right: 0.3rem;
     top: 0.1rem;
+    font-size: 0.8rem;
 }
 
 .input-section {

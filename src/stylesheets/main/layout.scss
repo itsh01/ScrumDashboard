@@ -1,12 +1,20 @@
 @import 'global';
 
-* {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+main {
+    div,
+    select,
+    input,
+    button,
+    p,
+    span {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: default;
+    }
 }
 
 h1,
@@ -116,6 +124,7 @@ h3 {
 
         span,
         i {
+            cursor: pointer;
             transition: 0.2s linear all;
         }
 
