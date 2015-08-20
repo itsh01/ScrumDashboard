@@ -1,0 +1,134 @@
+@import '../main/global';
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.home-view-container {
+    clear: both;
+}
+
+.arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    margin: 0 20px;
+}
+
+.arrow:hover {
+    cursor: pointer;
+}
+
+.margin-right-small {
+    margin-right: 10px;
+}
+
+.backwards {
+    border-width: 10px 20px 10px 0;
+    border-color: transparent $white transparent transparent;
+}
+
+.forward {
+    border-width: 10px 0 10px 20px;
+    border-color: transparent transparent transparent $white;
+}
+
+.home-view-buttons-container {
+    text-align: center;
+}
+
+.home-view-button {
+    @include btn-md($semi-light-green, $light-green, $black);
+    margin-right: 2rem;
+    width: 12rem;
+    color: $white;
+}
+
+.edit-sprint {
+    display: block;
+    width: 25rem;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+
+    .input-section-field {
+        display: inline-block;
+
+        [type='text'] {
+            @include chalk-underline();
+
+            width: 9rem;
+            background-color: transparent;
+            border: none;
+            color: $white;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+        }
+
+        select {
+            @include select-transparent();
+        }
+
+        .combo-box-list {
+            margin-top: 5px;
+        }
+
+        .combo-box-item {
+            background: transparent;
+            color: $white;
+            border: none;
+
+            &:hover {
+                background-color: $light-blue;
+            }
+        }
+    }
+}
+
+.option-base-text-color {
+    color: $black;
+}
+
+.delete-phase {
+    float: right;
+    color: $white;
+    background-color: $light-red;
+    padding: 0.1rem 0.33rem;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+    right: 0.3rem;
+    top: 0.1rem;
+}
+
+.input-section {
+    margin: 1rem;
+}
+
+.input-section-label {
+    display: inline-block;
+    min-width: 11rem;
+    vertical-align: top;
+    margin-bottom: 0.5rem;
+}
+
+.input-checkbox {
+    display: block;
+}
+
+.sprint-dates {
+    width: 10rem;
+    margin: 0 auto;
+}
+
+.sprint-metadata .leftline {
+    padding: 0 1rem;
+}
+
+.beforeline {
+    padding: 0 1rem 0 0;
+}

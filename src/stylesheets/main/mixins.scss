@@ -1,0 +1,160 @@
+@import 'colors';
+
+@mixin radial-gradient($from, $to) {
+    background: -webkit-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: -moz-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: -ms-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: -o-radial-gradient(center, ellipse cover, $from 31%, $to 100%);
+    background: radial-gradient(ellipse at center, $from 31%, $to 100%);
+}
+
+@mixin gradient($r, $g, $b, $a) {
+    background-image: -webkit-linear-gradient(left, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+    background-image: -moz-linear-gradient(left, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+    background-image: -ms-linear-gradient(left, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+    background-image: -o-linear-gradient(left, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+}
+
+@mixin gradient-vertical($r, $g, $b, $a) {
+    background-image: -webkit-linear-gradient(top, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+    background-image: -moz-linear-gradient(top, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+    background-image: -ms-linear-gradient(top, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+    background-image: -o-linear-gradient(top, transparent, rgba($r, $g, $b, $a) 50%, transparent);
+}
+
+@mixin fixed100() {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@mixin base-btn() {
+    cursor: pointer;
+    font-family: inherit;
+    outline: 0;
+}
+
+@mixin btn($bg, $hover, $text) {
+    @include base-btn();
+
+    background-color: $bg;
+    color: $text;
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.10), 0 4px 15px 0 rgba(0, 0, 0, 0.07);
+    transition: 0.3s linear all;
+
+    &:hover {
+        background-color: $hover;
+        box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    }
+}
+
+@mixin btn-md($bg, $hover, $text) {
+    @include btn($bg, $hover, $text);
+
+    height: 3rem;
+    line-height: 1rem;
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+}
+
+@mixin btn-sm($bg, $hover, $text) {
+    @include btn($bg, $hover, $text);
+
+    line-height: 1;
+    padding: 0.8rem;
+    font-size: 0.8rem;
+}
+
+@mixin btn-xs($bg, $hover, $text) {
+    @include btn($bg, $hover, $text);
+
+    line-height: 1;
+    padding: 0.3rem;
+    font-size: 0.6rem;
+}
+
+@mixin btn-header() {
+    @include base-btn();
+
+    background: transparent;
+    margin: -1px;
+    color: $white;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+
+    &:hover {
+        background-image: url('../../img/chalkCircle_scaled.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+
+    }
+
+}
+
+@mixin select-transparent () {
+    background-color: transparent;
+    outline: none;
+    font-size: 1rem;
+    font-family: inherit;
+    color: $white;
+}
+
+@mixin rotate ($deg) {
+    -webkit-transform: rotate($deg);
+    -moz-transform: rotate($deg);
+    -ms-transform: rotate($deg);
+    -o-transform: rotate($deg);
+    transform: rotate($deg);
+}
+
+@mixin chalk-underline () {
+    $chalk-uri: '../../img/chalk-line-10.png';
+    background: url($chalk-uri) repeat-x bottom left;
+}
+
+@mixin chalk-left-line() {
+    position: relative;
+
+    &:not(:first-child)::before {
+        $chalk-uri: '../../img/chalk-line-vertical-10.png';
+        background: url($chalk-uri) repeat-y top left;
+        content: '';
+        height: 100%;
+        width: 10px;
+        display: inline-block;
+        position: absolute;
+        top: 0;
+    }
+}
+
+@mixin vertical-line () {
+    bottom: 0;
+    width: 2px;
+    height: 100%;
+    content: '';
+    position: absolute;
+}
+
+@mixin left-line () {
+    @include vertical-line();
+    left: 0;
+}
+
+@mixin right-line () {
+    @include vertical-line();
+    right: 0;
+}
+
+@mixin chalk-cell () {
+    @include chalk-underline();
+    @include chalk-left-line();
+    border: none;
+}

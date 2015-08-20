@@ -1,0 +1,55 @@
+@import '../main/global';
+
+
+
+.card {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 6rem;
+    height: 4rem;
+    padding: 0.5rem;
+    margin: 1rem;
+    cursor: pointer;
+    transition: 0.5s linear all;
+    line-height: 1;
+    color: $light-black;
+}
+
+.card-points {
+    align-self: flex-end;
+    font-size: 0.8rem;
+}
+
+.card-open {
+    position: relative;
+    top: 0;
+    z-index: 1;
+    transform: scale(1.7);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.54);
+}
+
+.card-delete {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    visibility: hidden;
+}
+
+.card-editable .card-delete {
+    visibility: visible;
+}
+
+.card-btn-edit {
+    @include btn-xs ($none-color, $none-color-hover, $black);
+    visibility: hidden;
+    position: absolute;
+    bottom: 2px;
+}
+
+.card-editable .card-btn-edit {
+    visibility: visible;
+}
+

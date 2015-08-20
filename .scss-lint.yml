@@ -1,0 +1,34 @@
+linters:
+
+  BorderZero:
+    enabled: true
+    convention: none # or `zero`
+
+  Comment:
+    enabled: false
+
+
+  HexNotation:
+    enabled: true
+    style: uppercase # or 'lowercase'
+
+  Indentation:
+    enabled: true
+    allow_non_nested_indentation: false
+    character: space # or 'tab'
+    width: 4
+
+  LeadingZero:
+    enabled: true
+    style: 'include_zero' # or 'exclude_zero'
+
+  NestingDepth:
+    enabled: true
+    max_depth: 4
+    ignore_parent_selectors: false
+
+  PropertySortOrder:
+    enabled: false
+
+  VendorPrefix:
+    enabled: false

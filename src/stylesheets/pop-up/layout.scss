@@ -1,0 +1,20 @@
+
+@import '../main/global';
+
+.pop {
+    @include fixed100();
+    z-index: 999;
+}
+
+.pop-dialog {
+    position: relative;
+    margin: 10% auto;
+    width: 35rem;
+    z-index: 1000;
+}
+
+.pop-content {
+    position: relative;
+    z-index: 1001;
+}
+

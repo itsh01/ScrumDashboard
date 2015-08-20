@@ -1,0 +1,244 @@
+@import 'global';
+
+main {
+    div,
+    select,
+    input,
+    button,
+    p,
+    span {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: default;
+    }
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.one-row {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+}
+
+.flex-centered {
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-justify-content: center;
+}
+
+.flex-base {
+    align-items: baseline;
+    justify-content: space-around;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.hidden {
+    display: none;
+}
+
+.underline {
+    position: relative;
+}
+
+.underline:after {
+    @include gradient(255, 255, 255, 0.3);
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    content: '';
+    position: absolute;
+}
+
+.leftline {
+    position: relative;
+
+    &::before {
+        @include gradient-vertical(255, 255, 255, 0.3);
+        @include left-line();
+    }
+}
+
+.rightline {
+    position: relative;
+
+    &::after {
+        @include gradient-vertical(255, 255, 255, 0.3);
+        @include right-line();
+    }
+}
+
+.chalk-bg {
+    @include fixed100();
+    @include radial-gradient($board-green, $dark-green);
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.chalk-pattern {
+    @include fixed100();
+    background: url('../../img/chalkboard-pattern.png');
+    z-index: -2;
+}
+
+.header {
+    font-size: 1.5rem;
+    overflow: hidden;
+
+    .left,
+    .right {
+        margin: 0.3rem;
+    }
+
+    button {
+        @include btn-header();
+    }
+
+    select {
+        @include select-transparent();
+        vertical-align: middle;
+
+        option {
+            color: $black;
+        }
+    }
+
+    .site-name {
+        cursor: pointer;
+        font-size: 30px;
+        margin: 0 10px 0 0;
+
+        span,
+        i {
+            transition: 0.2s linear all;
+        }
+
+        &:hover {
+
+            span {
+                color: $semi-light-green;
+            }
+
+            i {
+                color: $light-green;
+            }
+        }
+    }
+
+    .team-selector {
+        line-height: 30px;
+
+        select {
+            margin: 0 5px;
+        }
+    }
+}
+
+.combo-box-list {
+    list-style: none;
+    padding: 0;
+    width: 9.25rem;
+    border: $grey 1px solid;
+    margin: 0;
+    transition: 0.3s linear all;
+    color: $black;
+}
+
+.combo-box-item {
+    background: $white;
+    padding: 0.1rem 0.5rem;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: $white 2px solid;
+    position: relative;
+
+    &:hover {
+        background-color: $light-blue;
+    }
+}
+
+.team-selector .leftline {
+    padding: 0 1rem;
+}
+
+// Loader credit goes to Maroš Horniak, URL: http://codepen.io/majci23/pen/NqdXvy
+.loader {
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: helvetica, arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: $semi-light-green;
+    letter-spacing: 0.2em;
+
+    &::before,
+    &::after {
+        content: '';
+        display: block;
+        width: 15px;
+        height: 15px;
+        background: $semi-light-green;
+        position: absolute;
+        animation: load 0.7s infinite alternate ease-in-out;
+    }
+
+    &::before {
+        top: 0;
+    }
+
+    &::after {
+        bottom: 0;
+    }
+
+}
+
+.loader-logo {
+    position: absolute;
+    top: 40%;
+    left: 60%;
+    margin: 0 auto;
+    height: 150px;
+}
+
+@keyframes load {
+    0% {
+        left: 0;
+        height: 30px;
+        width: 15px;
+    }
+
+    50% {
+        height: 8px;
+        width: 40px;
+    }
+
+    100% {
+        left: 235px;
+        height: 30px;
+        width: 15px;
+    }
+}
+
+.fa {
+    margin: 0 0.3rem;
+}
