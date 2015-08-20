@@ -202,6 +202,12 @@ define([
                     _.remove(team.members, function (id) {
                         return id === memberId;
                     });
+                    var s = _.find(team.sprints, {state: constants.SPRINT_STATUS.PLANNING});
+                    if (s) {
+                        _.remove(s.members, function (id) {
+                            return id === memberId;
+                        });
+                    }
                 }
             }
 
@@ -214,13 +220,15 @@ define([
                 }
             }
 
-            function removeMemberFromSprint(teamId, sprintId, memberId) {
-                var team = _.find(teamsData, {id: teamId});
-                var sprint = _.filter(team.sprints, {id: sprintId});
-                if (!sprint.endDate && team.active) {
-                    sprint.members = _.remove(sprint.members, {id: memberId});
-                }
-            }
+            //function removeMemberFromSprint(teamId, sprintId, memberId) {
+            //    var team = _.find(teamsData, {id: teamId});
+            //    var sprint = _.filter(team.sprints, {id: sprintId});
+            //    if (!sprint.endDate && team.active) {
+            //        _.remove(sprint.members, function (id) {
+            //            return id === memberId;
+            //        });
+            //    }
+            //}
 
             function getSprintsByTeamId(teamId) {
                 var collection = _.find(teamsData, {id: teamId});
@@ -398,7 +406,7 @@ define([
                 {name: constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, callback: moveSprintToNextState},
                 {name: constants.actionNames.UPDATE_SPRINT, callback: updateSprint},
                 {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
-                {name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSprint},
+                //{name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSprint},
 
                 {name: constants.actionNames.CHANGE_CURRENT_TEAM_ID, callback: changeCurrentTeamId},
                 {name: constants.actionNames.SET_CURRENT_SPRINT_ID, callback: setCurrentSprintId},
