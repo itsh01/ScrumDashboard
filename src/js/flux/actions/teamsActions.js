@@ -55,10 +55,6 @@ define([
                     dispatcher.dispatch({actionName: constants.actionNames.UPDATE_SPRINT, payload: [sprintId, newSprintData, teamId]});
                 },
 
-                //removeMemberFromSprint: function (teamId, sprintId, memberId) {
-                //    dispatcher.dispatch({actionName: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, payload: [teamId, sprintId, memberId]});
-                //},
-
                 addMemberToSprint: function (teamId, sprintId, memberId) {
                     dispatcher.dispatch({actionName: constants.actionNames.ADD_MEMBER_TO_SPRINT, payload: [teamId, sprintId, memberId]});
                 }

@@ -406,7 +406,6 @@ define([
                 {name: constants.actionNames.MOVE_SPRINT_TO_NEXT_STATE, callback: moveSprintToNextState},
                 {name: constants.actionNames.UPDATE_SPRINT, callback: updateSprint},
                 {name: constants.actionNames.ADD_MEMBER_TO_SPRINT, callback: addMemberToSprint},
-                //{name: constants.actionNames.REMOVE_MEMBER_FROM_SPRINT, callback: removeMemberFromSprint},
 
                 {name: constants.actionNames.CHANGE_CURRENT_TEAM_ID, callback: changeCurrentTeamId},
                 {name: constants.actionNames.SET_CURRENT_SPRINT_ID, callback: setCurrentSprintId},

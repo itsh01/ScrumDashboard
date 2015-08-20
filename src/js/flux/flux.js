@@ -25,46 +25,43 @@ define(
 
         function Flux(appLink) {
 
+            var basicPars = {
+                    dispatcher: dispatcher,
+                    eventEmitter: eventEmitter,
+                    waitForTokens: waitForTokens
+                },
+                cardPars = {
+                    defaultCardsData: defaultCardData,
+                    fireBaseURL: appLink + '/cards'
+                },
+                membersPars = {
+                    defaultMembersData: defaultMemberData,
+                    fireBaseURL: appLink + '/members'
+                };
+
+            _.assign(cardPars, basicPars);
+            _.assign(membersPars, basicPars);
+
             this.cardsActions = new CardsActions(dispatcher);
-
-            var cardPars = {
-                dispatcher: dispatcher,
-                eventEmitter: eventEmitter,
-                waitForTokens: waitForTokens,
-                defaultCardsData: defaultCardData,
-                fireBaseURL: appLink + '/cards'
-            };
-
-            //this.cardsStore = new CardsStore(dispatcher, eventEmitter, waitForTokens, defaultCardData);
             this.cardsStore = new CardsStore(cardPars);
 
-            var membersPars = {
-                dispatcher: dispatcher,
-                eventEmitter: eventEmitter,
-                waitForTokens: waitForTokens,
-                defaultMembersData: defaultMemberData,
-                fireBaseURL: appLink + '/members'
-            };
-
-            this.membersStore = new MembersStore(membersPars);
             this.membersActions = new MembersActions(dispatcher);
+            this.membersStore = new MembersStore(membersPars);
 
-            this.teamsActions = new TeamsActions(dispatcher);
+            this.planningActions = new PlanningActions(dispatcher);
+            this.planningStore = new PlanningStore(basicPars);
 
             var teamPars = {
-                dispatcher: dispatcher,
-                eventEmitter: eventEmitter,
-                waitForTokens: waitForTokens,
                 defaultTeamData: defaultTeamsData,
                 getUserCards: this.cardsStore.getUserCards,
                 getLastMemberAdded: this.membersStore.getLastMemberAdded,
                 fireBaseURL: appLink + '/teams'
             };
 
-            this.teamsStore = new TeamsStore(teamPars);
+            _.assign(teamPars, basicPars);
 
-            this.planningActions = new PlanningActions(dispatcher);
-            this.planningStore = new PlanningStore(dispatcher, eventEmitter, waitForTokens);
+            this.teamsActions = new TeamsActions(dispatcher);
+            this.teamsStore = new TeamsStore(teamPars);
         }
 
         return Flux;

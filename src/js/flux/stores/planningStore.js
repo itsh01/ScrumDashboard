@@ -5,20 +5,20 @@ define([
     function (constants) {
         'use strict';
 
-        function Planning(dispatcher, eventEmitter) {
+        function Planning(planningPars) {
             var IsAddingOrEditingCard = false;
             var currentCard = null;
 
             this.emitChange = function () {
-                eventEmitter.emit(constants.flux.PLANNING_STORE_CHANGE);
+                planningPars.eventEmitter.emit(constants.flux.PLANNING_STORE_CHANGE);
             };
 
             this.addChangeListener = function (callback) {
-                eventEmitter.on(constants.flux.PLANNING_STORE_CHANGE, callback);
+                planningPars.eventEmitter.on(constants.flux.PLANNING_STORE_CHANGE, callback);
             };
 
             this.removeChangeListener = function (callback) {
-                eventEmitter.removeListener(constants.flux.PLANNING_STORE_CHANGE, callback);
+                planningPars.eventEmitter.removeListener(constants.flux.PLANNING_STORE_CHANGE, callback);
             };
 
             function addingCard(isAdding, card) {
@@ -39,7 +39,7 @@ define([
                 return IsAddingOrEditingCard;
             };
 
-            this.dispatchToken = dispatcher.register(function (payload) {
+            this.dispatchToken = planningPars.dispatcher.register(function (payload) {
 
                 var actionName = payload.actionName,
                     data = payload.payload;
