@@ -15,7 +15,7 @@ grunt
 ## Scrum
 
 > Scrum is an iterative and incremental agile software development methodology for managing product development.
-> - [Wikipedia](https://en.wikipedia.org/wiki/Scrum_(software_development)
+> - Wikipedia
 
 ## About
 
