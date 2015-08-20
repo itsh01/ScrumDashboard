@@ -31,7 +31,7 @@ define(['React', 'components/team/BoardView', 'stubContext', 'flux/flux'],
                 //    var actualNUmberOfDivs = reactTestUtils.scryRenderedDOMComponentsWithTag(comp, 'div').length;
                 //    expect(actualNUmberOfDivs).not.toBe(1);
                 //});
-
+                //
                 //it('should call handleSprintChange when clicked', function () {
                 //    var wrapperEl = reactTestUtils.renderIntoDocument(instance).getWrappedElement();
                 //    var boardViewComp = reactTestUtils.renderIntoDocument(wrapperEl);
@@ -61,20 +61,5 @@ define(['React', 'components/team/BoardView', 'stubContext', 'flux/flux'],
 
             });
 
-            describe('getSprintButton', function () {
-                beforeEach(function () {
-
-                });
-
-                it('should return a "plan new sprint button"', function () {
-
-                });
-
-                it('should call planNewSprint on click', function () {
-
-                });
-            });
-
         });
-
     });
